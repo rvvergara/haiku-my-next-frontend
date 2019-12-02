@@ -19,7 +19,7 @@ function* setupCurrentUser(user) {
 }
 
 function* asyncLogUser(action) {
-  const path = '/users/login';
+  const path = 'v1/users/login';
   try {
     const response = yield call(sendRequest, 'post', path, action.params);
     const user = yield response.data;
