@@ -37,14 +37,13 @@ function* asyncLogUser(action) {
 }
 
 function* asyncFetchCurrentUserData(id) {
-  const path = `v1/user/${id}`;
-
+  const path = `v1/user/${id.id}`;
   try {
     const response = yield call(sendRequest, 'get', path);
     const user = yield response.data;
     yield put(setCurrentUser({
       authenticated: true,
-      data: user.user,
+      data: user,
     }));
     return user;
   } catch (err) {

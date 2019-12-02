@@ -3,7 +3,7 @@ import App from 'next/app';
 import withRedux from 'next-redux-wrapper';
 import decode from 'jwt-decode';
 import initializeStore from '../store/initializeStore';
-import { setCurrentUser } from '../store/actions/currentUser';
+import { setCurrentUser, asyncFetchCurrentUserData } from '../store/actions/currentUser';
 import { setAuthorizationToken } from '../utils/api';
 
 class IgakuApp extends App {
@@ -13,10 +13,9 @@ class IgakuApp extends App {
       try {
         const { cookie } = req.headers;
         const token = cookie.split('=')[1];
-        const userData = decode(token);
+        const id = decode(token).user_id;
+        store.dispatch(asyncFetchCurrentUserData(id));
         setAuthorizationToken(token);
-        // in place of this action, later on dispatch an asynchronous request to fetch user data
-        store.dispatch(setCurrentUser({ authenticated: true, data: userData }));
       } catch (err) {
         store.dispatch(setCurrentUser({ authenticated: false, data: {} }));
       }
@@ -24,6 +23,7 @@ class IgakuApp extends App {
     const pageProps = Component.getInitialProps
       ? await Component.getInitialProps(ctx)
       : {};
+
     return { pageProps };
   }
 
