@@ -5,8 +5,8 @@ import setError from '../actions/error';
 import { sendRequest, setAuthorizationToken } from '../../utils/api';
 import { setCookie } from '../../utils/cookie';
 
-function* currentUserError(error) {
-  yield put(setError(error.error));
+function* currentUserError() {
+  yield put(setError('Invalid credentials'));
 }
 
 function* setupCurrentUser(user) {
@@ -49,7 +49,7 @@ function* asyncFetchCurrentUserData(id) {
     console.log('HELLO SO I SET CURRENT USER HERE');
     return user;
   } catch (err) {
-    return yield call(currentUserError, err);
+    return yield call(currentUserError);
   }
 }
 
