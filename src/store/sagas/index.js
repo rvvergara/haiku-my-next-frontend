@@ -1,9 +1,14 @@
 import { all } from 'redux-saga/effects';
-import { watchAsyncLogUser, watchFetchCurrentUserData } from './user';
+import {
+  watchAsyncLogUser,
+  watchFetchCurrentUserData,
+  watchAsyncSignUp,
+} from './user';
 
 export default function* rootSaga() {
   yield all([
     watchAsyncLogUser(),
     watchFetchCurrentUserData(),
+    watchAsyncSignUp(),
   ]);
 }
