@@ -10,6 +10,7 @@
     "start": "next start",
     "test": "jest --config jest.config.json"
   },
+  "proxy": "http://localhost:8000",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/igaku/New-frontend.git"
@@ -31,6 +32,8 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^24.9.0",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
     "redux-mock-store": "^1.5.3"
   },
   "dependencies": {
