@@ -37,7 +37,6 @@ function* asyncLogUser(action) {
 }
 
 function* asyncFetchCurrentUserData(id) {
-  console.log('HELLO I WAS CALLED');
   const path = `v1/user/${id.id}`;
   try {
     const response = yield call(sendRequest, 'get', path);
@@ -46,7 +45,6 @@ function* asyncFetchCurrentUserData(id) {
       authenticated: true,
       data: user,
     }));
-    console.log('HELLO SO I SET CURRENT USER HERE');
     return user;
   } catch (err) {
     return yield call(currentUserError);
