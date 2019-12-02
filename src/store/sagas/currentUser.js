@@ -1,5 +1,5 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
-import { ASYNC_LOG_USER } from '../actions/types';
+import { ASYNC_LOG_USER, ASYNC_FETCH_CURRENT_USER_DATA } from '../actions/types';
 import { setCurrentUser } from '../actions/currentUser';
 import setError from '../actions/error';
 import { sendRequest, setAuthorizationToken } from '../../utils/api';
@@ -36,6 +36,26 @@ function* asyncLogUser(action) {
   }
 }
 
-export default function* watchAsyncLogUser() {
+function* asyncFetchCurrentUserData(id) {
+  const path = `v1/user/${id}`;
+
+  try {
+    const response = yield call(sendRequest, 'get', path);
+    const user = yield response.data;
+    yield put(setCurrentUser({
+      authenticated: true,
+      data: user.user,
+    }));
+    return user;
+  } catch (err) {
+    return yield call(currentUserError, err);
+  }
+}
+
+export function* watchAsyncLogUser() {
   yield takeLatest(ASYNC_LOG_USER, asyncLogUser);
+}
+
+export function* watchFetchCurrentUserData() {
+  yield takeLatest(ASYNC_FETCH_CURRENT_USER_DATA, asyncFetchCurrentUserData);
 }
