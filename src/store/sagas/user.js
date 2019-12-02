@@ -1,6 +1,6 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import { ASYNC_LOG_USER, ASYNC_FETCH_CURRENT_USER_DATA } from '../actions/types';
-import { setCurrentUser } from '../actions/currentUser';
+import { setCurrentUser } from '../actions/user';
 import setError from '../actions/error';
 import { sendRequest, setAuthorizationToken } from '../../utils/api';
 import { setCookie } from '../../utils/cookie';

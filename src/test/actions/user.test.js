@@ -1,5 +1,5 @@
 import { SET_CURRENT_USER, ASYNC_LOG_USER, ASYNC_FETCH_CURRENT_USER_DATA } from '../../store/actions/types';
-import { setCurrentUser, asyncLogUser, asyncFetchCurrentUserData } from '../../store/actions/currentUser';
+import { setCurrentUser, asyncLogUser, asyncFetchCurrentUserData } from '../../store/actions/user';
 
 describe('setCurrentUser action generator', () => {
   test('should create the correct action', () => {
