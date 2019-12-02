@@ -1,5 +1,5 @@
-import { SET_CURRENT_USER, ASYNC_LOG_USER } from '../../store/actions/types';
-import { setCurrentUser, asyncLogUser } from '../../store/actions/currentUser';
+import { SET_CURRENT_USER, ASYNC_LOG_USER, ASYNC_FETCH_CURRENT_USER_DATA } from '../../store/actions/types';
+import { setCurrentUser, asyncLogUser, asyncFetchCurrentUserData } from '../../store/actions/currentUser';
 
 describe('setCurrentUser action generator', () => {
   test('should create the correct action', () => {
@@ -30,5 +30,14 @@ describe('asyncLogUser action generator', () => {
 
     expect(action.type).toBe(ASYNC_LOG_USER);
     expect(action.params).toBe(params);
+  });
+});
+
+describe('asyncFetchCurrentUserData action generator', () => {
+  test('should create the correct action', () => {
+    const id = 'someID';
+    const action = asyncFetchCurrentUserData(id);
+    expect(action.type).toBe(ASYNC_FETCH_CURRENT_USER_DATA);
+    expect(action.id).toBe(id);
   });
 });

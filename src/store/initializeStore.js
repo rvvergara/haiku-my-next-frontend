@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
+import { persistStore, persistReducer } from 'redux-persist';
 import rootReducer from './reducers';
 import rootSaga from './sagas';
 
@@ -17,13 +18,34 @@ const middlewares = process.env.NODE_ENV === 'development'
     : compose(applyMiddleware(sagaMiddleware));
 
 const initializeStore = (initialState = {}) => {
-  const store = createStore(
-    rootReducer,
-    initialState,
-    middlewares,
-  );
+  let store;
 
-  sagaMiddleware.run(rootSaga);
+  const isClient = typeof window !== 'undefined';
+
+  if (isClient) {
+    const storage = require('redux-persist/lib/storage').default;
+
+    const persistConfig = {
+      key: 'root',
+      storage,
+    };
+
+    store = createStore(
+      persistReducer(persistConfig, rootReducer),
+      initialState,
+      middlewares,
+    );
+
+    store.__PERSISTOR = persistStore(store);
+  } else {
+    store = createStore(
+      rootReducer,
+      initialState,
+      middlewares,
+    );
+  }
+
+  store.sagaTask = sagaMiddleware.run(rootSaga);
 
   return store;
 };
