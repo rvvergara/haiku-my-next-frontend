@@ -3,6 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './reducers';
+import rootSaga from './sagas';
 
 const composeEnhancers = composeWithDevTools({
   trace: true,
@@ -21,6 +22,9 @@ const initializeStore = (initialState = {}) => {
     initialState,
     middlewares,
   );
+
+  sagaMiddleware.run(rootSaga);
+
   return store;
 };
 
