@@ -1,7 +1,9 @@
+import Layout from '../components/Layouts/Layout';
+
 const IndexPage = () => (
-  <div>
+  <Layout title="Home">
     <h1>Igaku App</h1>
-  </div>
+  </Layout>
 );
 
 export default IndexPage;
