@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import { IndexPage } from '../../pages/index';
 import VisitorContent from '../../components/VisitorContent/VisitorContent';
+import Dashboard from '../../components/Authenticated/Dashboard';
 import Layout from '../../components/Layouts/Layout';
 
 describe('Index page', () => {
@@ -28,7 +29,7 @@ describe('Index page', () => {
       );
     expect(wrapper.contains(
       <Layout title="Home">
-        <h1>Igaku App</h1>
+        <Dashboard />
       </Layout>,
       )).toBe(true);
   });
