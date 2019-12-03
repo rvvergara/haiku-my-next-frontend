@@ -1,7 +1,7 @@
 import Intro from './Intro';
 
 const VisitorContent = () => (
-  <div>
+  <div className="visitor-content__body">
     <Intro />
   </div>
 );
