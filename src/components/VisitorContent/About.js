@@ -11,6 +11,10 @@ const About = () => (
         We make it possible for you to consult a healthcare professional anytime, anywhere.
       </p>
     </div>
+    <div className="about__background">
+      <div className="about__background__blue" />
+      <div className="about__background__image" />
+    </div>
   </div>
 );
 
