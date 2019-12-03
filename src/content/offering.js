@@ -6,18 +6,17 @@ export default [
   },
   {
     title: 'Tele-consultation',
-    image: 'https://tinyimg.io/i/uMF8mA4.jpg',
+    image: 'https://tinyimg.io/i/QHktucO.jpg',
     text: 'Consult overseas specialists anytime, anywher',
   },
   {
     title: 'Search Specialists',
-    image: 'http://tinyimg.io/i/JX71orc.png',
+    image: 'https://tinyimg.io/i/QHktucO.jpg',
     text: 'Search our vast network of specialists.',
   },
   {
     title: 'Itinerary Setting',
-    image: 'https://tinyimg.io/i/jkxo1Cw.jpg',
+    image: 'https://tinyimg.io/i/QHktucO.jpg',
     text: 'We will make sure your medical trip is hassle-free.',
   },
 ];
-
