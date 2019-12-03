@@ -1,0 +1,22 @@
+#__next,
+.authenticated-layout,
+.authenticated-body {
+  height: 100%;
+}
+
+.authenticated-layout {
+  background: $light-grey;
+}
+
+.authenticated-body {
+  display: flex;
+  justify-content: space-between;
+  margin-top: $container-side-pad*0.25;
+}
+
+.authenticated-body__content {
+  background: $light-blue;
+  background: $light-gradient;
+  flex: 1;
+  padding: $container-side-pad*0.1 $container-side-pad*0.3;
+}

@@ -1,0 +1,31 @@
+.authenticated-body__sidebar {
+  background: $light-blue;
+  background: $light-gradient;
+  flex: 0.25;
+  margin: 0 $container-side-pad*0.25;
+  margin-left: 0;
+}
+
+.authenticated-body__sidebar-container {
+  padding: $container-side-pad*0.1 $container-side-pad*0.5;
+}
+
+.sidebar__nav {
+  list-style: none;
+  margin: $container-side-pad*0.2;
+  padding: 0;
+}
+
+.sidebar__navlink {
+  margin: $container-side-pad*0.3 0;
+
+  a {
+    color: $purplish-blue;
+    font-size: $xmedium;
+    font-weight: 700;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

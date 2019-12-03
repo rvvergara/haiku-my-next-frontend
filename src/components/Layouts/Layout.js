@@ -4,7 +4,7 @@ import Header from './Header';
 import Sidebar from './Sidebars/Sidebar';
 
 const Layout = ({ children, title }) => (
-  <div className="root">
+  <div className="authenticated-layout">
     <Head>
       <title>
         Igaku |
@@ -13,9 +13,11 @@ const Layout = ({ children, title }) => (
       </title>
     </Head>
     <Header />
-    <Sidebar />
-    <div className="main-content">
-      { children }
+    <div className="authenticated-body">
+      <Sidebar />
+      <div className="authenticated-body__content">
+        { children }
+      </div>
     </div>
   </div>
 );
