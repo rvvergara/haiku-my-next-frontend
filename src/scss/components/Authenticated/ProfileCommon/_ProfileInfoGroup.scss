@@ -1,0 +1,10 @@
+.profile__info__group {
+  display: flex;
+}
+
+.profile__info__key {
+  font-weight: 700;
+  margin-right: $button-pad * 8;
+  text-align: right;
+  width: 20%;
+}
