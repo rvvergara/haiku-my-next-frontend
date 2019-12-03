@@ -7,17 +7,19 @@ const SignupForm = ({ asyncSignUp }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [role, setRole] = useState('');
   const [password, setPassword] = useState('');
   const [pwConfirm, setPwConfirm] = useState('');
 
   const handleSignup = (e) => {
     e.preventDefault();
-    console.log({
+    asyncSignUp({
       firstName,
       lastName,
       email,
       password,
-      pwConfirm,
+      role,
+      activated: true,
     });
 
     setFirstName('');
@@ -52,6 +54,23 @@ const SignupForm = ({ asyncSignUp }) => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
         />
+      </div>
+      <div className="form-group">
+        <select
+          name="role"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+        >
+          <option value="">
+            I am a...
+          </option>
+          <option value="patient">
+            Patient
+          </option>
+          <option value="practitioner">
+            Practitioner
+          </option>
+        </select>
       </div>
       <div className="form-group">
         <input
