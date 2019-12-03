@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAdminProfileByUserId } from '../../store/actions/clinicActions';
+import { getAdminProfileByUserIdAndClinicData } from '../../store/actions/clinicActions';
 
-import '../../components/clinic/clinic.scss'
+import '../../components/clinic/clinic.scss';
 
 class Clinic extends Component {
     componentDidMount() {
-        const { token, data, getAdminProfileByUserId, getClinic } = this.props;
-        const admin = getAdminProfileByUserId(token, data)
+        const { token, data, getAdminProfileByUserIdAndClinicData } = this.props;
+        getAdminProfileByUserIdAndClinicData(token, data)
     }
     render() {
-        const { data } = this.props;
+        const { data, clinic } = this.props;
+        console.log(this.props)
         return (
             <div>
                 {data.firstName}
                 {data.lastName}
+                {clinic.id}
             </div>
         )
     }
@@ -22,16 +24,18 @@ class Clinic extends Component {
 
 function mapStateToProps(state) {
     const { token, data } = state.currentUser;
+    const { clinic } = state.clinicReducers;
     return {
         data,
-        token
+        token,
+        clinic
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        getAdminProfileByUserId: (token, user) => {
-            return dispatch(getAdminProfileByUserId(token, user));
+        getAdminProfileByUserIdAndClinicData: (token, user) => {
+            return dispatch(getAdminProfileByUserIdAndClinicData(token, user));
         }
     };
 };

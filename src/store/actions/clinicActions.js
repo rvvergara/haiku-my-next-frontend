@@ -4,7 +4,7 @@ export const loadingClinic = () => ({
     type: clinicConstants.LOADING_CLINIC,
 });
 
-export const getAdminProfileByUserId = (token, user) => ({
+export const getAdminProfileByUserIdAndClinicData = (token, user) => ({
     type: clinicConstants.GET_ADMIN_PROFILE,
     token,
     user
@@ -20,12 +20,6 @@ export const getAdminProfileByUserIdError = (err) => ({
     payload: err
 })
 
-export const getClinic = (token, id) => ({
-    type: clinicConstants.GET_CLINIC,
-    token,
-    id
-});
-
 export const getClinicSuccess = (clinic) => ({
     type: clinicConstants.GET_CLINIC_SUCCESS,
     payload: clinic
@@ -35,3 +29,7 @@ export const getClinicError = (err) => ({
     type: clinicConstants.GET_CLINIC_ERROR,
     payload: err
 });
+
+export const noClinicFound = () => ({
+    type: clinicConstants.NO_CLINIC_FOUND
+})
