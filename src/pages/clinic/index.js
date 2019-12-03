@@ -11,15 +11,18 @@ class Clinic extends Component {
     }
     render() {
         const { data, clinic, loadingClinic } = this.props;
-        console.log(this.props)
         return (
             loadingClinic ? (
                 <div>Loading...</div>
             ) : (
-                    <div>
-                        {clinic && clinic.id}
-                        {clinic && clinic.name}
-                    </div>
+                    clinic ? (
+                        <div>
+                            {clinic.id}
+                            {clinic.name}
+                        </div>
+                    ) : (
+                            <div>Clinic not set up yet</div>
+                        )
                 )
         )
     }
