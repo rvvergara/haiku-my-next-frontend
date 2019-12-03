@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { asyncLogUser } from '../store/actions/currentUser';
+import { asyncLogUser } from '../store/actions/user';
 
 const LoginForm = ({ asyncLogUser }) => {
   const [email, setEmail] = useState('');

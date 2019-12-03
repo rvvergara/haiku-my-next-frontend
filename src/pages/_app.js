@@ -4,7 +4,7 @@ import withRedux from 'next-redux-wrapper';
 import { PersistGate } from 'redux-persist/integration/react';
 import decode from 'jwt-decode';
 import initializeStore from '../store/initializeStore';
-import { setCurrentUser, asyncFetchCurrentUserData } from '../store/actions/currentUser';
+import { setCurrentUser, asyncFetchCurrentUserData } from '../store/actions/user';
 import { setAuthorizationToken } from '../utils/api';
 
 class IgakuApp extends App {

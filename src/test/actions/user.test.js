@@ -1,5 +1,12 @@
-import { SET_CURRENT_USER, ASYNC_LOG_USER, ASYNC_FETCH_CURRENT_USER_DATA } from '../../store/actions/types';
-import { setCurrentUser, asyncLogUser, asyncFetchCurrentUserData } from '../../store/actions/currentUser';
+import {
+ SET_CURRENT_USER, ASYNC_LOG_USER, ASYNC_FETCH_CURRENT_USER_DATA, ASYNC_SIGNUP,
+} from '../../store/actions/types';
+import {
+ setCurrentUser,
+  asyncLogUser,
+  asyncFetchCurrentUserData,
+  asyncSignUp,
+} from '../../store/actions/user';
 
 describe('setCurrentUser action generator', () => {
   test('should create the correct action', () => {
@@ -39,5 +46,20 @@ describe('asyncFetchCurrentUserData action generator', () => {
     const action = asyncFetchCurrentUserData(id);
     expect(action.type).toBe(ASYNC_FETCH_CURRENT_USER_DATA);
     expect(action.id).toBe(id);
+  });
+});
+
+describe('asyncSignup action generator', () => {
+  test('should create the right action', () => {
+    const params = {
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john@gmail.com',
+      password: 'password',
+    };
+
+    const action = asyncSignUp(params);
+    expect(action.type).toBe(ASYNC_SIGNUP);
+    expect(action.params).toBe(params);
   });
 });
