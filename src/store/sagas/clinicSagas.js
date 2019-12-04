@@ -3,11 +3,11 @@ import { clinicConstants } from '../constants/clinicConstants';
 import * as clinicActions from '../actions/clinicActions';
 import { sendAuthorizedRequest } from '../../utils/api';
 
-export function* asyncGetClinicData(action) {
+export function* getClinicData(action) {
     try {
         const admin = yield* _getAdminProfileByUserId(action.token, action.user)
         if (admin.admin.clinicId) {
-            return yield* _getClinicDetails(action.token, admin.admin.clinicId)
+            return yield _getClinicDetails(action.token, admin.admin.clinicId)
         } else {
             return yield put(clinicActions.noClinicFound())
         }
@@ -42,7 +42,35 @@ function* _getClinicDetails(token, clinicId) {
     }
 }
 
+export function* getPractitionersForClinicPage(action) {
+    const path = `v1/practitioners`;
+    try {
+        const response = yield call(sendAuthorizedRequest, 'get', path, action.token);
+        const practitioners = yield response.data;
+
+        yield put(clinicActions.getAllPractitionersSuccess(practitioners.practitioners))
+        return practitioners.practitioners
+    } catch (err) {
+        return yield put(clinicActions.getAllPractitionersError(err));
+    }
+}
+
+export function* getClinicPractitioners(action) {
+    const path = `v1/practitioners/${action.clinicId}/clinic`;
+    try {
+        const response = yield call(sendAuthorizedRequest, 'get', path, action.token);
+        const practitioners = yield response.data;
+        
+        yield put(clinicActions.getAllClinicPractitionersSuccess(practitioners.practitioners))
+        return practitioners.practitioners
+    } catch (err) {
+        return yield put(clinicActions.getAllClinicPractitionersError(err));
+    }
+}
+
 
 export const clinicSagas = [
-    takeLatest(clinicConstants.GET_ADMIN_PROFILE, asyncGetClinicData)
+    takeLatest(clinicConstants.GET_ADMIN_PROFILE, getClinicData),
+    takeLatest(clinicConstants.GET_ALL_PRACTITIONERS, getPractitionersForClinicPage),
+    takeLatest(clinicConstants.GET_CLINIC_PRACTITIONERS, getClinicPractitioners)
 ]

@@ -10,7 +10,7 @@ class Clinic extends Component {
         getAdminProfileByUserIdAndClinicData(token, data)
     }
     render() {
-        const { data, clinic, loadingClinic } = this.props;
+        const { clinic, loadingClinic } = this.props;
         return (
             loadingClinic ? (
                 <div>Loading...</div>

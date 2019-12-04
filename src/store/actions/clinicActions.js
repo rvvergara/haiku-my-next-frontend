@@ -33,3 +33,34 @@ export const getClinicError = (err) => ({
 export const noClinicFound = () => ({
     type: clinicConstants.NO_CLINIC_FOUND
 })
+
+export const getAllPractitioners = (token) => ({
+    type: clinicConstants.GET_ALL_PRACTITIONERS,
+    token
+})
+
+export const getAllPractitionersSuccess = (practitioners) => ({
+    type: clinicConstants.GET_ALL_PRACTITIONERS_SUCCESS,
+    payload: practitioners
+})
+
+export const getAllPractitionersError = (err) => ({
+    type: clinicConstants.GET_ALL_PRACTITIONERS_ERROR,
+    payload: err
+})
+
+export const getAllClinicPractitioners = (token, clinicId) => ({
+    type: clinicConstants.GET_CLINIC_PRACTITIONERS,
+    token,
+    clinicId
+})
+
+export const getAllClinicPractitionersSuccess = (practitioners) => ({
+    type: clinicConstants.GET_CLINIC_PRACTITIONERS_SUCCESS,
+    payload: practitioners
+})
+
+export const getAllClinicPractitionersError = (err) => ({
+    type: clinicConstants.GET_CLINIC_PRACTITIONERS_ERROR,
+    payload: err
+})

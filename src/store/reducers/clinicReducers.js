@@ -5,7 +5,12 @@ const initialState = {
     clinic: null,
     clinicError: false,
     adminProfile: {},
-    adminProfileError: false
+    adminProfileError: false,
+    loadingClinicPractitioners: true,
+    practitionerListForClinicPage: [],
+    practitionerListForClinicPageError: false,
+    clinicPractitionerList: [],
+    clinicPractitionerError: false
 };
 
 export default (state = initialState, action) => {
@@ -37,6 +42,30 @@ export default (state = initialState, action) => {
             return Object.assign({}, state, {
                 clinic: null,
                 loadingClinic: false,
+            })
+        case clinicConstants.LOADING_CLINIC_PRACTITIONERS:
+            return Object.assign({}, state, {
+                loadingClinicPractitioners: true
+            })
+        case clinicConstants.GET_ALL_PRACTITIONERS_SUCCESS:
+            return Object.assign({}, state, {
+                practitionerListForClinicPage: action.payload,
+                loadingClinicPractitioners: false,
+            })
+        case clinicConstants.GET_ALL_PRACTITIONERS_ERROR:
+            return Object.assign({}, state, {
+                practitionerListForClinicPageError: action.payload,
+                loadingClinicPractitioners: false,
+            })
+        case clinicConstants.GET_CLINIC_PRACTITIONERS_SUCCESS:
+            return Object.assign({}, state, {
+                clinicPractitionerList: action.payload,
+                loadingClinicPractitioners: false,
+            })
+        case clinicConstants.GET_CLINIC_PRACTITIONERS_ERROR:
+            return Object.assign({}, state, {
+                clinicPractitionerError: action.payload,
+                loadingClinicPractitioners: false,
             })
         default:
             return state;
