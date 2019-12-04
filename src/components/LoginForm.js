@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
-import { asyncLogUser } from '../store/actions/user';
+import { login } from '../store/thunks/user';
 
-const LoginForm = ({ asyncLogUser }) => {
+const LoginForm = ({ login }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    asyncLogUser({ email, password });
+    await login({ email, password });
+    Router.push('/');
     setEmail('');
     setPassword('');
   };
@@ -37,7 +39,7 @@ const LoginForm = ({ asyncLogUser }) => {
 };
 
 LoginForm.propTypes = {
-  asyncLogUser: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
 };
 
-export default connect(null, { asyncLogUser })(LoginForm);
+export default connect(null, { login })(LoginForm);

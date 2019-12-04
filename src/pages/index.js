@@ -21,8 +21,9 @@ IndexPage.propTypes = {
   currentUser: PropTypes.instanceOf(Object).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentUser: state.currentUser,
-});
+IndexPage.getInitialProps = (ctx) => {
+  const { currentUser } = ctx.store.getState();
+  return { currentUser };
+};
 
-export default connect(mapStateToProps)(IndexPage);
+export default connect((state) => state)(IndexPage);
