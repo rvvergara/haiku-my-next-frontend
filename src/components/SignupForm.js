@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
-import { asyncSignUp } from '../store/actions/user';
+import { signup } from '../store/thunks/user';
 
-const SignupForm = ({ asyncSignUp }) => {
+const SignupForm = ({ signup }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -11,9 +12,9 @@ const SignupForm = ({ asyncSignUp }) => {
   const [password, setPassword] = useState('');
   const [pwConfirm, setPwConfirm] = useState('');
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    asyncSignUp({
+    await signup({
       firstName,
       lastName,
       email,
@@ -21,7 +22,7 @@ const SignupForm = ({ asyncSignUp }) => {
       role,
       activated: true,
     });
-
+    Router.push('/');
     setFirstName('');
     setLastName('');
     setEmail('');
@@ -101,7 +102,7 @@ const SignupForm = ({ asyncSignUp }) => {
 };
 
 SignupForm.propTypes = {
-  asyncSignUp: PropTypes.func.isRequired,
+  signup: PropTypes.func.isRequired,
 };
 
-export default connect(null, { asyncSignUp })(SignupForm);
+export default connect(null, { signup })(SignupForm);
