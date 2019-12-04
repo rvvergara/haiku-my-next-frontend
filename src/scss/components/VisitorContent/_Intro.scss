@@ -1,0 +1,25 @@
+.jumbo-intro {
+  background: url('https://tinyimg.io/i/jv6FlSW.jpg') no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.jumbo-intro__content {
+  margin: auto;
+  padding: $container-side-pad * 1 0;
+  text-align: center;
+  vertical-align: middle;
+  width: 50%;
+}
+
+.jumbo-intro__title {
+  margin: 0
+}
+
+.jumbo-intro__subtitle {
+  background: $light-blue;
+  color: $regular-blue;
+  margin: 0 auto;
+  padding: $button-pad*3 0;
+  width: 70%;
+}

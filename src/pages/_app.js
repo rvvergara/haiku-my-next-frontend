@@ -6,6 +6,7 @@ import decode from 'jwt-decode';
 import initializeStore from '../store/initializeStore';
 import { setCurrentUser, asyncFetchCurrentUserData } from '../store/actions/user';
 import { setAuthorizationToken } from '../utils/api';
+import '../scss/main.scss';
 
 class IgakuApp extends App {
   static async getInitialProps({ Component, ctx }) {
