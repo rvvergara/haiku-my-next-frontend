@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { asyncLogUser } from '../store/actions/user';
+import { login } from '../store/thunks/user';
 
-const LoginForm = ({ asyncLogUser }) => {
+const LoginForm = ({ login }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
-    asyncLogUser({ email, password });
+    login({ email, password });
     setEmail('');
     setPassword('');
   };
@@ -37,7 +37,7 @@ const LoginForm = ({ asyncLogUser }) => {
 };
 
 LoginForm.propTypes = {
-  asyncLogUser: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
 };
 
-export default connect(null, { asyncLogUser })(LoginForm);
+export default connect(null, { login })(LoginForm);
