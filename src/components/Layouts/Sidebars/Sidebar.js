@@ -1,12 +1,23 @@
 
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import PractitionerNavLinks from './PractitionerNavLinks';
 import PatienNavLinks from './PatientNavLinks';
 
-const Sidebar = () => (
+export const Sidebar = ({ userRole }) => (
   <div className="authenticated-body__sidebar">
     <div className="authenticated-body__sidebar-container">
-      <PatienNavLinks />
+      {userRole === 'practitioner' ? <PractitionerNavLinks /> : <PatienNavLinks />}
     </div>
   </div>
 );
 
-export default Sidebar;
+Sidebar.propTypes = {
+  userRole: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  userRole: state.currentUser.data.role,
+});
+
+export default connect(mapStateToProps)(Sidebar);

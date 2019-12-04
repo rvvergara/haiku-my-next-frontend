@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import ConnectedHeader from './Header';
-import Sidebar from './Sidebars/Sidebar';
+import ConnectedSidebar from './Sidebars/Sidebar';
 
 const Layout = ({ children, title }) => (
   <div className="authenticated-layout">
@@ -14,7 +14,7 @@ const Layout = ({ children, title }) => (
     </Head>
     <ConnectedHeader />
     <div className="authenticated-body">
-      <Sidebar />
+      <ConnectedSidebar />
       <div className="authenticated-body__content">
         { children }
       </div>
