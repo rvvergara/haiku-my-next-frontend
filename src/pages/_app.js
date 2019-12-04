@@ -2,10 +2,12 @@ import { Provider } from 'react-redux';
 import App from 'next/app';
 import withRedux from 'next-redux-wrapper';
 import initializeStore from '../store/initializeStore';
+import initialize from '../utils/initialize';
 import '../scss/main.scss';
 
 class IgakuApp extends App {
   static async getInitialProps({ Component, ctx }) {
+    await initialize(ctx);
     const pageProps = Component.getInitialProps
       ? await Component.getInitialProps(ctx)
       : {};

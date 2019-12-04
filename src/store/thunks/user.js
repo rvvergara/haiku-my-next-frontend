@@ -28,3 +28,18 @@ export const logout = () => (dispatch) => {
     data: {},
   }));
 };
+
+export const fetchCurrentUserData = (id) => async (dispatch) => {
+  const path = `v1/user/${id}`;
+
+  try {
+    const res = await sendRequest('get', path);
+    const user = await res.data;
+    dispatch(setCurrentUser({
+      authenticated: true,
+      data: user,
+    }));
+  } catch (err) {
+    dispatch(setError(err));
+  }
+};
