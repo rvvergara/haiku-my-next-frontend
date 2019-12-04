@@ -1,4 +1,8 @@
-const Header = () => (
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { logout } from '../../store/thunks/user';
+
+export const Header = ({ logout }) => (
   <header className="header">
     <div className="container">
       <div className="header__brand">
@@ -14,7 +18,7 @@ const Header = () => (
           <button
             type="button"
             className="logout"
-            onClick={() => console.log('Logged out now')}
+            onClick={() => logout()}
           >
             Logout
           </button>
@@ -24,4 +28,8 @@ const Header = () => (
   </header>
   );
 
-export default Header;
+Header.propTypes = {
+  logout: PropTypes.func.isRequired,
+};
+
+export default connect(null, { logout })(Header);
