@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { login } from '../store/thunks/user';
 
@@ -7,9 +8,10 @@ const LoginForm = ({ login }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    login({ email, password });
+    await login({ email, password });
+    Router.push('/');
     setEmail('');
     setPassword('');
   };
