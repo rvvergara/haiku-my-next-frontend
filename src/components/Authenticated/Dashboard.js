@@ -11,13 +11,13 @@ const renderDashboard = (userRole) => {
     case userConstants.PATIENT_ROLE:
       return <PatientProfile />
     default:
-      return
+      return null
   }
 }
 
 export const Dashboard = ({ userRole }) => (
   <div className="dashboard">
-    {this.renderDashboard(userRole)}
+    {renderDashboard(userRole)}
   </div>
 );
 
