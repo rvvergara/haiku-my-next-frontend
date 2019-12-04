@@ -3,6 +3,22 @@ import { setCurrentUser } from '../actions/user';
 import setError from '../actions/error';
 import { setCookie, removeCookie } from '../../utils/cookie';
 
+export const signup = (params) => async (dispatch) => {
+  const path = 'v1/users';
+  try {
+    const res = await sendRequest('post', path, params);
+    const { user, token } = await res.data;
+    setCookie('token', token);
+    setAuthorizationToken(token);
+    dispatch(setCurrentUser({
+      authenticated: true,
+      data: user,
+    }));
+  } catch (err) {
+    dispatch(setError(err));
+  }
+};
+
 export const login = (params) => async (dispatch) => {
   const path = 'v1/users/login';
 
