@@ -2,10 +2,22 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import PractitionerProfile from './Practitioner/PractitionerProfile';
 import PatientProfile from './Patient/PatientProfile';
+import { userConstants } from '../../store/constants/userConstants'
+
+const renderDashboard = (userRole) => {
+  switch (userRole) {
+    case userConstants.PRACTITIONER_ROLE:
+      return <PractitionerProfile />;
+    case userConstants.PATIENT_ROLE:
+      return <PatientProfile />
+    default:
+      return
+  }
+}
 
 export const Dashboard = ({ userRole }) => (
   <div className="dashboard">
-    {userRole === 'practitioner' ? <PractitionerProfile /> : <PatientProfile />}
+    {this.renderDashboard(userRole)}
   </div>
 );
 
