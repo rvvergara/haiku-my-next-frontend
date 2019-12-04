@@ -19,13 +19,15 @@
 .sidebar__navlink {
   margin: $container-side-pad*0.3 0;
 
-  a {
+  button {
     color: $purplish-blue;
     font-size: $xmedium;
     font-weight: 700;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
 
-  &:hover {
-    text-decoration: underline;
-  }
 }

@@ -37,7 +37,7 @@ export const fetchCurrentUserData = (id) => async (dispatch) => {
     const user = await res.data;
     dispatch(setCurrentUser({
       authenticated: true,
-      data: user,
+      data: user.user,
     }));
   } catch (err) {
     dispatch(setError(err));

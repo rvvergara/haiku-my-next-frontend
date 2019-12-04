@@ -1,4 +1,4 @@
-const PatientNavLinks = () => (
+const PractitionerNavLinks = () => (
   <ul className="sidebar__nav">
     <li className="sidebar__navlink">
       <button type="button">
@@ -7,20 +7,20 @@ const PatientNavLinks = () => (
     </li>
     <li className="sidebar__navlink">
       <button type="button">
-        Search
+        My Schedule
       </button>
     </li>
     <li className="sidebar__navlink">
       <button type="button">
-        My bookings
+        Bookings
       </button>
     </li>
     <li className="sidebar__navlink">
       <button type="button">
-        My rewards
+        My Patients
       </button>
     </li>
   </ul>
 );
 
-export default PatientNavLinks;
+export default PractitionerNavLinks;
