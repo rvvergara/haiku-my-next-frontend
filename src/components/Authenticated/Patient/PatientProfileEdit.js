@@ -44,6 +44,15 @@ export const PatientProfileEdit = () => {
           />
         </div>
         <div className="form-group">
+          <label htmlFor="address">Address</label>
+          <input
+            type="text"
+            id="address"
+            onChange={(e) => setAddress(e.target.value)}
+            value={address}
+          />
+        </div>
+        <div className="form-group">
           <label htmlFor="postal-code">Postal Code</label>
           <input
             type="text"
@@ -66,7 +75,19 @@ export const PatientProfileEdit = () => {
         </div>
         <div className="form-group">
           <label htmlFor="languages">Languages</label>
-          <MultipleInput selectedInputs={(inputs) => setLanguages(inputs)} />
+          <MultipleInput
+            selectedInputs={(inputs) => setLanguages(inputs)}
+            languages={languages}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="points">Points</label>
+          <input
+            type="number"
+            id="points"
+            onChange={(e) => setPoints(e.target.value)}
+            value={points}
+          />
         </div>
         <button type="submit">Update Profile</button>
       </form>

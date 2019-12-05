@@ -2,8 +2,8 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid';
 
-const MultipleInput = ({ selectedInputs }) => {
-  const [inputs, setInputs] = useState([]);
+const MultipleInput = ({ selectedInputs, languages }) => {
+  const [inputs, setInputs] = useState(languages);
 
   const addInputs = (e) => {
     if (e.key === ',' && e.target.value !== '') {
@@ -46,6 +46,7 @@ const MultipleInput = ({ selectedInputs }) => {
         type="text"
         placeholder="Entries are comma separated"
         onKeyUp={(e) => addInputs(e)}
+        defaultValue={languages}
       />
     </div>
   );
@@ -53,6 +54,7 @@ const MultipleInput = ({ selectedInputs }) => {
 
 MultipleInput.propTypes = {
   selectedInputs: PropTypes.func.isRequired,
+  languages: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default MultipleInput;
