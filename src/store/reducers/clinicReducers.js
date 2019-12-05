@@ -25,6 +25,10 @@ export default (state = initialState, action) => {
             return Object.assign({}, state, {
                 loadingPractitionersForClinic: true
             })
+        case clinicConstants.LOADING_CLINIC_PRACTITIONERS:
+            return Object.assign({}, state, {
+                loadingClinicPractitioners: true
+            })
         case clinicConstants.GET_ADMIN_PROFILE:
             return Object.assign({}, state, {
                 loadingClinic: false,
@@ -44,10 +48,25 @@ export default (state = initialState, action) => {
                     ...action.payload
                 }
             })
-        case clinicConstants.ADD_CLINIC:
+        case clinicConstants.GET_ALL_PRACTITIONERS:
             return Object.assign({}, state, {
-                savingClinic: false,
-                clinic: action.payload
+                loadingPractitionersForClinic: false,
+                practitionerListForClinicPage: action.payload
+            })
+        case clinicConstants.GET_CLINIC_PRACTITIONERS:
+            return Object.assign({}, state, {
+                loadingClinicPractitioners: false,
+                clinicPractitionerList: action.payload
+            })
+        case clinicConstants.ADD_PRACTITIONER:
+            return Object.assign({}, state, {
+                loadingClinicPractitioners: false,
+                clinicPractitionerList: [...state.clinicPractitionerList, action.payload]
+            })
+        case clinicConstants.DELETE_PRACTITIONER:
+            return Object.assign({}, state, {
+                loadingClinicPractitioners: false,
+                clinicPractitionerList: state.clinicPractitionerList.filter(({ id }) => id !== action.payload)
             })
         default:
             return state;

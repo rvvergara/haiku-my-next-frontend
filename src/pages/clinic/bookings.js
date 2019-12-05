@@ -2,18 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/Layouts/Layout';
 import NoClinic from '../../components/Authenticated/Admin/NoClinic';
+import { getAdminProfile } from '../../store/actions/clinicActions';
 
 class Bookings extends Component {
+
+    componentDidMount() {
+        const { clinic, getAdminProfile, token, data } = this.props;
+        if (clinic) {
+
+        } else {
+            getAdminProfile(token, data.id)
+        }
+    }
+
+
     render() {
-        const { data, clinic } = this.props;
+        const { data, clinic, loadingClinic } = this.props;
         return (
             <Layout title="Bookings" userName={data.firstName}>
                 <div>
                     {
-                        clinic ? (
-                            <div>Bookings</div>
+                        loadingClinic ? (
+                            <div>Loading...</div>
                         ) : (
-                                <NoClinic />
+                                clinic ? (
+                                    <div>Bookings</div>
+                                ) : (
+                                        <NoClinic />
+                                    )
                             )
                     }
                 </div>
@@ -24,17 +40,20 @@ class Bookings extends Component {
 
 function mapStateToProps(state) {
     const { token, data } = state.currentUser;
-    const { clinic } = state.clinicReducers
+    const { clinic, loadingClinic } = state.clinicReducers
     return {
         data,
         token,
-        clinic
+        clinic,
+        loadingClinic
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        getAdminProfile: (token, userId) => {
+            return dispatch(getAdminProfile(token, userId));
+        }
     };
 };
 

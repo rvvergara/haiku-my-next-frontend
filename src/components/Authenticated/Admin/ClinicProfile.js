@@ -29,10 +29,14 @@ class Clinic extends Component {
     }
 
     componentDidMount() {
-        const { token, data, getAdminProfile } = this.props;
-        getAdminProfile(token, data.id).then(res => {
-            this.setClinicDetailsToState(res.clinic)
-        })
+        const { clinic, token, data, getAdminProfile } = this.props;
+        if (clinic) {
+            this.setClinicDetailsToState(clinic)
+        } else {
+            getAdminProfile(token, data.id).then(res => {
+                this.setClinicDetailsToState(res.clinic)
+            })
+        }
     }
 
     setClinicDetailsToState = (clinic) => {
