@@ -6,15 +6,27 @@ export const PatientProfile = ({ currentUserData }) => {
   const {
     firstName,
     lastName,
+    profile,
   } = currentUserData;
 
+  let passport = 'No passport info yet';
+  let contactNo = 'No contact number yet';
+  let address = 'No address';
+
+  if (profile) {
+     passport = profile.passport;
+     contactNo = profile.contactNo;
+     address = profile.address;
+  }
+
   const fullName = `${firstName} ${lastName}`;
+
   return (
     <div className="profile">
       <ProfileInfoGroup infoKey="Name" val={fullName} />
-      <ProfileInfoGroup infoKey="ID/Passport" val="123456" />
-      <ProfileInfoGroup infoKey="Contact Number" val="855-0772" />
-      <ProfileInfoGroup infoKey="Address" val="25th High Street" />
+      <ProfileInfoGroup infoKey="ID/Passport" val={passport} />
+      <ProfileInfoGroup infoKey="Contact Number" val={contactNo} />
+      <ProfileInfoGroup infoKey="Address" val={address} />
       <ProfileInfoGroup infoKey="Remarks" val="I wanna be very healthy." />
     </div>
 );
