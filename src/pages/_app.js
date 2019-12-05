@@ -2,6 +2,7 @@ import { Provider } from 'react-redux';
 import App from 'next/app';
 import withRedux from 'next-redux-wrapper';
 import redirect from 'next-redirect';
+import 'react-dates/lib/css/_datepicker.css';
 import initializeStore from '../store/initializeStore';
 import initialize from '../utils/initialize';
 import '../scss/main.scss';
