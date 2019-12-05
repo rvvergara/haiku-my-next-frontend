@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import PractitionerProfile from './Practitioner/PractitionerProfile';
 import PatientProfile from './Patient/PatientProfile';
+import ClinicProfile from './Admin/ClinicProfile';
 import { userConstants } from '../../store/constants/userConstants'
 
 const renderDashboard = (userRole) => {
@@ -10,6 +11,8 @@ const renderDashboard = (userRole) => {
       return <PractitionerProfile />;
     case userConstants.PATIENT_ROLE:
       return <PatientProfile />
+    case userConstants.ADMIN_ROLE:
+      return <ClinicProfile />
     default:
       return null
   }

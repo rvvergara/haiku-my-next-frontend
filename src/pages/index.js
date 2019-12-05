@@ -8,7 +8,7 @@ import ConnectedDashboard from '../components/Authenticated/Dashboard';
 export const IndexPage = ({ currentUser }) => {
   if (currentUser.authenticated) {
     return (
-      <Layout title="Home">
+      <Layout title="Home" userName={currentUser.data.firstName}>
         <ConnectedDashboard />
       </Layout>
     );
