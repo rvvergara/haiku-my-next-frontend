@@ -3,6 +3,36 @@ import { setCurrentUser } from '../actions/user';
 import setError from '../actions/error';
 import { setCookie, removeCookie } from '../../utils/cookie';
 
+// Function to fetch profile based on role and userID
+const fetchUserProfile = async (id, role) => {
+  const path = `v1/${role}/${id}/user`;
+
+  try {
+    const res = await sendRequest('get', path);
+    return res;
+  } catch (err) {
+    throw Error();
+  }
+};
+
+const setUserInStore = async (user, dispatch) => {
+  const { id, role } = user;
+  const profile = await fetchUserProfile(id, role);
+  if (profile.data[role]) {
+    // If user has a profile already add it to user data
+    dispatch(setCurrentUser({
+      authenticated: true,
+      data: { ...user, profile: profile.data[role] },
+    }));
+  } else {
+    // Redirect user to profile edit page
+    dispatch(setCurrentUser({
+      authenticated: true,
+      data: user,
+    }));
+  }
+};
+
 export const signup = (params) => async (dispatch) => {
   const path = 'v1/users';
   try {
@@ -10,10 +40,7 @@ export const signup = (params) => async (dispatch) => {
     const { user, token } = await res.data;
     setCookie('token', token);
     setAuthorizationToken(token);
-    dispatch(setCurrentUser({
-      authenticated: true,
-      data: user,
-    }));
+    setUserInStore(user, dispatch);
     return user;
   } catch (err) {
     dispatch(setError(err.response.data.error));
@@ -27,12 +54,9 @@ export const login = (params) => async (dispatch) => {
   try {
     const res = await sendRequest('post', path, params);
     const { user, token } = res.data;
-    dispatch(setCurrentUser({
-      authenticated: true,
-      data: user,
-    }));
     setAuthorizationToken(token);
     setCookie('token', token);
+    await setUserInStore(user, dispatch);
     return user;
   } catch (err) {
     dispatch(setError(err.response.data.error));
@@ -47,18 +71,6 @@ export const logout = () => (dispatch) => {
     authenticated: false,
     data: {},
   }));
-};
-
-// Function to fetch profile based on role and userID
-const fetchUserProfile = async (id, role) => {
-  const path = `v1/${role}/${id}/user`;
-
-  try {
-    const res = await sendRequest('get', path);
-    return res;
-  } catch (err) {
-    throw Error();
-  }
 };
 
 export const fetchUserData = (id) => async (dispatch) => {
