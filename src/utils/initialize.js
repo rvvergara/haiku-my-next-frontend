@@ -2,7 +2,7 @@ import Router from 'next/router';
 import decode from 'jwt-decode';
 import { getCookie } from './cookie';
 import { setAuthorizationToken } from './api';
-import { fetchCurrentUserData } from '../store/thunks/user';
+import { fetchUserData } from '../store/thunks/user';
 
 export default async (ctx) => {
   if (ctx.isServer) {
@@ -12,7 +12,7 @@ export default async (ctx) => {
       const token = getCookie('token', req);
       const id = decode(token).user_id;
       setAuthorizationToken(token);
-      await dispatch(fetchCurrentUserData(id));
+      await dispatch(fetchUserData(id));
     }
   } else {
     try {
@@ -22,7 +22,7 @@ export default async (ctx) => {
         setTimeout(() => Router.push('/'), 0);
       }
     } catch (err) {
-      err;
+      throw new Error(err);
     }
   }
 };
