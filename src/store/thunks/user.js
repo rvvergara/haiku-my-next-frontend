@@ -14,8 +14,10 @@ export const signup = (params) => async (dispatch) => {
       authenticated: true,
       data: user,
     }));
+    return user;
   } catch (err) {
-    dispatch(setError(err));
+    dispatch(setError(err.response.data.error));
+    return null;
   }
 };
 
@@ -31,8 +33,10 @@ export const login = (params) => async (dispatch) => {
     }));
     setAuthorizationToken(token);
     setCookie('token', token);
+    return user;
   } catch (err) {
-    dispatch(setError('Invalid token'));
+    dispatch(setError(err.response.data.error));
+    return null;
   }
 };
 
@@ -56,6 +60,6 @@ export const fetchCurrentUserData = (id) => async (dispatch) => {
       data: user.user,
     }));
   } catch (err) {
-    dispatch(setError(err));
+    dispatch(setError(err.response.data.error));
   }
 };
