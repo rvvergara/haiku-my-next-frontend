@@ -71,14 +71,15 @@ class Doctors extends Component {
     }
 
     transformPractitionersForSelect = (practitionerList, clinicPractitionerList) => {
+        console.log(practitionerList, clinicPractitionerList)
         if (practitionerList.length < 1) {
             return []
         }
-        const practitionerNotInClinicList = practitionerList.filter(({ id }) => !clinicPractitionerList.some(cp => cp.id === id))
+        const practitionerNotInClinicList = practitionerList.filter(({ id }) => clinicPractitionerList.every(cp => cp.id !== id))
         if (practitionerNotInClinicList.length < 1) {
             return []
         }
-        return [...practitionerList.map(prac => {
+        return [...practitionerNotInClinicList.map(prac => {
             return {
                 value: prac.id,
                 label: `Dr. ${prac.user.firstName} ${prac.user.lastName}`
