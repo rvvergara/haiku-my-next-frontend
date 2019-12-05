@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
-import resetForm from '../../../hooks/formHooks';
+import MultipleInput from '../ProfileCommon/MultipleInput';
 
 export const PatientProfileEdit = () => {
   const [contactNo, setContactNo] = useState('');
@@ -32,6 +31,7 @@ export const PatientProfileEdit = () => {
             type="text"
             id="contact-no"
             onChange={(e) => setContactNo(e.target.value)}
+            value={contactNo}
           />
         </div>
         <div className="form-group">
@@ -40,6 +40,7 @@ export const PatientProfileEdit = () => {
             type="text"
             id="passport"
             onChange={(e) => setPassport(e.target.value)}
+            value={passport}
           />
         </div>
         <div className="form-group">
@@ -48,12 +49,11 @@ export const PatientProfileEdit = () => {
             type="text"
             id="postal-code"
             onChange={(e) => setPostalCode(e.target.value)}
+            value={postalCode}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="dob">
-            Date of Birth:
-          </label>
+          <label htmlFor="dob">Date of Birth:</label>
           <SingleDatePicker
             id="dob"
             date={dob}
@@ -64,9 +64,11 @@ export const PatientProfileEdit = () => {
             isOutsideRange={() => false}
           />
         </div>
-        <button type="submit">
-          Update Profile
-        </button>
+        <div className="form-group">
+          <label htmlFor="languages">Languages</label>
+          <MultipleInput selectedInputs={(inputs) => setLanguages(inputs)} />
+        </div>
+        <button type="submit">Update Profile</button>
       </form>
     </div>
   );
