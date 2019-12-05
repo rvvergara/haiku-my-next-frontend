@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Router from 'next/router';
 import moment from 'moment';
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 import MultipleInput from '../ProfileCommon/MultipleInput';
+import { createPatient } from '../../../store/thunks/patientProfile';
+import { setAuthorizationToken } from '../../../utils/api';
 
-export const PatientProfileEdit = () => {
+export const PatientProfileEdit = ({ createPatient, currentUserData, token }) => {
+  setAuthorizationToken(token);
+
   const [contactNo, setContactNo] = useState('');
   const [passport, setPassport] = useState('');
   const [postalCode, setPostalCode] = useState('');
@@ -16,9 +22,31 @@ export const PatientProfileEdit = () => {
   const [points, setPoints] = useState(0);
 
   const onFocusChange = ({ focused }) => setCalendarFocused(focused);
+
   const onDateChange = (dob) => {
     if (dob) {
       setDob(dob);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { id } = currentUserData;
+    try {
+      await createPatient({
+        contactNo,
+        passport,
+        postalCode,
+        address,
+        dob: dob.valueOf(),
+        languages,
+        points,
+        userId: id,
+      });
+      Router.push('/');
+      return true;
+    } catch (error) {
+      return error;
     }
   };
 
@@ -89,16 +117,25 @@ export const PatientProfileEdit = () => {
             value={points}
           />
         </div>
-        <button type="submit">Update Profile</button>
+        <button
+          type="submit"
+          onClick={handleSubmit}
+        >
+          Update Profile
+        </button>
       </form>
     </div>
   );
 };
 
-PatientProfileEdit.propTypes = {};
+PatientProfileEdit.propTypes = {
+  createPatient: PropTypes.func.isRequired,
+  currentUserData: PropTypes.instanceOf(Object).isRequired,
+  token: PropTypes.string.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
 });
 
-export default connect(mapStateToProps, {})(PatientProfileEdit);
+export default connect(mapStateToProps, { createPatient })(PatientProfileEdit);
