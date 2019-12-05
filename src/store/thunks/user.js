@@ -49,7 +49,7 @@ export const logout = () => (dispatch) => {
   }));
 };
 
-export const fetchCurrentUserData = (id) => async (dispatch) => {
+export const fetchUserData = (id) => async (dispatch) => {
   const path = `v1/user/${id}`;
 
   try {
