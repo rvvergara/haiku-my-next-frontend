@@ -49,16 +49,40 @@ export const logout = () => (dispatch) => {
   }));
 };
 
+// Function to fetch profile based on role and userID
+const fetchUserProfile = async (id, role) => {
+  const path = `v1/${role}/${id}/user`;
+
+  try {
+    const res = await sendRequest('get', path);
+    return res;
+  } catch (err) {
+    throw Error();
+  }
+};
+
 export const fetchUserData = (id) => async (dispatch) => {
   const path = `v1/user/${id}`;
 
   try {
     const res = await sendRequest('get', path);
     const user = await res.data;
-    dispatch(setCurrentUser({
-      authenticated: true,
-      data: user.user,
-    }));
+    const { role } = user.user;
+    // Fetch user's profile data (whether patient or practitioner)
+    const profile = await fetchUserProfile(id, role);
+    if (profile.data[role]) {
+      // If user has a profile already add it to user data
+      dispatch(setCurrentUser({
+        authenticated: true,
+        data: { ...user.user, profile: profile.data[role] },
+      }));
+    } else {
+      // Redirect user to profile edit page
+      dispatch(setCurrentUser({
+        authenticated: true,
+        data: user.user,
+      }));
+    }
   } catch (err) {
     dispatch(setError(err.response.data.error));
   }
