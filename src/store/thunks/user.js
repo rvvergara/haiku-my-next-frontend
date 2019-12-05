@@ -17,7 +17,7 @@ export const signup = (params) => async (dispatch) => {
     return user;
   } catch (err) {
     dispatch(setError(err.response.data.error));
-    return null;
+    throw new Error();
   }
 };
 
