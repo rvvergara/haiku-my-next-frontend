@@ -52,7 +52,7 @@ export const PatientForm = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { id } = currentUserData;
-    const patientId = currentUserData.profile.id;
+    const patientId = currentUserData.profile ? currentUserData.profile.id : undefined;
 
     const params = {
       contactNo,
