@@ -4,10 +4,17 @@
   flex: 0.25;
   margin: 0 $container-side-pad*0.25;
   margin-left: 0;
+  padding-top: 3rem;
 }
 
 .authenticated-body__sidebar-container {
   padding: $container-side-pad*0.1 $container-side-pad*0.5;
+}
+
+.profile-avatar__img {
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px $regular-grey;
+  width: 80%;
 }
 
 .sidebar__nav {
@@ -19,8 +26,9 @@
 .sidebar__navlink {
   margin: $container-side-pad*0.3 0;
 
+  a,
   button {
-    color: $purplish-blue;
+    color: $dark-blue;
     font-size: $xmedium;
     font-weight: 700;
 

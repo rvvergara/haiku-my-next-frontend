@@ -21,7 +21,7 @@ export const PractitionerForm = ({
     educVal = profile.education;
     specVal = profile.specialities;
     bioVal = profile.biography;
-    yrVal = profile.yearsExpl;
+    yrVal = profile.yearsExp;
   }
 
   const [education, setEducation] = useState(educVal);
@@ -55,10 +55,16 @@ export const PractitionerForm = ({
   };
 
   return (
-    <div>
-      <form>
+    <div className="container profile-form-container">
+      <form className="user-form profile-form">
         <div className="form-group">
-          <label htmlFor="contact-no">Education: </label>
+          <label
+            className="auth-label"
+            htmlFor="contact-no"
+          >
+            Education:
+            {' '}
+          </label>
           <MultipleInput
             selectedInputs={(inputs) => setEducation(inputs)}
             values={education}
@@ -66,7 +72,14 @@ export const PractitionerForm = ({
           />
         </div>
         <div className="form-group">
-          <label htmlFor="specialties">Specialties: </label>
+          <label
+            className="auth-label"
+            htmlFor="specialties"
+          >
+            Specialties:
+            {' '}
+
+          </label>
           <MultipleInput
             selectedInputs={(inputs) => setSpecialties(inputs)}
             values={specialties}
@@ -74,8 +87,17 @@ export const PractitionerForm = ({
           />
         </div>
         <div className="form-group">
-          <label htmlFor="address">Biography: </label>
-          <input
+          <label
+            className="auth-label"
+            htmlFor="address"
+          >
+              Biography:
+            {' '}
+
+          </label>
+          <textarea
+            rows={5}
+            className="user-form__input"
             type="text"
             id="biography"
             onChange={(e) => setBiography(e.target.value)}
@@ -83,20 +105,30 @@ export const PractitionerForm = ({
           />
         </div>
         <div className="form-group">
-          <label htmlFor="years-experience">Years Experience: </label>
+          <label
+            className="auth-label"
+            htmlFor="years-experience"
+          >
+            Years Experience:
+            {' '}
+          </label>
           <input
-            type="text"
+            className="user-form__input number__input"
+            type="number"
             id="years-experience"
             onChange={(e) => setYearsExp(e.target.value)}
             value={yearsExp}
           />
         </div>
-        <button
-          type="submit"
-          onClick={handleSubmit}
-        >
-          Update Profile
-        </button>
+        <div className="form-group profile-form-group">
+          <button
+            className="user-form__button profile-button"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Update Profile
+          </button>
+        </div>
       </form>
     </div>
   );

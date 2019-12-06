@@ -80,11 +80,18 @@ export const PatientForm = ({
   };
 
   return (
-    <div>
-      <form>
+    <div className="container profile-form-container">
+      <form className="user-form profile-form">
         <div className="form-group">
-          <label htmlFor="contact-no">Contact Number: </label>
+          <label
+            className="auth-label"
+            htmlFor="contact-no"
+          >
+              Contact Number:
+            {' '}
+          </label>
           <input
+            className="user-form__input number__input"
             type="text"
             id="contact-no"
             onChange={(e) => setContactNo(e.target.value)}
@@ -92,8 +99,14 @@ export const PatientForm = ({
           />
         </div>
         <div className="form-group">
-          <label htmlFor="passport">Passport No.</label>
+          <label
+            className="auth-label"
+            htmlFor="passport"
+          >
+            Passport No.
+          </label>
           <input
+            className="user-form__input number__input"
             type="text"
             id="passport"
             onChange={(e) => setPassport(e.target.value)}
@@ -101,8 +114,14 @@ export const PatientForm = ({
           />
         </div>
         <div className="form-group">
-          <label htmlFor="address">Address</label>
+          <label
+            className="auth-label"
+            htmlFor="address"
+          >
+            Address
+          </label>
           <input
+            className="user-form__input"
             type="text"
             id="address"
             onChange={(e) => setAddress(e.target.value)}
@@ -110,8 +129,14 @@ export const PatientForm = ({
           />
         </div>
         <div className="form-group">
-          <label htmlFor="postal-code">Postal Code</label>
+          <label
+            className="auth-label"
+            htmlFor="postal-code"
+          >
+            Postal Code
+          </label>
           <input
+            className="user-form__input number__input"
             type="text"
             id="postal-code"
             onChange={(e) => setPostalCode(e.target.value)}
@@ -119,7 +144,12 @@ export const PatientForm = ({
           />
         </div>
         <div className="form-group">
-          <label htmlFor="dob">Date of Birth:</label>
+          <label
+            className="auth-label"
+            htmlFor="dob"
+          >
+            Date of Birth:
+          </label>
           <SingleDatePicker
             id="dob"
             date={dob}
@@ -139,20 +169,29 @@ export const PatientForm = ({
           />
         </div>
         <div className="form-group">
-          <label htmlFor="points">Points</label>
+          <label
+            className="auth-label"
+            htmlFor="points"
+          >
+            Points
+          </label>
           <input
+            className="user-form__input"
             type="number"
             id="points"
             onChange={(e) => setPoints(e.target.value)}
             value={points}
           />
         </div>
-        <button
-          type="submit"
-          onClick={handleSubmit}
-        >
-          Update Profile
-        </button>
+        <div className="form-group profile-form-group">
+          <button
+            className="user-form__button profile-button"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Update Profile
+          </button>
+        </div>
       </form>
     </div>
   );
