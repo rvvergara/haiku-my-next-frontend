@@ -12,7 +12,7 @@ const LoginForm = ({ error, login }) => {
     e.preventDefault();
     try {
       await login({ email, password });
-      Router.push('/');
+      return Router.push('/');
     } catch (error) {
      return error;
     }
