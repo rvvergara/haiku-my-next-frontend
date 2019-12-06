@@ -7,7 +7,7 @@ import { logout } from '../../store/thunks/user';
 export const Header = ({ logout, currentUserData }) => {
   const handleLogout = () => {
     logout();
-    setTimeout(() => Router.push('/'), 1000);
+    Router.push('/');
   };
 
   const { firstName, role } = currentUserData;
