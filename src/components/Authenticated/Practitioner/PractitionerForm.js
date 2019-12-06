@@ -32,7 +32,7 @@ export const PractitionerForm = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { id } = currentUserData;
-    const practitionerId = currentUserData.profile.id;
+    const practitionerId = currentUserData.profile ? currentUserData.profile.id : undefined;
     const params = {
       education,
       specialities: specialties,
