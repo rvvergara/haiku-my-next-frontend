@@ -5,23 +5,22 @@ import Layout from '../../components/Layouts/Layout';
 import ConnectedPractitionerForm from '../../components/Authenticated/Practitioner/PractitionerForm';
 import ConnectedPatientForm from '../../components/Authenticated/Patient/PatientForm';
 
-export const NewProfilePage = ({ token, currentUserData }) => (
-  <Layout title={`New ${currentUserData.role} profile`}>
-    <h1>Please fill up your information first</h1>
+export const ProfileEditPage = ({ token, currentUserData }) => (
+  <Layout title={`Edit ${currentUserData.role} profile`}>
     {currentUserData.role === 'practitioner' ? <ConnectedPractitionerForm token={token} /> : <ConnectedPatientForm token={token} />}
   </Layout>
 );
 
-NewProfilePage.getInitialProps = (ctx) => {
+ProfileEditPage.getInitialProps = (ctx) => {
   const { store } = ctx;
   const { data } = store.getState().currentUser;
   const token = axios.defaults.headers.common.Authorization.split(' ')[1];
   return { token, currentUserData: data };
 };
 
-NewProfilePage.propTypes = {
+ProfileEditPage.propTypes = {
   currentUserData: PropTypes.instanceOf(Object).isRequired,
   token: PropTypes.string.isRequired,
 };
 
-export default connect((state) => state)(NewProfilePage);
+export default connect((state) => state)(ProfileEditPage);
