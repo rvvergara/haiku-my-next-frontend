@@ -105,7 +105,8 @@ export const PatientForm = ({ createPatient, currentUserData, token }) => {
           <label htmlFor="languages">Languages</label>
           <MultipleInput
             selectedInputs={(inputs) => setLanguages(inputs)}
-            languages={languages}
+            values={languages}
+            labelId="languages"
           />
         </div>
         <div className="form-group">
