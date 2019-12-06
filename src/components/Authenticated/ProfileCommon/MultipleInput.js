@@ -2,8 +2,8 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid';
 
-const MultipleInput = ({ selectedInputs, languages }) => {
-  const [inputs, setInputs] = useState(languages);
+const MultipleInput = ({ selectedInputs, values, labelId }) => {
+  const [inputs, setInputs] = useState(values);
 
   const addInputs = (e) => {
     if (e.key === ',' && e.target.value !== '') {
@@ -41,12 +41,12 @@ const MultipleInput = ({ selectedInputs, languages }) => {
         })}
       </ul>
       <input
-        id="languages"
+        id={labelId}
         className="multiple-input-box"
         type="text"
         placeholder="Entries are comma separated"
         onKeyUp={(e) => addInputs(e)}
-        defaultValue={languages}
+        defaultValue={values}
       />
     </div>
   );
@@ -54,7 +54,8 @@ const MultipleInput = ({ selectedInputs, languages }) => {
 
 MultipleInput.propTypes = {
   selectedInputs: PropTypes.func.isRequired,
-  languages: PropTypes.instanceOf(Object).isRequired,
+  values: PropTypes.instanceOf(Object).isRequired,
+  labelId: PropTypes.string.isRequired,
 };
 
 export default MultipleInput;
