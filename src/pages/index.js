@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Layout from '../components/Layouts/Layout';
+import VisitorLayout from '../components/VisitorContent/VisitorLayout';
 import VisitorContent from '../components/VisitorContent/VisitorContent';
 import ConnectedDashboard from '../components/Authenticated/Dashboard';
 
@@ -13,7 +14,9 @@ export const IndexPage = ({ currentUser }) => {
     );
   }
     return (
-      <VisitorContent />
+      <VisitorLayout title="Health That Cares">
+        <VisitorContent />
+      </VisitorLayout>
     );
 };
 
