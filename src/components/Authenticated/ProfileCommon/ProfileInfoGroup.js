@@ -6,7 +6,10 @@ const ProfileInfoGroup = ({ infoKey, val }) => (
       {infoKey}
       :
     </p>
-    <p className="profile__info__value">{val}</p>
+    <p className="profile__info__value">
+      {val}
+      {' '}
+    </p>
   </div>
 );
 

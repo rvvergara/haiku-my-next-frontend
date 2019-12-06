@@ -18,7 +18,7 @@ const MultipleInput = ({ selectedInputs, values, labelId }) => {
 
   const addInputs = (e) => {
     if (e.key === ',' && e.target.value !== '') {
-      const newInput = { val: e.target.value, id: uuid() };
+      const newInput = { val: e.target.value.replace(',', ''), id: uuid() };
       const newInputs = [...inputs, newInput];
       setInputs(newInputs);
       selectedInputs(newInputs.map((input) => input.val));
