@@ -47,7 +47,7 @@ export const signup = (params) => async (dispatch) => {
   }
 };
 
-export const login = (params) => async (dispatch) => {
+export const login = (params) => async (dispatch, getState) => {
   const path = 'v1/users/login';
 
   try {
@@ -56,7 +56,8 @@ export const login = (params) => async (dispatch) => {
     setAuthorizationToken(token);
     setCookie('token', token);
     await setUserInStore(user, dispatch);
-    return user;
+    const currentUserData = getState().currentUser.data;
+    return currentUserData;
   } catch (err) {
     dispatch(setError(err.response.data.error));
     throw new Error();
