@@ -43,7 +43,7 @@ export const PatientProfileEdit = ({ createPatient, currentUserData, token }) =>
         points,
         userId: id,
       });
-      Router.push('/');
+      setTimeout(() => Router.push('/'), 1000);
       return true;
     } catch (error) {
       return error;
