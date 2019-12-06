@@ -1,25 +1,34 @@
 .jumbo-intro {
-  background: url('https://tinyimg.io/i/jv6FlSW.jpg') no-repeat;
+  background: url('https://tinyimg.io/i/N0H4ARg.jpg') no-repeat;
   background-size: cover;
   height: 100vh;
 }
 
 .jumbo-intro__content {
+  left: 65rem;
   margin: auto;
   padding: $container-side-pad * 1 0;
+  position: absolute;
   text-align: center;
+  top: 5rem;
   vertical-align: middle;
-  width: 50%;
+  width: 50vw;
 }
 
 .jumbo-intro__title {
   margin: 0
 }
 
+.jumbo-intro__title__img {
+  width: 80%;
+}
+
 .jumbo-intro__subtitle {
   background: $light-blue;
   color: $regular-blue;
+  font-size: $large;
   margin: 0 auto;
   padding: $button-pad*3 0;
+  text-shadow: 1px 1px 1px $purplish-blue;
   width: 70%;
 }
