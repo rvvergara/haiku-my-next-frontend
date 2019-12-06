@@ -1,0 +1,72 @@
+.auth__container {
+  padding: $container-side-pad;
+  background: $light-gradient;
+  height: 100vh;
+}
+
+.auth-box {
+  background: $white;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px $regular-grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: auto;
+  padding: $large-pad/3;
+  width: 30%;
+}
+
+.auth-logo {
+  text-align: center;
+}
+
+.auth-logo__img {
+  display: inline-block;
+  width: 50%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin: $button-pad*3 $button-pad*2;
+}
+
+.user-form {
+  background: $white;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.auth-label {
+  color: $dark-blue;
+  font-weight: 700;
+  text-align: left;
+}
+
+.user-form__input {
+  border: 2px solid lighten($dark-blue, 50%);
+  border-radius: 5px;
+  font-size: $medium;
+  padding: $button-pad*1.5 $button-pad;
+}
+
+.user-form__button {
+  background: $green;
+  border-radius: 5px;
+  color: $white;
+  font-size: $xmedium;
+  letter-spacing: 0.2rem;
+  padding: $button-pad*1.5 $button-pad;
+  text-shadow: 0.5px 0.5px 0.5px $light-grey;
+}
+
+.user-form__footer__button {
+  color: $dark-blue;
+  font-weight: 700;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import Router from 'next/router';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { login } from '../store/thunks/user';
 
@@ -30,23 +31,59 @@ const LoginForm = ({ error, login }) => {
           </div>
         )
       }
-      <form>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button
-          type="submit"
-          onClick={handleLogin}
-        >
-          Login
-        </button>
+      <form className="user-form">
+        <div className="form-group">
+          <label
+            className="auth-label"
+            htmlFor="email"
+          >
+            Email
+          </label>
+          <input
+            className="user-form__input"
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label
+            className="auth-label"
+            htmlFor="password"
+          >
+            Password
+          </label>
+          <input
+            id="password"
+            className="user-form__input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <button
+            className="user-form__button"
+            type="submit"
+            onClick={handleLogin}
+          >
+            Login
+          </button>
+        </div>
+        <footer className="user-form__footer">
+          <small>
+            No account yet?
+            <Link href="/signup">
+              <button
+                type="button"
+                className="user-form__footer__button"
+              >
+                Signup
+              </button>
+            </Link>
+          </small>
+        </footer>
       </form>
     </div>
   );
