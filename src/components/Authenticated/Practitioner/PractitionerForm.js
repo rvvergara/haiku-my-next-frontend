@@ -9,10 +9,23 @@ import { setAuthorizationToken } from '../../../utils/api';
 export const PractitionerForm = ({ createPractitioner, currentUserData, token }) => {
   setAuthorizationToken(token);
 
-  const [education, setEducation] = useState([]);
-  const [specialties, setSpecialties] = useState([]);
-  const [biography, setBiography] = useState('');
-  const [yearsExp, setYearsExp] = useState(0);
+  const { profile } = currentUserData;
+  let educVal = [];
+  let specVal = [];
+  let bioVal = '';
+  let yrVal = 0;
+
+  if (profile) {
+    educVal = profile.education;
+    specVal = profile.specialities;
+    bioVal = profile.biography;
+    yrVal = profile.yearsExpl;
+  }
+
+  const [education, setEducation] = useState(educVal);
+  const [specialties, setSpecialties] = useState(specVal);
+  const [biography, setBiography] = useState(bioVal);
+  const [yearsExp, setYearsExp] = useState(yrVal);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +33,7 @@ export const PractitionerForm = ({ createPractitioner, currentUserData, token })
     try {
       await createPractitioner({
         education,
-        specialties,
+        specialities: specialties,
         biography,
         yearsExp,
         userId: id,
