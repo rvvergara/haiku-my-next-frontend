@@ -136,3 +136,45 @@ export const removePractitionerFromClinic = (token, practitionerId) => {
         }
     };
 }
+
+export const aggregatePatientsByClinicBookings = (token, clinicId) => {
+    return async dispatch => {
+        dispatch({
+            type: clinicConstants.LOADING_CLINIC_PATIENTS
+        });
+        try {
+            const patients = await sendAuthorizedRequest('get', `v1/bookings/${clinicId}/patients/aggregate`, token);
+            const { bookings } = patients.data
+            dispatch({
+                type: clinicConstants.GET_CLINIC_PATIENT_IDS,
+                payload: bookings
+            });
+            return bookings;
+        }
+        catch (error) {
+            console.log(error);
+            dispatch(setError(error));
+        }
+    };
+}
+
+export const getClinicPatientsData = (token, ids) => {
+    return async dispatch => {
+        dispatch({
+            type: clinicConstants.LOADING_CLINIC_PATIENTS
+        });
+        try {
+            const patients = await sendAuthorizedRequest('post', `v1/patients/ids`, token, { ids });
+            const { users } = patients.data;
+            dispatch({
+                type: clinicConstants.GET_CLINIC_PATIENT_DATA,
+                payload: users
+            });
+            return users;
+        }
+        catch (error) {
+            console.log(error);
+            dispatch(setError(error));
+        }
+    };
+}

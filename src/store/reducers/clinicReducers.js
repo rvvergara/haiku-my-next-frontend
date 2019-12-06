@@ -8,7 +8,10 @@ const initialState = {
     loadingClinicPractitioners: true,
     loadingPractitionersForClinic: true,
     practitionerListForClinicPage: [],
-    clinicPractitionerList: []
+    clinicPractitionerList: [],
+    loadingClinicPatients: true,
+    clinicPatientsIds: [],
+    clinicPatientsData: []
 };
 
 export default (state = initialState, action) => {
@@ -28,6 +31,10 @@ export default (state = initialState, action) => {
         case clinicConstants.LOADING_CLINIC_PRACTITIONERS:
             return Object.assign({}, state, {
                 loadingClinicPractitioners: true
+            })
+        case clinicConstants.LOADING_CLINIC_PATIENTS:
+            return Object.assign({}, state, {
+                loadingClinicPatients: true
             })
         case clinicConstants.GET_ADMIN_PROFILE:
             return Object.assign({}, state, {
@@ -67,6 +74,16 @@ export default (state = initialState, action) => {
             return Object.assign({}, state, {
                 loadingClinicPractitioners: false,
                 clinicPractitionerList: state.clinicPractitionerList.filter(({ id }) => id !== action.payload)
+            })
+        case clinicConstants.GET_CLINIC_PATIENT_IDS:
+            return Object.assign({}, state, {
+                loadingClinicPatients: false,
+                clinicPatientsIds: action.payload
+            })
+        case clinicConstants.GET_CLINIC_PATIENT_DATA:
+            return Object.assign({}, state, {
+                loadingClinicPatients: false,
+                clinicPatientsData: action.payload
             })
         default:
             return state;

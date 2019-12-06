@@ -71,7 +71,6 @@ class Doctors extends Component {
     }
 
     transformPractitionersForSelect = (practitionerList, clinicPractitionerList) => {
-        console.log(practitionerList, clinicPractitionerList)
         if (practitionerList.length < 1) {
             return []
         }
@@ -94,9 +93,11 @@ class Doctors extends Component {
     }
 
     handleRemovePractitioner = (practitionerId) => {
-        const { removePractitionerFromClinic, token } = this.props
-        console.log(practitionerId, 'removed')
-        removePractitionerFromClinic(token, practitionerId)
+        const { removePractitionerFromClinic, token } = this.props;
+        let selection = confirm("Are you sure you want to remove?")
+        if (selection) {
+            removePractitionerFromClinic(token, practitionerId)
+        }
     }
 
     render() {

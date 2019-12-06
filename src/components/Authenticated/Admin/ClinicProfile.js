@@ -106,6 +106,7 @@ class Clinic extends Component {
                 <div>Loading...</div>
             ) : (
                     <div>
+                        <h3>Clinic</h3>
                         <form>
                             <div className="form-group">
                                 <input
@@ -176,6 +177,15 @@ class Clinic extends Component {
                         >
                             {savingClinic ? 'Saving...' : 'Save Changes'}
                         </button>
+
+
+                        {
+                            clinic ? (
+                                <div>
+                                    <h3>Opening Hours</h3>
+                                </div>
+                            ) : ''
+                        }
                     </div>
                 )
         )
