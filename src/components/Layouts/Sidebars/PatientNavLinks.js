@@ -1,9 +1,13 @@
+import Link from 'next/link';
+
 const PatientNavLinks = () => (
   <ul className="sidebar__nav">
     <li className="sidebar__navlink">
-      <button type="button">
-        My Profile
-      </button>
+      <Link href="/profile/edit">
+        <button type="button">
+          My Profile
+        </button>
+      </Link>
     </li>
     <li className="sidebar__navlink">
       <button type="button">

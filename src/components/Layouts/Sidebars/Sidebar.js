@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import PractitionerNavLinks from './PractitionerNavLinks';
-import PatienNavLinks from './PatientNavLinks';
+import PatientNavLinks from './PatientNavLinks';
 
 export const Sidebar = ({ userRole }) => {
   const imgSrc = userRole === 'practitioner' ? 'http://tinyimg.io/i/qWwgVO4.jpg' : 'https://tinyimg.io/i/BmtLUPZ.jpg';
@@ -16,7 +16,7 @@ export const Sidebar = ({ userRole }) => {
             className="profile-avatar__img"
           />
         </div>
-        {userRole === 'practitioner' ? <PractitionerNavLinks /> : <PatienNavLinks />}
+        {userRole === 'practitioner' ? <PractitionerNavLinks /> : <PatientNavLinks />}
       </div>
     </div>
 );
