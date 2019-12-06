@@ -45,7 +45,7 @@ const SignupForm = ({ error, signup }) => {
         role,
         activated: true,
       });
-      Router.push('/');
+      Router.push('/profile/new');
       resetFormHook([setFirstName, setLastName, setEmail, setPassword, setPwConfirm, setFormError]);
     } catch (err) {
       setFormError(error);
