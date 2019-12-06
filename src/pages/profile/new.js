@@ -1,21 +1,27 @@
+import { connect } from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import ConnectedPatientProfileForm from '../../components/Authenticated/Patient/PatientProfileForm';
+import Layout from '../../components/Layouts/Layout';
+import ConnectedPractitionerForm from '../../components/Authenticated/Practitioner/PractitionerForm';
+import ConnectedPatientForm from '../../components/Authenticated/Patient/PatientForm';
 
-const ProfileEditPage = ({ token }) => (
-  <div>
+export const ProfileEditPage = ({ token, currentUserData }) => (
+  <Layout title={`New ${currentUserData.role} profile`}>
     <h1>Please fill up your information first</h1>
-    <ConnectedPatientProfileForm token={token} />
-  </div>
+    {currentUserData.role === 'practitioner' ? <ConnectedPractitionerForm token={token} /> : <ConnectedPatientForm token={token} />}
+  </Layout>
 );
 
-ProfileEditPage.getInitialProps = () => {
+ProfileEditPage.getInitialProps = (ctx) => {
+  const { store } = ctx;
+  const { data } = store.getState().currentUser;
   const token = axios.defaults.headers.common.Authorization.split(' ')[1];
-  return { token };
+  return { token, currentUserData: data };
 };
 
 ProfileEditPage.propTypes = {
+  currentUserData: PropTypes.instanceOf(Object).isRequired,
   token: PropTypes.string.isRequired,
 };
 
-export default ProfileEditPage;
+export default connect((state) => state)(ProfileEditPage);
