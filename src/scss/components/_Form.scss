@@ -35,7 +35,6 @@
   background: $white;
   display: flex;
   flex-direction: column;
-  text-align: center;
 }
 
 .auth-label {
@@ -49,6 +48,19 @@
   border-radius: 5px;
   font-size: $medium;
   padding: $button-pad*1.5 $button-pad;
+}
+
+.number__input {
+  width: 20%;
+}
+
+.profile-form-group {
+  text-align: center;
+}
+
+.profile-button {
+  margin: auto;
+  width: 100%;
 }
 
 .user-form__option {
@@ -74,4 +86,18 @@
     cursor: pointer;
     text-decoration: underline;
   }
+}
+
+// Profile form
+.profile-form {
+  padding: $container-side-pad/3
+}
+
+.profile-form-container {
+  padding: $container-side-pad;
+}
+
+// Single Date Picker Styles
+.DateInput_input {
+  border: 2px solid lighten($dark-blue, 50%);
 }
