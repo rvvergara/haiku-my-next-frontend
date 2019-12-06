@@ -15,15 +15,15 @@ class IgakuApp extends App {
     const { profile } = data;
     const { pathname } = ctx;
 
-    if (authenticated && !profile && pathname !== '/profile/edit') {
-      return redirect(ctx, '/profile/edit');
+    if (authenticated && !profile && pathname !== '/profile/new') {
+      return redirect(ctx, '/profile/new');
     }
 
     if (authenticated && profile && (pathname === '/signup' || pathname === '/login')) {
       return redirect(ctx, '/');
     }
 
-    if (!authenticated && pathname === '/profile/edit') {
+    if ((!authenticated && pathname === '/profile/new') || (authenticated && pathname && profile === '/profile/new')) {
       return redirect(ctx, '/');
     }
     const pageProps = Component.getInitialProps
