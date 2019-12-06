@@ -3,11 +3,13 @@ import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { logout } from '../../store/thunks/user';
 
-export const Header = ({ logout }) => {
+export const Header = ({ logout, currentUserData }) => {
   const handleLogout = () => {
     logout();
     setTimeout(() => Router.push('/'), 1000);
   };
+
+  const { firstName, role } = currentUserData;
 
   return (
     <header className="header">
@@ -19,7 +21,12 @@ export const Header = ({ logout }) => {
         </div>
         <div className="header__links">
           <div className="header__links__welcome">
-            <strong>Welcome User</strong>
+            <strong>
+              Welcome
+              {' '}
+              { role === 'practitioner' ? 'Dr. ' : ''}
+              {firstName}
+            </strong>
           </div>
           <div className="header__links__logout">
             <button
@@ -37,7 +44,12 @@ export const Header = ({ logout }) => {
 };
 
 Header.propTypes = {
+  currentUserData: PropTypes.instanceOf(Object).isRequired,
   logout: PropTypes.func.isRequired,
 };
 
-export default connect(null, { logout })(Header);
+const mapStateToProps = (state) => ({
+  currentUserData: state.currentUser.data,
+});
+
+export default connect(mapStateToProps, { logout })(Header);
