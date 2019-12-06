@@ -35,7 +35,6 @@
   background: $white;
   display: flex;
   flex-direction: column;
-  text-align: center;
 }
 
 .auth-label {
@@ -96,4 +95,9 @@
 
 .profile-form-container {
   padding: $container-side-pad;
+}
+
+// Single Date Picker Styles
+.DateInput_input {
+  border: 2px solid lighten($dark-blue, 50%);
 }
