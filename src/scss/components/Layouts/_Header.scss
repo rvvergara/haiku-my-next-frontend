@@ -1,0 +1,27 @@
+.header {
+  background: $light-blue;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.header__links {
+  display: flex;
+  height: 50%;
+  margin-top: 2.0rem;
+}
+
+.header__links__welcome {
+  font-size: $xmedium;
+  margin-right: $button-pad*4;
+  padding: $button-pad;
+}
+
+.logout {
+  background: $light-green;
+  border-radius: 5px;
+  font-size: $medium;
+  padding: $button-pad $button-pad*2;
+}

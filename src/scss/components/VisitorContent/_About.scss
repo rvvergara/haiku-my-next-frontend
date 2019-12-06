@@ -1,0 +1,35 @@
+.about__background {
+  display: flex;
+}
+
+.about__content {
+  background: $white;
+  padding-left: $container-side-pad;
+  position: absolute;
+  top: 110vh;
+  width: 60%;
+}
+
+.about__title {
+  color: $regular-blue;
+  font-size: $large;
+  text-transform: uppercase;
+  width: 60%;
+}
+
+.about__text {
+  color: $light-green;
+  font-size: $medium;
+}
+
+.about__background__blue {
+  background: $light-blue;
+  width: 40%;
+  height: 40vw;
+}
+
+.about__background__image {
+  background: url('https://tinyimg.io/i/mnhNm3B.jpg') no-repeat;
+  background-size: cover;
+  width: 60%;
+}
