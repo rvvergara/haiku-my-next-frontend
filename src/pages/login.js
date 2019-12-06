@@ -1,10 +1,10 @@
 import LoginForm from '../components/LoginForm';
+import VisitorLayout from '../components/VisitorContent/VisitorLayout';
 
 const LoginPage = () => (
-  <div>
-    <h1>Login Here</h1>
+  <VisitorLayout title="Login">
     <LoginForm />
-  </div>
+  </VisitorLayout>
 );
 
 export default LoginPage;

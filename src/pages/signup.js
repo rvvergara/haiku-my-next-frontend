@@ -1,10 +1,11 @@
 import SignupForm from '../components/SignupForm';
+import VisitorLayout from '../components/VisitorContent/VisitorLayout';
 
 const SignupPage = () => (
-  <div>
+  <VisitorLayout title="Create Account">
     <h1>Signup Here</h1>
     <SignupForm />
-  </div>
+  </VisitorLayout>
 );
 
 export default SignupPage;
