@@ -12,14 +12,33 @@ import { setAuthorizationToken } from '../../../utils/api';
 export const PatientForm = ({ createPatient, currentUserData, token }) => {
   setAuthorizationToken(token);
 
-  const [contactNo, setContactNo] = useState('');
-  const [passport, setPassport] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [address, setAddress] = useState('');
-  const [dob, setDob] = useState(moment());
+  const { profile } = currentUserData;
+  let contactVal = '';
+  let passportVal = '';
+  let postalVal = '';
+  let addressVal = '';
+  let dobVal = moment();
+  let languagesVal = [];
+  let pointsVal = 0;
+
+  if (profile) {
+    contactVal = profile.contactNo;
+    passportVal = profile.passport;
+    postalVal = profile.postalCode;
+    addressVal = profile.address;
+    dobVal = moment(profile.dob);
+    languagesVal = profile.languages;
+    pointsVal = profile.points;
+  }
+
+  const [contactNo, setContactNo] = useState(contactVal);
+  const [passport, setPassport] = useState(passportVal);
+  const [postalCode, setPostalCode] = useState(postalVal);
+  const [address, setAddress] = useState(addressVal);
+  const [dob, setDob] = useState(dobVal);
   const [calendarFocused, setCalendarFocused] = useState(false);
-  const [languages, setLanguages] = useState([]);
-  const [points, setPoints] = useState(0);
+  const [languages, setLanguages] = useState(languagesVal);
+  const [points, setPoints] = useState(pointsVal);
 
   const onFocusChange = ({ focused }) => setCalendarFocused(focused);
 
