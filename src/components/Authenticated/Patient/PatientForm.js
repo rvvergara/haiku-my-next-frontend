@@ -6,10 +6,10 @@ import moment from 'moment';
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 import MultipleInput from '../ProfileCommon/MultipleInput';
-import { createPatient } from '../../../store/thunks/patientProfile';
+import { createPatient } from '../../../store/thunks/patient';
 import { setAuthorizationToken } from '../../../utils/api';
 
-export const PatientProfileEdit = ({ createPatient, currentUserData, token }) => {
+export const PatientForm = ({ createPatient, currentUserData, token }) => {
   setAuthorizationToken(token);
 
   const [contactNo, setContactNo] = useState('');
@@ -128,7 +128,7 @@ export const PatientProfileEdit = ({ createPatient, currentUserData, token }) =>
   );
 };
 
-PatientProfileEdit.propTypes = {
+PatientForm.propTypes = {
   createPatient: PropTypes.func.isRequired,
   currentUserData: PropTypes.instanceOf(Object).isRequired,
   token: PropTypes.string.isRequired,
@@ -138,4 +138,4 @@ const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
 });
 
-export default connect(mapStateToProps, { createPatient })(PatientProfileEdit);
+export default connect(mapStateToProps, { createPatient })(PatientForm);
