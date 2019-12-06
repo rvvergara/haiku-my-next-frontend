@@ -4,9 +4,9 @@ const PatientNavLinks = () => (
   <ul className="sidebar__nav">
     <li className="sidebar__navlink">
       <Link href="/profile/edit">
-        <button type="button">
+        <a href="/profile/edit" className="nav-link">
           My Profile
-        </button>
+        </a>
       </Link>
     </li>
     <li className="sidebar__navlink">

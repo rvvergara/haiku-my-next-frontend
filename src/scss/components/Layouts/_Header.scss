@@ -8,6 +8,10 @@
 .header__brand__img {
   display: inline-block;
   width: 20%;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .header__links {
@@ -29,4 +33,5 @@
   color: $white;
   font-size: $medium;
   padding: $button-pad*1.2 $button-pad*3;
+  cursor: pointer;
 }
