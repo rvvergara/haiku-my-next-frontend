@@ -1,10 +1,13 @@
 .header {
-  background: $light-blue;
-
   .container {
     display: flex;
     justify-content: space-between;
   }
+}
+
+.header__brand__img {
+  display: inline-block;
+  width: 20%;
 }
 
 .header__links {
@@ -14,14 +17,16 @@
 }
 
 .header__links__welcome {
+  color: $dark-blue;
   font-size: $xmedium;
   margin-right: $button-pad*4;
   padding: $button-pad;
 }
 
 .logout {
-  background: $light-green;
-  border-radius: 5px;
+  background: $green;
+  border-radius: 30px;
+  color: $white;
   font-size: $medium;
-  padding: $button-pad $button-pad*2;
+  padding: $button-pad*1.2 $button-pad*3;
 }

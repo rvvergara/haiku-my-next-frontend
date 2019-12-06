@@ -15,9 +15,11 @@ export const Header = ({ logout, currentUserData }) => {
     <header className="header">
       <div className="container">
         <div className="header__brand">
-          <h1>
-          Igaku Logo Here
-          </h1>
+          <img
+            src="https://tinyimg.io/i/pBRWCRn.png"
+            alt="Igaku | Health that Cares"
+            className="header__brand__img"
+          />
         </div>
         <div className="header__links">
           <div className="header__links__welcome">
