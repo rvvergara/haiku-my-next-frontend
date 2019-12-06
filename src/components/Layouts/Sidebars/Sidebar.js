@@ -7,6 +7,13 @@ import PatienNavLinks from './PatientNavLinks';
 export const Sidebar = ({ userRole }) => (
   <div className="authenticated-body__sidebar">
     <div className="authenticated-body__sidebar-container">
+      <div className="profile-avatar">
+        <img
+          src="https://tinyimg.io/i/BmtLUPZ.jpg"
+          alt="Patient Profile"
+          className="profile-avatar__img"
+        />
+      </div>
       {userRole === 'practitioner' ? <PractitionerNavLinks /> : <PatienNavLinks />}
     </div>
   </div>
