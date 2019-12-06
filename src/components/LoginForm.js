@@ -24,13 +24,11 @@ const LoginForm = ({ error, login }) => {
 
   return (
     <div>
-      {
-        error && (
-          <div>
-            { error }
-          </div>
-        )
-      }
+      <div className="form-error">
+        {
+      error && <strong>{error}</strong>
+    }
+      </div>
       <form className="user-form">
         <div className="form-group">
           <label

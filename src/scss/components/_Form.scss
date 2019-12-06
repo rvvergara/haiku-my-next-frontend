@@ -51,6 +51,11 @@
   padding: $button-pad*1.5 $button-pad;
 }
 
+.user-form__option {
+  font-size: $regular;
+  line-height: 30px;
+}
+
 .user-form__button {
   background: $green;
   border-radius: 5px;
