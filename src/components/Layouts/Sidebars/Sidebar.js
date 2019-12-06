@@ -13,7 +13,11 @@ export const Sidebar = ({ userRole }) => (
 );
 
 Sidebar.propTypes = {
-  userRole: PropTypes.string.isRequired,
+  userRole: PropTypes.string,
+};
+
+Sidebar.defaultProps = {
+  userRole: '',
 };
 
 const mapStateToProps = (state) => ({

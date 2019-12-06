@@ -11,8 +11,11 @@ const LoginForm = ({ error, login }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await login({ email, password });
-      Router.push('/');
+      const user = await login({ email, password });
+      if (!user.profile) {
+        return setTimeout(() => Router.push('/profile/new'), 500);
+      }
+      return setTimeout(() => Router.push('/'), 500);
     } catch (error) {
      return error;
     }
