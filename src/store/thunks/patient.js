@@ -13,4 +13,13 @@ export const createPatient = (params) => async (dispatch) => {
   }
 };
 
-export const updatePatient = () => {};
+export const updatePatient = (patientId, params) => async (dispatch) => {
+  const path = `v1/patient/${patientId}`;
+  try {
+    await sendRequest('put', path, params);
+    dispatch(fetchUserData(params.userId));
+  } catch (err) {
+    dispatch(setError(err.response.data));
+    throw new Error();
+  }
+};
