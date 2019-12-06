@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import MultipleInput from '../ProfileCommon/MultipleInput';
-import { createPractitioner } from '../../../store/thunks/practitioner';
+import { createPractitioner, updatePractitioner } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
 
-export const PractitionerForm = ({ createPractitioner, currentUserData, token }) => {
+export const PractitionerForm = ({
+ createPractitioner, currentUserData, token, updatePractitioner,
+}) => {
   setAuthorizationToken(token);
 
   const { profile } = currentUserData;
@@ -30,14 +32,21 @@ export const PractitionerForm = ({ createPractitioner, currentUserData, token })
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { id } = currentUserData;
+    const practitionerId = currentUserData.profile.id;
+    const params = {
+      education,
+      specialities: specialties,
+      biography,
+      yearsExp,
+      userId: id,
+    };
     try {
-      await createPractitioner({
-        education,
-        specialities: specialties,
-        biography,
-        yearsExp,
-        userId: id,
-      });
+      if (Router.pathname === '/profile/new') {
+        await createPractitioner(params);
+      }
+      if (Router.pathname === '/profile/edit') {
+        await updatePractitioner(practitionerId, params);
+      }
       setTimeout(() => Router.push('/'), 1000);
       return true;
     } catch (error) {
@@ -97,10 +106,14 @@ PractitionerForm.propTypes = {
   createPractitioner: PropTypes.func.isRequired,
   currentUserData: PropTypes.instanceOf(Object).isRequired,
   token: PropTypes.string.isRequired,
+  updatePractitioner: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
 });
 
-export default connect(mapStateToProps, { createPractitioner })(PractitionerForm);
+export default connect(mapStateToProps, {
+ createPractitioner,
+  updatePractitioner,
+})(PractitionerForm);
