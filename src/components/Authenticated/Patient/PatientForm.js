@@ -6,20 +6,40 @@ import moment from 'moment';
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 import MultipleInput from '../ProfileCommon/MultipleInput';
-import { createPatient } from '../../../store/thunks/patient';
+import { createPatient, updatePatient } from '../../../store/thunks/patient';
 import { setAuthorizationToken } from '../../../utils/api';
 
-export const PatientForm = ({ createPatient, currentUserData, token }) => {
+export const PatientForm = ({
+ createPatient, currentUserData, token, updatePatient,
+}) => {
   setAuthorizationToken(token);
+  const { profile } = currentUserData;
+  let contactVal = '';
+  let passportVal = '';
+  let postalVal = '';
+  let addressVal = '';
+  let dobVal = moment();
+  let languagesVal = [];
+  let pointsVal = 0;
 
-  const [contactNo, setContactNo] = useState('');
-  const [passport, setPassport] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [address, setAddress] = useState('');
-  const [dob, setDob] = useState(moment());
+  if (profile) {
+    contactVal = profile.contactNo;
+    passportVal = profile.passport;
+    postalVal = profile.postalCode;
+    addressVal = profile.address;
+    dobVal = moment(profile.dob);
+    languagesVal = profile.languages;
+    pointsVal = profile.points;
+  }
+
+  const [contactNo, setContactNo] = useState(contactVal);
+  const [passport, setPassport] = useState(passportVal);
+  const [postalCode, setPostalCode] = useState(postalVal);
+  const [address, setAddress] = useState(addressVal);
+  const [dob, setDob] = useState(dobVal);
   const [calendarFocused, setCalendarFocused] = useState(false);
-  const [languages, setLanguages] = useState([]);
-  const [points, setPoints] = useState(0);
+  const [languages, setLanguages] = useState(languagesVal);
+  const [points, setPoints] = useState(pointsVal);
 
   const onFocusChange = ({ focused }) => setCalendarFocused(focused);
 
@@ -32,17 +52,26 @@ export const PatientForm = ({ createPatient, currentUserData, token }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { id } = currentUserData;
+    const patientId = currentUserData.profile.id;
+
+    const params = {
+      contactNo,
+      passport,
+      postalCode,
+      address,
+      dob: dob.valueOf(),
+      languages,
+      points,
+      userId: id,
+    };
+
     try {
-      await createPatient({
-        contactNo,
-        passport,
-        postalCode,
-        address,
-        dob: dob.valueOf(),
-        languages,
-        points,
-        userId: id,
-      });
+      if (Router.pathname === '/profile/new') {
+        await createPatient(params);
+      }
+      if (Router.pathname === '/profile/edit') {
+        await updatePatient(patientId, params);
+      }
       setTimeout(() => Router.push('/'), 1000);
       return true;
     } catch (error) {
@@ -133,10 +162,11 @@ PatientForm.propTypes = {
   createPatient: PropTypes.func.isRequired,
   currentUserData: PropTypes.instanceOf(Object).isRequired,
   token: PropTypes.string.isRequired,
+  updatePatient: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
 });
 
-export default connect(mapStateToProps, { createPatient })(PatientForm);
+export default connect(mapStateToProps, { createPatient, updatePatient })(PatientForm);

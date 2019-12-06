@@ -3,7 +3,18 @@ import PropTypes from 'prop-types';
 import uuid from 'uuid';
 
 const MultipleInput = ({ selectedInputs, values, labelId }) => {
-  const [inputs, setInputs] = useState(values);
+  let initialInputs;
+
+  if (values.length > 0) {
+    initialInputs = values.map((value) => {
+      const id = uuid();
+      return { val: value, id };
+    });
+  } else {
+    initialInputs = [];
+  }
+
+  const [inputs, setInputs] = useState(initialInputs);
 
   const addInputs = (e) => {
     if (e.key === ',' && e.target.value !== '') {
@@ -46,7 +57,7 @@ const MultipleInput = ({ selectedInputs, values, labelId }) => {
         type="text"
         placeholder="Entries are comma separated"
         onKeyUp={(e) => addInputs(e)}
-        defaultValue={values}
+        defaultValue=""
       />
     </div>
   );

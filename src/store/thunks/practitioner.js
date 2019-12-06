@@ -13,4 +13,13 @@ export const createPractitioner = (params) => async (dispatch) => {
   }
 };
 
-export const updatePractitioner = () => {};
+export const updatePractitioner = (practitionerId, params) => async (dispatch) => {
+  const path = `v1/practitioner/${practitionerId}`;
+  try {
+    await sendRequest('put', path, params);
+    dispatch(fetchUserData(params.userId));
+  } catch (err) {
+    dispatch(setError(err.response.data));
+    throw new Error();
+  }
+};
