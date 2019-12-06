@@ -24,11 +24,12 @@
 }
 
 .jumbo-intro__subtitle {
-  background: $light-blue;
-  color: $regular-blue;
+  color: $purplish-blue;
   font-size: $large;
+  left: 100px;
   margin: 0 auto;
   padding: $button-pad*3 0;
+  position: relative;
   text-shadow: 1px 1px 1px $purplish-blue;
   width: 70%;
 }
