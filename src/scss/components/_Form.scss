@@ -51,6 +51,19 @@
   padding: $button-pad*1.5 $button-pad;
 }
 
+.number__input {
+  width: 20%;
+}
+
+.profile-form-group {
+  text-align: center;
+}
+
+.profile-button {
+  margin: auto;
+  width: 100%;
+}
+
 .user-form__option {
   font-size: $regular;
   line-height: 30px;
@@ -74,4 +87,13 @@
     cursor: pointer;
     text-decoration: underline;
   }
+}
+
+// Profile form
+.profile-form {
+  padding: $container-side-pad/3
+}
+
+.profile-form-container {
+  padding: $container-side-pad;
 }

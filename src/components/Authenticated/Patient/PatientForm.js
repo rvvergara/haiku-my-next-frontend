@@ -81,7 +81,7 @@ export const PatientForm = ({
 
   return (
     <div>
-      <form>
+      <form className="user-form">
         <div className="form-group">
           <label htmlFor="contact-no">Contact Number: </label>
           <input

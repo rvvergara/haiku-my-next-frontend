@@ -5,12 +5,8 @@
   min-height: 48px;
   width: 480px;
   padding: 0 8px;
-  border: 1px solid rgb(214, 216, 218);
+  border: 2px solid lighten($dark-blue, 50%);
   border-radius: 6px;
-
-  &:focus-within {
-    border: 1px solid #0052cc;
-  }
 
   .multiple-input-box {
     flex: 1;
@@ -38,13 +34,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: $dark-blue;
   padding: 0 8px;
   font-size: 14px;
   list-style: none;
-  border-radius: 6px;
+  border-radius: 5px;
   margin: 0 8px 8px 0;
-  background: #0052cc;
+  background: $light-grey;
 
   .input-title {
     margin-top: 3px;
@@ -56,9 +52,9 @@
     height: 16px;
     line-height: 16px;
     text-align: center;
-    font-size: 14px;
+    font-size: 1rem;
     margin-left: 8px;
-    color: #0052cc;
+    color: $dark-blue;
     border-radius: 50%;
     background: #fff;
     cursor: pointer;
