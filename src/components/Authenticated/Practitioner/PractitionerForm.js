@@ -4,13 +4,10 @@ import PropTypes from 'prop-types';
 import Router from 'next/router';
 import MultipleInput from '../ProfileCommon/MultipleInput';
 import { createPractitioner, updatePractitioner } from '../../../store/thunks/practitioner';
-import { setAuthorizationToken } from '../../../utils/api';
 
 export const PractitionerForm = ({
- createPractitioner, currentUserData, token, updatePractitioner,
+ createPractitioner, currentUserData, updatePractitioner,
 }) => {
-  setAuthorizationToken(token);
-
   const { profile } = currentUserData;
   let educVal = [];
   let specVal = [];
@@ -137,7 +134,6 @@ export const PractitionerForm = ({
 PractitionerForm.propTypes = {
   createPractitioner: PropTypes.func.isRequired,
   currentUserData: PropTypes.instanceOf(Object).isRequired,
-  token: PropTypes.string.isRequired,
   updatePractitioner: PropTypes.func.isRequired,
 };
 
