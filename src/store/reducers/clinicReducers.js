@@ -1,5 +1,32 @@
 import { clinicConstants } from '../constants/clinicConstants';
 
+function editBookingStatus(practitionerBookingList, practitionerId, bookingId, status) {
+    return practitionerBookingList.map((prac, i) => {
+        if (prac.id !== practitionerId) {
+            return prac
+        } else {
+            if (status === clinicConstants.BOOKING_STATUS.REJECTED) {
+                return Object.assign({}, prac, {
+                    bookings: prac.bookings.filter(booking => booking.id !== bookingId)
+                })
+            } else {
+                const editedBookings = prac.bookings.map(booking => {
+                    if (booking.id !== bookingId) {
+                        return booking
+                    } else {
+                        return Object.assign({}, booking, {
+                            status
+                        })
+                    }
+                })
+                return Object.assign({}, prac, {
+                    bookings: editedBookings
+                })
+            }
+        }
+    })
+}
+
 const initialState = {
     loadingClinic: true,
     savingClinic: false,
@@ -10,8 +37,10 @@ const initialState = {
     practitionerListForClinicPage: [],
     clinicPractitionerList: [],
     loadingClinicPatients: true,
-    clinicPatientsIds: [],
-    clinicPatientsData: []
+    clinicPatients: [],
+    loadingClinicPractitionersWithBookings: true,
+    loadingClinicPractitionerBookings: false,
+    clinicPractitionersWithBookings: []
 };
 
 export default (state = initialState, action) => {
@@ -35,6 +64,14 @@ export default (state = initialState, action) => {
         case clinicConstants.LOADING_CLINIC_PATIENTS:
             return Object.assign({}, state, {
                 loadingClinicPatients: true
+            })
+        case clinicConstants.LOADING_CLINIC_PRACTITIONERS_WITH_BOOKINGS:
+            return Object.assign({}, state, {
+                loadingClinicPractitionersWithBookings: true
+            })
+        case clinicConstants.LOADING_CLINIC_PRACTITIONERS_BOOKINGS:
+            return Object.assign({}, state, {
+                loadingClinicPractitionerBookings: true
             })
         case clinicConstants.GET_ADMIN_PROFILE:
             return Object.assign({}, state, {
@@ -75,15 +112,20 @@ export default (state = initialState, action) => {
                 loadingClinicPractitioners: false,
                 clinicPractitionerList: state.clinicPractitionerList.filter(({ id }) => id !== action.payload)
             })
-        case clinicConstants.GET_CLINIC_PATIENT_IDS:
+        case clinicConstants.GET_CLINIC_PATIENTS:
             return Object.assign({}, state, {
                 loadingClinicPatients: false,
-                clinicPatientsIds: action.payload
+                clinicPatients: action.payload
             })
-        case clinicConstants.GET_CLINIC_PATIENT_DATA:
+        case clinicConstants.GET_CLINIC_PRACTITIONERS_WITH_BOOKINGS:
             return Object.assign({}, state, {
-                loadingClinicPatients: false,
-                clinicPatientsData: action.payload
+                loadingClinicPractitionersWithBookings: false,
+                clinicPractitionersWithBookings: action.payload
+            })
+        case clinicConstants.EDIT_CLINIC_BOOKING_STATUS:
+            return Object.assign({}, state, {
+                loadingClinicPractitionerBookings: false,
+                clinicPractitionersWithBookings: editBookingStatus(state.clinicPractitionersWithBookings, action.practitionerId, action.bookingId, action.status)
             })
         default:
             return state;

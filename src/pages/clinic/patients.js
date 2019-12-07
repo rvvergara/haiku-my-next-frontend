@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/Layouts/Layout';
 import NoClinic from '../../components/Authenticated/Admin/NoClinic';
-import { getAdminProfile, aggregatePatientsByClinicBookings, getClinicPatientsData } from '../../store/actions/clinicActions';
+import { getAdminProfile, aggregatePatientsByClinicBookings } from '../../store/actions/clinicActions';
 
 const PatientCard = ({ patient }) => {
     const numberOfTimes = patient.count > 1 ? 'times' : 'time';
+    const { firstName, lastName } = patient.patient.user;
     return (
         <div>
-            <div>{patient.patientId}</div>
-            <div>{patient.user.firstName}</div>
-            <div>{`${patient.count} ${numberOfTimes} visited`}</div>
+            <div>{`${firstName} ${lastName}`}</div>
+            <div>{`Visited ${patient.count} ${numberOfTimes}`}</div>
         </div>
     )
 }
@@ -18,49 +18,22 @@ const PatientCard = ({ patient }) => {
 class Patients extends Component {
 
     componentDidMount() {
-        const { clinic, getAdminProfile, token, data, aggregatePatientsByClinicBookings, getClinicPatientsData } = this.props;
+        const { clinic, getAdminProfile, token, data, aggregatePatientsByClinicBookings } = this.props;
         if (clinic) {
-            aggregatePatientsByClinicBookings(token, clinic.id).then(res => {
-                if (res.length > 0) {
-                    const patientIds = [...res.map(patient => patient.patientId)]
-                    getClinicPatientsData(token, patientIds)
-                }
-            })
+            aggregatePatientsByClinicBookings(token, clinic.id)
         } else {
             getAdminProfile(token, data.id).then(res => {
-                //get aggregate of patients, then get patient profiles
+                //get aggregate of patients
                 if (res && res.clinicId) {
-                    aggregatePatientsByClinicBookings(token, res.clinicId).then(res => {
-                        if (res.length > 0) {
-                            const patientIds = [...res.map(patient => patient.patientId)]
-                            getClinicPatientsData(token, patientIds)
-                        }
-                    })
+                    aggregatePatientsByClinicBookings(token, res.clinicId)
                 }
             })
         }
-    }
-
-    appendClinicPatientDataToIds = (clinicPatientsIds, clinicPatientsData) => {
-        let mergedArray = []
-        if (clinicPatientsIds.length > 0 && clinicPatientsData.length > 0) {
-            clinicPatientsIds.map((pId, i) => {
-                mergedArray.push({
-                    ...clinicPatientsIds[i],
-                    ...clinicPatientsData.find(pData => (
-                        pData.id === clinicPatientsIds[i].patientId
-                    ))
-                })
-            })
-
-        }
-        return mergedArray
     }
 
     render() {
-        const { data, clinic, loadingClinic, loadingClinicPatients, clinicPatientsIds, clinicPatientsData } = this.props;
-        const patientDataList = this.appendClinicPatientDataToIds(clinicPatientsIds, clinicPatientsData)
-        
+        const { data, clinic, loadingClinic, loadingClinicPatients, clinicPatients } = this.props;
+
         return (
             <Layout title="Patients" userName={data.firstName}>
                 <div>
@@ -74,9 +47,9 @@ class Patients extends Component {
                                     ) : (
                                             <div>
                                                 {
-                                                    patientDataList.length > 0 ?
+                                                    clinicPatients.length > 0 ?
                                                         (
-                                                            patientDataList.map((patient, i) => (
+                                                            clinicPatients.map((patient, i) => (
                                                                 <PatientCard
                                                                     patient={patient}
                                                                     key={i}
@@ -101,15 +74,14 @@ class Patients extends Component {
 
 function mapStateToProps(state) {
     const { token, data } = state.currentUser;
-    const { clinic, loadingClinic, loadingClinicPatients, clinicPatientsIds, clinicPatientsData } = state.clinicReducers
+    const { clinic, loadingClinic, loadingClinicPatients, clinicPatients } = state.clinicReducers
     return {
         data,
         token,
         clinic,
         loadingClinic,
         loadingClinicPatients,
-        clinicPatientsIds,
-        clinicPatientsData
+        clinicPatients
     };
 }
 
@@ -120,9 +92,6 @@ const mapDispatchToProps = dispatch => {
         },
         aggregatePatientsByClinicBookings: (token, clinicId) => {
             return dispatch(aggregatePatientsByClinicBookings(token, clinicId))
-        },
-        getClinicPatientsData: (token, ids) => {
-            return dispatch(getClinicPatientsData(token, ids))
         }
     };
 };

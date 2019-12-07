@@ -3,16 +3,25 @@ import { connect } from 'react-redux';
 import { getAdminProfile, createClinic, editClinic } from '../../../store/actions/clinicActions';
 import { clinicConstants } from '../../../store/constants/clinicConstants'
 import Select from 'react-select';
+import moment from 'moment';
 
-const setValue = (value) => {
+const setValue = (value, label = null) => {
     return {
         value,
-        label: value
+        label: label || value
     }
 }
 
 const clinicCategories = [...clinicConstants.CLINIC_CATEGORIES.map(cat => setValue(cat))]
 const clinicProviders = [...clinicConstants.CLINIC_PROVIDERS.map(prov => setValue(prov))]
+
+const getDaysArray = () => {
+    const days = []
+    for(let i = 1; i < 8; i++){
+        days.push(setValue(i, moment().isoWeekday(i).format('ddd')))
+    }
+    return days;
+}
 
 class Clinic extends Component {
     constructor(props) {
@@ -101,6 +110,8 @@ class Clinic extends Component {
         const currentProviders = providers && providers.length > 0 ? [...providers.map(prov => setValue(prov))] : '';
 
         const isSavedDisabled = savingClinic || !name || !address || !postalCode;
+
+        console.log(getDaysArray())
         return (
             loadingClinic ? (
                 <div>Loading...</div>
@@ -175,7 +186,7 @@ class Clinic extends Component {
                             onClick={this.handleSubmit}
                             disabled={isSavedDisabled}
                         >
-                            {savingClinic ? 'Saving...' : 'Save Changes'}
+                            {savingClinic ? 'Saving...' : (clinic ? 'Save Changes' : "Create Clinic")}
                         </button>
 
 

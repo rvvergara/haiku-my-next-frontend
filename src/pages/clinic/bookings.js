@@ -2,26 +2,83 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/Layouts/Layout';
 import NoClinic from '../../components/Authenticated/Admin/NoClinic';
-import { getAdminProfile, getAllClinicPractitioners } from '../../store/actions/clinicActions';
+import { getAdminProfile, getClinicPractitionersWithBookings, updateBookingStatus } from '../../store/actions/clinicActions';
+import { clinicConstants } from '../../store/constants/clinicConstants';
+import moment from "moment";
+
+const PractitionerBookings = ({ bookings, practitionerId, handleChangeBookingStatus }) => {
+    return (
+        bookings.length > 0 ? (
+            bookings.map(booking => {
+                const { firstName, lastName } = booking.patient.user;
+                const { image } = booking.patient
+                return (
+                    <div key={booking.id}>
+                        {`${firstName} ${lastName}`}
+                        {booking.status}
+                        {moment(booking.startTime).format('DD-MMM-YYYY h:mm a')}
+                        {
+                            booking.status === clinicConstants.BOOKING_STATUS.PENDING ? (
+                                <div>
+                                    <button
+                                        value={clinicConstants.BOOKING_STATUS.ACCEPTED}
+                                        onClick={(e) => handleChangeBookingStatus(e, practitionerId, booking.id)}
+                                    >
+                                        Accept
+                                    </button>
+                                    <button
+                                        value={clinicConstants.BOOKING_STATUS.REJECTED}
+                                        onClick={(e) => handleChangeBookingStatus(e, practitionerId, booking.id)}
+                                    >
+                                        Reject
+                                    </button>
+                                </div>
+                            ) :
+                            //for testing
+                                <button
+                                    value={clinicConstants.BOOKING_STATUS.PENDING}
+                                    onClick={(e) => handleChangeBookingStatus(e, practitionerId, booking.id)}
+                                >
+                                    Pending
+                        </button>
+                        }
+                    </div>
+                )
+            })
+        ) : (
+                <div>No bookings yet</div>
+            )
+    )
+}
 
 class Bookings extends Component {
 
     componentDidMount() {
-        const { clinic, getAllClinicPractitioners, getAdminProfile, token, data } = this.props;
+        const { clinic, getClinicPractitionersWithBookings, getAdminProfile, token, data } = this.props;
         if (clinic) {
-            getAllClinicPractitioners(token, clinic.id)
+            getClinicPractitionersWithBookings(token, clinic.id)
         } else {
             getAdminProfile(token, data.id).then(res => {
                 if (res && res.clinicId) {
-                    getAllClinicPractitioners(token, res.clinicId)
+                    getClinicPractitionersWithBookings(token, res.clinicId)
                 }
             })
         }
     }
 
+    handleChangeBookingStatus = (e, practitionerId, bookingId) => {
+        const { token, updateBookingStatus } = this.props
+        const { value } = e.target;
+        const statusText = value === clinicConstants.BOOKING_STATUS.REJECTED ? 'reject' : 'accept'
+        let selection = confirm(`Are you sure you want to ${statusText} booking?`)
+        if (selection) {
+            updateBookingStatus(token, practitionerId, bookingId, value)
+        }
+        updateBookingStatus(token, practitionerId, bookingId, value)
+    }
 
     render() {
-        const { data, clinic, loadingClinic, clinicPractitionerList, loadingClinicPractitioners } = this.props;
+        const { data, clinic, loadingClinic, loadingClinicPractitionersWithBookings, clinicPractitionersWithBookings } = this.props;
         return (
             <Layout title="Bookings" userName={data.firstName}>
                 <div>
@@ -30,13 +87,21 @@ class Bookings extends Component {
                             <div>Loading...</div>
                         ) : (
                                 clinic ? (
-                                    loadingClinicPractitioners ? (
+                                    loadingClinicPractitionersWithBookings ? (
                                         <div>Loading...</div>
                                     ) : (
-                                            clinicPractitionerList.length > 0 ? (
-                                                clinicPractitionerList.map(cp => {
+                                            clinicPractitionersWithBookings.length > 0 ? (
+                                                clinicPractitionersWithBookings.map(cp => {
+                                                    const { firstName, lastName } = cp.user;
                                                     return (
-                                                        <div>{cp.user.firstName}</div>
+                                                        <div key={cp.id}>
+                                                            <div>{`Dr ${firstName} ${lastName}`}</div>
+                                                            <PractitionerBookings
+                                                                bookings={cp.bookings}
+                                                                practitionerId={cp.id}
+                                                                handleChangeBookingStatus={this.handleChangeBookingStatus}
+                                                            />
+                                                        </div>
                                                     )
                                                 })
                                             ) : (
@@ -56,14 +121,15 @@ class Bookings extends Component {
 
 function mapStateToProps(state) {
     const { token, data } = state.currentUser;
-    const { clinic, loadingClinic, clinicPractitionerList, loadingClinicPractitioners } = state.clinicReducers
+    const { clinic, loadingClinic, loadingClinicPractitionersWithBookings, clinicPractitionersWithBookings, loadingClinicPractitionerBookings } = state.clinicReducers
     return {
         data,
         token,
         clinic,
         loadingClinic,
-        clinicPractitionerList,
-        loadingClinicPractitioners
+        loadingClinicPractitionersWithBookings,
+        clinicPractitionersWithBookings,
+        loadingClinicPractitionerBookings
     };
 }
 
@@ -72,9 +138,12 @@ const mapDispatchToProps = dispatch => {
         getAdminProfile: (token, userId) => {
             return dispatch(getAdminProfile(token, userId));
         },
-        getAllClinicPractitioners: (token, clinicId) => {
-            return dispatch(getAllClinicPractitioners(token, clinicId))
+        getClinicPractitionersWithBookings: (token, clinicId) => {
+            return dispatch(getClinicPractitionersWithBookings(token, clinicId))
         },
+        updateBookingStatus: (token, practitionerId, bookingId, status) => {
+            return dispatch(updateBookingStatus(token, practitionerId, bookingId, status))
+        }
     };
 };
 

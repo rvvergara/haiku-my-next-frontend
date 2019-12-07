@@ -146,7 +146,7 @@ export const aggregatePatientsByClinicBookings = (token, clinicId) => {
             const patients = await sendAuthorizedRequest('get', `v1/bookings/${clinicId}/patients/aggregate`, token);
             const { bookings } = patients.data
             dispatch({
-                type: clinicConstants.GET_CLINIC_PATIENT_IDS,
+                type: clinicConstants.GET_CLINIC_PATIENTS,
                 payload: bookings
             });
             return bookings;
@@ -158,19 +158,40 @@ export const aggregatePatientsByClinicBookings = (token, clinicId) => {
     };
 }
 
-export const getClinicPatientsData = (token, ids) => {
+export const getClinicPractitionersWithBookings = (token, clinicId) => {
     return async dispatch => {
         dispatch({
-            type: clinicConstants.LOADING_CLINIC_PATIENTS
+            type: clinicConstants.LOADING_CLINIC_PRACTITIONERS_WITH_BOOKINGS
         });
         try {
-            const patients = await sendAuthorizedRequest('post', `v1/patients/ids`, token, { ids });
-            const { users } = patients.data;
+            const practitioners = await sendAuthorizedRequest('get', `v1/practitioners/${clinicId}/clinic/bookings`, token);
             dispatch({
-                type: clinicConstants.GET_CLINIC_PATIENT_DATA,
-                payload: users
+                type: clinicConstants.GET_CLINIC_PRACTITIONERS_WITH_BOOKINGS,
+                payload: practitioners.data.practitioners
             });
-            return users;
+            return practitioners.data.practitioners;
+        }
+        catch (error) {
+            console.log(error);
+            dispatch(setError(error));
+        }
+    };
+}
+
+export const updateBookingStatus = (token, practitionerId, bookingId, status) => {
+    return async dispatch => {
+        dispatch({
+            type: clinicConstants.LOADING_CLINIC_PRACTITIONERS_BOOKINGS
+        });
+        try {
+            const booking = await sendAuthorizedRequest('put', `v1/booking/${bookingId}`, token, { status });
+            dispatch({
+                type: clinicConstants.EDIT_CLINIC_BOOKING_STATUS,
+                bookingId,
+                status,
+                practitionerId
+            });
+            return true;
         }
         catch (error) {
             console.log(error);
