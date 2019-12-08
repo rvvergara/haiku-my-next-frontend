@@ -113,13 +113,12 @@ class Doctors extends Component {
         } = this.props;
 
         const practitionerListForSelect = this.transformPractitionersForSelect(practitionerListForClinicPage, clinicPractitionerList);
-        const pageloading = loadingClinic || loadingPractitionersForClinic;
 
         return (
             <Layout title="Doctors" userName={data.firstName}>
                 <div>
                     {
-                        pageloading ? (
+                        loadingClinic ? (
                             <div>Loading...</div>
                         ) : (
                                 clinic ? (

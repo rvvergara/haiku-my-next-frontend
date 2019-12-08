@@ -221,7 +221,7 @@ class Clinic extends Component {
 
     handleSubmit = () => {
         const { name, address, postalCode, category, providers, minFee, maxFee } = this.state;
-        const { token, data, createClinic, clinic, editClinic } = this.props;
+        const { token, data, createClinic, clinic, editClinic, getClinicOpeningHours } = this.props;
         const body = {
             image: null,
             name,
@@ -233,7 +233,10 @@ class Clinic extends Component {
             maxFee
         }
         if (!clinic) {
-            createClinic(token, data.id, body).then(res => this.setClinicDetailsToState(res))
+            createClinic(token, data.id, body).then(res => {
+                this.setClinicDetailsToState(res)
+                getClinicOpeningHours(token, res.id)
+            })
         } else {
             editClinic(token, clinic.id, body).then(res => this.setClinicDetailsToState(res))
         }
