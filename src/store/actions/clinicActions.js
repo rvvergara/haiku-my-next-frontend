@@ -199,3 +199,89 @@ export const updateBookingStatus = (token, practitionerId, bookingId, status) =>
         }
     };
 }
+
+export const getClinicOpeningHours = (token, clinicId) => {
+    return async dispatch => {
+        dispatch({
+            type: clinicConstants.LOADING_CLINIC_OPENING_HOURS
+        });
+        try {
+            const openinghours = await sendAuthorizedRequest('get', `v1/openinghours/${clinicId}/clinic`, token);
+            const { openingHours } = openinghours.data
+            dispatch({
+                type: clinicConstants.GET_CLINIC_OPENING_HOURS,
+                payload: openingHours
+            });
+            return openingHours;
+        }
+        catch (error) {
+            console.log(error);
+            dispatch(setError(error));
+        }
+    };
+}
+
+export const deleteClinicOpeningHours = (token, openingHourId) => {
+    return async dispatch => {
+        try {
+            const openingHour = await sendAuthorizedRequest('delete', `v1/openinghours/${openingHourId}`, token);
+            dispatch({
+                type: clinicConstants.DELETE_CLINIC_OPENING_HOUR,
+                payload: openingHourId
+            });
+            return openingHourId;
+        }
+        catch (error) {
+            console.log(error);
+            dispatch(setError(error));
+        }
+    };
+}
+
+export const addClinicOpeningHours = (token, clinicId, selectedDays, selectedTimes) => {
+    const body = []
+    selectedDays.map(day => {
+        body.push({
+            "open": selectedTimes[0],
+            "close": selectedTimes[1],
+            "dayOfWeek": day,
+            clinicId
+        })
+    })
+    return async dispatch => {
+        try {
+            const openingHours = await sendAuthorizedRequest('post', `v1/openinghours/bulk`, token, body);
+            dispatch({
+                type: clinicConstants.ADD_CLINIC_OPENING_HOURS,
+                payload: openingHours.data.openingHours
+            });
+            return openingHours.data.openingHours;
+        }
+        catch (error) {
+            console.log(error);
+            dispatch(setError(error));
+        }
+    };
+}
+
+export const editClinicOpeningHour = (token, openingHourId, selectedTimes) => {
+    const body = {
+        open: selectedTimes[0],
+        close: selectedTimes[1],
+    }
+    return async dispatch => {
+        try {
+            const openingHour = await sendAuthorizedRequest('put', `v1/openinghours/${openingHourId}`, token, body);
+            dispatch({
+                type: clinicConstants.EDIT_CLINIC_OPENING_HOUR,
+                payload: openingHourId,
+                selectedTimes
+            });
+            return openingHourId;
+        }
+        catch (error) {
+            console.log(error);
+            dispatch(setError(error));
+        }
+    };
+}

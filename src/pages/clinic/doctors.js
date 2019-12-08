@@ -5,7 +5,6 @@ import NoClinic from '../../components/Authenticated/Admin/NoClinic';
 import { getAdminProfile, getAllPractitioners, getAllClinicPractitioners, addPractitionerToClinic, removePractitionerFromClinic } from '../../store/actions/clinicActions';
 import Select from 'react-select';
 
-
 const AddPractitionerRow = ({ currentPractitioner, selectPractitioner, practitionerList, toggleAddPractitioner, handleAddPractitioner }) => {
     return (
         <div>
@@ -24,6 +23,7 @@ const AddPractitionerRow = ({ currentPractitioner, selectPractitioner, practitio
 const ClinicPractitionerCard = ({ practitioner, removePractitioner }) => {
     return (
         <div>
+            <img src={practitioner.image || "../../static/profile.png"} width={50} height={50}/>
             <div>{`Dr. ${practitioner.user.firstName} ${practitioner.user.lastName}`}</div>
             <button onClick={() => removePractitioner(practitioner.id)}>Remove</button>
         </div>

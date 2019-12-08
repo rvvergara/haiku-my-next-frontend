@@ -1,7 +1,7 @@
 import { clinicConstants } from '../constants/clinicConstants';
 
 function editBookingStatus(practitionerBookingList, practitionerId, bookingId, status) {
-    return practitionerBookingList.map((prac, i) => {
+    return practitionerBookingList.map((prac) => {
         if (prac.id !== practitionerId) {
             return prac
         } else {
@@ -27,6 +27,19 @@ function editBookingStatus(practitionerBookingList, practitionerId, bookingId, s
     })
 }
 
+function editOpeningHour(clinicOpeningHours, openingHourId, selectedTimes) {
+    return clinicOpeningHours.map((opening) => {
+        if (opening.id !== openingHourId) {
+            return opening
+        } else {
+            return Object.assign({}, opening, {
+                open: selectedTimes[0],
+                close: selectedTimes[1]
+            })
+        }
+    })
+}
+
 const initialState = {
     loadingClinic: true,
     savingClinic: false,
@@ -40,7 +53,9 @@ const initialState = {
     clinicPatients: [],
     loadingClinicPractitionersWithBookings: true,
     loadingClinicPractitionerBookings: false,
-    clinicPractitionersWithBookings: []
+    clinicPractitionersWithBookings: [],
+    loadingClinicOpeningHours: true,
+    clinicOpeningHoursList: []
 };
 
 export default (state = initialState, action) => {
@@ -72,6 +87,10 @@ export default (state = initialState, action) => {
         case clinicConstants.LOADING_CLINIC_PRACTITIONERS_BOOKINGS:
             return Object.assign({}, state, {
                 loadingClinicPractitionerBookings: true
+            })
+        case clinicConstants.LOADING_CLINIC_OPENING_HOURS:
+            return Object.assign({}, state, {
+                loadingClinicOpeningHours: true
             })
         case clinicConstants.GET_ADMIN_PROFILE:
             return Object.assign({}, state, {
@@ -126,6 +145,23 @@ export default (state = initialState, action) => {
             return Object.assign({}, state, {
                 loadingClinicPractitionerBookings: false,
                 clinicPractitionersWithBookings: editBookingStatus(state.clinicPractitionersWithBookings, action.practitionerId, action.bookingId, action.status)
+            })
+        case clinicConstants.GET_CLINIC_OPENING_HOURS:
+            return Object.assign({}, state, {
+                loadingClinicOpeningHours: false,
+                clinicOpeningHoursList: action.payload
+            })
+        case clinicConstants.DELETE_CLINIC_OPENING_HOUR:
+            return Object.assign({}, state, {
+                clinicOpeningHoursList: state.clinicOpeningHoursList.filter(({ id }) => id !== action.payload)
+            })
+        case clinicConstants.ADD_CLINIC_OPENING_HOURS:
+            return Object.assign({}, state, {
+                clinicOpeningHoursList: [...state.clinicOpeningHoursList, ...action.payload]
+            })
+        case clinicConstants.EDIT_CLINIC_OPENING_HOUR:
+            return Object.assign({}, state, {
+                clinicOpeningHoursList: editOpeningHour(state.clinicOpeningHoursList, action.payload, action.selectedTimes)
             })
         default:
             return state;

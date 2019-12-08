@@ -7,8 +7,10 @@ import { getAdminProfile, aggregatePatientsByClinicBookings } from '../../store/
 const PatientCard = ({ patient }) => {
     const numberOfTimes = patient.count > 1 ? 'times' : 'time';
     const { firstName, lastName } = patient.patient.user;
+    console.log(patient)
     return (
         <div>
+            <img src={patient.patient.image || "../../static/profile.png"}  width={50} height={50}/>
             <div>{`${firstName} ${lastName}`}</div>
             <div>{`Visited ${patient.count} ${numberOfTimes}`}</div>
         </div>

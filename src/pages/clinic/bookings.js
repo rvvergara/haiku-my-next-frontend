@@ -14,6 +14,7 @@ const PractitionerBookings = ({ bookings, practitionerId, handleChangeBookingSta
                 const { image } = booking.patient
                 return (
                     <div key={booking.id}>
+                        <img src={image || "../../static/profile.png"}  width={50} height={50}/>
                         {`${firstName} ${lastName}`}
                         {booking.status}
                         {moment(booking.startTime).format('DD-MMM-YYYY h:mm a')}
@@ -33,14 +34,7 @@ const PractitionerBookings = ({ bookings, practitionerId, handleChangeBookingSta
                                         Reject
                                     </button>
                                 </div>
-                            ) :
-                            //for testing
-                                <button
-                                    value={clinicConstants.BOOKING_STATUS.PENDING}
-                                    onClick={(e) => handleChangeBookingStatus(e, practitionerId, booking.id)}
-                                >
-                                    Pending
-                        </button>
+                            ) : ''
                         }
                     </div>
                 )
@@ -74,7 +68,6 @@ class Bookings extends Component {
         if (selection) {
             updateBookingStatus(token, practitionerId, bookingId, value)
         }
-        updateBookingStatus(token, practitionerId, bookingId, value)
     }
 
     render() {
@@ -95,6 +88,7 @@ class Bookings extends Component {
                                                     const { firstName, lastName } = cp.user;
                                                     return (
                                                         <div key={cp.id}>
+                                                            <img src={cp.image || "../../static/profile.png"}  width={50} height={50}/>
                                                             <div>{`Dr ${firstName} ${lastName}`}</div>
                                                             <PractitionerBookings
                                                                 bookings={cp.bookings}
