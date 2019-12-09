@@ -104,7 +104,6 @@ export const PatientForm = ({
             {' '}
           </label>
           <input
-            className="user-form__input number__input"
             type="file"
             id="profile-pic"
             onChange={(e) => {
