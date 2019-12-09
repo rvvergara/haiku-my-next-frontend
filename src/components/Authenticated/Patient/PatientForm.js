@@ -7,12 +7,10 @@ import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 import MultipleInput from '../ProfileCommon/MultipleInput';
 import { createPatient, updatePatient } from '../../../store/thunks/patient';
-import { setAuthorizationToken } from '../../../utils/api';
 
 export const PatientForm = ({
- createPatient, currentUserData, token, updatePatient,
+ createPatient, currentUserData, updatePatient,
 }) => {
-  setAuthorizationToken(token);
   const { profile } = currentUserData;
   let contactVal = '';
   let passportVal = '';
@@ -200,7 +198,6 @@ export const PatientForm = ({
 PatientForm.propTypes = {
   createPatient: PropTypes.func.isRequired,
   currentUserData: PropTypes.instanceOf(Object).isRequired,
-  token: PropTypes.string.isRequired,
   updatePatient: PropTypes.func.isRequired,
 };
 
