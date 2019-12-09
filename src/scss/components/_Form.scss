@@ -97,6 +97,11 @@
   padding: $container-side-pad;
 }
 
+// Image Preview
+.image-preview {
+  width: 20%;
+}
+
 // Single Date Picker Styles
 .DateInput_input {
   border: 2px solid lighten($dark-blue, 50%);
