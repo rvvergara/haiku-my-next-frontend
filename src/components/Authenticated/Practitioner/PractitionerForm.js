@@ -38,6 +38,16 @@ export const PractitionerForm = ({
     return res;
   };
 
+  const imgPreviewUrl = () => {
+    if (imageFile) {
+      return URL.createObjectURL(imageFile);
+    }
+    if (profile && profile.image) {
+      return profile.image;
+    }
+      return 'https://tinyimg.io/i/BmtLUPZ.jpg';
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { id } = currentUserData;
@@ -71,6 +81,13 @@ export const PractitionerForm = ({
     <div className="container profile-form-container">
       <form className="user-form profile-form">
         <div className="form-group">
+          <div className="image-preview">
+            <img
+              src={imgPreviewUrl()}
+              alt="Patient"
+              className="profile-avatar__img"
+            />
+          </div>
           <label
             className="auth-label"
             htmlFor="profile-pic"
