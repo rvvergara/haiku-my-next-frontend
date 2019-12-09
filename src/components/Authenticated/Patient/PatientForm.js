@@ -7,9 +7,10 @@ import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 import MultipleInput from '../ProfileCommon/MultipleInput';
 import { createPatient, updatePatient } from '../../../store/thunks/patient';
+import { uploadPic } from '../../../store/thunks/upload';
 
 export const PatientForm = ({
- createPatient, currentUserData, updatePatient,
+ createPatient, currentUserData, updatePatient, uploadPic,
 }) => {
   const { profile } = currentUserData;
   let contactVal = '';
@@ -38,6 +39,8 @@ export const PatientForm = ({
   const [calendarFocused, setCalendarFocused] = useState(false);
   const [languages, setLanguages] = useState(languagesVal);
   const [points, setPoints] = useState(pointsVal);
+  const [imageText, setImageText] = useState('');
+  const [imageFile, setImageFile] = useState(null);
 
   const onFocusChange = ({ focused }) => setCalendarFocused(focused);
 
@@ -47,10 +50,21 @@ export const PatientForm = ({
     }
   };
 
+  const handleUploadPic = async () => {
+    const { id } = currentUserData;
+    const formData = new FormData();
+    formData.append('files', imageFile);
+    formData.append('userId', id);
+    const res = await uploadPic(formData);
+    return res;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { id } = currentUserData;
     const patientId = currentUserData.profile ? currentUserData.profile.id : undefined;
+
+    const imageURL = await handleUploadPic();
 
     const params = {
       contactNo,
@@ -61,6 +75,7 @@ export const PatientForm = ({
       languages,
       points,
       userId: id,
+      image: imageURL,
     };
 
     try {
@@ -80,6 +95,25 @@ export const PatientForm = ({
   return (
     <div className="container profile-form-container">
       <form className="user-form profile-form">
+        <div className="form-group">
+          <label
+            className="auth-label"
+            htmlFor="profile-pic"
+          >
+          Profile Pic:
+            {' '}
+          </label>
+          <input
+            className="user-form__input number__input"
+            type="file"
+            id="profile-pic"
+            onChange={(e) => {
+              setImageText(e.target.value);
+              setImageFile(e.target.files[0]);
+            }}
+            value={imageText}
+          />
+        </div>
         <div className="form-group">
           <label
             className="auth-label"
@@ -199,10 +233,11 @@ PatientForm.propTypes = {
   createPatient: PropTypes.func.isRequired,
   currentUserData: PropTypes.instanceOf(Object).isRequired,
   updatePatient: PropTypes.func.isRequired,
+  uploadPic: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
 });
 
-export default connect(mapStateToProps, { createPatient, updatePatient })(PatientForm);
+export default connect(mapStateToProps, { createPatient, updatePatient, uploadPic })(PatientForm);
