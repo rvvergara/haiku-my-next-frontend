@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/igaku/New-frontend.git"
   },
-  "author": "Ryan Vergara | Leon Wang",
+  "author": "Ryan Vergara | Leon Wan",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/igaku/New-frontend/issues"
@@ -47,10 +47,12 @@
     "next-redirect": "^1.0.1",
     "next-redux-wrapper": "^4.0.1",
     "node-sass": "^4.13.0",
+    "rc-time-picker": "^4.0.0-alpha.2",
     "react": "^16.12.0",
     "react-dates": "^21.5.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
+    "react-select": "^3.0.8",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "uuid": "^3.3.3",
