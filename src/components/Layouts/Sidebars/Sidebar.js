@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import PractitionerNavLinks from './PractitionerNavLinks';
 import PatientNavLinks from './PatientNavLinks';
 
-export const Sidebar = ({ userRole }) => {
-  const imgSrc = userRole === 'practitioner' ? 'http://tinyimg.io/i/qWwgVO4.jpg' : 'https://tinyimg.io/i/BmtLUPZ.jpg';
+export const Sidebar = ({ currentUser }) => {
+  console.log(currentUser);
+  const defaultImg = currentUser.data.role === 'practitioner' ? 'http://tinyimg.io/i/qWwgVO4.jpg' : 'https://tinyimg.io/i/BmtLUPZ.jpg';
+  const imgSrc = currentUser.data.profile && currentUser.data.profile.image ? currentUser.data.profile.image : defaultImg;
   return (
     <div className="authenticated-body__sidebar">
       <div className="authenticated-body__sidebar-container">
@@ -16,22 +18,18 @@ export const Sidebar = ({ userRole }) => {
             className="profile-avatar__img"
           />
         </div>
-        {userRole === 'practitioner' ? <PractitionerNavLinks /> : <PatientNavLinks />}
+        {currentUser.data.role === 'practitioner' ? <PractitionerNavLinks /> : <PatientNavLinks />}
       </div>
     </div>
 );
 };
 
 Sidebar.propTypes = {
-  userRole: PropTypes.string,
-};
-
-Sidebar.defaultProps = {
-  userRole: '',
+  currentUser: PropTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  userRole: state.currentUser.data.role,
+  currentUser: state.currentUser,
 });
 
 export default connect(mapStateToProps)(Sidebar);
