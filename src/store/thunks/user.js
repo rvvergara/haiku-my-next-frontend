@@ -55,7 +55,7 @@ export const login = (params) => async (dispatch, getState) => {
     const { user, token } = res.data;
     setAuthorizationToken(token);
     setCookie('token', token);
-    await setUserInStore(user, dispatch);
+    await setUserInStore({ ...user, token }, dispatch);
     const currentUserData = getState().currentUser.data;
     return currentUserData;
   } catch (err) {

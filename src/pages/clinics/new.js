@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import ClinicForm from '../../components/Authenticated/Clinic/ClinicForm';
 import Layout from '../../components/Layouts/Layout';
-import initialize from '../../utils/initialize'
+import initialize from '../../utils/initialize';
 
 const CreateClinic = ({ currentUserData, token }) => (
   <Layout title="Add New Clinic">
@@ -11,10 +11,13 @@ const CreateClinic = ({ currentUserData, token }) => (
 );
 
 CreateClinic.getInitialProps = (ctx) => {
-  initialize(ctx)
-  const { store } = ctx;
-  console.log('Context-456', ctx);
-  const token = ctx.req.headers.cookie.split('=')[1];
+  const { store, req } = ctx;
+  let token;
+  if (ctx.isServer) {
+    token = req.headers.cookie.split('=')[1];
+  } else {
+    token = store.getState().currentUser.data.token;
+  }
   const { data } = store.getState().currentUser;
   return { currentUserData: data, token };
 };

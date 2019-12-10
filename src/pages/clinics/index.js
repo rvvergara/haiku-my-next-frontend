@@ -14,21 +14,25 @@ const ClinicsPage = ({ clinics, token }) => {
         </a>
       </Link>
 
-      {clinics.map(clinic => (
+      {clinics.map((clinic) => (
         <div key={clinic.id}>{clinic.name}</div>
       ))}
     </Layout>
   );
 };
 
-ClinicsPage.getInitialProps = async ctx => {
-  console.log('Context-123', ctx);
-  const { store } = ctx;
-  const token = ctx.req.headers.cookie.split('=')[1];
+ClinicsPage.getInitialProps = async (ctx) => {
+  const { store, req } = ctx;
+  let token;
+  if (ctx.isServer) {
+    token = req.headers.cookie.split('=')[1];
+  } else {
+    token = store.getState().currentUser.data.token;
+  }
   const { data } = store.getState().currentUser;
   const { dispatch } = store;
   const clinics = await dispatch(fetchClinics());
   return { clinics, token };
 };
 
-export default connect(state => state)(ClinicsPage);
+export default connect((state) => state)(ClinicsPage);
