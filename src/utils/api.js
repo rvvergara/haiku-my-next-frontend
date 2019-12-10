@@ -17,8 +17,11 @@ export const sendAuthorizedRequest = async (method, path, token, data = null) =>
 
 export const setAuthorizationToken = (token) => {
   if (token) {
+    console.log('Im setting token in api.js');
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    console.log('Auth Header',axios.defaults.headers.common.Authorization);
   } else {
+    console.log('Im setting token in api.js else');
     delete axios.defaults.headers.common.Authorization;
   }
 };

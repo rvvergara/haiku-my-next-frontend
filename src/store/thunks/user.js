@@ -21,13 +21,14 @@ const setUserInStore = async (user, dispatch) => {
     // If user has a profile already add it to user data
     dispatch(setCurrentUser({
       authenticated: true,
-      data: { ...user, profile: profile.data[role] },
+      data: { ...user, profile: profile.data[role], token: user.token },
     }));
   } else {
+    console.log('Thunk test', user);
     // Redirect user to profile edit page
     dispatch(setCurrentUser({
       authenticated: true,
-      data: user,
+      data: {...user, token: user.token},
     }));
   }
 };
@@ -39,7 +40,7 @@ export const signup = (params) => async (dispatch) => {
     const { user, token } = await res.data;
     setCookie('token', token);
     setAuthorizationToken(token);
-    setUserInStore(user, dispatch);
+    setUserInStore({...user,token}, dispatch);
     return user;
   } catch (err) {
     dispatch(setError(err.response.data.error));
