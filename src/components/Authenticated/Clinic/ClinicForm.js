@@ -14,9 +14,9 @@ class ClinicForm extends React.Component {
     }));
   };
 
-  handleSubmit = async () =>{
+  handleSubmit = async e =>{
     e.preventDefault()
-    // await this.props.createClinic(state)
+    await this.props.createClinic(this.state)
     console.log('Form Submitted');
   }
 

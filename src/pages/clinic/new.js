@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import ClinicForm from '../../components/Authenticated/Clinic/ClinicForm';
 
 const CreateClinic = () => (
@@ -7,4 +8,10 @@ const CreateClinic = () => (
   </div>
 );
 
-export default CreateClinic;
+CreateClinic.getInitialProps = ctx => {
+  const { store } = ctx;
+  const { data } = store.getState().currentUser;
+  return { currentUserData: data };
+};
+
+export default connect((state) => state)(CreateClinic);
