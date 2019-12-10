@@ -12,3 +12,13 @@ export const createClinic = (params) => async (dispatch) => {
     dispatch(setError(error.response.data));
   }
 };
+
+export const fetchClinics = () => async (dispatch) => {
+  const path = 'v1/clinics';
+  try {
+    const res = await sendRequest('get', path);
+    console.log(res.data);
+  } catch (err) {
+    dispatch(setError(err.response.data));
+  }
+};
