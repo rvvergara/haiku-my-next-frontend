@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import currentUser from './currentUser';
-import clinicReducers from './clinicReducers';
+import clinics from './clinic'
 import error from './error';
 
 export default combineReducers({
   currentUser,
   error,
-  clinicReducers
+  clinics
 });
