@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { createClinic } from '../../../store/thunks/clinic';
-
+import { setAuthorizationToken} from '../../../utils/api';
 class ClinicForm extends React.Component {
   state = {
     name: '',
@@ -15,9 +15,9 @@ class ClinicForm extends React.Component {
   };
 
   handleSubmit = async e =>{
+    setAuthorizationToken(this.props.token);
     e.preventDefault()
     await this.props.createClinic(this.state)
-    console.log('Form Submitted');
   }
 
   render() {
