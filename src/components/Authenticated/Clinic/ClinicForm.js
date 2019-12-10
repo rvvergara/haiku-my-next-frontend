@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createClinic } from '../../../store/thunks/clinic';
 
-class ClinicForm extends Component {
+class ClinicForm extends React.Component {
   state = {
     name: '',
     address: '',
@@ -13,6 +13,12 @@ class ClinicForm extends Component {
       [key]: val,
     }));
   };
+
+  handleSubmit = async () =>{
+    e.preventDefault()
+    // await this.props.createClinic(state)
+    console.log('Form Submitted');
+  }
 
   render() {
     return (
@@ -42,7 +48,7 @@ class ClinicForm extends Component {
             />
           </div>
 
-          <button>Submit</button>
+          <button onClick={this.handleSubmit}>Submit</button>
         </form>
       </div>
     );
