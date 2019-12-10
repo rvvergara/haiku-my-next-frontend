@@ -24,11 +24,9 @@ const setUserInStore = async (user, dispatch) => {
       data: { ...user, profile: profile.data[role], token: user.token },
     }));
   } else {
-    console.log('Thunk test', user);
-    // Redirect user to profile edit page
     dispatch(setCurrentUser({
       authenticated: true,
-      data: {...user, token: user.token},
+      data: { ...user, token: user.token },
     }));
   }
 };
@@ -40,7 +38,7 @@ export const signup = (params) => async (dispatch) => {
     const { user, token } = await res.data;
     setCookie('token', token);
     setAuthorizationToken(token);
-    setUserInStore({...user,token}, dispatch);
+    setUserInStore({ ...user, token }, dispatch);
     return user;
   } catch (err) {
     dispatch(setError(err.response.data.error));
@@ -92,7 +90,7 @@ export const fetchUserData = (id) => async (dispatch) => {
       // Redirect user to profile edit page
       dispatch(setCurrentUser({
         authenticated: true,
-        data: user.user,
+        data: { ...user.user, token: user.token },
       }));
     }
   } catch (err) {

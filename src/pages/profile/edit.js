@@ -12,17 +12,15 @@ export const ProfileEditPage = ({ currentUserData }) => (
 );
 
 ProfileEditPage.getInitialProps = (ctx) => {
-  const { store,req } = ctx;
+  const { store, req } = ctx;
   let token;
   if (ctx.isServer) {
     token = req.headers.cookie.split('=')[1];
-    setAuthorizationToken(token);
   } else {
     token = store.getState().currentUser.data.token;
-    setAuthorizationToken(token);
   }
+  setAuthorizationToken(token);
   const { data } = store.getState().currentUser;
-  console.log('From edit.js',data);
   return { currentUserData: data };
 };
 

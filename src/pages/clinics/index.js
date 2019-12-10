@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Layout from '../../components/Layouts/Layout';
 import { fetchClinics } from '../../store/thunks/clinic';
 import { setAuthorizationToken } from '../../utils/api';
@@ -21,17 +22,20 @@ const ClinicsPage = ({ clinics, token }) => {
   );
 };
 
+ClinicsPage.propTypes = {
+  clinics: PropTypes.instanceOf(Object).isRequired,
+  token: PropTypes.string.isRequired,
+};
+
 ClinicsPage.getInitialProps = async (ctx) => {
   const { store, req } = ctx;
   let token;
   if (ctx.isServer) {
     token = req.headers.cookie.split('=')[1];
-    setAuthorizationToken(token);
   } else {
     token = store.getState().currentUser.data.token;
-    setAuthorizationToken(token);
   }
-  const { data } = store.getState().currentUser;
+  setAuthorizationToken(token);
   const { dispatch } = store;
   const clinics = await dispatch(fetchClinics());
   return { clinics, token };
