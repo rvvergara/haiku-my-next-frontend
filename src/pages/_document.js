@@ -5,7 +5,7 @@ export default class MyDocument extends Document {
     return (
       <html lang="en-US">
         <Head>
-          <meta name="description" content="Facebook clone built using NextJS" />
+          <meta name="description" content="Igaku" />
           <meta charSet="UTF-8" />
           <meta name="robots" content="noindex nofollow" />
           <meta name="viewport" content="width=device-width" />

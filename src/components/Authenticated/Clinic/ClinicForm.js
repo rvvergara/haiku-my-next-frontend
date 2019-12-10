@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { createClinic } from '../../../store/thunks/clinic';
 import { setAuthorizationToken} from '../../../utils/api';
+
 class ClinicForm extends React.Component {
   state = {
     name: '',

@@ -10,19 +10,20 @@ const PractitionerNavLinks = () => (
       </Link>
     </li>
     <li className="sidebar__navlink">
-      <button type="button">
-        My Schedule
-      </button>
+      <button type="button">My Schedule</button>
     </li>
     <li className="sidebar__navlink">
-      <button type="button">
-        Bookings
-      </button>
+      <button type="button">Bookings</button>
     </li>
     <li className="sidebar__navlink">
-      <button type="button">
-        My Patients
-      </button>
+      <button type="button">My Patients</button>
+    </li>
+    <li className="sidebar__navlink">
+      <Link href="/clinics">
+        <a href="/clinics" className="nav-link">
+          Clinics
+        </a>
+      </Link>
     </li>
   </ul>
 );
