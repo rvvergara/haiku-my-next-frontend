@@ -85,7 +85,7 @@ export const fetchUserData = (id) => async (dispatch) => {
       // If user has a profile already add it to user data
       dispatch(setCurrentUser({
         authenticated: true,
-        data: { ...user.user, profile: profile.data[role] },
+        data: { ...user.user, profile: profile.data[role], token: user.token },
       }));
     } else {
       // Redirect user to profile edit page
