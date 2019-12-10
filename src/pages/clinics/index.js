@@ -26,8 +26,10 @@ ClinicsPage.getInitialProps = async (ctx) => {
   let token;
   if (ctx.isServer) {
     token = req.headers.cookie.split('=')[1];
+    setAuthorizationToken(token);
   } else {
     token = store.getState().currentUser.data.token;
+    setAuthorizationToken(token);
   }
   const { data } = store.getState().currentUser;
   const { dispatch } = store;
