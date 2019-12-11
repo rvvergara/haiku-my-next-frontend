@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ProfileInfoGroup from '../ProfileCommon/ProfileInfoGroup';
 
+
 export const PractitionerProfile = ({ currentUserData }) => {
   const {
     firstName,
