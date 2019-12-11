@@ -1,7 +1,7 @@
 import { sendRequest } from '../../utils/api';
 import setError from '../actions/error';
 import { fetchUserData } from './user';
-import {listPractitioners,setPractitioner} from '../actions/practitioners'
+import { listPractitioners, setPractitioner } from '../actions/practitioners';
 
 export const createPractitioner = (params) => async (dispatch) => {
   const path = 'v1/practitioners';
@@ -41,8 +41,7 @@ export const fetchOnePractitioner = (practitionerId) => async (dispatch) => {
   const path = `v1/practitioner/${practitionerId}`;
   try {
     const res = await sendRequest('get', path);
-    console.log('This line',res.data);
-    dispatch(setPractitioner(res.data));
+    dispatch(setPractitioner(res.data.practitioner));
     return res.data;
   } catch (err) {
     return dispatch(setError(err.response.data));

@@ -19,7 +19,7 @@ DoctorProfile.getInitialProps = async (ctx) => {
     token = store.getState().currentUser.data.token;
   }
   setAuthorizationToken(token);
-  store.dispatch(fetchOnePractitioner(query.id));
+  await store.dispatch(fetchOnePractitioner(query.id));
   const { data } = store.getState().currentUser;
   return { currentUserData: data };
 };
