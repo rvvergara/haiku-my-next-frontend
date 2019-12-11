@@ -1,8 +1,58 @@
+.flex{
+  display: flex;
+}
+
+.grotesque-font{
+  font-family:$grotesque;
+}
+
+.practitioner-name{
+  font-family:$grotesque;
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+.clinic{
+  font-family:$grotesque;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.13;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+.specialties{
+  font-family:$grotesque;
+  font-size: 15px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.18;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+.profile-info-container{
+}
+
 .profile-image {
+  padding-top:40px;
+  text-align: center;
   width: 30%;
+
 
   .profile-image__avatar {
     display: inline-block;
     width: 70%;
   }
+}
+
+.practioner-card{
+  background-color: $white;
 }

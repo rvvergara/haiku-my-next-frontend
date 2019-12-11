@@ -10,6 +10,7 @@ export default class MyDocument extends Document {
           <meta name="robots" content="noindex nofollow" />
           <meta name="viewport" content="width=device-width" />
           <link rel="icon" href="https://tinyimg.io/i/pBRWCRn.png" type="image/png" />
+          <link href="https://fonts.googleapis.com/css?family=Darker+Grotesque&display=swap" rel="stylesheet" />
         </Head>
         <body>
           <Main />

@@ -1,26 +1,29 @@
+
 const PractitionerCard = () => (
-  <div className="container">
+  <div className="flex practioner-card">
     <div className="profile-image">
       <img
         className="profile-image__avatar"
-        src="https://tinyimg.io/i/LuSvnD3.png"
+        src="https://img.webmd.com/lhd/provider_prod/97441b13-4055-4aee-84de-5d5670680a99.jpg?resize=150px:*"
+        alt="doctor-profile"
       />
     </div>
-    <div className="container profile-info-container">
-      <span>Neurology, Psychology</span>
-      <h2>Gil I. Ascunce</h2>
-      <h3>Novena Medical Center</h3>
+
+    <div className="profile-info-container">
+      <span className="specialties">Neurology, Psychology</span>
+      <h2 className="practitioner-name">Gil I. Ascunce</h2>
+      <h3 className="clinic">Novena Medical Center</h3>
       <div className="profile-info-container__info__card">
-        <ul className="profile-list">
-          <h4>Education</h4>
-          <li>Georgetown University School Of Medicine</li>
+        <ul className="profile-list grotesque-font">
+          <h4 className="grotesque-font">Education</h4>
+          <li className="grotesque-font">Georgetown University School Of Medicine</li>
         </ul>
       </div>
       <div className="profile-info-container__info__card">
-        <h4>Specialialties</h4>
-        <ul className="profile-list">
-          <li>Gastroenterology</li>
-          <li>Internal Medicine</li>
+        <h4 className="grotesque-font">Specialialties</h4>
+        <ul className="profile-list grotesque-font">
+          <li className="grotesque-font">Gastroenterology</li>
+          <li className="grotesque-font">Internal Medicine</li>
         </ul>
       </div>
     </div>
@@ -28,3 +31,9 @@ const PractitionerCard = () => (
 );
 
 export default PractitionerCard;
+
+
+
+
+
+
