@@ -25,12 +25,12 @@ export const PractitionerProfile = ({ currentUserData }) => {
   const fullName = `${firstName} ${lastName}`;
   return (
     <div className="profile">
-      <ProfileInfoGroup infoKey="Name" val={fullName} />
+      <ProfileInfoGroup infoKey="Name" val="Dr. Johny Walker" />
       <ProfileInfoGroup infoKey="Clinic" val="Health Clinic" />
-      <ProfileInfoGroup infoKey="Education" val={education.join(',')} />
-      <ProfileInfoGroup infoKey="Specialization" val={specialties.join(',')} />
-      <ProfileInfoGroup infoKey="Years of Experience" val={yearsExp.toString()} />
-      <ProfileInfoGroup infoKey="Biograpy" val={biography} />
+      <ProfileInfoGroup infoKey="Education" val="Elementary, High School" />
+      <ProfileInfoGroup infoKey="Specialization" val="Neurology, Cardiology" />
+      <ProfileInfoGroup infoKey="Years of Experience" val="2" />
+      <ProfileInfoGroup infoKey="Biograpy" val="Hello, my patients!" />
     </div>
 );
 };
