@@ -1,16 +1,15 @@
 import { connect } from 'react-redux';
 import { createClinic } from '../../../store/thunks/clinic';
+import { updatePractitioner } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
 
 class ClinicForm extends React.Component {
-
-  // this.props.currentUserData
-
   state = {
     name: '',
     address: '',
     postalCode: '',
     associated:false,
+    currentUser: this.props.currentUserData.profile.id
   };
 
   handleChange = (key, val) => {
@@ -29,11 +28,12 @@ class ClinicForm extends React.Component {
     setAuthorizationToken(this.props.token);
     e.preventDefault();
     const profileId = this.props.currentUserData.profile.id
-
-
-    const params = this.state.associated ? {...this.state, practitioners:[profileId]} : this.state
-
-    await this.props.createClinic(params);
+    const {name, address, postalCode } = this.state;
+    const params = { name, address, postalCode };
+    const clinic = await this.props.createClinic(params);
+    if(clinic && this.state.associated){
+      await this.props.updatePractitioner(profileId, {clinicId: clinic.id, userId: this.props.currentUserData.id})
+    }
   };
 
   render() {
@@ -104,4 +104,4 @@ const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
 });
 
-export default connect(mapStateToProps, { createClinic })(ClinicForm);
+export default connect(mapStateToProps, { createClinic, updatePractitioner })(ClinicForm);

@@ -8,8 +8,9 @@ export const createClinic = (params) => async (dispatch) => {
     const res = await sendRequest('post', path, params);
     const { clinic } = res.data;
     dispatch(addClinic(clinic));
+    return clinic;
   } catch (error) {
-    dispatch(setError(error.response.data));
+    return dispatch(setError(error.response.data));
   }
 };
 
