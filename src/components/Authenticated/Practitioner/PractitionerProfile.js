@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ProfileInfoGroup from '../ProfileCommon/ProfileInfoGroup';
+import PractitionerCard from './PractitionerCard';
 
 
 export const PractitionerProfile = ({ currentUserData }) => {
@@ -25,12 +26,13 @@ export const PractitionerProfile = ({ currentUserData }) => {
   const fullName = `${firstName} ${lastName}`;
   return (
     <div className="profile">
-      <ProfileInfoGroup infoKey="Name" val="Dr. Johny Walker" />
+      {/* <ProfileInfoGroup infoKey="Name" val="Dr. Johny Walker" />
       <ProfileInfoGroup infoKey="Clinic" val="Health Clinic" />
       <ProfileInfoGroup infoKey="Education" val="Elementary, High School" />
       <ProfileInfoGroup infoKey="Specialization" val="Neurology, Cardiology" />
       <ProfileInfoGroup infoKey="Years of Experience" val="2" />
-      <ProfileInfoGroup infoKey="Biograpy" val="Hello, my patients!" />
+  <ProfileInfoGroup infoKey="Biograpy" val="Hello, my patients!" /> */}
+      <PractitionerCard />
     </div>
 );
 };
