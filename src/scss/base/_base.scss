@@ -1,3 +1,10 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
 html {
   font-size: 62.5%;
   height: 100%;
@@ -47,5 +54,5 @@ a {
 
 ul {
   list-style: none;
-  padding:0px;
+  padding: 0px;
 }
