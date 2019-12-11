@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import PractitionerProfile from '../../components/Authenticated/Practitioner/PractitionerProfile';
 import Layout from '../../components/Layouts/Layout';
 import { setAuthorizationToken } from '../../utils/api';
+import { fetchOnePractitioner} from '../../store/thunks/practitioner'
 
 const DoctorProfile = () => (
   <Layout title="Practitioner Profile">
@@ -19,8 +20,7 @@ DoctorProfile.getInitialProps = async ctx => {
     token = store.getState().currentUser.data.token;
   }
   setAuthorizationToken(token);
-  console.log('Our query', query);
-  // store.dispatch(id)
+  store.dispatch(fetchOnePractitioner(query.id))
   const { data } = store.getState().currentUser;
   return { currentUserData: data };
 };
