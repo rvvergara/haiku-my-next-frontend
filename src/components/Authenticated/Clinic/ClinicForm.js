@@ -23,33 +23,48 @@ class ClinicForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <form>
-          <div>
+      <div className="container profile-form-container">
+        <form className="user-form profile-form">
+          <div className="form-group">
+            <label htmlFor="clinic-name" className="auth-label">Name</label>
             <input
+              id="clinic-name"
+              className="user-form__input"
               type="text"
-              placeholder="name"
               onChange={e => this.handleChange('name', e.target.value)}
             />
           </div>
 
-          <div>
+          <div className="form-group">
+            <label htmlFor="clinic-address" className="auth-label">
+              Address
+            </label>
             <input
+              className="user-form__input"
+              id="clinic-address"
               type="text"
-              placeholder="address"
               onChange={e => this.handleChange('address', e.target.value)}
             />
           </div>
 
-          <div>
+          <div className="form-group">
+            <label htmlFor="clinic-postal-code" className="auth-label">
+              Postal Code
+            </label>
             <input
+              id="clinic-postal-code"
+              className="user-form__input"
               type="text"
-              placeholder="postalCode"
               onChange={e => this.handleChange('postalCode', e.target.value)}
             />
           </div>
-
-          <button onClick={this.handleSubmit}>Submit</button>
+          <div className="form-group">
+          <button
+            className="user-form__button" 
+            onClick={this.handleSubmit}>
+            Submit
+          </button>
+          </div>
         </form>
       </div>
     );
