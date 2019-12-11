@@ -1,4 +1,6 @@
 .header {
+  background: $header-gradient;
+
   .container {
     display: flex;
     justify-content: space-between;
@@ -21,16 +23,17 @@
 }
 
 .header__links__welcome {
-  color: $dark-blue;
+  // color: $dark-blue;
+  color: $white;
   font-size: $xmedium;
   margin-right: $button-pad*4;
   padding: $button-pad;
 }
 
 .logout {
-  background: $green;
+  background: $white;
   border-radius: 30px;
-  color: $white;
+  color: $green;
   font-size: $medium;
   padding: $button-pad*1.2 $button-pad*3;
   cursor: pointer;

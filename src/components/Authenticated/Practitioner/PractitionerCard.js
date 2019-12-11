@@ -14,9 +14,9 @@ const PractitionerCard = () => (
       <h2 className="practitioner-name">Gil I. Ascunce</h2>
       <h3 className="clinic">Novena Medical Center</h3>
       <div className="profile-info-container__info__card">
+        <h4 className="grotesque-font profile-info-container__info__card__title">Education</h4>
         <ul className="profile-list grotesque-font">
-          <h4 className="grotesque-font profile-info-container__info__card__title">Education</h4>
-          <li className="grotesque- profile-info-container__info__card__content">Georgetown University School Of Medicine</li>
+          <li className="grotesque profile-info-container__info__card__content">Georgetown University School Of Medicine</li>
         </ul>
       </div>
       <div className="profile-info-container__info__card">

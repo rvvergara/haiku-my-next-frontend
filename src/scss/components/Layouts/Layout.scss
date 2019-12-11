@@ -13,11 +13,12 @@
   justify-content: space-between;
   margin-top: $container-side-pad*0.25;
   height: 140vh;
+  padding: 0 $container-side-pad
 }
 
 .authenticated-body__content {
   background: $light-blue;
-  background: $light-gradient;
+  background: none;
   flex: 1;
-  padding: $container-side-pad*0.1 $container-side-pad*0.3;
+  // padding: $container-side-pad*0.1 $container-side-pad*0.3;
 }

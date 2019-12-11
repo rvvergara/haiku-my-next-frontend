@@ -1,6 +1,6 @@
 .authenticated-body__sidebar {
   background: $light-blue;
-  background: $light-gradient;
+  background: $white;
   flex: 0.25;
   margin: 0 $container-side-pad*0.25;
   margin-left: 0;
@@ -12,7 +12,7 @@
 }
 
 .profile-avatar__img {
-  border-radius: 10px;
+  border-radius: 50%;
   box-shadow: 1px 1px 1px $regular-grey;
   width: 80%;
 }
