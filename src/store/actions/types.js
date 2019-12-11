@@ -5,3 +5,4 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const SET_ERROR = 'SET_ERROR';
 export const LIST_CLINICS = 'LIST_CLINICS';
 export const ADD_CLINIC = 'ADD_CLINIC';
+export const LIST_PRACTITIONERS = ' LIST_PRACTITIONERS';

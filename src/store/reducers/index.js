@@ -2,9 +2,11 @@ import { combineReducers } from 'redux';
 import currentUser from './currentUser';
 import clinics from './clinic'
 import error from './error';
+import practitioners from './practitioners'
 
 export default combineReducers({
   currentUser,
   error,
-  clinics
+  clinics,
+  practitioners
 });
