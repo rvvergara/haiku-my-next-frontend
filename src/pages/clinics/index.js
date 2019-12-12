@@ -2,11 +2,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Layout from '../../components/Layouts/Layout';
 import { fetchClinics } from '../../store/thunks/clinic';
+import ClinicList from '../../components/Authenticated/Clinic/ClinicList'
+import { setAuthorizationToken } from '../../utils/api';
 
-const ClinicsPage = ({ clinics, currentUserData }) => (
-  // setAuthorizationToken(token);
+const ClinicsPage = ({ clinics, currentUserData }) =>
+setAuthorizationToken(localStorage.token)
+(
   <Layout title="Clinics">
-    
+    <ClinicList/>
   </Layout>
 );
 

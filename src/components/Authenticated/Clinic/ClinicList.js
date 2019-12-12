@@ -1,18 +1,23 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { listClinics } from '../../../store/actions/clinic';
 import { fetchClinics } from '../../../store/thunks/clinic';
 import { setAuthorizationToken } from '../../../utils/api';
-import {listClinics} from '../../../store/actions/clinic'
+import Clinic from './Clinic';
 
-
-const Clinics = ({ currentUserData, clinics, fetchClinics,listClinics }) => {
+const ClinicList = ({
+  currentUserData,
+  clinics,
+  fetchClinics,
+  listClinics,
+}) => {
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
     fetchClinics();
-    return () =>{
-      listClinics([])
-    }
+    return () => {
+      listClinics([]);
+    };
   }, []);
 
   return (
@@ -26,7 +31,7 @@ const Clinics = ({ currentUserData, clinics, fetchClinics,listClinics }) => {
       )}
 
       {clinics.map(clinic => (
-        <div key={clinic.id}>{clinic.name}</div>
+        <Clinic key={clinic.id} clinic={clinic} />
       ))}
     </div>
   );
@@ -37,4 +42,6 @@ const mapStateToProps = state => ({
   clinics: state.clinics,
 });
 
-export default connect(mapStateToProps, { fetchClinics,listClinics })(Clinics);
+export default connect(mapStateToProps, { fetchClinics, listClinics })(
+  ClinicList,
+);
