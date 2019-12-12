@@ -1,4 +1,4 @@
-import { SET_PRACTITIONER} from '../actions/types';
+import { SET_PRACTITIONER } from '../actions/types';
 
 export default (state = [], action) => {
   switch (action.type) {
