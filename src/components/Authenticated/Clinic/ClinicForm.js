@@ -25,7 +25,7 @@ class ClinicForm extends React.Component {
   }
 
   handleSubmit = async e => {
-    setAuthorizationToken(this.props.token);
+    setAuthorizationToken(localStorage.token);
     e.preventDefault();
     const profileId = this.props.currentUserData.profile.id
     const {name, address, postalCode } = this.state;
