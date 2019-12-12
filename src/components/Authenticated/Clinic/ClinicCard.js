@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link'
 
 const ClinicCard = ({ clinic }) => {
   const { name, address, postalCode } = clinic;
@@ -25,7 +26,7 @@ const ClinicCard = ({ clinic }) => {
             </li>
           </ul>
         </div>
-        <button>Book</button>
+        <Link className="logout">See more info</Link>
       </div>
     </div>
   );
