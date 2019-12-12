@@ -21,13 +21,12 @@ const setUserInStore = async (user, dispatch) => {
     // If user has a profile already add it to user data
     dispatch(setCurrentUser({
       authenticated: true,
-      data: { ...user, profile: profile.data[role] },
+      data: { ...user, profile: profile.data[role], token: user.token },
     }));
   } else {
-    // Redirect user to profile edit page
     dispatch(setCurrentUser({
       authenticated: true,
-      data: user,
+      data: { ...user, token: user.token },
     }));
   }
 };
@@ -38,8 +37,9 @@ export const signup = (params) => async (dispatch) => {
     const res = await sendRequest('post', path, params);
     const { user, token } = await res.data;
     setCookie('token', token);
+    localStorage.setItem('token', token);
     setAuthorizationToken(token);
-    setUserInStore(user, dispatch);
+    setUserInStore({ ...user, token }, dispatch);
     return user;
   } catch (err) {
     dispatch(setError(err.response.data.error));
@@ -55,7 +55,8 @@ export const login = (params) => async (dispatch, getState) => {
     const { user, token } = res.data;
     setAuthorizationToken(token);
     setCookie('token', token);
-    await setUserInStore(user, dispatch);
+    localStorage.setItem('token', token);
+    await setUserInStore({ ...user, token }, dispatch);
     const currentUserData = getState().currentUser.data;
     return currentUserData;
   } catch (err) {
@@ -67,6 +68,7 @@ export const login = (params) => async (dispatch, getState) => {
 export const logout = () => (dispatch) => {
   setAuthorizationToken(false);
   removeCookie('token');
+  localStorage.clear();
   dispatch(setCurrentUser({
     authenticated: false,
     data: {},
@@ -85,13 +87,13 @@ export const fetchUserData = (id) => async (dispatch) => {
       // If user has a profile already add it to user data
       dispatch(setCurrentUser({
         authenticated: true,
-        data: { ...user.user, profile: profile.data[role] },
+        data: { ...user.user, profile: profile.data[role], token: user.token },
       }));
     } else {
       // Redirect user to profile edit page
       dispatch(setCurrentUser({
         authenticated: true,
-        data: user.user,
+        data: { ...user.user, token: user.token },
       }));
     }
   } catch (err) {

@@ -1,13 +1,20 @@
+import Router from 'next/router';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import Router from 'next/router';
-import MultipleInput from '../ProfileCommon/MultipleInput';
-import { createPractitioner, updatePractitioner } from '../../../store/thunks/practitioner';
+import {
+  createPractitioner,
+  updatePractitioner,
+} from '../../../store/thunks/practitioner';
 import { uploadPic } from '../../../store/thunks/upload';
+import MultipleInput from '../ProfileCommon/MultipleInput';
+import { setAuthorizationToken } from '../../../utils/api'
 
 export const PractitionerForm = ({
- createPractitioner, currentUserData, updatePractitioner, uploadPic,
+  createPractitioner,
+  currentUserData,
+  updatePractitioner,
+  uploadPic,
 }) => {
   const { profile } = currentUserData;
   let educVal = [];
@@ -45,15 +52,22 @@ export const PractitionerForm = ({
     if (profile && profile.image) {
       return profile.image;
     }
-      return 'https://tinyimg.io/i/BmtLUPZ.jpg';
+    return 'https://tinyimg.io/i/BmtLUPZ.jpg';
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
+    setAuthorizationToken(currentUserData.token)
     const { id } = currentUserData;
-    const practitionerId = currentUserData.profile ? currentUserData.profile.id : undefined;
+    const practitionerId = currentUserData.profile
+      ? currentUserData.profile.id
+      : undefined;
 
-    const imageUrl = await handleUploadPic();
+    let imageUrl;
+
+    if (imageText) {
+      imageUrl = await handleUploadPic();
+    }
 
     const params = {
       education,
@@ -88,83 +102,61 @@ export const PractitionerForm = ({
               className="profile-avatar__img"
             />
           </div>
-          <label
-            className="auth-label"
-            htmlFor="profile-pic"
-          >
-            Profile Pic:
-            {' '}
+          <label className="auth-label" htmlFor="profile-pic">
+            Profile Pic:{' '}
           </label>
           <input
             type="file"
             id="profile-pic"
-            onChange={(e) => {
-          setImageText(e.target.value);
-          setImageFile(e.target.files[0]);
-        }}
+            onChange={e => {
+              setImageText(e.target.value);
+              setImageFile(e.target.files[0]);
+            }}
             value={imageText}
           />
         </div>
         <div className="form-group">
-          <label
-            className="auth-label"
-            htmlFor="contact-no"
-          >
-            Education:
-            {' '}
+          <label className="auth-label" htmlFor="contact-no">
+            Education:{' '}
           </label>
           <MultipleInput
-            selectedInputs={(inputs) => setEducation(inputs)}
+            selectedInputs={inputs => setEducation(inputs)}
             values={education}
             labelId="education"
           />
         </div>
         <div className="form-group">
-          <label
-            className="auth-label"
-            htmlFor="specialties"
-          >
-            Specialties:
-            {' '}
-
+          <label className="auth-label" htmlFor="specialties">
+            Specialties:{' '}
           </label>
           <MultipleInput
-            selectedInputs={(inputs) => setSpecialties(inputs)}
+            selectedInputs={inputs => setSpecialties(inputs)}
             values={specialties}
             labelId="specialties"
           />
         </div>
         <div className="form-group">
-          <label
-            className="auth-label"
-            htmlFor="address"
-          >
-              Biography:
-            {' '}
-
+          <label className="auth-label" htmlFor="address">
+            Biography:{' '}
           </label>
           <textarea
             rows={5}
             className="user-form__input"
             type="text"
             id="biography"
-            onChange={(e) => setBiography(e.target.value)}
+            onChange={e => setBiography(e.target.value)}
             value={biography}
           />
         </div>
         <div className="form-group">
-          <label
-            className="auth-label"
-            htmlFor="years-experience"
-          >
-            Years Experience:
-            {' '}
+          <label className="auth-label" htmlFor="years-experience">
+            Years Experience:{' '}
           </label>
           <input
             className="user-form__input number__input"
             type="number"
             id="years-experience"
-            onChange={(e) => setYearsExp(e.target.value)}
+            onChange={e => setYearsExp(e.target.value)}
             value={yearsExp}
           />
         </div>
@@ -189,12 +181,12 @@ PractitionerForm.propTypes = {
   uploadPic: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   currentUserData: state.currentUser.data,
 });
 
 export default connect(mapStateToProps, {
- createPractitioner,
+  createPractitioner,
   updatePractitioner,
   uploadPic,
 })(PractitionerForm);
