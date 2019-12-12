@@ -18,7 +18,6 @@ const ClinicsPage = ({ clinics, currentUserData }) => {
 
 ClinicsPage.propTypes = {
   clinics: PropTypes.instanceOf(Object).isRequired,
-  token: PropTypes.string.isRequired,
 };
 
 ClinicsPage.getInitialProps = async (ctx) => {
