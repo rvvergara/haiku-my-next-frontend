@@ -26,6 +26,7 @@ export const fetchClinics = () => async (dispatch) => {
 };
 
 export const fetchOneClinic = (clinicId) => async (dispatch) => {
+  console.log('FETCHING ONE CLINIC');
   const path = `v1/clinic/${clinicId}`;
   try {
     const res = await sendRequest('get', path);
