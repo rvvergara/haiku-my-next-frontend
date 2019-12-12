@@ -1,5 +1,5 @@
 import { sendRequest } from '../../utils/api';
-import { addClinic, listClinics } from '../actions/clinic';
+import { addClinic, listClinics, setClinic } from '../actions/clinic';
 import setError from '../actions/error';
 
 export const createClinic = (params) => async (dispatch) => {
@@ -20,6 +20,18 @@ export const fetchClinics = () => async (dispatch) => {
     const res = await sendRequest('get', path);
     dispatch(listClinics(res.data.clinics));
     return res.data.clinics;
+  } catch (err) {
+    return dispatch(setError(err.response.data));
+  }
+};
+
+export const fetchOneClinic = (clinicId) => async (dispatch) => {
+  const path = `v1/clinic/${clinicId}`;
+  try {
+    const res = await sendRequest('get', path);
+    const clinic = await res.data.clinic;
+    dispatch(setClinic(clinic));
+    return clinic;
   } catch (err) {
     return dispatch(setError(err.response.data));
   }
