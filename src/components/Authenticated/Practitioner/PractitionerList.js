@@ -5,6 +5,7 @@ import { fetchPractitioners } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
 import PractitionerBox from '../../Authenticated/Practitioner/PractitionerBox';
 
+
 const PractitionerList = ({
   fetchPractitioners,
   practitioners,

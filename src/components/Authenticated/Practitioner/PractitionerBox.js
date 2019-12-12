@@ -1,9 +1,13 @@
+
+
 const PractitionerBox = ({ practitioner }) => {
-  const { name } = practitioner;
+  const { biography, education, specialities } = practitioner;
 
   return (
     <div>
-      <h1>{name}</h1>
+      <h1>{biography}</h1>
+      <p>{education[0]}</p>
+      <p>{specialities}</p>
     </div>
   );
 };

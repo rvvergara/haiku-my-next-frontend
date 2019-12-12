@@ -10,6 +10,7 @@ import { uploadPic } from '../../../store/thunks/upload';
 import MultipleInput from '../ProfileCommon/MultipleInput';
 import { setAuthorizationToken } from '../../../utils/api'
 
+
 export const PractitionerForm = ({
   createPractitioner,
   currentUserData,
@@ -57,7 +58,7 @@ export const PractitionerForm = ({
 
   const handleSubmit = async e => {
     e.preventDefault();
-    setAuthorizationToken(currentUserData.token)
+    setAuthorizationToken(localStorage.token)
     const { id } = currentUserData;
     const practitionerId = currentUserData.profile
       ? currentUserData.profile.id
