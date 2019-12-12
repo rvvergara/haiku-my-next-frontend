@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import Router from 'next/router';
 import { createClinic } from '../../../store/thunks/clinic';
 import { updatePractitioner } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
@@ -33,6 +34,9 @@ class ClinicForm extends React.Component {
     const clinic = await this.props.createClinic(params);
     if(clinic && this.state.associated){
       await this.props.updatePractitioner(profileId, {clinicId: clinic.id, userId: this.props.currentUserData.id})
+    }
+    if(clinic){
+      Router.push('/clinics');
     }
   };
 
