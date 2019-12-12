@@ -1,44 +1,26 @@
-import Link from 'next/link';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Layout from '../../components/Layouts/Layout';
 import { fetchClinics } from '../../store/thunks/clinic';
-import { setAuthorizationToken } from '../../utils/api';
 
-const ClinicsPage = ({ clinics }) => 
+const ClinicsPage = ({ clinics, currentUserData }) => (
   // setAuthorizationToken(token);
-   (
-    <Layout title="Clinics">
-      <Link href="/clinics/new">
-        <a href="/clinics/new" className="nav-link">
-          Add new clinic
-        </a>
-      </Link>
-
-      {clinics.map((clinic) => (
-        <div key={clinic.id}>{clinic.name}</div>
-      ))}
-    </Layout>
-  )
-;
+  <Layout title="Clinics">
+    
+  </Layout>
+);
 
 ClinicsPage.propTypes = {
   clinics: PropTypes.instanceOf(Object).isRequired,
   token: PropTypes.string.isRequired,
 };
 
-ClinicsPage.getInitialProps = async (ctx) => {
+ClinicsPage.getInitialProps = async ctx => {
   const { store, req } = ctx;
-  // let token;
-  // if (ctx.isServer) {
-  //   token = req.headers.cookie.split('=')[1];
-  // } else {
-  //   token = store.getState().currentUser.data.token;
-  // }
-  // setAuthorizationToken(token);
-  const { dispatch } = store;
+  const { dispatch, getState } = store;
   const clinics = await dispatch(fetchClinics());
-  return { clinics };
+  const currentUserData = getState().currentUser.data;
+  return { clinics, currentUserData };
 };
 
-export default connect((state) => state)(ClinicsPage);
+export default connect(state => state)(ClinicsPage);
