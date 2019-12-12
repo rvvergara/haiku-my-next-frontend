@@ -26,10 +26,13 @@ const ClinicCard = ({ clinic }) => {
             </li>
           </ul>
         </div>
+        <div className="clinic-button-container">
         <Link href="/clinics/[id]" as={`/clinics/${clinic.id}`}>
-          <a href="/clinics/[id]">See more info</a>
+          <a className="clinic-button" href="/clinics/[id]">See more info</a>
         </Link>
+        </div>
       </div>
+
     </div>
   );
 };

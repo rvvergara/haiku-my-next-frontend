@@ -2,18 +2,21 @@
   font-size: $small;
 }
 
-.theme-button {
-  font-size: 13px;
-  letter-spacing: 0.5px;
-  text-align: center;
-  color: #fff;
-  min-height: 45px;
-  min-width: 173px;
-  border-radius: 3px;
-  background-color: var(--theme-color);
-  text-transform: uppercase;
+.clinic-button{
+  background-color: $purplish-blue;
   border: none;
-  padding: 10px 22px;
-  margin-left: 10px;
+  color: white;
+  padding: $button-pad*2;
+  text-align: center;
+  text-decoration: none;
   display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.clinic-button-container{
+  display: flex;
+  justify-content:flex-end;
 }
