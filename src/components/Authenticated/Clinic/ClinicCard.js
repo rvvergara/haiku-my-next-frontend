@@ -5,10 +5,10 @@ const ClinicCard = ({ clinic }) => {
   const { name, address, postalCode } = clinic;
 
   return (
-    <div className="practitioner-card">
+    <div className="practitioner-card clinic-card-container">
       <div className="profile-image">
         <img
-          className="profile-image__avatar"
+          className="clinic-image"
           src="https://www.asgsurgical.com/img/0062/915.png"
           alt="clinic-profile"
         />

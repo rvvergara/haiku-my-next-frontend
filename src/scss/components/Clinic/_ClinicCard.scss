@@ -10,7 +10,7 @@
   background-color: $purplish-blue;
   border: none;
   color: white;
-  padding: $button-pad*2;
+  padding: $button-pad * 2;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -23,4 +23,15 @@
 .clinic-button-container {
   display: flex;
   justify-content: flex-end;
+}
+.clinic-card-container {
+  justify-content: space-around;
+  padding-bottom: $container-side-pad * 0.4;
+}
+
+.clinic-image {
+  text-align: center;
+  width: 100%;
+  box-shadow: 1px 1px 5px $medium-grey;
+  border-radius: 5px;
 }
