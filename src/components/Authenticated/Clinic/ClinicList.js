@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { listClinics } from '../../../store/actions/clinic';
 import { fetchClinics } from '../../../store/thunks/clinic';
 import { setAuthorizationToken } from '../../../utils/api';
-import Clinic from './Clinic';
+import ClinicCard from './ClinicCard';
 
 const ClinicList = ({
   currentUserData,
@@ -30,14 +30,14 @@ const ClinicList = ({
         </Link>
       )}
 
-      {clinics.map(clinic => (
-        <Clinic key={clinic.id} clinic={clinic} />
+      {clinics.map((clinic) => (
+        <ClinicCard key={clinic.id} clinic={clinic} />
       ))}
     </div>
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
   clinics: state.clinics,
 });

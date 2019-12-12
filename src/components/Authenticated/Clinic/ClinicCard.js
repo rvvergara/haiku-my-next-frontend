@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Clinic = ({ clinic }) => {
+const ClinicCard = ({ clinic }) => {
   const { name, address, postalCode } = clinic;
 
   return (
@@ -31,4 +31,4 @@ const Clinic = ({ clinic }) => {
   );
 };
 
-export default Clinic;
+export default ClinicCard;
