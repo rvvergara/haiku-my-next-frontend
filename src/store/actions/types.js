@@ -8,3 +8,4 @@ export const ADD_CLINIC = 'ADD_CLINIC';
 export const SET_CLINIC = 'SET_CLINIC';
 export const LIST_PRACTITIONERS = ' LIST_PRACTITIONERS';
 export const SET_PRACTITIONER = ' SET_PRACTITIONER';
+
