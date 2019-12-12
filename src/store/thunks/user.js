@@ -37,6 +37,7 @@ export const signup = (params) => async (dispatch) => {
     const res = await sendRequest('post', path, params);
     const { user, token } = await res.data;
     setCookie('token', token);
+    localStorage.setItem('token', token);
     setAuthorizationToken(token);
     setUserInStore({ ...user, token }, dispatch);
     return user;
@@ -54,6 +55,7 @@ export const login = (params) => async (dispatch, getState) => {
     const { user, token } = res.data;
     setAuthorizationToken(token);
     setCookie('token', token);
+    localStorage.setItem('token', token);
     await setUserInStore({ ...user, token }, dispatch);
     const currentUserData = getState().currentUser.data;
     return currentUserData;
@@ -66,6 +68,7 @@ export const login = (params) => async (dispatch, getState) => {
 export const logout = () => (dispatch) => {
   setAuthorizationToken(false);
   removeCookie('token');
+  localStorage.clear();
   dispatch(setCurrentUser({
     authenticated: false,
     data: {},
