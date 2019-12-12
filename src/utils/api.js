@@ -19,7 +19,6 @@ export const setAuthorizationToken = (token) => {
   if (token) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   } else {
-    console.log('Im setting token in api.js else');
     delete axios.defaults.headers.common.Authorization;
   }
 };
