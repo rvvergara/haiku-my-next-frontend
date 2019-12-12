@@ -5,6 +5,7 @@ import validator from 'validator';
 import PropTypes from 'prop-types';
 import { signup } from '../store/thunks/user';
 import setError from '../store/actions/error';
+
 class SignupForm extends React.Component {
   state = {
     firstName: '',

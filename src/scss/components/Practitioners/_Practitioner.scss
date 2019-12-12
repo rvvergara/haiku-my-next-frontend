@@ -1,0 +1,77 @@
+.practitioner-card {
+  background: $white;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px $medium-grey;
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: $small;
+  width: 90%;
+}
+
+.grotesque-font {
+  font-family: $grotesque;
+}
+
+.practitioner-name {
+  color: $dark-blue;
+  font-family: $grotesque;
+  font-size: $xmedium * 1.8;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  margin: 0;
+  text-align: left;
+}
+
+.clinic {
+  font-family: $grotesque;
+  font-size: $xmedium * 1.3;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.13;
+  letter-spacing: normal;
+  margin-bottom: $small;
+  text-align: left;
+}
+
+.specialties {
+  color: $purplish-blue;
+  font-family: $grotesque;
+  font-size: $xmedium * 1.2;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.18;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+.profile-info-container {
+  padding: $container-side-pad * 0.4 0;
+}
+
+.profile-info-container__info__card__title {
+  color: darken($regular-grey, 40%);
+  font-size: $xmedium * 1.5;
+}
+
+.profile-info-container__info__card__content {
+  font-size: $xmedium * 1.2;
+  line-height: 1;
+}
+
+.profile-image {
+  padding-top: 40px;
+  text-align: center;
+  width: 30%;
+
+
+  .profile-image__avatar {
+    border-radius: 100%;
+    display: inline-block;
+    width: 70%;
+  }
+}

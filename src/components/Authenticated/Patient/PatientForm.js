@@ -5,9 +5,11 @@ import Router from 'next/router';
 import moment from 'moment';
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
+import axios from 'axios';
 import MultipleInput from '../ProfileCommon/MultipleInput';
 import { createPatient, updatePatient } from '../../../store/thunks/patient';
 import { uploadPic } from '../../../store/thunks/upload';
+import { setAuthorizationToken } from '../../../utils/api';
 
 export const PatientForm = ({
  createPatient, currentUserData, updatePatient, uploadPic,
@@ -71,10 +73,15 @@ export const PatientForm = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setAuthorizationToken(localStorage.token);
     const { id } = currentUserData;
     const patientId = currentUserData.profile ? currentUserData.profile.id : undefined;
 
-    const imageURL = await handleUploadPic();
+    let imageURL;
+
+    if (imageText) {
+      imageURL = await handleUploadPic();
+    }
 
     const params = {
       contactNo,
