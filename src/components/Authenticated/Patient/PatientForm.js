@@ -73,8 +73,7 @@ export const PatientForm = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setAuthorizationToken(currentUserData.token)
-    console.log('AUTH TOKEN SUBMIT FORM', axios.defaults.headers.common.Authorization);
+    setAuthorizationToken(localStorage.token);
     const { id } = currentUserData;
     const patientId = currentUserData.profile ? currentUserData.profile.id : undefined;
 

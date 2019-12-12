@@ -14,12 +14,10 @@ export default async (ctx) => {
       const token = getCookie('token', req);
       const id = decode(token).user_id;
       setAuthorizationToken(token);
-      console.log('AUTHORIZATION HEADER SET ON SERVER', axios.defaults.headers.common.Authorization);
       await dispatch(fetchUserData(id));
     }
   } else {
     try {
-      console.log('INITIALIZE GOT CALLED ON THE CLIENT');
       const { token } = localStorage;
       setAuthorizationToken(token);
       if (token && (ctx.pathname === '/login' || ctx.pathname === '/signup')) {
