@@ -3,15 +3,16 @@ import { connect } from 'react-redux';
 import { listPractitioners } from '../../../store/actions/practitioners';
 import { fetchPractitioners } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
+import PractitionerBox from '../../Authenticated/Practitioner/PractitionerBox';
 
 const PractitionerList = ({
   fetchPractitioners,
   practitioners,
   listPractitioners,
 }) => {
-  useEffect(async () => {
+  useEffect(() => {
     setAuthorizationToken(localStorage.token);
-    await fetchPractitioners();
+   fetchPractitioners();
     return () => {
       listPractitioners([]);
     };
@@ -19,7 +20,9 @@ const PractitionerList = ({
 
   return (
     <div>
-
+      {practitioners.map(practitioner => (
+        <PractitionerBox key={practitioner.id} practitioner={practitioner} />
+      ))}
     </div>
   );
 };
