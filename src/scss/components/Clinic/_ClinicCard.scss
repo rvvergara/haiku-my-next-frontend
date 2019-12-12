@@ -1,8 +1,12 @@
+.profile-info-container.fixed-width {
+  max-width: 50%;
+}
+
 .clinic-name {
   font-size: $small;
 }
 
-.clinic-button{
+.clinic-button {
   background-color: $purplish-blue;
   border: none;
   color: white;
@@ -16,7 +20,7 @@
   border-radius: 5px;
 }
 
-.clinic-button-container{
+.clinic-button-container {
   display: flex;
-  justify-content:flex-end;
+  justify-content: flex-end;
 }

@@ -14,7 +14,7 @@ const ClinicCard = ({ clinic }) => {
         />
       </div>
 
-      <div className="profile-info-container">
+      <div className="profile-info-container fixed-width">
         <h2 className="practitioner-name clinic-name">{name}</h2>
         <div className="profile-info-container__info__card">
           <ul className="profile-list grotesque-font">
@@ -27,7 +27,7 @@ const ClinicCard = ({ clinic }) => {
           </ul>
         </div>
         <div className="clinic-button-container">
-        <Link href="/clinics/[id]" as={`/clinics/${clinic.id}`}>
+          <Link href="/clinics/[id]" as={`/clinics/${clinic.id}`}>
           <a className="clinic-button" href="/clinics/[id]">See more info</a>
         </Link>
         </div>
