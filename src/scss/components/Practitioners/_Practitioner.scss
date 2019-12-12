@@ -5,7 +5,6 @@
   display: flex;
   margin: 0 auto;
   margin-bottom: $small;
-  // margin-top: $container-side-pad * 0.4;
   width: 90%;
 }
 
@@ -60,7 +59,8 @@
 }
 
 .profile-info-container__info__card__content {
-  font-size: $xmedium * 1.2
+  font-size: $xmedium * 1.2;
+  line-height: 1;
 }
 
 .profile-image {
