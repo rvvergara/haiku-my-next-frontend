@@ -1,23 +1,15 @@
-import Router from 'next/router';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import PractitionerList from '../../../components/Authenticated/Practitioner/PractitionerList';
+import PropTypes from 'prop-types';
+import PractitionerList from '../Practitioner/PractitionerList';
 import { setClinic } from '../../../store/actions/clinic';
-import { fetchOneClinic } from '../../../store/thunks/clinic';
-import { setAuthorizationToken } from '../../../utils/api';
 
-const ClinicProfile = ({ fetchOneClinic, setClinic, clinic }) => {
+const ClinicProfile = ({ setClinic, clinic }) => {
   const { name, address, postalCode } = clinic;
 
-  useEffect(() => {
-    if (process.browser) {
-      setAuthorizationToken(localStorage.token);
-    }
-    fetchOneClinic(Router.query.id);
-    return () => {
+  useEffect(() => () => {
       setClinic({});
-    };
-  }, []);
+    }, []);
   return (
     <div className="clinic-profile">
       <h1>{name}</h1>
@@ -39,10 +31,15 @@ const ClinicProfile = ({ fetchOneClinic, setClinic, clinic }) => {
   );
 };
 
-const mapStateToProps = state => ({
+ClinicProfile.propTypes = {
+  clinic: PropTypes.instanceOf(Object).isRequired,
+  setClinic: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
   clinic: state.displayedClinic,
 });
 
-export default connect(mapStateToProps, { fetchOneClinic, setClinic })(
+export default connect(mapStateToProps, { setClinic })(
   ClinicProfile,
 );

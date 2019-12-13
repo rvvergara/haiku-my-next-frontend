@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import ClinicProfile from '../../components/Authenticated/Clinic/ClinicProfile';
 import Layout from '../../components/Layouts/Layout';
 import { fetchOneClinic } from '../../store/thunks/clinic';
@@ -9,6 +10,10 @@ const ClinicPage = ({ clinic }) => (
     <ClinicProfile />
   </Layout>
 );
+
+ClinicPage.propTypes = {
+  clinic: PropTypes.instanceOf(Object).isRequired,
+};
 
 ClinicPage.getInitialProps = async (ctx) => {
   const { store } = ctx;
