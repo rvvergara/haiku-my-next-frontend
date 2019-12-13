@@ -5,7 +5,6 @@ import { fetchPractitioners } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
 import PractitionerBox from '../../Authenticated/Practitioner/PractitionerBox';
 
-
 const PractitionerList = ({
   fetchPractitioners,
   practitioners,
@@ -13,14 +12,15 @@ const PractitionerList = ({
 }) => {
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
-   fetchPractitioners();
+    fetchPractitioners();
     return () => {
       listPractitioners([]);
     };
   }, []);
 
   return (
-    <div>
+    <div className="practitionerList-container">
+      <h3 className="clinic-name">Doctors who works here</h3>
       {practitioners.map(practitioner => (
         <PractitionerBox key={practitioner.id} practitioner={practitioner} />
       ))}

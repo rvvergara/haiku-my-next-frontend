@@ -1,16 +1,30 @@
 import Link from 'next/link';
 
 const PractitionerBox = ({ practitioner }) => {
-  const { biography, specialities,id } = practitioner;
+  const { biography, specialities, id, image } = practitioner;
 
   return (
     <div className="practitionerBox-container">
-      <p>Dr. Peter Goh Min Yih.</p>
-      <p>{specialities}</p>
-      <p>{biography.substring(0,100)}</p>
+      <div className="practitioner-info-container">
+        <img
+          className="profile-image__avatar"
+          src="https://images1-fabric.practo.com/dr-goh-min-yih-peter-1454317839-56af210f55ab0.jpg/thumbnail"
+          alt="doctor-profile"
+        />
+        <div className="practitioner-profile-info">
+          <p className="practitioner-name">Dr. Peter Goh Min Yih.</p>
+          <p className="specialties">{specialities}</p>
+          <p className="grotesque-font profile-info-container__info__card__conten">
+            {biography.substring(0, 100)}...
+          </p>
+        </div>
+      </div>
+
       <Link href="/practitioners/[id]" as={`/practitioners/${id}`}>
-          <a className="clinic-button" href="/practitioner/[id]">Read More...</a>
-        </Link>
+        <a className="clinic-button" href="/practitioner/[id]">
+          Book an Appointment
+        </a>
+      </Link>
     </div>
   );
 };

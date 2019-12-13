@@ -1,4 +1,4 @@
-.profile{
+.profile {
   display: flex;
 }
 
@@ -72,7 +72,6 @@
   text-align: center;
   width: 30%;
 
-
   .profile-image__avatar {
     border-radius: 100%;
     display: inline-block;
@@ -80,6 +79,19 @@
   }
 }
 
-.practitionerBox-container{
-  border: 1px solid tomato;
+.practitionerList-container {
+  padding-top: 30px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.practitioner-profile-info {
+  margin-left: 50px;
+}
+
+.practitioner-info-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
 }
