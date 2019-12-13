@@ -1,35 +1,60 @@
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const PractitionerCard = () => (
+const PractitionerCard = ({ practitioner }) => (
   <div className="practitioner-card">
     <div className="profile-image">
       <img
         className="profile-image__avatar"
-        src="https://images1-fabric.practo.com/dr-goh-min-yih-peter-1454317839-56af210f55ab0.jpg/thumbnail"
+        src={practitioner.image}
         alt="doctor-profile"
       />
     </div>
 
     <div className="profile-info-container">
-      <span className="specialties">Neurology, Psychology</span>
+      <span className="specialties">{practitioner.specialities.join(', ')}</span>
       <h2 className="practitioner-name">Dr. Peter Goh Min Yih.</h2>
       <h3 className="clinic">Advanced Surgical Group</h3>
       <div className="profile-info-container__info__card">
         <h4 className="grotesque-font profile-info-container__info__card__title">Education</h4>
         <ul className="profile-list grotesque-font">
-          <li className="grotesque profile-info-container__info__card__content">MBBS - NUS-Singapore, 1980</li>
-          <li className="grotesque profile-info-container__info__card__content">FRCS - General Surgery - Royal College of Surgeons of Edinburgh (RCSE), U.K, 1984 </li>
-          <li className="grotesque profile-info-container__info__card__content">M M Med (Gen Surg) - NUS-Singapore, 1985</li>
+          {
+            practitioner.education.map((educ) => (
+              <li
+                className="grotesque profile-info-container__info__card__content"
+                key={educ}
+              >
+                {educ}
+              </li>
+            ))
+          }
         </ul>
       </div>
       <div className="profile-info-container__info__card">
         <h4 className="grotesque-font profile-info-container__info__card__title">Specialialties</h4>
         <ul className="profile-list grotesque-font">
-          <li className="grotesque-font profile-info-container__info__card__content">Gastroenterology</li>
-          <li className="grotesque-font profile-info-container__info__card__content">Internal Medicine</li>
+          {
+            practitioner.specialities.map((specialty) => (
+              <li
+                className="grotesque-font profile-info-container__info__card__content"
+                key={specialty}
+              >
+                {specialty}
+              </li>
+            ))
+          }
         </ul>
       </div>
     </div>
   </div>
 );
 
-export default PractitionerCard;
+PractitionerCard.propTypes = {
+  practitioner: PropTypes.instanceOf(Object).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  practitioner: state.displayedPractitioner,
+});
+
+export default connect(mapStateToProps)(PractitionerCard);
