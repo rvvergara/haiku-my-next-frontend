@@ -19,13 +19,15 @@
 }
 
 .sidebar__nav {
+  display: flex;
+  justify-content: space-between;
   list-style: none;
-  margin: $container-side-pad*0.2;
   padding: 0;
 }
 
 .sidebar__navlink {
   margin: $container-side-pad*0.3 0;
+  margin-right: 20px;
 
   a,
   button {

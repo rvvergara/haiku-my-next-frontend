@@ -1,9 +1,9 @@
 .authenticated-layout {
   background: $light-grey;
-  // height: 100vh;
 }
 
 .authenticated-body {
+  height: 100%;
   display: flex;
   justify-content: space-between;
   margin-top: $container-side-pad*0.25;
