@@ -1,12 +1,12 @@
+import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { setPractitioner } from '../../../store/actions/practitioners';
+import Booking from '../Booking/Booking';
 import PractitionerCard from './PractitionerCard';
 import PractitionerDetailsCard from './PractitionerDetailsCard';
-import Booking from '../Booking/Booking';
 
-const PractitionerProfile = ({ setPractitioner }) => {
+const PractitionerProfile = ({ setPractitioner, role }) => {
   useEffect(() => () => setPractitioner({}));
   return (
     <div className="profile">
@@ -15,13 +15,19 @@ const PractitionerProfile = ({ setPractitioner }) => {
         <PractitionerDetailsCard />
       </div>
 
-      <Booking />
+      {role === 'patient' && <Booking />}
     </div>
-);
+  );
 };
 
 PractitionerProfile.propTypes = {
   setPractitioner: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setPractitioner })(PractitionerProfile);
+const mapStateToProps = state => ({
+  role: state.currentUser.data.role,
+});
+
+export default connect(mapStateToProps, { setPractitioner })(
+  PractitionerProfile,
+);
