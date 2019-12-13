@@ -31,15 +31,20 @@ export const Header = ({ logout, currentUserData }) => {
         <div className="header__links">
           <div className="header__links__welcome">
             <strong>
-              Welcome {role === 'practitioner' ? 'Dr. ' : ''}
+              Welcome
+              {' '}
+              {role === 'practitioner'
+               ? 'Dr. ' : ''}
               {firstName}
             </strong>
           </div>
-          <img
-            src={currentUserData.profile.image}
-            className="user-photo-profile"
-            alt=""
-          />
+          {currentUserData.profile && (
+            <img
+              src={currentUserData.profile.image}
+              className="user-photo-profile"
+              alt=""
+            />
+          )}
           <div className="header__links__logout">
             <button type="button" className="logout" onClick={handleLogout}>
               Logout
@@ -56,7 +61,7 @@ Header.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
 });
 
