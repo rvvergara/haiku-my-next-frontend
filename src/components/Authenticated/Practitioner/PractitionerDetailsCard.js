@@ -1,4 +1,7 @@
-const PractitionerDetailsCard = () => (
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+const PractitionerDetailsCard = ({ practitioner }) => (
   <div className="practitioner-card">
     <div className="profile-info-container">
       <div className="profile-info-container__info__card container">
@@ -6,11 +9,23 @@ const PractitionerDetailsCard = () => (
           Bio
         </h4>
         <p className="grotesque-font profile-info-container__info__card__content">
-          Consequat aliqua enim sint consectetur consectetur ut quis. Culpa ipsum veniam tempor magna tempor. Culpa cupidatat laboris esse ullamco culpa nostrud irure dolor aute laboris. Amet Lorem commodo aliquip laborum ad consequat culpa magna. Irure pariatur sit tempor sit laborum enim non.
+          {
+            practitioner.biography
+          }
         </p>
       </div>
     </div>
   </div>
 );
 
-export default PractitionerDetailsCard;
+PractitionerDetailsCard.propTypes = {
+  practitioner: PropTypes.instanceOf(Object).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  practitioner: Object.keys(state.displayedPractitioner).length > 0
+  ? state.displayedPractitioner
+  : state.currentUser.data.profile,
+});
+
+export default connect(mapStateToProps)(PractitionerDetailsCard);

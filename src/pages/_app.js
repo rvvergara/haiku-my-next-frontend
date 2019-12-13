@@ -23,7 +23,7 @@ class IgakuApp extends App {
       return redirect(ctx, '/');
     }
 
-    if ((!authenticated && pathname === '/profile/new') || (authenticated && pathname && profile === '/profile/new')) {
+    if ((!authenticated && (pathname === '/profile/new' || pathname === '/profile/edit')) || (authenticated && (pathname === '/profile/new') && profile)) {
       return redirect(ctx, '/');
     }
     const pageProps = Component.getInitialProps

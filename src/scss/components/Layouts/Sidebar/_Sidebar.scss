@@ -5,6 +5,7 @@
   margin: 0 $container-side-pad*0.25;
   margin-left: 0;
   padding-top: 3rem;
+  height: 90vh;
 }
 
 .authenticated-body__sidebar-container {
@@ -18,13 +19,15 @@
 }
 
 .sidebar__nav {
+  display: flex;
+  justify-content: space-between;
   list-style: none;
-  margin: $container-side-pad*0.2;
   padding: 0;
 }
 
 .sidebar__navlink {
   margin: $container-side-pad*0.3 0;
+  margin-right: 20px;
 
   a,
   button {

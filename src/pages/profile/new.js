@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Layout from '../../components/Layouts/Layout';
 import ConnectedPractitionerForm from '../../components/Authenticated/Practitioner/PractitionerForm';
 import ConnectedPatientForm from '../../components/Authenticated/Patient/PatientForm';
-import { setAuthorizationToken } from '../../utils/api';
 
 export const NewProfilePage = ({ currentUserData }) => (
   <Layout title={`New ${currentUserData.role} profile`}>
@@ -13,14 +12,7 @@ export const NewProfilePage = ({ currentUserData }) => (
 );
 
 NewProfilePage.getInitialProps = (ctx) => {
-  const { store, req } = ctx;
-  let token;
-  if (ctx.isServer) {
-    token = req.headers.cookie.split('=')[1];
-  } else {
-    token = store.getState().currentUser.data.token;
-  }
-  setAuthorizationToken(token);
+  const { store } = ctx;
   const { data } = store.getState().currentUser;
 
   return { currentUserData: data };

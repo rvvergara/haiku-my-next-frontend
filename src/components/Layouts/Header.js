@@ -1,8 +1,9 @@
-import { connect } from 'react-redux';
-import Router from 'next/router';
 import Link from 'next/link';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { logout } from '../../store/thunks/user';
+import PatientNavLinks from './Sidebars/PatientNavLinks';
 
 export const Header = ({ logout, currentUserData }) => {
   const handleLogout = () => {
@@ -15,33 +16,38 @@ export const Header = ({ logout, currentUserData }) => {
   return (
     <header className="header">
       <div className="container">
+        <Link href="/">
+          <span className="logo-link">
+            <img
+              src="https://tinyimg.io/i/pBRWCRn.png"
+              alt="Igaku | Health that Cares"
+              className="header__brand__img"
+            />
+          </span>
+        </Link>
         <div className="header__brand">
-          <Link href="/">
-            <span className="logo-link">
-              <img
-                src="https://tinyimg.io/i/pBRWCRn.png"
-                alt="Igaku | Health that Cares"
-                className="header__brand__img"
-              />
-            </span>
-          </Link>
+          <PatientNavLinks />
         </div>
         <div className="header__links">
           <div className="header__links__welcome">
             <strong>
               Welcome
               {' '}
-              { role === 'practitioner' ? 'Dr. ' : ''}
+              {role === 'practitioner'
+               ? 'Dr. ' : ''}
               {firstName}
             </strong>
           </div>
+          {currentUserData.profile && (
+            <img
+              src={currentUserData.profile.image}
+              className="user-photo-profile"
+              alt=""
+            />
+          )}
           <div className="header__links__logout">
-            <button
-              type="button"
-              className="logout"
-              onClick={handleLogout}
-            >
-            Logout
+            <button type="button" className="logout" onClick={handleLogout}>
+              Logout
             </button>
           </div>
         </div>

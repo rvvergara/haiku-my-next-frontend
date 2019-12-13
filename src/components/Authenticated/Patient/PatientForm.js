@@ -10,77 +10,76 @@ import MultipleInput from '../ProfileCommon/MultipleInput';
 import { createPatient, updatePatient } from '../../../store/thunks/patient';
 import { uploadPic } from '../../../store/thunks/upload';
 import { setAuthorizationToken } from '../../../utils/api';
+import setError from '../../../store/actions/error';
 
-export const PatientForm = ({
- createPatient, currentUserData, updatePatient, uploadPic,
-}) => {
-  const { profile } = currentUserData;
-  let contactVal = '';
-  let passportVal = '';
-  let postalVal = '';
-  let addressVal = '';
-  let dobVal = moment();
-  let languagesVal = [];
-  let pointsVal = 0;
-
-  if (profile) {
-    contactVal = profile.contactNo;
-    passportVal = profile.passport;
-    postalVal = profile.postalCode;
-    addressVal = profile.address;
-    dobVal = moment(profile.dob);
-    languagesVal = profile.languages;
-    pointsVal = profile.points;
+class PatientForm extends React.Component {
+  state = {
+    contactNo: this.props.currentUserData.profile ? this.props.currentUserData.profile.contactNo : '',
+    passport: this.props.currentUserData.profile ? this.props.currentUserData.profile.passport : '',
+    postalCode: this.props.currentUserData.profile ? this.props.currentUserData.profile.postalCode : '',
+    address: this.props.currentUserData.profile ? this.props.currentUserData.profile.address : '',
+    dob: this.props.currentUserData.profile ? moment(this.props.currentUserData.profile.dob) : moment(),
+    languages: this.props.currentUserData.profile ? this.props.currentUserData.profile.languages : [],
+    points: this.props.currentUserData.profile ? this.props.currentUserData.profile.points : 0,
+    imageText: '',
+    imageFile: null,
+    calendarFocused: false,
   }
 
-  const [contactNo, setContactNo] = useState(contactVal);
-  const [passport, setPassport] = useState(passportVal);
-  const [postalCode, setPostalCode] = useState(postalVal);
-  const [address, setAddress] = useState(addressVal);
-  const [dob, setDob] = useState(dobVal);
-  const [calendarFocused, setCalendarFocused] = useState(false);
-  const [languages, setLanguages] = useState(languagesVal);
-  const [points, setPoints] = useState(pointsVal);
-  const [imageText, setImageText] = useState('');
-  const [imageFile, setImageFile] = useState(null);
+  componentWillUnmount(){
+    this.props.setError('');
+  }
 
-  const onFocusChange = ({ focused }) => setCalendarFocused(focused);
+  handleChange = (key, val) => this.setState(() => ({
+    [key]: val
+  }));
 
-  const onDateChange = (dob) => {
+  onDateChange = (dob) => {
     if (dob) {
-      setDob(dob);
+      this.setState(() => ({'dob': dob}));
     }
   };
 
-  const handleUploadPic = async () => {
+  onFocusChange = ({ focused }) => setCalendarFocused('calendarFocused', focused);
+
+  handleUploadPic = async () => {
+    const { currentUserData } = this.props;
+    const { imageFile } = this.state;
     const { id } = currentUserData;
     const formData = new FormData();
     formData.append('files', imageFile);
     formData.append('userId', id);
-    const res = await uploadPic(formData);
+    const res = await this.props.uploadPic(formData);
     return res;
   };
 
-  const imgPreviewUrl = () => {
+  imgPreviewUrl = () => {
+    const { imageFile } = this.state;
+    const { profile } = this.props.currentUserData;
+
     if (imageFile) {
       return URL.createObjectURL(imageFile);
     }
     if (profile && profile.image) {
       return profile.image;
     }
-      return 'https://tinyimg.io/i/BmtLUPZ.jpg';
+    return 'https://tinyimg.io/i/BmtLUPZ.jpg';
   };
 
-  const handleSubmit = async (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
+    const { currentUserData } = this.props;
+    const { contactNo, passport, postalCode, address, dob, languages, points, imageText } = this.state;
+
     setAuthorizationToken(localStorage.token);
+    
     const { id } = currentUserData;
     const patientId = currentUserData.profile ? currentUserData.profile.id : undefined;
 
     let imageURL;
 
     if (imageText) {
-      imageURL = await handleUploadPic();
+      imageURL = await this.handleUploadPic();
     }
 
     const params = {
@@ -97,10 +96,10 @@ export const PatientForm = ({
 
     try {
       if (Router.pathname === '/profile/new') {
-        await createPatient(params);
+        await this.props.createPatient(params);
       }
       if (Router.pathname === '/profile/edit') {
-        await updatePatient(patientId, params);
+        await this.props.updatePatient(patientId, params);
       }
       setTimeout(() => Router.push('/'), 1000);
       return true;
@@ -109,158 +108,170 @@ export const PatientForm = ({
     }
   };
 
-  return (
-    <div className="container profile-form-container">
-      <form className="user-form profile-form">
-        <div className="form-group">
-          <div className="image-preview">
-            <img
-              src={imgPreviewUrl()}
-              alt="Patient"
-              className="profile-avatar__img"
+  render(){
+    const { contactNo, passport, postalCode, address, dob, languages, points, imageText, calendarFocused } = this.state;
+
+    return (
+      <div className="container profile-form-container">
+        <form className="user-form profile-form">
+          <div className="form-group">
+            <div className="image-preview">
+              <img
+                src={this.imgPreviewUrl()}
+                alt="Patient"
+                className="profile-avatar__img"
+              />
+            </div>
+            <label
+              className="auth-label"
+              htmlFor="profile-pic"
+            >
+            Profile Pic:
+              {' '}
+            </label>
+            <input
+              type="file"
+              id="profile-pic"
+              onChange={(e) => {
+                this.handleChange('imageText', e.target.value);
+                this.handleChange('imageFile', e.target.files[0]);
+              }}
+              value={imageText}
             />
           </div>
-          <label
-            className="auth-label"
-            htmlFor="profile-pic"
-          >
-          Profile Pic:
-            {' '}
-          </label>
-          <input
-            type="file"
-            id="profile-pic"
-            onChange={(e) => {
-              setImageText(e.target.value);
-              setImageFile(e.target.files[0]);
-            }}
-            value={imageText}
-          />
-        </div>
-        <div className="form-group">
-          <label
-            className="auth-label"
-            htmlFor="contact-no"
-          >
-              Contact Number:
-            {' '}
-          </label>
-          <input
-            className="user-form__input number__input"
-            type="text"
-            id="contact-no"
-            onChange={(e) => setContactNo(e.target.value)}
-            value={contactNo}
-          />
-        </div>
-        <div className="form-group">
-          <label
-            className="auth-label"
-            htmlFor="passport"
-          >
-            Passport No.
-          </label>
-          <input
-            className="user-form__input number__input"
-            type="text"
-            id="passport"
-            onChange={(e) => setPassport(e.target.value)}
-            value={passport}
-          />
-        </div>
-        <div className="form-group">
-          <label
-            className="auth-label"
-            htmlFor="address"
-          >
-            Address
-          </label>
-          <input
-            className="user-form__input"
-            type="text"
-            id="address"
-            onChange={(e) => setAddress(e.target.value)}
-            value={address}
-          />
-        </div>
-        <div className="form-group">
-          <label
-            className="auth-label"
-            htmlFor="postal-code"
-          >
-            Postal Code
-          </label>
-          <input
-            className="user-form__input number__input"
-            type="text"
-            id="postal-code"
-            onChange={(e) => setPostalCode(e.target.value)}
-            value={postalCode}
-          />
-        </div>
-        <div className="form-group">
-          <label
-            className="auth-label"
-            htmlFor="dob"
-          >
-            Date of Birth:
-          </label>
-          <SingleDatePicker
-            id="dob"
-            date={dob}
-            onDateChange={onDateChange}
-            focused={calendarFocused}
-            onFocusChange={onFocusChange}
-            numberOfMonths={1}
-            isOutsideRange={() => false}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="languages">Languages</label>
-          <MultipleInput
-            selectedInputs={(inputs) => setLanguages(inputs)}
-            values={languages}
-            labelId="languages"
-          />
-        </div>
-        <div className="form-group">
-          <label
-            className="auth-label"
-            htmlFor="points"
-          >
-            Points
-          </label>
-          <input
-            className="user-form__input"
-            type="number"
-            id="points"
-            onChange={(e) => setPoints(e.target.value)}
-            value={points}
-          />
-        </div>
-        <div className="form-group profile-form-group">
-          <button
-            className="user-form__button profile-button"
-            type="submit"
-            onClick={handleSubmit}
-          >
-            Update Profile
-          </button>
-        </div>
-      </form>
-    </div>
-  );
-};
+          <div className="form-group">
+            <label
+              className="auth-label"
+              htmlFor="contact-no"
+            >
+                Contact Number:
+              {' '}
+            </label>
+            <input
+              className="user-form__input number__input"
+              type="text"
+              id="contact-no"
+              onChange={(e) => this.handleChange('contactNo', e.target.value)}
+              value={contactNo}
+            />
+          </div>
+          <div className="form-group">
+            <label
+              className="auth-label"
+              htmlFor="passport"
+            >
+              Passport No.
+            </label>
+            <input
+              className="user-form__input number__input"
+              type="text"
+              id="passport"
+              onChange={(e) => this.handleChange('passport', e.target.value)}
+              value={passport}
+            />
+          </div>
+          <div className="form-group">
+            <label
+              className="auth-label"
+              htmlFor="address"
+            >
+              Address
+            </label>
+            <input
+              className="user-form__input"
+              type="text"
+              id="address"
+              onChange={(e) => this.handleChange('address', e.target.value)}
+              value={address}
+            />
+          </div>
+          <div className="form-group">
+            <label
+              className="auth-label"
+              htmlFor="postal-code"
+            >
+              Postal Code
+            </label>
+            <input
+              className="user-form__input number__input"
+              type="text"
+              id="postal-code"
+              onChange={(e) => this.handleChange('postalCode', e.target.value)}
+              value={postalCode}
+            />
+          </div>
+          <div className="form-group">
+            <label
+              className="auth-label"
+              htmlFor="dob"
+            >
+              Date of Birth:
+            </label>
+            <SingleDatePicker
+              id="dob"
+              date={dob}
+              onDateChange={this.onDateChange}
+              focused={calendarFocused}
+              onFocusChange={this.onFocusChange}
+              numberOfMonths={1}
+              isOutsideRange={() => false}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="languages">Languages</label>
+            <MultipleInput
+              selectedInputs={(inputs) => this.handleChange('languages',inputs)}
+              values={languages}
+              labelId="languages"
+            />
+          </div>
+          <div className="form-group">
+            <label
+              className="auth-label"
+              htmlFor="points"
+            >
+              Points
+            </label>
+            <input
+              className="user-form__input"
+              type="number"
+              id="points"
+              onChange={(e) => this.handleChange('points', e.target.value)}
+              value={points}
+            />
+          </div>
+          <div className="form-group profile-form-group">
+            <button
+              className="user-form__button profile-button"
+              type="submit"
+              onClick={this.handleSubmit}
+            >
+              Update Profile
+            </button>
+          </div>
+        </form>
+      </div>
+    );
+  }
+}
 
 PatientForm.propTypes = {
   createPatient: PropTypes.func.isRequired,
   currentUserData: PropTypes.instanceOf(Object).isRequired,
+  error: PropTypes.string.isRequired,
+  setError: PropTypes.func.isRequired,
   updatePatient: PropTypes.func.isRequired,
   uploadPic: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
+  error: state.error,
 });
 
-export default connect(mapStateToProps, { createPatient, updatePatient, uploadPic })(PatientForm);
+export default connect(mapStateToProps, { 
+  createPatient,
+  setError, 
+  updatePatient, 
+  uploadPic 
+})(PatientForm);

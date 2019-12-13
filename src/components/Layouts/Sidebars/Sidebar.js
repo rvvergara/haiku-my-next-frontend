@@ -1,19 +1,15 @@
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { userConstants } from '../../../store/constants/userConstants';
 import PractitionerNavLinks from './PractitionerNavLinks';
 import PatientNavLinks from './PatientNavLinks';
-import AdminNavLinks from './AdminNavLinks';
 
 const renderSideBar = (userRole) => {
   switch (userRole) {
-    case userConstants.PRACTITIONER_ROLE:
+    case 'practitioner':
       return <PractitionerNavLinks />;
-    case userConstants.PATIENT_ROLE:
+    case 'patient':
       return <PatientNavLinks />;
-    case userConstants.ADMIN_ROLE:
-      return <AdminNavLinks />;
     default:
       return null;
   }

@@ -1,3 +1,7 @@
+.profile {
+  display: flex;
+}
+
 .practitioner-card {
   background: $white;
   border-radius: 5px;
@@ -68,10 +72,26 @@
   text-align: center;
   width: 30%;
 
-
   .profile-image__avatar {
     border-radius: 100%;
     display: inline-block;
     width: 70%;
   }
+}
+
+.practitionerList-container {
+  padding-top: 30px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.practitioner-profile-info {
+  margin-left: 50px;
+}
+
+.practitioner-info-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
 }

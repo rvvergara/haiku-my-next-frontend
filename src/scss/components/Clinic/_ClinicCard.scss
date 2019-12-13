@@ -1,0 +1,56 @@
+.profile-info-container.fixed-width {
+  max-width: 50%;
+}
+
+.clinic-name {
+  font-size: $small;
+}
+
+.clinic-button {
+  background-color: $purplish-blue;
+  border: none;
+  color: white;
+  padding: $button-pad * 2;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.clinic-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.clinic-card-container {
+  justify-content: space-around;
+  padding-bottom: $container-side-pad * 0.4;
+}
+
+.clinic-image {
+  text-align: center;
+  width: 100%;
+  box-shadow: 1px 1px 5px $medium-grey;
+  border-radius: 5px;
+}
+
+.clinic-profile-card {
+  margin-bottom: 2.6rem;
+  padding-bottom: 50px;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px #c7d0d8;
+  display: flex;
+  flex-direction: column;
+}
+
+.clinic-profile-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.clinic-opening-hours{
+  padding-top:20px;
+}
