@@ -76,9 +76,8 @@ class ClinicForm extends React.Component {
     try {
       if(Router.pathname === '/clinics/new') {
         clinic = await createClinic(params);
-      }
-      if(Router.pathname === '/clinics/[id]/edit'){
-        clinic = await this.props.changeClinic(clinic.id, params)
+      } else {
+        clinic = await this.props.changeClinic(this.props.clinic.id, params)
       }
     } catch (err) {
       return err;
@@ -87,7 +86,7 @@ class ClinicForm extends React.Component {
       await updatePractitioner(profileId, {clinicId: clinic.id, userId: currentUserData.id})
     }
     if(clinic){
-      // Router.push('/clinics');
+      Router.push('/clinics');
     }
   };
 

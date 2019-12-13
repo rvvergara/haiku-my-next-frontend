@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import ClinicForm from '../../../components/Authenticated/Clinic/ClinicForm';
+import ConnectedClinicForm from '../../../components/Authenticated/Clinic/ClinicForm';
 import Layout from '../../../components/Layouts/Layout';
 import { fetchOneClinic } from '../../../store/thunks/clinic';
 
 const ClinicUpdatePage = ({ clinic }) => (
   <Layout title={`Edit ${clinic.name}`}>
-    <ClinicForm />
+    <ConnectedClinicForm />
   </Layout>
 );
 

@@ -17,7 +17,6 @@ export const createClinic = (params) => async (dispatch) => {
 };
 
 export const changeClinic = (clinicId, params) => async (dispatch) => {
-  console.log('I WAS CALLED');
   const path = `v1/clinic/${clinicId}`;
   try {
     const res = await sendRequest('put', path, params);
