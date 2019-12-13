@@ -1,3 +1,7 @@
+.profile{
+  display: flex;
+}
+
 .practitioner-card {
   background: $white;
   border-radius: 5px;
@@ -74,4 +78,8 @@
     display: inline-block;
     width: 70%;
   }
+}
+
+.practitionerBox-container{
+  border: 1px solid tomato;
 }

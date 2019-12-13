@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ProfileInfoGroup from '../ProfileCommon/ProfileInfoGroup';
 import PractitionerCard from './PractitionerCard';
 import PractitionerDetailsCard from './PractitionerDetailsCard';
+import Booking from '../Booking/Booking'
 
 
 export const PractitionerProfile = ({ currentUserData }) => {
@@ -33,8 +34,12 @@ export const PractitionerProfile = ({ currentUserData }) => {
       <ProfileInfoGroup infoKey="Specialization" val="Neurology, Cardiology" />
       <ProfileInfoGroup infoKey="Years of Experience" val="2" />
   <ProfileInfoGroup infoKey="Biograpy" val="Hello, my patients!" /> */}
-      <PractitionerCard />
+  <div>
+  <PractitionerCard />
       <PractitionerDetailsCard />
+  </div>
+
+      <Booking />
     </div>
 );
 };
