@@ -12,11 +12,12 @@ export const createClinic = (params) => async (dispatch) => {
     dispatch(addClinic(clinic));
     return clinic;
   } catch (error) {
-    return dispatch(setError(error.response.data));
+    return dispatch(setError(error.response.data.error));
   }
 };
 
 export const changeClinic = (clinicId, params) => async (dispatch) => {
+  console.log('I WAS CALLED');
   const path = `v1/clinic/${clinicId}`;
   try {
     const res = await sendRequest('put', path, params);
@@ -24,7 +25,7 @@ export const changeClinic = (clinicId, params) => async (dispatch) => {
     dispatch(updateClinic(changedClinic));
     return changedClinic;
   } catch (err) {
-    return dispatch(setError(err.response.data));
+    return dispatch(setError(err.response.data.error));
   }
 };
 

@@ -7,7 +7,6 @@ import { fetchUserData } from '../store/thunks/user';
 
 export default async (ctx) => {
   if (ctx.isServer) {
-    console.log('INITIALIZE GOT CALLED ON THE SERVER');
     if (ctx.req.headers.cookie) {
       const { req, store } = ctx;
       const { dispatch } = store;

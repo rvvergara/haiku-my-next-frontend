@@ -1,25 +1,26 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-import { createClinic, updateClinic } from '../../../store/thunks/clinic';
+import { createClinic, changeClinic } from '../../../store/thunks/clinic';
 import { uploadPic } from '../../../store/thunks/upload';
 import { updatePractitioner } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
+import { setClinic } from '../../../store/actions/clinic';
 import setError from '../../../store/actions/error';
 
 class ClinicForm extends React.Component {
   state = {
-    name: '',
-    address: '',
-    postalCode: '',
-    associated:false,
-    currentUser: this.props.currentUserData.profile.id,
+    name: this.props.clinic.name || '',
+    address: this.props.clinic.address || '',
+    postalCode: this.props.clinic.postalCode || '',
+    associated: this.props.clinic !== {} && this.props.currentUserData.profile.clinicId ? true: false,
     imageText: '',
     imageFile: null
   };
 
   componentWillUnmount(){
     this.props.setError('');
+    this.props.setClinic({});
   }
 
   handleChange = (key, val) => {
@@ -59,9 +60,9 @@ class ClinicForm extends React.Component {
   };
 
   handleSubmit = async e => {
-    setAuthorizationToken(localStorage.token);
     e.preventDefault();
-    const { currentUserData, clinic, createClinic, updatePractitioner, updateClinic } = this.props;
+    setAuthorizationToken(localStorage.token);
+    const { currentUserData, createClinic, updatePractitioner, changeClinic } = this.props;
     const profileId = currentUserData.profile.id
     const {name, address, postalCode, imageText } = this.state;
 
@@ -77,16 +78,16 @@ class ClinicForm extends React.Component {
         clinic = await createClinic(params);
       }
       if(Router.pathname === '/clinics/[id]/edit'){
-        clinic = await updateClinic(clinic.id, params)
+        clinic = await this.props.changeClinic(clinic.id, params)
       }
     } catch (err) {
-      return error;
+      return err;
     }
     if(clinic && this.state.associated){
       await updatePractitioner(profileId, {clinicId: clinic.id, userId: currentUserData.id})
     }
     if(clinic){
-      Router.push('/clinics');
+      // Router.push('/clinics');
     }
   };
 
@@ -101,6 +102,13 @@ class ClinicForm extends React.Component {
 
     return (
       <div className="container profile-form-container">
+        <div className="form-error">
+          {
+            this.props.error && (
+              <strong>{this.props.error}</strong>
+            )
+          }
+        </div>
         <form className="user-form profile-form">
             <div className="form-group">
               <div className="image-preview">
@@ -192,18 +200,22 @@ ClinicForm.propTypes = {
   updatePractitioner: PropTypes.func.isRequired,
   uploadPic: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
-  updateClinic: PropTypes.func.isRequired,
+  changeClinic: PropTypes.func.isRequired,
+  setClinic: PropTypes.func.isRequired,
+  error: PropTypes.string.isRequired
 }
 
 const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
-  clinic: state.displayedClinic
+  clinic: state.displayedClinic,
+  error: state.error
 });
 
 export default connect(mapStateToProps, { 
   createClinic, 
-  updateClinic,
+  changeClinic,
   updatePractitioner,
   uploadPic,
+  setClinic,
   setError
 })(ClinicForm);
