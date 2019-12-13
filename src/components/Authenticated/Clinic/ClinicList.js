@@ -24,7 +24,7 @@ const ClinicList = ({
     <div>
       {currentUserData.role === 'practitioner' && (
         <Link href="/clinics/new">
-          <a href="/clinics/new" className="nav-link">
+          <a href="/clinics/new" className="nav-link add-clinic-button">
             Add new clinic
           </a>
         </Link>

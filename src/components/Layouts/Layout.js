@@ -14,7 +14,7 @@ const Layout = ({ children, title, userName }) => (
     </Head>
     <ConnectedHeader name={userName}/>
     <div className="authenticated-body">
-      {/* <ConnectedSidebar /> */}
+      <ConnectedSidebar />
       <div className="authenticated-body__content">
         { children }
       </div>
