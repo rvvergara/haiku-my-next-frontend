@@ -1,8 +1,11 @@
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Router from 'next/router';
 import { createClinic } from '../../../store/thunks/clinic';
+import { uploadPic } from '../../../store/thunks/upload';
 import { updatePractitioner } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
+import setError from '../../../store/actions/error';
 
 class ClinicForm extends React.Component {
   state = {
@@ -10,8 +13,14 @@ class ClinicForm extends React.Component {
     address: '',
     postalCode: '',
     associated:false,
-    currentUser: this.props.currentUserData.profile.id
+    currentUser: this.props.currentUserData.profile.id,
+    imageText: '',
+    imageFile: null
   };
+
+  componentWillUnmount(){
+    this.props.setError('');
+  }
 
   handleChange = (key, val) => {
     this.setState(() => ({
@@ -25,15 +34,46 @@ class ClinicForm extends React.Component {
     }))
   }
 
+  handleUploadPic = async () => {
+    const { currentUserData } = this.props;
+    const { imageFile } = this.state;
+    const { id } = currentUserData;
+    const formData = new FormData();
+    formData.append('files', imageFile);
+    formData.append('userId', id);
+    const res = await this.props.uploadPic(formData);
+    return res;
+  };
+
+  imgPreviewUrl = () => {
+    const { imageFile } = this.state;
+    const { clinic } = this.props;
+
+    if (imageFile) {
+      return URL.createObjectURL(imageFile);
+    }
+    if (clinic && clinic.image) {
+      return clinic.image;
+    }
+    return 'https://tinyimg.io/i/BmtLUPZ.jpg';
+  };
+
   handleSubmit = async e => {
     setAuthorizationToken(localStorage.token);
     e.preventDefault();
+    const { currentUserData } = this.props;
     const profileId = this.props.currentUserData.profile.id
-    const {name, address, postalCode } = this.state;
-    const params = { name, address, postalCode };
+    const {name, address, postalCode, imageText } = this.state;
+
+    let imageUrl;
+    if(imageText){
+      imageUrl = await this.handleUploadPic();
+    }
+
+    const params = { name, address, postalCode, image: imageUrl };
     const clinic = await this.props.createClinic(params);
     if(clinic && this.state.associated){
-      await this.props.updatePractitioner(profileId, {clinicId: clinic.id, userId: this.props.currentUserData.id})
+      await this.props.updatePractitioner(profileId, {clinicId: clinic.id, userId: currentUserData.id})
     }
     if(clinic){
       Router.push('/clinics');
@@ -41,9 +81,37 @@ class ClinicForm extends React.Component {
   };
 
   render() {
+    const {
+      name,
+      address,
+      postalCode,
+      associated,
+      imageText
+    } = this.state;
     return (
       <div className="container profile-form-container">
         <form className="user-form profile-form">
+            <div className="form-group">
+              <div className="image-preview">
+                <img
+                  src={this.imgPreviewUrl()}
+                  alt="Patient"
+                  className="profile-avatar__img"
+                />
+              </div>
+              <label className="auth-label" htmlFor="profile-pic">
+                Profile Pic:{' '}
+              </label>
+              <input
+                type="file"
+                id="profile-pic"
+                onChange={e => {
+                  this.handleChange('imageText', e.target.value);
+                  this.handleChange('imageFile', e.target.files[0]);
+                }}
+                value={imageText}
+              />
+          </div>
           <div className="form-group">
             <label htmlFor="clinic-name" className="auth-label">
               Name
@@ -53,6 +121,7 @@ class ClinicForm extends React.Component {
               className="user-form__input"
               type="text"
               onChange={e => this.handleChange('name', e.target.value)}
+              value={name}
             />
           </div>
 
@@ -65,6 +134,7 @@ class ClinicForm extends React.Component {
               id="clinic-address"
               type="text"
               onChange={e => this.handleChange('address', e.target.value)}
+              value={address}
             />
           </div>
 
@@ -77,6 +147,7 @@ class ClinicForm extends React.Component {
               className="user-form__input"
               type="text"
               onChange={e => this.handleChange('postalCode', e.target.value)}
+              value={postalCode}
             />
           </div>
 
@@ -87,10 +158,10 @@ class ClinicForm extends React.Component {
             <input
             id="associated"
               type="checkbox"
-              checked={this.state.associated}
+              checked={associated}
               onChange={this.handleAssociated}
               className="checkbox-round"
-            ></input>
+            />
           </div>
 
           <div className="form-group">
@@ -104,8 +175,22 @@ class ClinicForm extends React.Component {
   }
 }
 
+ClinicForm.propTypes = {
+  currentUserData: PropTypes.instanceOf(Object).isRequired,
+  createClinic: PropTypes.func.isRequired,
+  updatePractitioner: PropTypes.func.isRequired,
+  uploadPic: PropTypes.func.isRequired,
+  setError: PropTypes.func.isRequired,
+}
+
 const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
+  clinic: state.displayedClinic
 });
 
-export default connect(mapStateToProps, { createClinic, updatePractitioner })(ClinicForm);
+export default connect(mapStateToProps, { 
+  createClinic, 
+  updatePractitioner,
+  uploadPic,
+  setError
+})(ClinicForm);
