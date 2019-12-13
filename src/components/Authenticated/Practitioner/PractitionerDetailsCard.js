@@ -23,7 +23,9 @@ PractitionerDetailsCard.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  practitioner: state.displayedPractitioner,
+  practitioner: Object.keys(state.displayedPractitioner).length > 0
+  ? state.displayedPractitioner
+  : state.currentUser.data.profile,
 });
 
 export default connect(mapStateToProps)(PractitionerDetailsCard);
