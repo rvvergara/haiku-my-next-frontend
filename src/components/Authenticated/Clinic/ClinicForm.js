@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-import { createClinic } from '../../../store/thunks/clinic';
+import { createClinic, updateClinic } from '../../../store/thunks/clinic';
 import { uploadPic } from '../../../store/thunks/upload';
 import { updatePractitioner } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
@@ -61,8 +61,8 @@ class ClinicForm extends React.Component {
   handleSubmit = async e => {
     setAuthorizationToken(localStorage.token);
     e.preventDefault();
-    const { currentUserData } = this.props;
-    const profileId = this.props.currentUserData.profile.id
+    const { currentUserData, clinic, createClinic, updatePractitioner, updateClinic } = this.props;
+    const profileId = currentUserData.profile.id
     const {name, address, postalCode, imageText } = this.state;
 
     let imageUrl;
@@ -71,9 +71,19 @@ class ClinicForm extends React.Component {
     }
 
     const params = { name, address, postalCode, image: imageUrl };
-    const clinic = await this.props.createClinic(params);
+    let clinic;
+    try {
+      if(Router.pathname === '/clinics/new') {
+        clinic = await createClinic(params);
+      }
+      if(Router.pathname === '/clinics/[id]/edit'){
+        clinic = await updateClinic(clinic.id, params)
+      }
+    } catch (err) {
+      return error;
+    }
     if(clinic && this.state.associated){
-      await this.props.updatePractitioner(profileId, {clinicId: clinic.id, userId: currentUserData.id})
+      await updatePractitioner(profileId, {clinicId: clinic.id, userId: currentUserData.id})
     }
     if(clinic){
       Router.push('/clinics');
@@ -88,6 +98,7 @@ class ClinicForm extends React.Component {
       associated,
       imageText
     } = this.state;
+
     return (
       <div className="container profile-form-container">
         <form className="user-form profile-form">
@@ -181,6 +192,7 @@ ClinicForm.propTypes = {
   updatePractitioner: PropTypes.func.isRequired,
   uploadPic: PropTypes.func.isRequired,
   setError: PropTypes.func.isRequired,
+  updateClinic: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -190,6 +202,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, { 
   createClinic, 
+  updateClinic,
   updatePractitioner,
   uploadPic,
   setError
