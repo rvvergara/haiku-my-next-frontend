@@ -36,11 +36,9 @@ class BookingForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    e.stopPropagation();
-    const availability = this.props.availabilities.find(avail => avail.date === (this.state.selectedDate).format('MMMM D, YYYY') && avail.startTime === e.target.innerText);
     const bookingData = {startTime:e.target.innerText , date:this.state.selectedDate}
     this.props.addBooking(bookingData);
-    this.props.removeAvailability(availability.id);
+    this.props.removeAvailability(this.state.confirmButtonId);
   };
 
   onDateChange = selectedDate => {
@@ -92,7 +90,7 @@ class BookingForm extends React.Component {
               (<button
               type="submit" 
               id={availability.id}
-              onClick={() => this.handleSubmit(availability.id)}
+              onClick={this.handleSubmit}
               >
               Confirm
             </button>)
