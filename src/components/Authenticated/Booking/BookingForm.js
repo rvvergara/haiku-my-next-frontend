@@ -11,7 +11,7 @@ class BookingForm extends React.Component {
     calendarFocused: false,
     selectedDate: moment(this.props.initialDate),
     availableTimes: this.props.shownAvailabilities,
-    confirmButtonId: ''
+    confirmButtonAvailability: null,
   };
 
   componentWillReceiveProps(nextProps){
@@ -36,9 +36,9 @@ class BookingForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const bookingData = {startTime:e.target.innerText , date:this.state.selectedDate}
+    const bookingData = {startTime:  this.state.confirmButtonAvailability.startTime , date:this.state.selectedDate}
     this.props.addBooking(bookingData);
-    this.props.removeAvailability(this.state.confirmButtonId);
+    this.props.removeAvailability(this.state.confirmButtonAvailability.id);
   };
 
   onDateChange = selectedDate => {
@@ -80,15 +80,16 @@ class BookingForm extends React.Component {
             <button
               className="booking-availabilities"
               onClick={() => this.setState(() => ({
-                confirmButtonId: availability.id
+                confirmButtonAvailability: availability
               }))}
             >
               {availability.startTime}
             </button>
             {
-              this.state.confirmButtonId === availability.id && 
+              this.state.confirmButtonAvailability === availability &&
               (<button
-              type="submit" 
+              type="submit"
+              className="confirm-booking"
               id={availability.id}
               onClick={this.handleSubmit}
               >
@@ -97,10 +98,6 @@ class BookingForm extends React.Component {
           }
           </div>
         ))}
-
-        <div className="form-group">
-          <button className="user-form__button">Book Appointment</button>
-        </div>
       </div>
     );
   }
