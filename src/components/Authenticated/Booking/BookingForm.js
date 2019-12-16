@@ -27,9 +27,8 @@ class BookingForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target.innerText);
-    const bookingData = e.target.innerText
-    this.props.addBooking(e.target.innerText)
+    const bookingData = {startTime:e.target.innerText , date:this.state.selectedDate}
+    this.props.addBooking(bookingData)
   };
 
   onDateChange = selectedDate => {
