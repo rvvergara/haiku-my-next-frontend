@@ -8,7 +8,7 @@ class BookingForm extends React.Component {
   state = {
     calendarFocused: false,
     selectedDate: moment(this.props.initialDate),
-    availabilities: this.props.shownAvailabilities,
+    availableTimes: this.props.shownAvailabilities,
   };
 
   handleChange = (key, val) =>
@@ -17,8 +17,9 @@ class BookingForm extends React.Component {
     }));
 
   blocksDay = day => {
-    return day.isAfter(moment('December 16,2019'), 'day');
-    // return moment()
+    const availableDates = this.props.availabilities.map(avail => avail.date);
+    const dayFormatted = moment(day).format('MMMM D, YYYY');
+    return !availableDates.includes(dayFormatted);
   };
 
   onDateChange = selectedDate => {
@@ -30,7 +31,7 @@ class BookingForm extends React.Component {
       const newAvailabilities = this.props.availabilities.filter(avail => {
         return moment(avail.date).valueOf() === moment(newDate).valueOf();
       });
-      return { availabilities: newAvailabilities };
+      return { availableTimes: newAvailabilities };
     });
   };
 
@@ -55,15 +56,13 @@ class BookingForm extends React.Component {
           />
         </div>
 
-        {this.state.availabilities.length > 0 ? (
-          this.state.availabilities.map(availability => (
+        {
+          this.state.availableTimes.map(availability => (
             <button className="user-form__button" key={availability.id}>
               {availability.startTime}
             </button>
           ))
-        ) : (
-          <button>No availability for today</button>
-        )}
+        }
 
         <div className="form-group">
           <button className="user-form__button">Book Appointment</button>
