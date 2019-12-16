@@ -11,6 +11,7 @@ class BookingForm extends React.Component {
     calendarFocused: false,
     selectedDate: moment(this.props.initialDate),
     availableTimes: this.props.shownAvailabilities,
+    confirmButtonId: ''
   };
 
   componentWillReceiveProps(nextProps){
@@ -35,6 +36,7 @@ class BookingForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     const availability = this.props.availabilities.find(avail => avail.date === (this.state.selectedDate).format('MMMM D, YYYY') && avail.startTime === e.target.innerText);
     const bookingData = {startTime:e.target.innerText , date:this.state.selectedDate}
     this.props.addBooking(bookingData);
@@ -59,7 +61,7 @@ class BookingForm extends React.Component {
 
   render() {
     return (
-      <form className="user-form profile-form">
+      <div className="user-form profile-form">
         <div className="form-group">
           <label htmlFor="booking-date" className="auth-label">
             Select Date
@@ -76,19 +78,32 @@ class BookingForm extends React.Component {
         </div>
 
         {this.state.availableTimes.map(availability => (
-          <button
-            className="booking-availabilities"
-            onClick={this.handleSubmit}
-            key={availability.id}
-          >
-            {availability.startTime}
-          </button>
+          <div key={availability.id}>
+            <button
+              className="booking-availabilities"
+              onClick={() => this.setState(() => ({
+                confirmButtonId: availability.id
+              }))}
+            >
+              {availability.startTime}
+            </button>
+            {
+              this.state.confirmButtonId === availability.id && 
+              (<button
+              type="submit" 
+              id={availability.id}
+              onClick={() => this.handleSubmit(availability.id)}
+              >
+              Confirm
+            </button>)
+          }
+          </div>
         ))}
 
         <div className="form-group">
           <button className="user-form__button">Book Appointment</button>
         </div>
-      </form>
+      </div>
     );
   }
 }
