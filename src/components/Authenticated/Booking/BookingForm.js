@@ -16,6 +16,11 @@ class BookingForm extends React.Component {
       [key]: val,
     }));
 
+  blocksDay = day => {
+    return day.isAfter(moment('December 16,2019'), 'day');
+    // return moment()
+  };
+
   onDateChange = selectedDate => {
     if (selectedDate) {
       this.setState(() => ({ selectedDate: selectedDate }));
@@ -23,10 +28,10 @@ class BookingForm extends React.Component {
     this.setState(prevState => {
       const newDate = moment(prevState.selectedDate).format('MMMM D, YYYY');
       const newAvailabilities = this.props.availabilities.filter(avail => {
-        return moment(avail.date).valueOf() === moment(newDate).valueOf()
+        return moment(avail.date).valueOf() === moment(newDate).valueOf();
       });
-      return { availabilities: newAvailabilities}
-    })
+      return { availabilities: newAvailabilities };
+    });
   };
 
   onFocusChange = ({ focused }) =>
@@ -46,18 +51,19 @@ class BookingForm extends React.Component {
             focused={this.state.calendarFocused}
             onFocusChange={this.onFocusChange}
             numberOfMonths={1}
-            isOutsideRange={(day) => {
-              if(moment(day).valueOf() != moment(this.state.selectedDate).valueOf()){
-                return true;
-              };
-              return false;
-            }}
+            isOutsideRange={this.blocksDay}
           />
         </div>
 
-        {this.state.availabilities.length > 0 ? this.state.availabilities.map(availability => (
-       <button className="user-form__button" key={availability.id}>{availability.startTime}</button>
-        )) : <button>No availability for today</button>}
+        {this.state.availabilities.length > 0 ? (
+          this.state.availabilities.map(availability => (
+            <button className="user-form__button" key={availability.id}>
+              {availability.startTime}
+            </button>
+          ))
+        ) : (
+          <button>No availability for today</button>
+        )}
 
         <div className="form-group">
           <button className="user-form__button">Book Appointment</button>
