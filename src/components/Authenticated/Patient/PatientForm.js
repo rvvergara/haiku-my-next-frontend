@@ -1,11 +1,9 @@
-import { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import moment from 'moment';
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
-import axios from 'axios';
 import MultipleInput from '../ProfileCommon/MultipleInput';
 import { createPatient, updatePatient } from '../../../store/thunks/patient';
 import { uploadPic } from '../../../store/thunks/upload';
@@ -40,7 +38,7 @@ class PatientForm extends React.Component {
     }
   };
 
-  onFocusChange = ({ focused }) => setCalendarFocused('calendarFocused', focused);
+  onFocusChange = ({ focused }) => this.handleChange('calendarFocused', focused);
 
   handleUploadPic = async () => {
     const { currentUserData } = this.props;
