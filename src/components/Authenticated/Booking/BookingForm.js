@@ -46,13 +46,18 @@ class BookingForm extends React.Component {
             focused={this.state.calendarFocused}
             onFocusChange={this.onFocusChange}
             numberOfMonths={1}
-            isOutsideRange={() => false}
+            isOutsideRange={(day) => {
+              if(moment(day).valueOf() != moment(this.state.selectedDate).valueOf()){
+                return true;
+              };
+              return false;
+            }}
           />
         </div>
 
-        {this.state.availabilities.map(availability => (
+        {this.state.availabilities.length > 0 ? this.state.availabilities.map(availability => (
        <button className="user-form__button" key={availability.id}>{availability.startTime}</button>
-        ))}
+        )) : <button>No availability for today</button>}
 
         <div className="form-group">
           <button className="user-form__button">Book Appointment</button>
