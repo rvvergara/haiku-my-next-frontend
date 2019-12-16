@@ -1,7 +1,7 @@
 import 'react-dates/initialize';
 import { SingleDatePicker } from 'react-dates';
 import moment from 'moment';
-import availabilities from '../../../Dummy/availability';
+
 
 class BookingForm extends React.Component {
   state = {
