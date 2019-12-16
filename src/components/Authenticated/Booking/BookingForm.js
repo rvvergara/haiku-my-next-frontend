@@ -3,7 +3,8 @@ import { SingleDatePicker } from 'react-dates';
 import 'react-dates/initialize';
 import { connect } from 'react-redux';
 import { listAvailabilies } from '../../../store/actions/availability';
-import {addBooking} from '../../../store/actions/booking'
+import {addBooking} from '../../../store/actions/booking';
+import { removeAvailability} from '../../../store/actions/availability';
 
 class BookingForm extends React.Component {
   state = {
@@ -11,6 +12,13 @@ class BookingForm extends React.Component {
     selectedDate: moment(this.props.initialDate),
     availableTimes: this.props.shownAvailabilities,
   };
+
+  componentWillReceiveProps(nextProps){
+    this.setState(() => ({
+      availableTimes: nextProps.shownAvailabilities,
+      selectedDate: moment(nextProps.initialDate)
+    }))
+  }
 
   handleChange = (key, val) =>
     this.setState(() => ({
@@ -27,8 +35,10 @@ class BookingForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const availability = this.props.availabilities.find(avail => avail.date === (this.state.selectedDate).format('MMMM D, YYYY') && avail.startTime === e.target.innerText);
     const bookingData = {startTime:e.target.innerText , date:this.state.selectedDate}
-    this.props.addBooking(bookingData)
+    this.props.addBooking(bookingData);
+    this.props.removeAvailability(availability.id);
   };
 
   onDateChange = selectedDate => {
@@ -91,4 +101,4 @@ const mapStateToProps = state => ({
   ),
 });
 
-export default connect(mapStateToProps, { listAvailabilies,addBooking })(BookingForm);
+export default connect(mapStateToProps, { listAvailabilies,addBooking, removeAvailability })(BookingForm);
