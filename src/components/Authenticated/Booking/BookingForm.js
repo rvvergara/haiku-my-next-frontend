@@ -39,6 +39,10 @@ class BookingForm extends React.Component {
     const bookingData = {startTime:  this.state.confirmButtonAvailability.startTime , date:moment(this.state.selectedDate).format('MMMM D, YYYY'), remarks: this.state.remarks}
     this.props.addBooking(bookingData);
     this.props.removeAvailability(this.state.confirmButtonAvailability.id);
+    this.setState(() => ({
+      confirmButtonAvailability: null,
+      remarks: ''
+    }))
   };
 
   onDateChange = selectedDate => {
