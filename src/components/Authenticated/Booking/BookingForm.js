@@ -22,6 +22,11 @@ class BookingForm extends React.Component {
     return !availableDates.includes(dayFormatted);
   };
 
+  handleSubmit = () => {
+    e.preventDefault();
+    console.log(e.target.value);
+  };
+
   onDateChange = selectedDate => {
     if (selectedDate) {
       this.setState(() => ({ selectedDate: selectedDate }));
@@ -56,13 +61,15 @@ class BookingForm extends React.Component {
           />
         </div>
 
-        {
-          this.state.availableTimes.map(availability => (
-            <button className="user-form__button" key={availability.id}>
-              {availability.startTime}
-            </button>
-          ))
-        }
+        {this.state.availableTimes.map(availability => (
+          <button
+            className="booking-availabilities"
+            onClick={this.handleSubmit}
+            key={availability.id}
+          >
+            {availability.startTime}
+          </button>
+        ))}
 
         <div className="form-group">
           <button className="user-form__button">Book Appointment</button>

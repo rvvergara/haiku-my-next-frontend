@@ -3,13 +3,29 @@
   background-color: #ffff;
   height: 70vh;
   margin-bottom: 50px;
-  box-shadow: 1px 1px 5px #c7d0d8
+  box-shadow: 1px 1px 5px #c7d0d8;
 }
 
-.booking-form-header{
-  padding-top:20px;
+.booking-form-header {
+  padding-top: 20px;
   text-align: center;
   height: 75px;
-  background-color: #5073F1;
-  color:#fff;
+  background-color: #5073f1;
+  color: #fff;
+}
+
+// styling for bookingform
+
+.booking-availabilities {
+  margin: 0 auto;
+  font-size: 1.5rem;
+  color: #00a2ff;
+  border: 2px solid #00a2ff;
+  width: 80%;
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.booking-availabilities:hover {
+  cursor: pointer;
 }
