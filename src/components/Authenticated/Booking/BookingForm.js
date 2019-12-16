@@ -3,6 +3,7 @@ import { SingleDatePicker } from 'react-dates';
 import 'react-dates/initialize';
 import { connect } from 'react-redux';
 import { listAvailabilies } from '../../../store/actions/availability';
+import {addBooking} from '../../../store/actions/booking'
 
 class BookingForm extends React.Component {
   state = {
@@ -22,9 +23,13 @@ class BookingForm extends React.Component {
     return !availableDates.includes(dayFormatted);
   };
 
+
+
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(e.target.innerText);
+    const bookingData = e.target.innerText
+    this.props.addBooking(e.target.innerText)
   };
 
   onDateChange = selectedDate => {
@@ -87,4 +92,4 @@ const mapStateToProps = state => ({
   ),
 });
 
-export default connect(mapStateToProps, { listAvailabilies })(BookingForm);
+export default connect(mapStateToProps, { listAvailabilies,addBooking })(BookingForm);
