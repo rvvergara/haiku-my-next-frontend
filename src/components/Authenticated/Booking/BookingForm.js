@@ -1,25 +1,28 @@
-import 'react-dates/initialize';
-import { SingleDatePicker } from 'react-dates';
 import moment from 'moment';
-
+import { SingleDatePicker } from 'react-dates';
+import 'react-dates/initialize';
+import { connect } from 'react-redux';
+import { listAvailabilies } from '../../../store/actions/availability';
 
 class BookingForm extends React.Component {
   state = {
     calendarFocused: false,
-    selectedDate: moment()
-  }
+    selectedDate: moment(this.props.availabilities[1]),
+  };
 
-  handleChange = (key, val) => this.setState(() => ({
-    [key]: val
-  }));
+  handleChange = (key, val) =>
+    this.setState(() => ({
+      [key]: val,
+    }));
 
-  onDateChange = (selectedDate) => {
+  onDateChange = selectedDate => {
     if (selectedDate) {
-      this.setState(() => ({'selectedDate': selectedDate}));
+      this.setState(() => ({ selectedDate: selectedDate }));
     }
   };
 
-  onFocusChange = ({ focused }) => this.handleChange('calendarFocused', focused);
+  onFocusChange = ({ focused }) =>
+    this.handleChange('calendarFocused', focused);
 
   render() {
     return (
@@ -29,13 +32,13 @@ class BookingForm extends React.Component {
             Select Date
           </label>
           <SingleDatePicker
-           id='booking-date'
-           date={this.state.selectedDate}
-           onDateChange={this.onDateChange}
-           focused={this.state.calendarFocused}
-           onFocusChange={this.onFocusChange}
-           numberOfMonths={1}
-           isOutsideRange={() => false}
+            id="booking-date"
+            date={this.state.selectedDate}
+            onDateChange={this.onDateChange}
+            focused={this.state.calendarFocused}
+            onFocusChange={this.onFocusChange}
+            numberOfMonths={1}
+            isOutsideRange={() => false}
           />
         </div>
 
@@ -59,4 +62,8 @@ class BookingForm extends React.Component {
   }
 }
 
-export default BookingForm;
+const mapStateToProps = state => ({
+  availabilities: state.availabilities,
+});
+
+export default connect(mapStateToProps, listAvailabilies)(BookingForm);
