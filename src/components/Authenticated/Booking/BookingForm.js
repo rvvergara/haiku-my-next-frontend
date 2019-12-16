@@ -8,7 +8,7 @@ class BookingForm extends React.Component {
   state = {
     calendarFocused: false,
     selectedDate: moment(this.props.initialDate),
-    availabilities: this.props.shownAvailabilities
+    availabilities: this.props.shownAvailabilities,
   };
 
   handleChange = (key, val) =>
@@ -26,7 +26,7 @@ class BookingForm extends React.Component {
     this.handleChange('calendarFocused', focused);
 
   render() {
-    console.log('AVAILS', this.state.availabilities)
+    console.log('AVAILS', this.state.availabilities);
     return (
       <form className="user-form profile-form">
         <div className="form-group">
@@ -44,17 +44,9 @@ class BookingForm extends React.Component {
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="booking-time" className="auth-label">
-            Hour
-          </label>
-          <select name="time">
-            <option value="volvo">8:00AM</option>
-            <option value="saab">9:30AM</option>
-            <option value="fiat">11:00AM</option>
-            <option value="audi">3:00PM</option>
-          </select>
-        </div>
+        {this.state.availabilities.map(availability => (
+       <button className="user-form__button" keys={availability.id}>{availability.startTime}</button>
+        ))}
 
         <div className="form-group">
           <button className="user-form__button">Book Appointment</button>
@@ -67,7 +59,9 @@ class BookingForm extends React.Component {
 const mapStateToProps = state => ({
   availabilities: state.availabilities,
   initialDate: state.availabilities[0].date,
-  shownAvailabilities: state.availabilities.filter(avail => avail.date === state.availabilities[0].date)
+  shownAvailabilities: state.availabilities.filter(
+    avail => avail.date === state.availabilities[0].date,
+  ),
 });
 
 export default connect(mapStateToProps, { listAvailabilies })(BookingForm);
