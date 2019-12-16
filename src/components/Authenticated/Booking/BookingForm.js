@@ -12,13 +12,13 @@ class BookingForm extends React.Component {
     selectedDate: moment(this.props.initialDate),
     availableTimes: this.props.shownAvailabilities,
     confirmButtonAvailability: null,
+    remarks: ''
   };
 
   componentWillReceiveProps(nextProps){
     this.setState(() => ({
       availableTimes: nextProps.shownAvailabilities,
-      selectedDate: moment(nextProps.initialDate)
-    }))
+      selectedDate: moment(nextProps.initialDate)    }))
   }
 
   handleChange = (key, val) =>
@@ -36,7 +36,7 @@ class BookingForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const bookingData = {startTime:  this.state.confirmButtonAvailability.startTime , date:moment(this.state.selectedDate).format('MMMM D, YYYY')}
+    const bookingData = {startTime:  this.state.confirmButtonAvailability.startTime , date:moment(this.state.selectedDate).format('MMMM D, YYYY'), remarks: this.state.remarks}
     this.props.addBooking(bookingData);
     this.props.removeAvailability(this.state.confirmButtonAvailability.id);
   };
@@ -87,14 +87,28 @@ class BookingForm extends React.Component {
             </button>
             {
               this.state.confirmButtonAvailability === availability &&
-              (<button
-              type="submit"
-              className="confirm-booking"
-              id={availability.id}
-              onClick={this.handleSubmit}
-              >
-              Confirm
-            </button>)
+              (
+                <div>
+                    <label className='auth-label' htmlFor="remarks">
+                      Remarks:
+                    </label>
+                    <textarea
+                      id='remarks'
+                      rows={10}
+                      onChange={(e) => this.handleChange('remarks', e.target.value)}
+                      placeholder="Give us a short background of your concern"
+                      value={this.state.remarks}
+                    />
+                  <button
+                    type="submit"
+                    className="confirm-booking"
+                    id={availability.id}
+                    onClick={this.handleSubmit}
+                    >
+                    Confirm
+                  </button>
+                </div>
+            )
           }
           </div>
         ))}
