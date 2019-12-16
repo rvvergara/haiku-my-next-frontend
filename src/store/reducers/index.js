@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import availabilities from './availabilities';
+import bookings from './booking';
 import clinics from './clinic';
 import currentUser from './currentUser';
 import displayedClinic from './displayedClinic';
@@ -15,4 +16,5 @@ export default combineReducers({
   displayedPractitioner,
   displayedClinic,
   availabilities,
+  bookings,
 });

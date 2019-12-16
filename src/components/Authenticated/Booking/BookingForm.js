@@ -22,9 +22,9 @@ class BookingForm extends React.Component {
     return !availableDates.includes(dayFormatted);
   };
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
+    console.log(e.target.innerText);
   };
 
   onDateChange = selectedDate => {
