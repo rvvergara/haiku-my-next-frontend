@@ -31,4 +31,10 @@ export default [
     startTime: '10:00AM',
     endTime: '11:00AM',
   },
+  {
+    id: uuid(),
+    date: 'December 22, 2019',
+    startTime: '10:00AM',
+    endTime: '11:00AM',
+  },
 ];

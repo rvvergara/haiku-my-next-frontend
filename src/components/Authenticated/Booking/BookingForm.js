@@ -36,7 +36,7 @@ class BookingForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const bookingData = {startTime:  this.state.confirmButtonAvailability.startTime , date:this.state.selectedDate}
+    const bookingData = {startTime:  this.state.confirmButtonAvailability.startTime , date:moment(this.state.selectedDate).format('MMMM D, YYYY')}
     this.props.addBooking(bookingData);
     this.props.removeAvailability(this.state.confirmButtonAvailability.id);
   };
