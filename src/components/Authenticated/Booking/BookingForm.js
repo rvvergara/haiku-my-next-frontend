@@ -20,13 +20,19 @@ class BookingForm extends React.Component {
     if (selectedDate) {
       this.setState(() => ({ selectedDate: selectedDate }));
     }
+    this.setState(prevState => {
+      const newDate = moment(prevState.selectedDate).format('MMMM D, YYYY');
+      const newAvailabilities = this.props.availabilities.filter(avail => {
+        return moment(avail.date).valueOf() === moment(newDate).valueOf()
+      });
+      return { availabilities: newAvailabilities}
+    })
   };
 
   onFocusChange = ({ focused }) =>
     this.handleChange('calendarFocused', focused);
 
   render() {
-    console.log('AVAILS', this.state.availabilities);
     return (
       <form className="user-form profile-form">
         <div className="form-group">
@@ -45,7 +51,7 @@ class BookingForm extends React.Component {
         </div>
 
         {this.state.availabilities.map(availability => (
-       <button className="user-form__button" keys={availability.id}>{availability.startTime}</button>
+       <button className="user-form__button" key={availability.id}>{availability.startTime}</button>
         ))}
 
         <div className="form-group">
