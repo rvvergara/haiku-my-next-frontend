@@ -7,8 +7,8 @@ import { listAvailabilies } from '../../../store/actions/availability';
 class BookingForm extends React.Component {
   state = {
     calendarFocused: false,
-    selectedDate: moment(this.props.availabilities[3].date),
-    selectedAvailability:this.props.availabilities[3]
+    selectedDate: moment(this.props.initialDate),
+    availabilities: this.props.shownAvailabilities
   };
 
   handleChange = (key, val) =>
@@ -17,7 +17,6 @@ class BookingForm extends React.Component {
     }));
 
   onDateChange = selectedDate => {
-    console.log(this.state.selectedAvailability.id);
     if (selectedDate) {
       this.setState(() => ({ selectedDate: selectedDate }));
     }
@@ -27,6 +26,7 @@ class BookingForm extends React.Component {
     this.handleChange('calendarFocused', focused);
 
   render() {
+    console.log('AVAILS', this.state.availabilities)
     return (
       <form className="user-form profile-form">
         <div className="form-group">
@@ -66,6 +66,8 @@ class BookingForm extends React.Component {
 
 const mapStateToProps = state => ({
   availabilities: state.availabilities,
+  initialDate: state.availabilities[0].date,
+  shownAvailabilities: state.availabilities.filter(avail => avail.date === state.availabilities[0].date)
 });
 
 export default connect(mapStateToProps, { listAvailabilies })(BookingForm);
