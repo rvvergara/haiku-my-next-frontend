@@ -1,12 +1,12 @@
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
+import 'react-dates/initialize';
 
 class ScheduleForm extends React.Component {
   state = {
     calendarFocused: false,
     selectedDate: moment(this.props.initialDate),
     availableTimes: this.props.shownAvailabilities,
-    remarks: '',
   };
 
   onDateChange = selectedDate => {
