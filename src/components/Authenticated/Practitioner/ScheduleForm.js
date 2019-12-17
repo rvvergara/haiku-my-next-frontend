@@ -26,7 +26,7 @@ class ScheduleForm extends React.Component {
     }));
 
   blocksDay = day => {
-    return moment(day).isBefore(moment());
+    return moment(day).isBefore(moment().format('MMMM D, YYYY'));
   };  
 
   onFocusChange = ({ focused }) =>
