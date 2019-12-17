@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import alert from './alert';
 import availabilities from './availabilities';
 import bookings from './booking';
 import clinics from './clinic';
@@ -23,4 +24,5 @@ export default combineReducers({
   sessionDate,
   sessionDuration,
   sessionStartTime,
+  alert,
 });
