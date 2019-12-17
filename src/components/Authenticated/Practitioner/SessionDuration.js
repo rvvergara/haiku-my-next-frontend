@@ -1,46 +1,46 @@
+import { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setSessionDuration } from '../../../store/actions/availability';
+import DurationButton from './DurationButton';
 
-const SessionDuration = ({ setSessionDuration }) => {
-  const handleClick = (e) => {
-    setSessionDuration(parseInt(e.target.value));
+const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
+  const [durationValue, setDurationValue] = useState(sessionDuration);
+  const handleClick = (value) => {
+    setSessionDuration(parseInt(value));
+    setDurationValue(value);
   };
   return (
     <div>
       <h3>Choose Duration</h3>
       <div className="duration-container">
-        <button
-          type="button"
-          className="booking-duration"
+        <DurationButton
           value={30}
+          isActive={durationValue === 30}
           onClick={handleClick}
-        >
-          30 minutes
-        </button>
-        <button
-          type="button"
-          className="booking-duration"
+        />
+        <DurationButton
           value={60}
+          isActive={durationValue === 60}
           onClick={handleClick}
-        >
-          60 minutes
-        </button>
-        <button
-          type="button"
-          className="booking-duration"
+        />
+        <DurationButton
           value={120}
+          isActive={durationValue === 120}
           onClick={handleClick}
-        >
-          120 minutes
-        </button>
+        />
       </div>
     </div>
   );
 };
 
+const mapStateToProps = (state) => ({
+  sessionDuration: state.sessionDuration,
+});
+
 SessionDuration.propTypes = {
   setSessionDuration: PropTypes.func.isRequired,
+  sessionDuration: PropTypes.number.isRequired,
 };
 
-export default connect(null, { setSessionDuration })(SessionDuration);
+export default connect(mapStateToProps, { setSessionDuration })(SessionDuration);

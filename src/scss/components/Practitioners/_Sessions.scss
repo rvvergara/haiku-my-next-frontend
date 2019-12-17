@@ -13,11 +13,17 @@
   margin-bottom: 20px;
   outline: none;
 
-  &:hover,
-  &:focus {
+  &:hover {
     cursor: pointer;
     background: $calendly-blue;
     color: $light-grey;
     font-weight: 700;
   }
+}
+
+.selected-duration {
+  cursor: pointer;
+  background: $calendly-blue;
+  color: $light-grey;
+  font-weight: 700;
 }
