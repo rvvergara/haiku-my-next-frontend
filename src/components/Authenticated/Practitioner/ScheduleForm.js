@@ -13,13 +13,13 @@ class ScheduleForm extends React.Component {
     if (selectedDate) {
       this.setState(() => ({ selectedDate: selectedDate }));
     }
-    this.setState(prevState => {
-      const newDate = moment(prevState.selectedDate).format('MMMM D, YYYY');
-      const newAvailabilities = this.props.availabilities.filter(avail => {
-        return moment(avail.date).valueOf() === moment(newDate).valueOf();
-      });
-      return { availableTimes: newAvailabilities };
-    });
+    // this.setState(prevState => {
+    //   const newDate = moment(prevState.selectedDate).format('MMMM D, YYYY');
+    //   const newAvailabilities = this.props.availabilities.filter(avail => {
+    //     return moment(avail.date).valueOf() === moment(newDate).valueOf();
+    //   });
+    //   return { availableTimes: newAvailabilities };
+    // });
   };
 
   handleChange = (key, val) =>
