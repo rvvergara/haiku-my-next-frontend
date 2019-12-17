@@ -26,9 +26,6 @@ class ScheduleForm extends React.Component {
     }));
 
   blocksDay = day => {
-    // const availableDates = this.props.availabilities.map(avail => avail.date);
-    // const dayFormatted = moment(day).format('MMMM D, YYYY');
-    // return !availableDates.includes(dayFormatted);
     return moment(day).isBefore(moment());
   };  
 

@@ -1,6 +1,7 @@
 import ScheduleForm from '../components/Authenticated/Practitioner/ScheduleForm';
 import SessionDuration from '../components/Authenticated/Practitioner/SessionDuration';
 import Layout from '../components/Layouts/Layout';
+import SessionTime from '../components/Authenticated/Practitioner/SessionTime';
 
 const SchedulePage = () => (
   <Layout title="Schedule Availability">
@@ -16,12 +17,7 @@ const SchedulePage = () => (
     </div>
     <SessionDuration />
     <h3>Choose an available time for your appointment</h3>
-    <button type="button" className="booking-availabilities">
-      10:00AM
-    </button>
-    <button type="button" className="booking-availabilities">
-      02:00PM
-    </button>
+    <SessionTime />
     <div>
       <button
         type="button"
