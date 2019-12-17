@@ -6,10 +6,18 @@
 .booking-duration {
   margin: 0 auto;
   font-size: 1.5rem;
-  color: #00a2ff;
-  border: 2px solid #00a2ff;
+  color: $calendly-blue;
+  border: 2px solid $calendly-blue;
   width: 150px;
   height: 40px;
   margin-bottom: 20px;
   outline: none;
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    background: $calendly-blue;
+    color: $light-grey;
+    font-weight: 700;
+  }
 }
