@@ -7,8 +7,9 @@ import { setSessionStartTime } from '../../../store/actions/availability';
 
 const SessionTimes = ({ sessionDuration, sessionStartTime, setSessionStartTime }) => {
   const format = 'h:mm a';
-  const now = moment().hour(9).minute(0);
-  console.log(moment(sessionStartTime, 'HH:MM').add(sessionDuration, 'minutes').format(format));
+  // const now = moment().hour(9).minute(0);
+  const now = moment(sessionStartTime, 'h:mm');
+  console.log(moment(sessionStartTime, 'h:mm').add(sessionDuration, 'minutes').format('HH:MM a'));
   const handleChange = (val) => {
     setSessionStartTime(val.format(format));
   };
@@ -32,7 +33,7 @@ const SessionTimes = ({ sessionDuration, sessionStartTime, setSessionStartTime }
       <label htmlFor="to-time">
         End time:
       </label>
-      <strong>{sessionDuration}</strong>
+      <strong>{moment(sessionStartTime, 'h:mm').add(sessionDuration, 'minutes').format('HH:MM a')}</strong>
     </div>
   );
 };
