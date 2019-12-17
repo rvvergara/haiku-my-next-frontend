@@ -1,11 +1,13 @@
+import { connect } from 'react-redux';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/initialize';
+import { setSessionDate } from '../../../store/actions/availability';
 
 class ScheduleForm extends React.Component {
   state = {
     calendarFocused: false,
-    selectedDate: moment(this.props.initialDate),
+    selectedDate: moment(this.props.sessionDate),
     availableTimes: this.props.shownAvailabilities,
   };
 
@@ -13,13 +15,9 @@ class ScheduleForm extends React.Component {
     if (selectedDate) {
       this.setState(() => ({ selectedDate: selectedDate }));
     }
-    // this.setState(prevState => {
-    //   const newDate = moment(prevState.selectedDate).format('MMMM D, YYYY');
-    //   const newAvailabilities = this.props.availabilities.filter(avail => {
-    //     return moment(avail.date).valueOf() === moment(newDate).valueOf();
-    //   });
-    //   return { availableTimes: newAvailabilities };
-    // });
+    this.setState(prevState => {
+      this.props.setSessionDate(prevState.selectedDate.format('MMMM D, YYYY'))
+    })
   };
 
   handleChange = (key, val) =>
@@ -57,4 +55,8 @@ class ScheduleForm extends React.Component {
   }
 }
 
-export default ScheduleForm;
+const mapStateToProps = (state) => ({
+  sessionDate: state.sessionDate
+})
+
+export default connect(mapStateToProps, { setSessionDate })(ScheduleForm);
