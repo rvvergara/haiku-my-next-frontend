@@ -1,6 +1,6 @@
-const BookingList = () => {
+const PatientBookingList = () => {
   return (
-    <div className="booking-box">
+    <div className="patient-booking-box">
       <ul>
         <li>
           <h2>Dr. Peter Goh Min Yih.</h2>
@@ -19,4 +19,4 @@ const BookingList = () => {
   );
 };
 
-export default BookingList;
+export default PatientBookingList;

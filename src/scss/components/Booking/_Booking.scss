@@ -42,7 +42,8 @@
   outline: none;
 }
 
-.booking-box {
+.patient-booking-box,
+.practitioner-booking-box {
   background: #ffffff;
   border-radius: 5px;
   box-shadow: 1px 1px 5px #c7d0d8;
@@ -50,5 +51,5 @@
   margin: 0 auto;
   margin-bottom: 1.4rem;
   width: 90%;
-  padding:20px;
+  padding: 20px;
 }
