@@ -7,9 +7,7 @@ import { setSessionStartTime } from '../../../store/actions/availability';
 
 const SessionTimes = ({ sessionDuration, sessionStartTime, setSessionStartTime }) => {
   const format = 'h:mm a';
-  // const now = moment().hour(9).minute(0);
-  const now = moment(sessionStartTime, 'h:mm');
-  console.log(moment(sessionStartTime, 'h:mm').add(sessionDuration, 'minutes').format('HH:MM a'));
+  const now = moment(sessionStartTime, 'LTS');
   const handleChange = (val) => {
     setSessionStartTime(val.format(format));
   };
@@ -33,7 +31,7 @@ const SessionTimes = ({ sessionDuration, sessionStartTime, setSessionStartTime }
       <label htmlFor="to-time">
         End time:
       </label>
-      <strong>{moment(sessionStartTime, 'h:mm').add(sessionDuration, 'minutes').format('HH:MM a')}</strong>
+      <strong>{moment(sessionStartTime, 'h:mm').add(sessionDuration, 'minutes').format('LT')}</strong>
     </div>
   );
 };
@@ -41,6 +39,7 @@ const SessionTimes = ({ sessionDuration, sessionStartTime, setSessionStartTime }
 SessionTimes.propTypes = {
   sessionDuration: PropTypes.number.isRequired,
   setSessionStartTime: PropTypes.func.isRequired,
+  sessionStartTime: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
