@@ -32,14 +32,14 @@ const SchedulerComponent = ({
     const bookingParams = {
       date: sessionDate,
       startTime: sessionStartTime,
-      endTime,
-    };
+    endTime,
+  };
     addBooking(bookingParams);
     setAlert('Booking added', 'success');
   };
 
   return (
-    <div>
+    <div className="scheduler-container">
       <h3>Choose an available day for your appointment</h3>
       <ScheduleForm />
       <div>
