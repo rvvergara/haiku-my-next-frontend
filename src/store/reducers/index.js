@@ -9,6 +9,7 @@ import error from './error';
 import practitioners from './practitioners';
 import sessionDate from './sessionDate';
 import sessionDuration from './sessionDuration';
+import sessionStartTime from './sessionStartTime';
 
 export default combineReducers({
   currentUser,
@@ -21,4 +22,5 @@ export default combineReducers({
   bookings,
   sessionDate,
   sessionDuration,
+  sessionStartTime,
 });
