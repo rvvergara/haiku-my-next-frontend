@@ -27,3 +27,15 @@
   color: $light-grey;
   font-weight: 700;
 }
+
+.scheduler-inner-component-container {
+  margin-top: $medium;
+}
+
+.scheduler-inner-component__title {
+  margin-bottom: $medium;
+}
+
+.schedule-label {
+  margin-right: $small * 0.2;
+}

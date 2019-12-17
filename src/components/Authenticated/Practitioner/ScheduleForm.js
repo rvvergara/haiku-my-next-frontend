@@ -34,8 +34,9 @@ class ScheduleForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <label htmlFor="booking-date" className="auth-label">
+      <div className="scheduler-inner-component-container">
+        <h3 className="scheduler-inner-component__title">Choose an available day for your appointment</h3>
+        <label htmlFor="booking-date" className="auth-label schedule-label">
           Select Date
         </label>
         <SingleDatePicker

@@ -12,18 +12,35 @@
 }
 
 .rc-time-picker.xxx {
-  // display: block;
   border: 1px solid grey;
+  width: 15%;
+  margin-right: $small;
+}
+
+.read-only-time-span {
+  position: relative;
+  bottom: $medium * 0.3;
+  line-height: $large;
+
+  .rc-time-picker-input {
+    background: $light-grey;
+    color: $dark-blue;
+  }
 }
 
 .rc-time-picker.xxx .rc-time-picker-input {
+  display: inline-block;
   outline: none;
   height: $large * 1.2;
   border: none;
   font-size: $medium;
-  width: 60%;
+  width: 100%;
 }
 
-.rc-time-picker-clear-icon{
-  display: none;
+.rc-time-picker-panel-input {
+  font-size: $medium;
+}
+
+.rc-time-picker-clear-icon {
+  height: $regular;
 }

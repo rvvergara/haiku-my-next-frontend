@@ -40,14 +40,8 @@ const SchedulerComponent = ({
 
   return (
     <div className="scheduler-container">
-      <h3>Choose an available day for your appointment</h3>
       <ScheduleForm />
-      <div>
-        <div>Availability 1 - Booked</div>
-        <div>Availability 2</div>
-      </div>
       <SessionDuration />
-      <h3>Choose an available time for your appointment</h3>
       <SessionTime />
       <div>
         <button type="button" className="clinic-button" onClick={handleSubmit}>

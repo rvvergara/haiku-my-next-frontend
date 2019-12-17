@@ -11,8 +11,8 @@ const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
     setDurationValue(value);
   };
   return (
-    <div>
-      <h3>Choose Duration</h3>
+    <div className="scheduler-inner-component-container">
+      <h3 className="scheduler-inner-component__title">Choose Duration</h3>
       <div className="duration-container">
         <DurationButton
           value={30}

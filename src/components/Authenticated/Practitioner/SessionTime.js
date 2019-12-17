@@ -12,13 +12,14 @@ const SessionTimes = ({
 }) => {
   const format = 'h:mm a';
   const now = moment(sessionStartTime, 'LTS');
-  const handleChange = val => {
+  const handleChange = (val) => {
     if (val) setSessionStartTime(val.format(format));
   };
 
   return (
-    <div>
-      <label htmlFor="from-time">Start Time: </label>
+    <div className="scheduler-inner-component-container">
+      <h3 className="scheduler-inner-component__title">Choose an available time for your appointment</h3>
+      <label htmlFor="from-time" className="auth-label schedule-label">Start Time: </label>
       <TimePicker
         id="from-time"
         showSecond={false}
@@ -29,12 +30,14 @@ const SessionTimes = ({
         use12Hours
         inputReadOnly
       />
-      <label htmlFor="to-time">End time:</label>
-      <strong>
-        {moment(sessionStartTime, 'h:mm')
-          .add(sessionDuration, 'minutes')
-          .format('LT')}
-      </strong>
+      <label htmlFor="to-time" className="auth-label schedule-label">End time:</label>
+      <span className="rc-time-picker xxx read-only-time-span">
+        <span className="rc-time-picker-input">
+          {moment(sessionStartTime, 'h:mm')
+            .add(sessionDuration, 'minutes')
+            .format('LT')}
+        </span>
+      </span>
     </div>
   );
 };
@@ -45,7 +48,7 @@ SessionTimes.propTypes = {
   sessionStartTime: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   sessionStartTime: state.sessionStartTime,
   sessionDuration: state.sessionDuration,
 });
