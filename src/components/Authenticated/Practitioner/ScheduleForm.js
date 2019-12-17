@@ -27,6 +27,13 @@ class ScheduleForm extends React.Component {
       [key]: val,
     }));
 
+  blocksDay = day => {
+    // const availableDates = this.props.availabilities.map(avail => avail.date);
+    // const dayFormatted = moment(day).format('MMMM D, YYYY');
+    // return !availableDates.includes(dayFormatted);
+    return moment(day).isBefore(moment());
+  };  
+
   onFocusChange = ({ focused }) =>
     this.handleChange('calendarFocused', focused);
 
@@ -43,7 +50,7 @@ class ScheduleForm extends React.Component {
           focused={this.state.calendarFocused}
           onFocusChange={this.onFocusChange}
           numberOfMonths={1}
-          isOutsideRange={() => false}
+          isOutsideRange={this.blocksDay}
         />
       </div>
     );
