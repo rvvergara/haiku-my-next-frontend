@@ -7,6 +7,8 @@ import displayedClinic from './displayedClinic';
 import displayedPractitioner from './displayedPractitioner';
 import error from './error';
 import practitioners from './practitioners';
+import sessionDate from './sessionDate';
+import sessionDuration from './sessionDuration';
 
 export default combineReducers({
   currentUser,
@@ -17,4 +19,6 @@ export default combineReducers({
   displayedClinic,
   availabilities,
   bookings,
+  sessionDate,
+  sessionDuration,
 });
