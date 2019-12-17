@@ -1,23 +1,19 @@
 import Head from 'next/head';
 import PropTypes from 'prop-types';
+import Alert from './Alert';
 import ConnectedHeader from './Header';
 import ConnectedSidebar from './Sidebars/Sidebar';
 
 const Layout = ({ children, title, userName }) => (
   <div className="authenticated-layout">
     <Head>
-      <title>
-        Igaku |
-        {' '}
-        {title}
-      </title>
+      <title>Igaku | {title}</title>
     </Head>
-    <ConnectedHeader name={userName}/>
+    <ConnectedHeader name={userName} />
     <div className="authenticated-body">
       <ConnectedSidebar />
-      <div className="authenticated-body__content">
-        { children }
-      </div>
+      <Alert />
+      <div className="authenticated-body__content">{children}</div>
     </div>
   </div>
 );
