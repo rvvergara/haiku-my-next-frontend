@@ -5,6 +5,11 @@ import { connect } from 'react-redux';
 import { listAvailabilies } from '../../../store/actions/availability';
 import {addBooking} from '../../../store/actions/booking';
 import { removeAvailability} from '../../../store/actions/availability';
+import { 
+  toggleSetAppointment,
+  setBookingDate,
+  setBookingTime
+ } from '../../../store/actions/booking';
 
 class BookingForm extends React.Component {
   state = {
@@ -32,7 +37,14 @@ class BookingForm extends React.Component {
     return !availableDates.includes(dayFormatted);
   };
 
-
+  handleTimeClick = (availability) => {
+    this.setState(() => ({
+    confirmButtonAvailability: availability
+    }));
+    this.props.toggleSetAppointment();
+    this.props.setBookingDate(availability.date);
+    this.props.setBookingTime(availability.startTime);
+  }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -83,9 +95,7 @@ class BookingForm extends React.Component {
           <div key={availability.id}>
             <button
               className="booking-availabilities"
-              onClick={() => this.setState(() => ({
-                confirmButtonAvailability: availability
-              }))}
+              onClick={() => this.handleTimeClick(availability)}
             >
               {availability.startTime}
             </button>
@@ -129,4 +139,11 @@ const mapStateToProps = state => ({
   ),
 });
 
-export default connect(mapStateToProps, { listAvailabilies,addBooking, removeAvailability })(BookingForm);
+export default connect(mapStateToProps, { 
+  listAvailabilies,
+  addBooking, 
+  removeAvailability,
+  toggleSetAppointment,
+  setBookingDate,
+  setBookingTime
+})(BookingForm);
