@@ -1,7 +1,9 @@
 import Link from 'next/link';
 
 const PractitionerBox = ({ practitioner }) => {
-  const { biography, specialities, id, image } = practitioner;
+  const {
+ biography, specialities, id, image,
+} = practitioner;
 
   return (
     <div className="practitionerBox-container">
@@ -15,7 +17,8 @@ const PractitionerBox = ({ practitioner }) => {
           <p className="practitioner-name">Dr. Peter Goh Min Yih.</p>
           <p className="specialties">{specialities}</p>
           <p className="grotesque-font profile-info-container__info__card__conten">
-            {biography.substring(0, 100)}...
+            {biography.substring(0, 100)}
+...
           </p>
         </div>
       </div>

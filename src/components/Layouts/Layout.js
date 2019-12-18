@@ -7,7 +7,10 @@ import ConnectedSidebar from './Sidebars/Sidebar';
 const Layout = ({ children, title, userName }) => (
   <div className="authenticated-layout">
     <Head>
-      <title>Igaku | {title}</title>
+      <title>
+Igaku |
+        {title}
+      </title>
     </Head>
     <ConnectedHeader name={userName} />
     <div className="authenticated-body">

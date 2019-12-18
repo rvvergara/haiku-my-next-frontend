@@ -32,7 +32,7 @@ PatientProfile.propTypes = {
   currentUserData: PropTypes.instanceOf(Object).isRequired,
 };
 
-const mapStateToPops = state => ({
+const mapStateToPops = (state) => ({
   currentUserData: state.currentUser.data,
 });
 

@@ -1,4 +1,4 @@
-import { LIST_PRACTITIONERS,SET_PRACTITIONER } from './types';
+import { LIST_PRACTITIONERS, SET_PRACTITIONER } from './types';
 
 export const listPractitioners = (practitioners) => ({
   type: LIST_PRACTITIONERS,
