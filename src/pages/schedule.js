@@ -11,10 +11,12 @@ const SchedulePage = () => (
 
 SchedulePage.getInitialProps = (ctx) => {
   const { store } = ctx;
-  const { role } = store.getState().currentUser.data;
+  const { data } = store.getState().currentUser;
+  const { role } = data;
   if (role !== 'practitioner') {
     return redirect(ctx, '/');
   }
+  return data;
 };
 
 export default connect((state) => state)(SchedulePage);

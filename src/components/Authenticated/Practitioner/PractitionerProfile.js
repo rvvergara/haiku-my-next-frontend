@@ -22,6 +22,7 @@ const PractitionerProfile = ({ setPractitioner, role }) => {
 
 PractitionerProfile.propTypes = {
   setPractitioner: PropTypes.func.isRequired,
+  role: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

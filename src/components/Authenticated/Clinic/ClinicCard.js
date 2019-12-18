@@ -1,5 +1,5 @@
-import React from 'react';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 const ClinicCard = ({ clinic }) => {
   const { name, address, postalCode } = clinic;
@@ -35,6 +35,10 @@ const ClinicCard = ({ clinic }) => {
 
     </div>
   );
+};
+
+ClinicCard.propTypes = {
+  clinic: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default ClinicCard;

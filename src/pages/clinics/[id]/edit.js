@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import redirect from 'next-redirect';
+import PropTypes from 'prop-types';
 import ConnectedClinicForm from '../../../components/Authenticated/Clinic/ClinicForm';
 import Layout from '../../../components/Layouts/Layout';
 import { fetchOneClinic } from '../../../store/thunks/clinic';
@@ -9,6 +10,10 @@ const ClinicUpdatePage = ({ clinic }) => (
     <ConnectedClinicForm />
   </Layout>
 );
+
+ClinicUpdatePage.propTypes = {
+  clinic: PropTypes.instanceOf(Object).isRequired,
+};
 
 ClinicUpdatePage.getInitialProps = async (ctx) => {
   const { store, query } = ctx;

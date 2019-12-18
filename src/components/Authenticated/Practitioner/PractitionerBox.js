@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 const PractitionerBox = ({ practitioner }) => {
   const {
@@ -10,7 +11,7 @@ const PractitionerBox = ({ practitioner }) => {
       <div className="practitioner-info-container">
         <img
           className="profile-image__avatar"
-          src="https://images1-fabric.practo.com/dr-goh-min-yih-peter-1454317839-56af210f55ab0.jpg/thumbnail"
+          src={image || 'https://images1-fabric.practo.com/dr-goh-min-yih-peter-1454317839-56af210f55ab0.jpg/thumbnail'}
           alt="doctor-profile"
         />
         <div className="practitioner-profile-info">
@@ -30,6 +31,10 @@ const PractitionerBox = ({ practitioner }) => {
       </Link>
     </div>
   );
+};
+
+PractitionerBox.propTypes = {
+  practitioner: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default PractitionerBox;
