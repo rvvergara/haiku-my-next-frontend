@@ -11,6 +11,9 @@ import practitioners from './practitioners';
 import sessionDate from './sessionDate';
 import sessionDuration from './sessionDuration';
 import sessionStartTime from './sessionStartTime';
+import settingAppointment from './settingAppointment';
+import bookingDate from './bookingDate';
+import bookingTime from './bookingTime';
 
 export default combineReducers({
   currentUser,
@@ -25,4 +28,7 @@ export default combineReducers({
   sessionDuration,
   sessionStartTime,
   alert,
+  settingAppointment,
+  bookingDate,
+  bookingTime,
 });
