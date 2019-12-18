@@ -12,6 +12,10 @@ class BookingForm extends React.Component {
     remarks: ''
   }
 
+  componentWillUnmount(){
+    this.props.toggleSetAppointment();
+  }
+
   handleChange = (key, val) =>
     this.setState(() => ({
       [key]: val,
@@ -21,6 +25,7 @@ class BookingForm extends React.Component {
     e.preventDefault();
     const bookingData = {
       startTime:  this.props.availability.startTime,
+      endTime: this.props.availability.endTime,
       date:moment(this.props.availability.date).format('MMMM D, YYYY'),
       remarks: this.state.remarks
     }
@@ -35,6 +40,11 @@ class BookingForm extends React.Component {
   render() {
     return (
       <div>
+        <div className="booking-form-title">
+          <p>Date: {this.props.availability.date}</p>
+          <p>Start Time: {this.props.availability.startTime}</p>
+          <p>End Time: {this.props.availability.endTime}</p>
+        </div>
         <label className="auth-label" htmlFor="remarks">
           Remarks:
         </label>
