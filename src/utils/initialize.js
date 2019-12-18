@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import decode from 'jwt-decode';
-import axios from 'axios';
+import redirect from 'next-redirect';
 import { getCookie } from './cookie';
 import { setAuthorizationToken } from './api';
 import { fetchUserData } from '../store/thunks/user';
@@ -14,6 +14,11 @@ export default async (ctx) => {
       const id = decode(token).user_id;
       setAuthorizationToken(token);
       await dispatch(fetchUserData(id));
+      return store.getState().currentUser;
+    }
+    const { pathname } = ctx;
+    if (!(pathname === '/' || pathname === '/signup' || pathname === '/login')) {
+      return redirect(ctx, '/');
     }
   } else {
     try {

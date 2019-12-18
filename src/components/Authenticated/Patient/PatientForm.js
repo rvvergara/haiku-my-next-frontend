@@ -96,6 +96,7 @@ class PatientForm extends React.Component {
     try {
       if (Router.pathname === '/profile/new') {
         await this.props.createPatient(params);
+        this.props.setAlert('Profile created','success')
       }
       if (Router.pathname === '/profile/edit') {
         await this.props.updatePatient(patientId, params);
