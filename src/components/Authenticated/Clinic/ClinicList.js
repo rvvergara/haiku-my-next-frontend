@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { listClinics } from '../../../store/actions/clinic';
 import { fetchClinics } from '../../../store/thunks/clinic';
 import { setAuthorizationToken } from '../../../utils/api';
@@ -35,6 +36,13 @@ const ClinicList = ({
       ))}
     </div>
   );
+};
+
+ClinicList.propTypes = {
+  clinics: PropTypes.instanceOf(Object).isRequired,
+  currentUserData: PropTypes.instanceOf(Object).isRequired,
+  fetchClinics: PropTypes.func.isRequired,
+  listClinics: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

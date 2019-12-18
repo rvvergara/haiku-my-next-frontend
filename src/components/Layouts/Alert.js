@@ -1,21 +1,19 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const Alert = ({ alerts }) =>
-  alerts !== null &&
-  alerts.length > 0 &&
-  alerts.map(alert => (
+const Alert = ({ alerts }) => alerts !== null
+  && alerts.length > 0
+  && alerts.map((alert) => (
     <div key={alert.id} className={`alert alert-${alert.alertType}`}>
       {alert.msg}
-      {/* <div onClicl={dispatch({ type: REMOVE_ALERT, payload: id })} className="close-notif">X</div> */}
     </div>
   ));
 
 Alert.propTypes = {
-  alerts: PropTypes.array.isRequired,
+  alerts: PropTypes.instanceOf(Object).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   alerts: state.alert,
 });
 

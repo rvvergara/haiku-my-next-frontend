@@ -1,5 +1,5 @@
-import React from 'react';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 const ClinicCard = ({ clinic }) => {
   const { name, address, postalCode } = clinic;
@@ -28,13 +28,17 @@ const ClinicCard = ({ clinic }) => {
         </div>
         <div className="clinic-button-container">
           <Link href="/clinics/[id]" as={`/clinics/${clinic.id}`}>
-          <a className="clinic-button" href="/clinics/[id]">See more info</a>
-        </Link>
+            <a className="clinic-button" href="/clinics/[id]">See more info</a>
+          </Link>
         </div>
       </div>
 
     </div>
   );
+};
+
+ClinicCard.propTypes = {
+  clinic: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default ClinicCard;

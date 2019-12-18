@@ -1,21 +1,25 @@
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 const PractitionerBox = ({ practitioner }) => {
-  const { biography, specialities, id, image } = practitioner;
+  const {
+ biography, specialities, id, image,
+} = practitioner;
 
   return (
     <div className="practitionerBox-container">
       <div className="practitioner-info-container">
         <img
           className="profile-image__avatar"
-          src="https://images1-fabric.practo.com/dr-goh-min-yih-peter-1454317839-56af210f55ab0.jpg/thumbnail"
+          src={image || 'https://images1-fabric.practo.com/dr-goh-min-yih-peter-1454317839-56af210f55ab0.jpg/thumbnail'}
           alt="doctor-profile"
         />
         <div className="practitioner-profile-info">
           <p className="practitioner-name">Dr. Peter Goh Min Yih.</p>
           <p className="specialties">{specialities}</p>
           <p className="grotesque-font profile-info-container__info__card__conten">
-            {biography.substring(0, 100)}...
+            {biography.substring(0, 100)}
+...
           </p>
         </div>
       </div>
@@ -27,6 +31,10 @@ const PractitionerBox = ({ practitioner }) => {
       </Link>
     </div>
   );
+};
+
+PractitionerBox.propTypes = {
+  practitioner: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default PractitionerBox;

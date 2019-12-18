@@ -1,9 +1,24 @@
-import Router from 'next/router';
 import decode from 'jwt-decode';
-import axios from 'axios';
+import redirect from 'next-redirect';
 import { getCookie } from './cookie';
 import { setAuthorizationToken } from './api';
 import { fetchUserData } from '../store/thunks/user';
+
+const redirectIfNoProfile = (ctx, data) => {
+  if (!data.profile && !(ctx.pathname === '/profile/new')) {
+    return redirect(ctx, '/profile/new');
+  }
+  if (ctx.pathname === '/login' || ctx.pathname === '/signup') {
+    return redirect(ctx, '/');
+  }
+};
+
+const redirectIfNoToken = (ctx) => {
+  const { pathname } = ctx;
+  if (!(pathname === '/' || pathname === '/signup' || pathname === '/login')) {
+    return redirect(ctx, '/');
+  }
+};
 
 export default async (ctx) => {
   if (ctx.isServer) {
@@ -14,14 +29,19 @@ export default async (ctx) => {
       const id = decode(token).user_id;
       setAuthorizationToken(token);
       await dispatch(fetchUserData(id));
+      const { data } = store.getState().currentUser;
+      return redirectIfNoProfile(ctx, data);
     }
+    redirectIfNoToken(ctx);
   } else {
     try {
       const { token } = localStorage;
-      setAuthorizationToken(token);
-      if (token && (ctx.pathname === '/login' || ctx.pathname === '/signup')) {
-        setTimeout(() => Router.push('/'), 0);
+      if (token) {
+        setAuthorizationToken(token);
+        const { data } = ctx.store.getState().currentUser;
+        return redirectIfNoProfile(ctx, data);
       }
+      return redirectIfNoToken(ctx);
     } catch (err) {
       throw new Error(err);
     }

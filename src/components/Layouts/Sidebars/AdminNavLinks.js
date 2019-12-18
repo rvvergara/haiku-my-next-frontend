@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 const AdminNavLinks = () => (
   <ul className="sidebar__nav">
@@ -9,17 +9,17 @@ const AdminNavLinks = () => (
     </li>
     <li className="sidebar__navlink">
       <Link href="/clinic/doctors">
-        <a>Doctors</a>
+        <a href="/clinic/doctors">Doctors</a>
       </Link>
     </li>
     <li className="sidebar__navlink">
       <Link href="/clinic/bookings">
-        <a>Bookings</a>
+        <a href="/clinic/bookings">Bookings</a>
       </Link>
     </li>
     <li className="sidebar__navlink">
       <Link href="/clinic/patients">
-        <a>Patients</a>
+        <a href="/clinic/patients">Patients</a>
       </Link>
     </li>
   </ul>

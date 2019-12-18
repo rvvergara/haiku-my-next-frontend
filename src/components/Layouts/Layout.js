@@ -4,12 +4,15 @@ import Alert from './Alert';
 import ConnectedHeader from './Header';
 import ConnectedSidebar from './Sidebars/Sidebar';
 
-const Layout = ({ children, title, userName }) => (
+const Layout = ({ children, title }) => (
   <div className="authenticated-layout">
     <Head>
-      <title>Igaku | {title}</title>
+      <title>
+Igaku |
+        {title}
+      </title>
     </Head>
-    <ConnectedHeader name={userName} />
+    <ConnectedHeader />
     <div className="authenticated-body">
       <ConnectedSidebar />
       <Alert />

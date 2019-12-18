@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import BookingSelection from './BookingSelection';
 import BookingForm from './BookingForm';
 
@@ -15,6 +16,10 @@ const Booking = ({ settingAppointment }) => (
     }
   </div>
   );
+
+Booking.propTypes = {
+  settingAppointment: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   settingAppointment: state.settingAppointment,
