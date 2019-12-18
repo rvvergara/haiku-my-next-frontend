@@ -10,7 +10,9 @@ const PractitionerNavLinks = () => (
       </Link>
     </li>
     <li className="sidebar__navlink">
-      <button type="button">My Schedule</button>
+      <Link href="/schedule">
+        <a href="/schedule">My Schedule</a>
+      </Link>
     </li>
     <li className="sidebar__navlink">
       <button type="button">Bookings</button>

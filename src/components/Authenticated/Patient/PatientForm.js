@@ -9,6 +9,7 @@ import { createPatient, updatePatient } from '../../../store/thunks/patient';
 import { uploadPic } from '../../../store/thunks/upload';
 import { setAuthorizationToken } from '../../../utils/api';
 import setError from '../../../store/actions/error';
+import {setAlert} from '../../../store/actions/alerts'
 
 class PatientForm extends React.Component {
   state = {
@@ -70,7 +71,7 @@ class PatientForm extends React.Component {
     const { contactNo, passport, postalCode, address, dob, languages, points, imageText } = this.state;
 
     setAuthorizationToken(localStorage.token);
-    
+
     const { id } = currentUserData;
     const patientId = currentUserData.profile ? currentUserData.profile.id : undefined;
 
@@ -98,6 +99,7 @@ class PatientForm extends React.Component {
       }
       if (Router.pathname === '/profile/edit') {
         await this.props.updatePatient(patientId, params);
+        this.props.setAlert('Profile updated','success')
       }
       setTimeout(() => Router.push('/'), 1000);
       return true;
@@ -267,9 +269,10 @@ const mapStateToProps = (state) => ({
   error: state.error,
 });
 
-export default connect(mapStateToProps, { 
+export default connect(mapStateToProps, {
   createPatient,
-  setError, 
-  updatePatient, 
-  uploadPic 
+  setError,
+  updatePatient,
+  uploadPic,
+  setAlert
 })(PatientForm);
