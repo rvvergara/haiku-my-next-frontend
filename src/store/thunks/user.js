@@ -97,6 +97,7 @@ export const fetchUserData = (id) => async (dispatch) => {
       }));
     }
   } catch (err) {
-    dispatch(setError(err.response.data.error));
+    logout();
+    dispatch(setError(err.response.data));
   }
 };
