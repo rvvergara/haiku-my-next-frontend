@@ -13,7 +13,7 @@ class BookingForm extends React.Component {
   }
 
   componentWillUnmount(){
-    this.props.toggleSetAppointment();
+    this.props.toggleSetAppointment(false);
   }
 
   handleChange = (key, val) =>
@@ -34,9 +34,9 @@ class BookingForm extends React.Component {
     this.setState(() => ({
       remarks: ''
     }))
-    this.props.toggleSetAppointment()
+    this.props.toggleSetAppointment(false)
   };
-  
+
   render() {
     return (
       <div>
@@ -68,7 +68,7 @@ class BookingForm extends React.Component {
           <button
             type="button"
             className="confirm-booking"
-            onClick={() => this.props.toggleSetAppointment()}
+            onClick={() => this.props.toggleSetAppointment(false)}
           >
             Go Back
           </button>

@@ -36,7 +36,7 @@ class BookingSelection extends React.Component {
     this.setState(() => ({
     confirmButtonAvailability: availability
     }));
-    this.props.toggleSetAppointment();
+    this.props.toggleSetAppointment(true);
     this.props.displayAvailability(availability)
   }
 
@@ -108,9 +108,9 @@ const mapStateToProps = state => ({
   ),
 });
 
-export default connect(mapStateToProps, { 
+export default connect(mapStateToProps, {
   listAvailabilies,
-  addBooking, 
+  addBooking,
   removeAvailability,
   displayAvailability,
   toggleSetAppointment

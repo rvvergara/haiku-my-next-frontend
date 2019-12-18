@@ -14,6 +14,7 @@ export const listBookings = (bookings) => ({
   bookings,
 });
 
-export const toggleSetAppointment = () => ({
+export const toggleSetAppointment = (isBooking) => ({
   type: SETTING_APPOINTMENT,
+  isBooking,
 });
