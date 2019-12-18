@@ -4,6 +4,7 @@ import {
   SET_SESSION_DATE,
   SET_SESSION_DURATION,
   SET_SESSION_START_TIME,
+  DISPLAY_AVAILABILITY,
 } from './types';
 
 export const listAvailabilies = (availabilities) => ({
@@ -29,4 +30,9 @@ export const setSessionDuration = (sessionDuration) => ({
 export const setSessionStartTime = (sessionStartTime) => ({
   type: SET_SESSION_START_TIME,
   sessionStartTime,
+});
+
+export const displayAvailability = (availability) => ({
+  type: DISPLAY_AVAILABILITY,
+  availability,
 });
