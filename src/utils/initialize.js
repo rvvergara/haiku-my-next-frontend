@@ -14,7 +14,11 @@ export default async (ctx) => {
       const id = decode(token).user_id;
       setAuthorizationToken(token);
       await dispatch(fetchUserData(id));
-      return store.getState().currentUser;
+      const { data } = store.getState().currentUser;
+      if (!data.profile && !(ctx.pathname === '/profile/new')) {
+        return redirect(ctx, '/profile/new');
+      }
+      return data;
     }
     const { pathname } = ctx;
     if (!(pathname === '/' || pathname === '/signup' || pathname === '/login')) {
