@@ -6,16 +6,19 @@ import DurationButton from './DurationButton';
 
 const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
   const [durationValue, setDurationValue] = useState(sessionDuration);
-  const [customValue, setCustomValue] = useState();
-  const handleClick = value => {
+  const [customValue, setCustomValue] = useState('');
+  const handleClick = (value) => {
     setSessionDuration(parseInt(value));
     setDurationValue(value);
   };
 
-  const handleChange = value => {
-    setSessionDuration(parseInt(value));
-    setDurationValue(value);
-    setCustomValue(value);
+  const handleChange = (value) => {
+    const re = /^\d+(\.\d{0,2})?$/gi;
+    if (!value || value.match(re)) {
+      setSessionDuration(parseInt(value || '0'));
+      setCustomValue(value);
+      setDurationValue(value || 0);
+    }
   };
 
   return (
@@ -39,8 +42,7 @@ const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
         />
         <div>
           <input
-            type="number"
-            // className="custom-minutes"
+            type="text"
             className={
               durationValue === customValue
                 ? 'selected-duration booking-duration'
@@ -48,8 +50,8 @@ const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
             }
             value={customValue}
             placeholder="Set custom minutes"
-            onChange={e => handleChange(e.target.value)}
-            onFocus={e => handleChange(customValue)}
+            onChange={(e) => handleChange(e.target.value)}
+            onFocus={() => handleChange('')}
           />
         </div>
       </div>
@@ -57,7 +59,7 @@ const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   sessionDuration: state.sessionDuration,
 });
 
