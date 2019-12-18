@@ -8,7 +8,7 @@ describe('PatientProfile component', () => {
       lastName: 'Doe',
     };
     const wrapper = shallow(
-      <PatientProfile currentUserData={currentUserData} />
+      <PatientProfile currentUserData={currentUserData} />,
 );
     expect(wrapper.exists()).toBe(true);
   });

@@ -1,4 +1,3 @@
-
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import PractitionerNavLinks from './PractitionerNavLinks';
@@ -17,7 +16,10 @@ const renderSideBar = (userRole) => {
 
 export const Sidebar = ({ currentUser }) => {
   const defaultImg = currentUser.data.role === 'practitioner' ? 'http://tinyimg.io/i/qWwgVO4.jpg' : 'https://tinyimg.io/i/BmtLUPZ.jpg';
-  const imgSrc = currentUser.data.profile && currentUser.data.profile.image ? currentUser.data.profile.image : defaultImg;
+  const imgSrc = currentUser.data.profile
+  && currentUser.data.profile.image
+  ? currentUser.data.profile.image
+  : defaultImg;
   return (
     <div className="authenticated-body__sidebar">
       <div className="authenticated-body__sidebar-container">

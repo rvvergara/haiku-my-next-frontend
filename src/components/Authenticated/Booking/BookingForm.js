@@ -39,13 +39,13 @@ class BookingForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="booking-modal">
         <div className="booking-form-title">
-          <p>Date: {this.props.availability.date}</p>
-          <p>Start Time: {this.props.availability.startTime}</p>
-          <p>End Time: {this.props.availability.endTime}</p>
+          <p className="grotesque-font">Date: {this.props.availability.date}</p>
+          <p className="grotesque-font">Start Time: {this.props.availability.startTime}</p>
+          <p className="grotesque-font">End Time: {this.props.availability.endTime}</p>
         </div>
-        <label className="auth-label" htmlFor="remarks">
+        <label className="remark-label" htmlFor="remarks">
           Remarks:
         </label>
         <textarea
@@ -55,7 +55,9 @@ class BookingForm extends React.Component {
           placeholder="Give us a short background of your concern"
           value={this.state.remarks}
         />
-        <div className="form-group">
+
+
+          <div className="booking-button">
           <button
             type="submit"
             className="confirm-booking"
@@ -63,15 +65,18 @@ class BookingForm extends React.Component {
           >
                     Confirm
           </button>
-        </div>
-        <div className="form-group">
           <button
             type="button"
-            className="confirm-booking"
+            className="confirm-booking orange"
             onClick={() => this.props.toggleSetAppointment(false)}
           >
             Go Back
           </button>
+
+        <div className="form-group">
+
+          </div>
+
         </div>
       </div>
     );

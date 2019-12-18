@@ -1,25 +1,22 @@
 import { connect } from 'react-redux';
+import redirect from 'next-redirect';
 import ClinicForm from '../../components/Authenticated/Clinic/ClinicForm';
 import Layout from '../../components/Layouts/Layout';
-import initialize from '../../utils/initialize';
 
-const CreateClinic = ({ currentUserData, token }) => (
+const CreateClinic = () => (
   <Layout title="Add New Clinic">
     <h1>Create Clinic here</h1>
-    <ClinicForm token={token} />
+    <ClinicForm />
   </Layout>
 );
 
 CreateClinic.getInitialProps = (ctx) => {
-  const { store, req } = ctx;
-  let token;
-  if (ctx.isServer) {
-    token = req.headers.cookie.split('=')[1];
-  } else {
-    token = store.getState().currentUser.data.token;
-  }
+  const { store } = ctx;
   const { data } = store.getState().currentUser;
-  return { currentUserData: data, token };
+  if (data.role !== 'practitioner') {
+    return redirect(ctx, '/');
+  }
+  return { currentUserData: data };
 };
 
 export default connect((state) => state)(CreateClinic);

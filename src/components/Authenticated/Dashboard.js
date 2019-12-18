@@ -5,7 +5,7 @@ import PractitionerBookingList from './Booking/PractitionerBookingList';
 import ClinicList from './Clinic/ClinicList';
 import PractitionerProfile from './Practitioner/PractitionerProfile';
 
-const renderDashboard = userRole => {
+const renderDashboard = (userRole) => {
   switch (userRole) {
     case 'practitioner':
       return (
@@ -34,7 +34,7 @@ Dashboard.propTypes = {
   userRole: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userRole: state.currentUser.data.role,
 });
 

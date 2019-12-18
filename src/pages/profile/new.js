@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import redirect from 'next-redirect';
 import Layout from '../../components/Layouts/Layout';
 import ConnectedPractitionerForm from '../../components/Authenticated/Practitioner/PractitionerForm';
 import ConnectedPatientForm from '../../components/Authenticated/Patient/PatientForm';
@@ -14,6 +15,10 @@ export const NewProfilePage = ({ currentUserData }) => (
 NewProfilePage.getInitialProps = (ctx) => {
   const { store } = ctx;
   const { data } = store.getState().currentUser;
+
+  if (data.profile) {
+    return redirect(ctx, '/');
+  }
 
   return { currentUserData: data };
 };
