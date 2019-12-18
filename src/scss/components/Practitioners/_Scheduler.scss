@@ -49,9 +49,11 @@
   outline: none;
   border: none;
   font-size: 1.4rem;
-  -webkit-appearance: none;
-  width: 100%;
   line-height: 35px;
+}
+
+.custom-minutes::placeholder {
+  color: $calendly-blue;
 }
 
 .custom-booking-duration {
@@ -67,4 +69,5 @@
 
 .custom-booking-duration:focus {
   border: 2px solid $calendly-blue;
+  background-color: $calendly-blue;
 }

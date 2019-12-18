@@ -37,13 +37,19 @@ const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
           isActive={durationValue === 120}
           onClick={handleClick}
         />
-        <div className="custom-booking-duration">
+        <div>
           <input
             type="number"
-            className="custom-minutes"
+            // className="custom-minutes"
+            className={
+              durationValue === customValue
+                ? 'selected-duration booking-duration'
+                : 'booking-duration'
+            }
             value={customValue}
             placeholder="Set custom minutes"
             onChange={e => handleChange(e.target.value)}
+            onFocus={e => handleChange(customValue)}
           />
         </div>
       </div>
