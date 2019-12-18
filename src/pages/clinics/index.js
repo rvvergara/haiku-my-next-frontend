@@ -21,7 +21,7 @@ ClinicsPage.propTypes = {
 };
 
 ClinicsPage.getInitialProps = async (ctx) => {
-  const { store, req } = ctx;
+  const { store } = ctx;
   const { dispatch, getState } = store;
   const clinics = await dispatch(fetchClinics());
   const currentUserData = getState().currentUser.data;
