@@ -6,10 +6,18 @@ import DurationButton from './DurationButton';
 
 const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
   const [durationValue, setDurationValue] = useState(sessionDuration);
+  const [customValue, setCustomValue] = useState();
   const handleClick = (value) => {
     setSessionDuration(parseInt(value));
     setDurationValue(value);
   };
+
+  const handleChange = (value) => {
+    setSessionDuration(parseInt(value));
+    setDurationValue(value);
+    setCustomValue(value);
+  };
+
   return (
     <div className="scheduler-inner-component-container">
       <h3 className="scheduler-inner-component__title">Choose Duration</h3>
@@ -28,6 +36,12 @@ const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
           value={120}
           isActive={durationValue === 120}
           onClick={handleClick}
+        />
+        <input
+          type="number"
+          value={customValue}
+          placeholder="Set custom minutes"
+          onChange={(e) => handleChange(e.target.value)}
         />
       </div>
     </div>
