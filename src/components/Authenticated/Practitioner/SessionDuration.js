@@ -1,18 +1,18 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { setSessionDuration } from '../../../store/actions/availability';
 import DurationButton from './DurationButton';
 
 const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
   const [durationValue, setDurationValue] = useState(sessionDuration);
   const [customValue, setCustomValue] = useState();
-  const handleClick = (value) => {
+  const handleClick = value => {
     setSessionDuration(parseInt(value));
     setDurationValue(value);
   };
 
-  const handleChange = (value) => {
+  const handleChange = value => {
     setSessionDuration(parseInt(value));
     setDurationValue(value);
     setCustomValue(value);
@@ -37,18 +37,21 @@ const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
           isActive={durationValue === 120}
           onClick={handleClick}
         />
-        <input
-          type="number"
-          value={customValue}
-          placeholder="Set custom minutes"
-          onChange={(e) => handleChange(e.target.value)}
-        />
+        <div className="custom-booking-duration">
+          <input
+            type="number"
+            className="custom-minutes"
+            value={customValue}
+            placeholder="Set custom minutes"
+            onChange={e => handleChange(e.target.value)}
+          />
+        </div>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   sessionDuration: state.sessionDuration,
 });
 
@@ -57,4 +60,6 @@ SessionDuration.propTypes = {
   sessionDuration: PropTypes.number.isRequired,
 };
 
-export default connect(mapStateToProps, { setSessionDuration })(SessionDuration);
+export default connect(mapStateToProps, { setSessionDuration })(
+  SessionDuration,
+);
