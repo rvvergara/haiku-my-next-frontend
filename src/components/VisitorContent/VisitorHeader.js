@@ -8,6 +8,7 @@ const VisitorHeader = () => (
           <button
             type="button"
             className="authentication"
+            onClick={() => localStorage.clear()}
           >
             Login
           </button>
@@ -16,6 +17,7 @@ const VisitorHeader = () => (
           <button
             type="button"
             className="authentication"
+            onClick={() => localStorage.clear()}
           >
             Signup
           </button>

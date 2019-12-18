@@ -1,0 +1,73 @@
+.scheduler-container {
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px #c7d0d8;
+  margin-bottom: 1.4rem;
+  width: 80%;
+  padding: 20px;
+}
+
+.rc-time-picker-panel-select li {
+  font-size: $medium;
+}
+
+.rc-time-picker.xxx {
+  border: 1px solid grey;
+  width: 15%;
+  margin-right: $small;
+}
+
+.read-only-time-span {
+  position: relative;
+  bottom: $medium * 0.3;
+  line-height: $large;
+
+  .rc-time-picker-input {
+    background: $light-grey;
+    color: $dark-blue;
+  }
+}
+
+.rc-time-picker.xxx .rc-time-picker-input {
+  display: inline-block;
+  outline: none;
+  height: $large * 1.2;
+  border: none;
+  font-size: $medium;
+  width: 100%;
+}
+
+.rc-time-picker-panel-input {
+  font-size: $medium;
+}
+
+.rc-time-picker-clear-icon {
+  height: $regular;
+}
+
+.custom-minutes {
+  outline: none;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 35px;
+}
+
+.custom-minutes::placeholder {
+  color: $calendly-blue;
+}
+
+.custom-booking-duration {
+  margin: 0 auto;
+  font-size: 1.5rem;
+  color: $calendly-blue;
+  border: 2px solid grey;
+  width: 150px;
+  height: 40px;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.custom-booking-duration:focus {
+  border: 2px solid $calendly-blue;
+  background-color: $calendly-blue;
+}
