@@ -18,6 +18,9 @@ export default async (ctx) => {
       if (!data.profile && !(ctx.pathname === '/profile/new')) {
         return redirect(ctx, '/profile/new');
       }
+      if (ctx.pathname === '/login' || ctx.pathname === '/signup') {
+        return redirect(ctx, '/');
+      }
       return data;
     }
     const { pathname } = ctx;
