@@ -8,10 +8,36 @@
     background: url('https://i.imgur.com/avdEbTW.jpg') no-repeat;
     background-position: 20%;
   }
+}
 
-  @media screen and (min-width: 1199) {
-    background-position: 0%;
-    background-size: 110%;
+.intro-content {
+  position: relative;
+  left: 60%;
+  top: 10%;
+  display: none;
+  width: 26%;
+
+  @media screen and (min-width: 901px) {
+    display: block;
+  }
+}
+
+.intro-content-subtitle {
+  color: $purplish-blue;
+  font-size: $xmedium;
+  position: relative;
+  left: $xlarge * 1.5;
+
+  @media screen and (min-width: 1050px) {
+    font-size: $large * 0.8;
+  }
+}
+
+.intro-content-logo {
+  width: $large * 4.2;
+
+  @media screen and (min-width: 1050px) {
+    width: $large * 5;
   }
 }
 
@@ -25,7 +51,7 @@
 }
 
 .header-logo-text {
-  width: $xlarge * 2;
+  width: $xlarge * 2.2;
   display: none;
   padding-left: $small;
 
