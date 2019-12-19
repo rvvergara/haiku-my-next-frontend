@@ -16,7 +16,10 @@ const ScheduleList = ({ availabilities, listAvailabilies }) => {
           <div key={availability.id}>
             <strong>{availability.date}</strong>
           </div>
-          <div> From {availability.startTime} To {availability.endTime}</div>
+          <div>
+            From {availability.startTime} To {availability.endTime}
+          </div>
+          <div>{availability.booked ? 'Booked' : ''}</div>
         </div>
       ))}
     </div>
