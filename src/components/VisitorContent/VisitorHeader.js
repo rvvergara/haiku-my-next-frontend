@@ -7,7 +7,12 @@ const VisitorHeader = () => (
     <Navbar.Brand href="/">
       <img
         src="./static/igaku_social_logo_text.png"
-        className="header-logo"
+        className="header-logo-small"
+        alt="Igaku Logo"
+      />
+      <img
+        src="./static/igaku_social_logo_only.png"
+        className="header-logo-medium"
         alt="Igaku Logo"
       />
     </Navbar.Brand>

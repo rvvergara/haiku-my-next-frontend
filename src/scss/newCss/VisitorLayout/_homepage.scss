@@ -1,22 +1,35 @@
 .mobile-container {
-  background: url('https://i.imgur.com/rJWfewk.png') no-repeat;
+  background: url('https://tinyimg.io/i/kj86oe3.png') no-repeat;
   background-size: cover;
+  background-position: 20%;
   height: 100vh;
-}
 
-@media screen and(min-width:576px) {
-  .mobile-container {
+  @media screen and(min-width:576px) {
     background: url('https://i.imgur.com/avdEbTW.jpg') no-repeat;
     background-position: 20%;
+  }
+
+  @media screen and (min-width: 1199) {
+    background-position: 0%;
+    background-size: 110%;
   }
 }
 
 // Visitor Header
-.header-logo {
+.header-logo-small {
   width: $large * 1.5;
 
   @media screen and(min-width:576px) {
     display: none;
+  }
+}
+
+.header-logo-medium {
+  width: $large * 1.2;
+  display: none;
+
+  @media screen and (min-width: 576px) and (max-width:900px) {
+    display: block;
   }
 }
 

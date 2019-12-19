@@ -3,9 +3,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 const Intro = () => (
-  <Container fluid={true}>
+  <Container fluid>
     <Row>
-      <Col  className="mobile-container"></Col>
+      <Col className="mobile-container" />
     </Row>
   </Container>
 );
