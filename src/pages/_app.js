@@ -4,7 +4,7 @@ import withRedux from 'next-redux-wrapper';
 import 'react-dates/lib/css/_datepicker.css';
 import initializeStore from '../store/initializeStore';
 import initialize from '../utils/initialize';
-import '../scss/main.scss';
+// import '../scss/main.scss';
 
 class IgakuApp extends App {
   static async getInitialProps({ Component, ctx }) {

@@ -1,18 +1,22 @@
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Image from 'react-bootstrap/Image';
+import Row from 'react-bootstrap/Row';
+
 const Intro = () => (
-  <div className="jumbo-intro">
-    <div className="jumbo-intro__content">
-      <h1 className="jumbo-intro__title">
-        <img
-          src="https://tinyimg.io/i/uS2trrA.png"
-          alt="igaku"
-          className="jumbo-intro__title__img"
-        />
-      </h1>
-      <h2 className="jumbo-intro__subtitle">
-      Health that cares
-      </h2>
-    </div>
-  </div>
+  <Container>
+    <Row>
+      <Col xs={6} md={4}>
+        <Image src="holder.js/171x180" rounded />
+      </Col>
+      <Col xs={6} md={4}>
+        <Image src="holder.js/171x180" roundedCircle />
+      </Col>
+      <Col xs={6} md={4}>
+        <Image src="holder.js/171x180" thumbnail />
+      </Col>
+    </Row>
+  </Container>
 );
 
 export default Intro;
