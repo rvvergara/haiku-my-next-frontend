@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { listAvailabilies } from '../../../store/actions/availability';
 import dummyAvailabilities from '../../../Dummy/availabilites';
+import { listAvailabilies } from '../../../store/actions/availability';
 
 const ScheduleList = ({ availabilities, listAvailabilies }) => {
   useEffect(() => {
@@ -10,14 +10,17 @@ const ScheduleList = ({ availabilities, listAvailabilies }) => {
     return () => listAvailabilies([]);
   }, []);
   return (
-    <div>
-      {
-        availabilities.map((availability) => (
-          <div key={availability.id}><strong>{availability.date}</strong></div>
-        ))
-      }
+    <div className="scheduler-container">
+      {availabilities.map(availability => (
+        <div>
+          <div key={availability.id}>
+            <strong>{availability.date}</strong>
+          </div>
+          <div> From {availability.startTime} To {availability.endTime}</div>
+        </div>
+      ))}
     </div>
-);
+  );
 };
 
 ScheduleList.propTypes = {
@@ -25,7 +28,7 @@ ScheduleList.propTypes = {
   listAvailabilies: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   availabilities: state.availabilities,
 });
 
