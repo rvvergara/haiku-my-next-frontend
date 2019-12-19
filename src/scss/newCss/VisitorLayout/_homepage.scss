@@ -3,3 +3,17 @@
   background-size: cover;
   height: 100vh;
 }
+
+// Visitor Header
+.header-logo {
+  width: $large * 1.5;
+}
+
+.navbar-nav {
+  text-align: center;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: $dark-blue;
+  font-size: $small * 0.9;
+}
