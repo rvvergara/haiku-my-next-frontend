@@ -1,9 +1,10 @@
 import decode from 'jwt-decode';
 import redirect from 'next-redirect';
 import moment from 'moment';
-import { getCookie } from './cookie';
+import { getCookie, removeCookie } from './cookie';
 import { setAuthorizationToken } from './api';
 import { fetchUserData } from '../store/thunks/user';
+import { setCurrentUser } from '../store/actions/user';
 
 const redirectIfNoProfile = (ctx, data) => {
   if (!data.profile && !(ctx.pathname === '/profile/new')) {
@@ -23,8 +24,7 @@ const redirectIfNoToken = (ctx) => {
 
 const checkIfTokenExp = (decoded) => {
   const expirationTime = moment.unix(decoded.exp);
-  const nowTime = moment.unix();
-  console.log('IS ALREADY EXPIRED???', expirationTime < nowTime);
+  const nowTime = moment();
   return expirationTime < nowTime;
 };
 
@@ -36,14 +36,19 @@ export default async (ctx) => {
       const token = getCookie('token', req);
       const decoded = decode(token);
       if (checkIfTokenExp(decoded)) {
+        removeCookie('token');
+        setAuthorizationToken(null);
+        dispatch(setCurrentUser({
+          authenticated: false,
+          data: {},
+        }));
         return redirectIfNoToken(ctx);
       }
-      console.log('THIS SHOULD NOT APPEAR ANYMORE');
       const id = decoded.user_id;
       setAuthorizationToken(token);
       await dispatch(fetchUserData(id));
       const { data } = store.getState().currentUser;
-      // return redirectIfNoProfile(ctx, data);
+      return redirectIfNoProfile(ctx, data);
     }
     redirectIfNoToken(ctx);
   } else {
@@ -52,12 +57,18 @@ export default async (ctx) => {
       if (token) {
         const decoded = decode(token);
         if (checkIfTokenExp(decoded)) {
+          removeCookie('token');
+          localStorage.clear();
+          setAuthorizationToken(null);
+          ctx.store.dispatch(setCurrentUser({
+            authenticated: false,
+            data: {},
+          }));
           return redirectIfNoToken(ctx);
         }
-        console.log('IN THE CLIENT THIS SHOULD NOT APPEAR');
         setAuthorizationToken(token);
         const { data } = ctx.store.getState().currentUser;
-        // return redirectIfNoProfile(ctx, data);
+        return redirectIfNoProfile(ctx, data);
       }
       return redirectIfNoToken(ctx);
     } catch (err) {
