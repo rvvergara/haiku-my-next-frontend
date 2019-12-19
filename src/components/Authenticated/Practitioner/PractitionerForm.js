@@ -9,6 +9,7 @@ import { uploadPic } from '../../../store/thunks/upload';
 import MultipleInput from '../ProfileCommon/MultipleInput';
 import { setAuthorizationToken } from '../../../utils/api';
 import setError from '../../../store/actions/error';
+import {setAlert} from '../../../store/actions/alerts'
 
 class PractitionerForm extends React.Component {
   state = {
@@ -80,9 +81,11 @@ class PractitionerForm extends React.Component {
     try {
       if (Router.pathname === '/profile/new') {
         await this.props.createPractitioner(params);
+        this.props.setAlert('Profile Created','success')
       }
       if (Router.pathname === '/profile/edit') {
         await this.props.updatePractitioner(practitionerId, params);
+        this.props.setAlert('Profile updated','success')
       }
       setTimeout(() => Router.push('/'), 1000);
       return true;
@@ -201,4 +204,5 @@ export default connect(mapStateToProps, {
   setError,
   updatePractitioner,
   uploadPic,
+  setAlert
 })(PractitionerForm);

@@ -1,11 +1,13 @@
 import { connect } from 'react-redux';
 import redirect from 'next-redirect';
 import SchedulerComponent from '../components/Authenticated/Practitioner/SchedulerComponent';
+import ScheduleList from '../components/Authenticated/Practitioner/ScheduleList';
 import Layout from '../components/Layouts/Layout';
 
 const SchedulePage = () => (
   <Layout title="Schedule Availability">
     <SchedulerComponent />
+    <ScheduleList />
   </Layout>
 );
 
