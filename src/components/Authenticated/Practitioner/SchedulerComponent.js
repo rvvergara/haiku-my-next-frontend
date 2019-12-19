@@ -3,17 +3,19 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setAlert } from '../../../store/actions/alerts';
-import { addBooking } from '../../../store/actions/booking';
+import {
+ addAvailability, setSessionDate, setSessionDuration, setSessionStartTime,
+} from '../../../store/actions/availability';
 import ScheduleForm from './ScheduleForm';
 import SessionDuration from './SessionDuration';
 import SessionTime from './SessionTime';
-import { setSessionDate, setSessionDuration, setSessionStartTime } from '../../../store/actions/availability';
+
 
 const SchedulerComponent = ({
   sessionDate,
   sessionDuration,
   sessionStartTime,
-  addBooking,
+  addAvailability,
   setAlert,
   setSessionDate,
   setSessionDuration,
@@ -34,7 +36,7 @@ const SchedulerComponent = ({
       startTime: sessionStartTime,
     endTime,
   };
-    addBooking(bookingParams);
+    addAvailability(bookingParams);
     setAlert('Booking added', 'success');
   };
 
@@ -56,7 +58,7 @@ SchedulerComponent.propTypes = {
   sessionDate: PropTypes.string.isRequired,
   sessionDuration: PropTypes.number.isRequired,
   sessionStartTime: PropTypes.string.isRequired,
-  addBooking: PropTypes.func.isRequired,
+  addAvailability: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired,
   setSessionDate: PropTypes.func.isRequired,
   setSessionDuration: PropTypes.func.isRequired,
@@ -70,7 +72,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  addBooking,
+  addAvailability,
   setAlert,
   setSessionDate,
   setSessionDuration,
