@@ -3,20 +3,20 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 const VisitorHeader = () => (
-  <Navbar bg="light" expand="lg">
+  <Navbar bg="light" expand="sm">
     <Navbar.Brand href="/">
       <img
         src="./static/igaku_social_logo_text.png"
-        className='header-logo'
+        className="header-logo"
         alt="Igaku Logo"
       />
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
-      <Nav className="mr-auto">
+      <Nav className="ml-auto">
         <Link href="/login">
           <Nav.Link
-            className='purplish-blue'
+            className="theme-button"
             onClick={() => localStorage.clear()}
             href="/login"
           >
@@ -25,9 +25,9 @@ const VisitorHeader = () => (
         </Link>
         <Link href="/signup">
           <Nav.Link
+            className="theme-button"
             type="button"
-            className="authentication"
-            href='/signup'
+            href="/signup"
             onClick={() => localStorage.clear()}
           >
             Signup
