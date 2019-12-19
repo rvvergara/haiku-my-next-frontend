@@ -10,9 +10,10 @@ const VisitorHeader = () => (
         className="header-logo-small"
         alt="Igaku Logo"
       />
+
       <img
-        src="./static/igaku_social_logo_only.png"
-        className="header-logo-medium"
+        src="./static/igaku_logo_side_by_side.png"
+        className="header-logo-text"
         alt="Igaku Logo"
       />
     </Navbar.Brand>

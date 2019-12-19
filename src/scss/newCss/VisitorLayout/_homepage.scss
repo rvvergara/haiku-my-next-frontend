@@ -24,9 +24,10 @@
   }
 }
 
-.header-logo-medium {
-  width: $large * 1.2;
+.header-logo-text {
+  width: $xlarge * 2;
   display: none;
+  padding-left: $small;
 
   @media screen and (min-width: 576px) and (max-width:900px) {
     display: block;
