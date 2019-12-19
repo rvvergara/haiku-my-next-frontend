@@ -1,10 +1,10 @@
 .mobile-container {
   background: url('https://tinyimg.io/i/kj86oe3.png') no-repeat;
   background-size: cover;
-  background-position: 20%;
+  background-position: 25%;
   height: 100vh;
 
-  @media screen and(min-width:576px) {
+  @media screen and(min-width:398px) {
     background: url('https://i.imgur.com/avdEbTW.jpg') no-repeat;
     background-position: 20%;
   }
@@ -12,12 +12,12 @@
 
 .intro-content {
   position: relative;
-  left: 60%;
+  left: 65%;
   top: 10%;
   display: none;
   width: 26%;
 
-  @media screen and (min-width: 901px) {
+  @media screen and (min-width : 843px) {
     display: block;
   }
 }
@@ -55,7 +55,7 @@
   display: none;
   padding-left: $small;
 
-  @media screen and (min-width: 576px) and (max-width:900px) {
+  @media screen and (min-width: 576px) and (max-width:842px) {
     display: block;
   }
 }
@@ -73,10 +73,9 @@
     border: 2px solid #58b2a9;
     border-radius: 30px;
     color: #ffffff !important;
-    font-size: 1.8rem;
     margin: 0 1.4rem;
     padding: 0.3rem 1rem !important;
-    font-size: $small * 0.9;
+    font-size: $small * 0.8;
   }
 }
 
