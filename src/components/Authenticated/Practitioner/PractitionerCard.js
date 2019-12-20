@@ -5,7 +5,7 @@ const PractitionerCard = ({ practitioner }) => (
   <div className="practitioner-card">
     <div className="profile-image">
       <img
-        className="profile-image__avatar"
+        className="practitionerCard-image"
         src={practitioner.image}
         alt="doctor-profile"
       />

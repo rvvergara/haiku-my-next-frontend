@@ -10,7 +10,7 @@ const PractitionerBox = ({ practitioner }) => {
     <div className="practitionerBox-container">
       <div className="practitioner-info-container">
         <img
-          className="profile-image__avatar"
+          className="practitioner-image"
           src={image || 'https://images1-fabric.practo.com/dr-goh-min-yih-peter-1454317839-56af210f55ab0.jpg/thumbnail'}
           alt="doctor-profile"
         />

@@ -18,7 +18,7 @@ const ClinicProfile = ({ setClinic, clinic }) => {
       <div className="clinic-profile-container">
         <div className="profile-image">
           <img
-            className="clinic-image"
+            className="clinic-profile-image"
             src="https://www.asgsurgical.com/img/0062/915.png"
             alt="clinic-profile"
           />
