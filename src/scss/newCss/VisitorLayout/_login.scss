@@ -6,7 +6,9 @@
   flex-direction: column;
   justify-content: space-between;
   margin: auto;
-  ;
+  min-width: 250px;
+  max-width: 250px;
+  padding: 3.33333rem;
 }
 
 .login-logo {
@@ -17,5 +19,40 @@
 .auth__container {
   background: $theme-gradient;
   height: 100vh;
-  padding-top: 30vh;
+  padding-top: 10vh;
+}
+
+.auth-label {
+  font-size: 1rem;
+  color: #20385a;
+  font-weight: 700;
+  text-align: left;
+}
+
+.auth-logo {
+  text-align: center;
+}
+
+.user-form__input {
+  border: 2px solid #9db7dc;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 0.75rem 0.5rem;
+  width: 100%;
+}
+
+.user-form__footer {
+  font-size: 1rem;
+}
+
+.login-button {
+  background: #5073f1;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 1rem;
+  letter-spacing: 0.2rem;
+  padding: 0.75rem 0.5rem;
+  text-shadow: 0.5px 0.5px 0.5px #eff0f2;
+  margin-left:10%;
+  width: 80%;
 }
