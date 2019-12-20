@@ -80,7 +80,7 @@ class LoginForm extends React.Component {
             <small>
               No account yet?
               <Link href="/signup">
-                <button className="signup-button">Signup</button>
+                <button className="signup-text">Signup</button>
               </Link>
             </small>
           </footer>

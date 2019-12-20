@@ -211,7 +211,7 @@ class SignupForm extends React.Component {
           </div>
           <div className="form-group">
             <button
-              className="user-form__button"
+              className="signup-button"
               type="submit"
               onClick={this.handleSignup}
             >
@@ -224,7 +224,7 @@ class SignupForm extends React.Component {
               <Link href="/login">
                 <button
                   type="button"
-                  className="user-form__footer__button"
+                  className="login-text"
                 >
                   Login
                 </button>
