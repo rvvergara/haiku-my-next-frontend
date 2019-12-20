@@ -1,10 +1,13 @@
 import Link from 'next/link';
 import Nav from 'react-bootstrap/Nav';
-import { FaClinicMedical, FaSearch, FaGift } from 'react-icons/fa';
+import {
+ FaClinicMedical, FaCalendarAlt,
+} from 'react-icons/fa';
+import { GiHealthNormal } from 'react-icons/gi';
 import { GoPerson } from 'react-icons/go';
 import { MdSchedule } from 'react-icons/md';
 
-const PatientNavLinks = () => (
+const PractitionerNavLinks = () => (
   <>
     <Link href='/profile/edit'>
       <Nav.Link href='/profile/edit' className='header-navlinks'>
@@ -13,9 +16,9 @@ const PatientNavLinks = () => (
       </Nav.Link>
     </Link>
     <Link href='/clinics'>
-      <Nav.Link href='/clinics' className='header-navlinks'>
-        <FaClinicMedical className='nav-icons' />
-        <span className='header-navlinks-text'>Clinics</span>
+      <Nav.Link href='/schedule' className='header-navlinks'>
+        <FaCalendarAlt className='nav-icons' />
+        <span className='header-navlinks-text'>Schedule</span>
       </Nav.Link>
     </Link>
     <Link href='/bookings'>
@@ -25,18 +28,18 @@ const PatientNavLinks = () => (
       </Nav.Link>
     </Link>
     <Link href='/rewards'>
-      <Nav.Link href='/rewards' className='header-navlinks'>
-        <FaGift className='nav-icons' />
-        <span className='header-navlinks-text'>Rewards</span>
+      <Nav.Link href='/patients' className='header-navlinks'>
+        <GiHealthNormal className='nav-icons' />
+        <span className='header-navlinks-text'>Patients</span>
       </Nav.Link>
     </Link>
-    <Link href='/search'>
+    <Link href='/clinics'>
       <Nav.Link href='/search' className='header-navlinks'>
-        <FaSearch className='nav-icons' />
-        <span className='header-navlinks-text'>Search</span>
+        <FaClinicMedical className='nav-icons' />
+        <span className='header-navlinks-text'>Clinics</span>
       </Nav.Link>
     </Link>
   </>
 );
 
-export default PatientNavLinks;
+export default PractitionerNavLinks;

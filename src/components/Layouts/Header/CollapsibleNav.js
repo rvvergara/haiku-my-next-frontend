@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Navbar from 'react-bootstrap/Navbar';
 import { FiLogOut } from 'react-icons/fi';
 import Nav from 'react-bootstrap/Nav';
+import PractitionerNavLinks from './PractitionerNavLinks';
 import PatientNavLinks from './PatientNavLinks';
 import { logout } from '../../../store/thunks/user';
 
@@ -23,7 +24,11 @@ export const CollapsibleNav = ({ currentUserData, logout }) => {
       >
         <Nav className='ml-auto header-nav'>
           <div className='user-menu'>
-            <PatientNavLinks />
+            {
+              role === 'practitioner'
+            ? <PractitionerNavLinks />
+            : <PatientNavLinks />
+            }
           </div>
           <div className='header__links__welcome'>
             <strong className='logged-header-greeting'>
@@ -33,16 +38,14 @@ export const CollapsibleNav = ({ currentUserData, logout }) => {
               {firstName}
             </strong>
           </div>
-          <div>
-            <Nav.Link
-              type='button'
-              className='theme-button inverse-theme-button'
-              onClick={handleLogout}
-            >
-              <FiLogOut className='nav-icons logout-icon' />
+          <Nav.Link
+            type='button'
+            className='theme-button inverse-theme-button'
+            onClick={handleLogout}
+          >
+            <FiLogOut className='nav-icons logout-icon' />
                 Logout
-            </Nav.Link>
-          </div>
+          </Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </>
