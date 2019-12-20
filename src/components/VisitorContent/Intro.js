@@ -1,18 +1,24 @@
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+
 const Intro = () => (
-  <div className="jumbo-intro">
-    <div className="jumbo-intro__content">
-      <h1 className="jumbo-intro__title">
-        <img
-          src="https://tinyimg.io/i/uS2trrA.png"
-          alt="igaku"
-          className="jumbo-intro__title__img"
-        />
-      </h1>
-      <h2 className="jumbo-intro__subtitle">
-      Health that cares
-      </h2>
-    </div>
-  </div>
+  <Container fluid>
+    <Row>
+      <Col className="mobile-container">
+        <div className="intro-content">
+          <h2 className="intro-content-title">
+            <img
+              className='intro-content-logo'
+              src='./static/igaku_logo_side_by_side.png'
+              alt="Igaku Logo With Text"
+            />
+          </h2>
+          <h3 className="intro-content-subtitle">Health That Cares</h3>
+        </div>
+      </Col>
+    </Row>
+  </Container>
 );
 
 export default Intro;

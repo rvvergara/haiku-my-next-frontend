@@ -2,7 +2,7 @@ import Intro from './Intro';
 import VisitorHeader from './VisitorHeader';
 
 const VisitorContent = () => (
-  <div className="visitor-content__body">
+  <div>
     <VisitorHeader />
     <Intro />
   </div>
