@@ -4,12 +4,14 @@
 }
 
 .inverse-theme-button {
-  background: none;
-  border: none;
+  background: white;
+  color: $green !important;
+  border-radius: 0;
+  border: 0;
 
   @media screen and(min-width:992px) {
     background: $white;
-    border: none;
+    border-radius: 30px;
     color: $green !important;
   }
 }

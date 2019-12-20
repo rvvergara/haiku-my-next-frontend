@@ -16,7 +16,7 @@ export const CollapsibleNav = ({
 
   const { firstName, role } = currentUserData;
   return (
-    <div>
+    <>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse
         id="basic-navbar-nav"
@@ -39,7 +39,7 @@ export const CollapsibleNav = ({
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>
-    </div>
+    </>
 );
 };
 
