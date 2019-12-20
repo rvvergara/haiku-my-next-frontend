@@ -1,7 +1,7 @@
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { listClinics } from '../../../store/actions/clinic';
 import { fetchClinics } from '../../../store/thunks/clinic';
 import { setAuthorizationToken } from '../../../utils/api';
@@ -31,7 +31,8 @@ const ClinicList = ({
         </Link>
       )}
 
-      {clinics.map((clinic) => (
+      <h5 style={{ textAlign: 'center' }}>Clinic List</h5>
+      {clinics.map(clinic => (
         <ClinicCard key={clinic.id} clinic={clinic} />
       ))}
     </div>
@@ -45,7 +46,7 @@ ClinicList.propTypes = {
   listClinics: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   currentUserData: state.currentUser.data,
   clinics: state.clinics,
 });
