@@ -4,6 +4,9 @@
   border-color: #c8eedb;
   width: 90%;
   margin: 0 auto;
+  @media screen and(min-width:768px) {
+    width: 50%;
+  }
 }
 
 .patient-notification-container ul li {
@@ -28,5 +31,15 @@
 }
 
 .notif-text {
-  font-size: $small*0.6;
+  font-size: $small * 0.6;
+}
+
+@media only screen and(min-width:400px) {
+  .notif-text {
+    font-size: $small * 0.7;
+  }
+  .close-notif {
+    width: $medium;
+    height: $medium;
+  }
 }
