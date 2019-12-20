@@ -1,9 +1,31 @@
 .logged-nav {
   background: $header-gradient !important;
+  padding: $button-pad * 1.5;
 }
 
 .inverse-theme-button {
   background: $white;
   border: none;
   color: $green !important;
+}
+
+.header__links__welcome {
+  padding-top: $small/4;
+}
+
+.logged-header-greeting {
+  color: $white;
+  font-size: $small * 0.8;
+  font-weight: 400;
+  text-shadow: 0.5px -0.5px 0.5px $white;
+}
+
+.logged-header-logo-text {
+  @media screen and (min-width: 576px) {
+    display: block;
+  }
+}
+
+.navbar-brand {
+  padding: 0
 }

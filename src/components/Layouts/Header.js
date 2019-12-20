@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import Router from 'next/router';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -29,17 +28,19 @@ export const Header = ({ logout, currentUserData }) => {
               alt="Igaku Logo"
             />
             <img
-              src="./static/igaku_logo_side_by_side.png"
-              className="header-logo-text"
+              src="./static/igaku_logo_side_by_side_text_shadow.png"
+              className="header-logo-text logged-header-logo-text"
               alt="Igaku Logo"
             />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Collapse
+            id="basic-navbar-nav"
+          >
             <Nav className="ml-auto">
               <div className="header__links__welcome">
-                <strong>
-              Welcome
+                <strong className="logged-header-greeting">
+                  Welcome
                   {' '}
                   { role === 'practitioner' ? 'Dr. ' : ''}
                   {firstName}
