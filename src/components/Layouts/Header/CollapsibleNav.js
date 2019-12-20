@@ -2,14 +2,12 @@ import { connect } from 'react-redux';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import Navbar from 'react-bootstrap/Navbar';
+import { FiLogOut } from 'react-icons/fi';
 import Nav from 'react-bootstrap/Nav';
 import PatientNavLinks from './PatientNavLinks';
 import { logout } from '../../../store/thunks/user';
 
-export const CollapsibleNav = ({
-  currentUserData,
-  logout,
-}) => {
+export const CollapsibleNav = ({ currentUserData, logout }) => {
   const handleLogout = () => {
     logout();
     Router.push('/');
@@ -18,31 +16,37 @@ export const CollapsibleNav = ({
   const { firstName, role } = currentUserData;
   return (
     <>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <Navbar.Collapse
-        id="basic-navbar-nav"
+        id='basic-navbar-nav'
+        className='logged-header-collapsible-nav'
       >
-        <Nav className="ml-auto">
-          <PatientNavLinks />
-          <div className="header__links__welcome">
-            <strong className="logged-header-greeting">
-          Welcome
+        <Nav className='ml-auto header-nav'>
+          <div className='user-menu'>
+            <PatientNavLinks />
+          </div>
+          <div className='header__links__welcome'>
+            <strong className='logged-header-greeting'>
+              Welcome
               {' '}
-              { role === 'practitioner' ? 'Dr. ' : ''}
+              {role === 'practitioner' ? 'Dr. ' : ''}
               {firstName}
             </strong>
           </div>
-          <Nav.Link
-            type="button"
-            className="theme-button inverse-theme-button"
-            onClick={handleLogout}
-          >
-      Logout
-          </Nav.Link>
+          <div>
+            <Nav.Link
+              type='button'
+              className='theme-button inverse-theme-button'
+              onClick={handleLogout}
+            >
+              <FiLogOut className='nav-icons logout-icon' />
+                Logout
+            </Nav.Link>
+          </div>
         </Nav>
       </Navbar.Collapse>
     </>
-);
+  );
 };
 
 CollapsibleNav.propTypes = {
