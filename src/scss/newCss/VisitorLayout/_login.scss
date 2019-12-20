@@ -1,11 +1,12 @@
-.auth-box{
+.auth-box {
   background: #ffffff;
   border-radius: 5px;
   box-shadow: 2px 2px 5px #9aa7b2;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin:  auto;;
+  margin: auto;
+  ;
 }
 
 .login-logo {
@@ -13,8 +14,8 @@
   width: 50%;
 }
 
-.auth__container{
-  background: linear-gradient(90deg, #1ccbba 0%, #5073f1 35%, #38b6ff 100%);
+.auth__container {
+  background: $theme-gradient;
   height: 100vh;
-  padding-top:30vh;
+  padding-top: 30vh;
 }
