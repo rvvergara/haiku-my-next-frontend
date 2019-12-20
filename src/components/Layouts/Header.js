@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 import Router from 'next/router';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 import { logout } from '../../store/thunks/user';
 
 export const Header = ({ logout, currentUserData }) => {
@@ -13,39 +15,47 @@ export const Header = ({ logout, currentUserData }) => {
   const { firstName, role } = currentUserData;
 
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header__brand">
-          <Link href="/">
-            <span className="logo-link">
-              <img
-                src="https://tinyimg.io/i/pBRWCRn.png"
-                alt="Igaku | Health that Cares"
-                className="header__brand__img"
-              />
-            </span>
-          </Link>
-        </div>
-        <div className="header__links">
-          <div className="header__links__welcome">
-            <strong>
+    <header>
+      <Navbar
+        bg='light'
+        expand='sm'
+        className="logged-nav"
+      >
+        <div className="container">
+          <Navbar.Brand href='/'>
+            <img
+              src="./static/igaku_social_logo_text.png"
+              className="header-logo-small"
+              alt="Igaku Logo"
+            />
+            <img
+              src="./static/igaku_logo_side_by_side.png"
+              className="header-logo-text"
+              alt="Igaku Logo"
+            />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ml-auto">
+              <div className="header__links__welcome">
+                <strong>
               Welcome
-              {' '}
-              { role === 'practitioner' ? 'Dr. ' : ''}
-              {firstName}
-            </strong>
-          </div>
-          <div className="header__links__logout">
-            <button
-              type="button"
-              className="logout"
-              onClick={handleLogout}
-            >
-            Logout
-            </button>
-          </div>
+                  {' '}
+                  { role === 'practitioner' ? 'Dr. ' : ''}
+                  {firstName}
+                </strong>
+              </div>
+              <Nav.Link
+                type="button"
+                className="theme-button inverse-theme-button"
+                onClick={handleLogout}
+              >
+              Logout
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
         </div>
-      </div>
+      </Navbar>
     </header>
   );
 };

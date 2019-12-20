@@ -78,10 +78,10 @@
   font-size: $small * 0.9;
 
   @media screen and(min-width:576px) {
-    background: #58b2a9;
-    border: 2px solid #58b2a9;
+    background: $green;
+    border: 2px solid $green;
     border-radius: 30px;
-    color: #ffffff !important;
+    color: $white !important;
     margin: 0 1.4rem;
     padding: 0.3rem 1rem !important;
     font-size: $small * 0.8;
