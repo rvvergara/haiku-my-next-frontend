@@ -23,14 +23,14 @@ export const Sidebar = ({ currentUser }) => {
   return (
     <div className="authenticated-body__sidebar">
       <div className="authenticated-body__sidebar-container">
-        <div className="profile-avatar">
+        {/* <div className="profile-avatar">
           <img
             src={imgSrc}
             alt="Patient Profile"
             className="profile-avatar__img"
           />
         </div>
-        { renderSideBar(currentUser.data.role) }
+        { renderSideBar(currentUser.data.role) } */}
       </div>
     </div>
 );
