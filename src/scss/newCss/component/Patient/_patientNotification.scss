@@ -1,0 +1,28 @@
+.patient-notification-container {
+  color: #1e6641;
+  background-color: #d8f3e5;
+  border-color: #c8eedb;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.patient-notification-container ul li {
+  border-bottom: 1px solid #1e6641;
+  width: 100%;
+  padding: 1rem;
+}
+
+.patient-notification-container ul li:first-child {
+  border-top: 1px solid #1e6641;
+}
+
+.close-notif {
+  width: $small;
+  height: $small;
+}
+
+.patient-notif-title {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem;
+}
