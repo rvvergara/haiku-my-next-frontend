@@ -10,8 +10,6 @@
     width: 80%;
     padding: 0 $container-side-pad * 0.9;
   }
-
-  @media screen and (min-width: 992px) {}
 }
 
 .inverse-theme-button {
@@ -57,9 +55,7 @@
 }
 
 .logged-header-logo-text {
-  @media screen and (min-width: 576px) {
-    display: block;
-  }
+  display: block;
 }
 
 .navbar-brand {
