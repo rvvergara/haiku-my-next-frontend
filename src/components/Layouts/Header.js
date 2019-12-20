@@ -17,7 +17,7 @@ export const Header = ({ logout, currentUserData }) => {
     <header>
       <Navbar
         bg='light'
-        expand='sm'
+        expand='lg'
         className="logged-nav"
       >
         <div className="container">

@@ -4,13 +4,23 @@
 }
 
 .inverse-theme-button {
-  background: $white;
+  background: none;
   border: none;
-  color: $green !important;
+
+  @media screen and(min-width:992px) {
+    background: $white;
+    border: none;
+    color: $green !important;
+  }
 }
 
 .header__links__welcome {
-  padding-top: $small/4;
+  display: none;
+
+  @media screen and(min-width:992px) {
+    display: block;
+    padding-top: $small/4;
+  }
 }
 
 .logged-header-greeting {
