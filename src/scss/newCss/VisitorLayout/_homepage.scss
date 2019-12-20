@@ -17,7 +17,7 @@
   display: none;
   width: 26%;
 
-  @media screen and (min-width : 843px) {
+  @media screen and (min-width: 843px) {
     display: block;
   }
 }
@@ -55,7 +55,7 @@
   display: none;
   padding-left: $small;
 
-  @media screen and (min-width: 576px) and (max-width:842px) {
+  @media screen and (min-width: 576px) and (max-width: 842px) {
     display: block;
   }
 }
@@ -65,7 +65,7 @@
 }
 
 .theme-button {
-  color: $dark-blue;
+  color: $dark-blue !important;
   font-size: $small * 0.9;
 
   @media screen and(min-width:576px) {
