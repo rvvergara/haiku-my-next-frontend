@@ -15,13 +15,13 @@ const ClinicCard = ({ clinic }) => {
       </div>
 
       <div className="clinic-details">
-        <h2 className="practitioner-name clinic-name">{name}</h2>
+        <h2 className="clinic-name">{name}</h2>
         <div className="profile-info-container__info__card">
-          <ul className="profile-list grotesque-font">
-            <li className="grotesque-font profile-info-container__info__card__content">
+          <ul>
+            <li className="clinic-address">
               {address}
             </li>
-            <li className="grotesque-font profile-info-container__info__card__content">
+            <li className="clinic-postalcode">
               {postalCode}
             </li>
           </ul>
