@@ -7,8 +7,12 @@
   justify-content: space-between;
   margin: auto;
   min-width: 250px;
-  max-width: 250px;
-  padding: 3.33333rem;
+  max-width: 290px;
+  padding: 2rem;
+  @media screen and(min-width:576px) {
+    max-width: 400px;
+    padding: 3.33333rem;
+  }
 }
 
 .login-logo {
@@ -55,4 +59,11 @@
   text-shadow: 0.5px 0.5px 0.5px #eff0f2;
   margin-left:10%;
   width: 80%;
+}
+
+.signup-button{
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  background: none;
 }

@@ -69,7 +69,7 @@ class LoginForm extends React.Component {
           </div>
           <div className="form-group">
             <button
-            className="login-button"
+              className="login-button"
               type="submit"
               onClick={this.handleLogin}
             >
@@ -80,9 +80,7 @@ class LoginForm extends React.Component {
             <small>
               No account yet?
               <Link href="/signup">
-                <div className="auth-label">
-                  Signup
-                </div>
+                <button className="signup-button">Signup</button>
               </Link>
             </small>
           </footer>
