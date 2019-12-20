@@ -1,12 +1,21 @@
 .mobile-container {
-  background: url('https://tinyimg.io/i/kj86oe3.png') no-repeat;
+  background: url('https://tinyimg.io/i/oXj6Ksh.png') no-repeat;
   background-size: cover;
-  background-position: 25%;
+  background-position: 75%;
   height: 100vh;
 
-  @media screen and(min-width:398px) {
-    background: url('https://i.imgur.com/avdEbTW.jpg') no-repeat;
+  @media screen and (min-width: 520px) {
+    background: url('https://tinyimg.io/i/gWP7ZYW.jpg') no-repeat;
+    background-position: 40%;
+  }
+
+  @media screen and(min-width:840px) {
+    background: url('http://tinyimg.io/i/ItatAT5.jpg') no-repeat;
     background-position: 20%;
+  }
+
+  @media screen and (min-width: 1195px) {
+    background-size: 100%;
   }
 }
 
