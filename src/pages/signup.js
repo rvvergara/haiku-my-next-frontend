@@ -3,13 +3,13 @@ import VisitorLayout from '../components/VisitorContent/VisitorLayout';
 
 const SignupPage = () => (
   <VisitorLayout title="Create Account">
-    <div className="container auth__container visitor-container">
-      <div className="auth-box">
+    <div className="signup__container">
+      <div className="login-box">
         <div className="auth-logo">
           <img
             src="https://tinyimg.io/i/uS2trrA.png"
             alt="Igaku | Health That Cares"
-            className="auth-logo__img"
+            className="login-logo"
           />
         </div>
         <SignupForm />

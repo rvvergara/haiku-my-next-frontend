@@ -4,7 +4,7 @@ import VisitorLayout from '../components/VisitorContent/VisitorLayout';
 
 const LoginPage = () => (
   <VisitorLayout title="Login">
-    <div className="auth__container my-auto">
+    <div className="auth__container">
       <Col className="auth-box">
         <div className="auth-logo">
           <img

@@ -1,0 +1,24 @@
+.signup__container {
+  background: $theme-gradient;
+  height: 100%;
+  padding-top: 10vh;
+ padding-bottom: 10vh;
+}
+
+.login-box {
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px #9aa7b2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: auto;
+  min-width: 250px;
+  max-width: 290px;
+  padding: 2rem;
+
+  @media screen and(min-width:576px) {
+    max-width: 400px;
+    padding: 3.33333rem;
+  }
+}
