@@ -3,7 +3,8 @@ import Router from 'next/router';
 import PropTypes from 'prop-types';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import { logout } from '../../store/thunks/user';
+import PatientNavLinks from './PatientNavLinks';
+import { logout } from '../../../store/thunks/user';
 
 export const CollapsibleNav = ({
   currentUserData,
@@ -22,6 +23,7 @@ export const CollapsibleNav = ({
         id="basic-navbar-nav"
       >
         <Nav className="ml-auto">
+          <PatientNavLinks />
           <div className="header__links__welcome">
             <strong className="logged-header-greeting">
           Welcome

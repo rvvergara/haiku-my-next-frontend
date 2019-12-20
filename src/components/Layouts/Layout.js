@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import Alert from './Alert';
-import ConnectedHeader from './Header';
+import Header from './Header/Header';
 import ConnectedSidebar from './Sidebars/Sidebar';
 
 const Layout = ({ children, title }) => (
@@ -12,7 +12,7 @@ Igaku |
         {title}
       </title>
     </Head>
-    <ConnectedHeader />
+    <Header />
     <div className="authenticated-body">
       <ConnectedSidebar />
       <Alert />

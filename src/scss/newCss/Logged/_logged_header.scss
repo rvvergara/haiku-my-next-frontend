@@ -4,9 +4,7 @@
 }
 
 .inverse-theme-button {
-  background: white;
-  color: $green !important;
-  border-radius: 0;
+  background: none;
   border: 0;
 
   @media screen and(min-width:992px) {
