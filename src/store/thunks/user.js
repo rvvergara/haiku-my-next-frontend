@@ -48,7 +48,7 @@ export const signup = (params) => async (dispatch) => {
 };
 
 export const login = (params) => async (dispatch, getState) => {
-  const path = 'v1/users/login';
+  const path = 'v1/login';
 
   try {
     const res = await sendRequest('post', path, params);
