@@ -13,6 +13,8 @@ import {setAlert} from '../../../store/actions/alerts'
 
 class PatientForm extends React.Component {
   state = {
+    firstName: this.props.currentUserData.profile ? this.props.currentUserData.profile.firstName : '',
+    lastName: this.props.currentUserData.profile ? this.props.currentUserData.profile.lastName : '',
     contactNo: this.props.currentUserData.profile ? this.props.currentUserData.profile.contactNo : '',
     passport: this.props.currentUserData.profile ? this.props.currentUserData.profile.passport : '',
     postalCode: this.props.currentUserData.profile ? this.props.currentUserData.profile.postalCode : '',
@@ -68,7 +70,7 @@ class PatientForm extends React.Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { currentUserData } = this.props;
-    const { contactNo, passport, postalCode, address, dob, languages, points, imageText } = this.state;
+    const { firstName, lastName, contactNo, passport, postalCode, address, dob, languages, points, imageText } = this.state;
 
     setAuthorizationToken(localStorage.token);
 
@@ -82,12 +84,14 @@ class PatientForm extends React.Component {
     }
 
     const params = {
+      firstName,
+      lastName,
       contactNo,
       passport,
       postalCode,
       address,
-      dob: dob.valueOf(),
-      languages,
+      dateOfBirth: moment(dob.valueOf()).toJSON(),
+      languages: JSON.stringify(languages),
       points,
       userId: id,
       image: imageURL,
@@ -110,7 +114,7 @@ class PatientForm extends React.Component {
   };
 
   render(){
-    const { contactNo, passport, postalCode, address, dob, languages, points, imageText, calendarFocused } = this.state;
+    const { firstName, lastName, contactNo, passport, postalCode, address, dob, languages, points, imageText, calendarFocused } = this.state;
 
     return (
       <div className="container profile-form-container">
@@ -138,6 +142,38 @@ class PatientForm extends React.Component {
                 this.handleChange('imageFile', e.target.files[0]);
               }}
               value={imageText}
+            />
+          </div>
+          <div className="form-group">
+            <label
+              className="auth-label"
+              htmlFor="first-name"
+            >
+                First Name:
+              {' '}
+            </label>
+            <input
+              className="user-form__input number__input"
+              type="text"
+              id="first-name"
+              onChange={(e) => this.handleChange('firstName', e.target.value)}
+              value={firstName}
+            />
+          </div>
+          <div className="form-group">
+            <label
+              className="auth-label"
+              htmlFor="last-name"
+            >
+                Last Name:
+              {' '}
+            </label>
+            <input
+              className="user-form__input number__input"
+              type="text"
+              id="last-name"
+              onChange={(e) => this.handleChange('lastName', e.target.value)}
+              value={lastName}
             />
           </div>
           <div className="form-group">
