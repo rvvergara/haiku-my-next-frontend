@@ -8,8 +8,6 @@ import setError from '../store/actions/error';
 
 class SignupForm extends React.Component {
   state = {
-    firstName: '',
-    lastName: '',
     email: '',
     role: '',
     password: '',
@@ -23,10 +21,10 @@ class SignupForm extends React.Component {
 
   isValidSignup = () => {
     const {
-      firstName, lastName, email, password, pwConfirm, role
+      email, password, pwConfirm, role
     } = this.state;
 
-    if (!firstName || !lastName || !password || !pwConfirm) {
+    if (!password || !pwConfirm) {
       this.setState(() => ({
         formError: 'All fields are required'
       }))
@@ -60,8 +58,6 @@ class SignupForm extends React.Component {
       return;
     }
     const {
-      firstName,
-      lastName,
       email,
       password,
       role
@@ -69,12 +65,9 @@ class SignupForm extends React.Component {
 
     try {
       await this.props.signup({
-        firstName,
-        lastName,
         email,
         password,
-        role,
-        activated: true,
+        role
       });
       Router.push('/verify');
     } catch (err) {
@@ -87,7 +80,7 @@ class SignupForm extends React.Component {
 
   render(){
     const {
-      firstName, lastName, email, password, pwConfirm, role, formError
+      email, password, pwConfirm, role, formError
     } = this.state;
     return (
       <div>
@@ -98,36 +91,6 @@ class SignupForm extends React.Component {
           }
         </div>
         <form className="user-form">
-          <div className="form-group">
-            <label
-              className="auth-label"
-              htmlFor="first-name"
-            >
-          First Name
-            </label>
-            <input
-              id="first-name"
-              className="user-form__input"
-              type="text"
-              value={firstName}
-              onChange={(e) => this.handleChange('firstName', e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label
-              className="auth-label"
-              htmlFor="last-name"
-            >
-              Last Name
-            </label>
-            <input
-              id="last-name"
-              className="user-form__input"
-              type="text"
-              value={lastName}
-              onChange={(e) => this.handleChange('lastName', e.target.value)}
-            />
-          </div>
           <div className="form-group">
             <label
               className="auth-label"
