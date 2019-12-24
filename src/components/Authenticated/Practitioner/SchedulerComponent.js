@@ -6,16 +6,18 @@ import { setAlert } from '../../../store/actions/alerts';
 import {
  addAvailability, setSessionDate, setSessionDuration, setSessionStartTime,
 } from '../../../store/actions/availability';
+import { createAvailabilityOnDb } from '../../../store/thunks/availability';
+import { setAuthorizationToken } from '../../../utils/api';
 import ScheduleForm from './ScheduleForm';
 import SessionDuration from './SessionDuration';
 import SessionTime from './SessionTime';
 
-
 const SchedulerComponent = ({
+  practitionerId,
   sessionDate,
   sessionDuration,
   sessionStartTime,
-  addAvailability,
+  createAvailabilityOnDb,
   setAlert,
   setSessionDate,
   setSessionDuration,
@@ -27,16 +29,19 @@ const SchedulerComponent = ({
       setSessionStartTime('9:00 am');
     }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const endTime = moment(sessionStartTime, 'h:mm')
       .add(sessionDuration, 'minutes')
       .format('LT');
     const bookingParams = {
-      date: sessionDate,
+      date: moment(sessionDate).format('m-dd-yyyy'),
       startTime: sessionStartTime,
-    endTime,
+      endTime,
+      practitionerId,
   };
-    addAvailability(bookingParams);
+    setAuthorizationToken(localStorage.token);
+    // await createAvailabilityOnDb(bookingParams);
+    console.log('PARAMS', bookingParams);
     setAlert('Booking added', 'success');
   };
 
@@ -55,6 +60,8 @@ const SchedulerComponent = ({
 };
 
 SchedulerComponent.propTypes = {
+  createAvailabilityOnDb: PropTypes.func.isRequired,
+  practitionerId: PropTypes.string.isRequired,
   sessionDate: PropTypes.string.isRequired,
   sessionDuration: PropTypes.number.isRequired,
   sessionStartTime: PropTypes.string.isRequired,
@@ -66,6 +73,7 @@ SchedulerComponent.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  practitionerId: state.currentUser.data.profile.id,
   sessionDate: state.sessionDate,
   sessionDuration: state.sessionDuration,
   sessionStartTime: state.sessionStartTime,
@@ -73,6 +81,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   addAvailability,
+  createAvailabilityOnDb,
   setAlert,
   setSessionDate,
   setSessionDuration,
