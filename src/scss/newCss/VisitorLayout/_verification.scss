@@ -1,0 +1,25 @@
+.navbar.navbar-expand-sm.verification-header-nav {
+  justify-content: space-around;
+}
+
+.verification-header-logo {
+  width: $xlarge * 2.2;
+  padding-left: $small;
+}
+
+.verification-message {
+  color: darken($purplish-blue, 1.2);
+  font-size: $small* 0.65;
+  font-weight: 700;
+  padding: $container-side-pad * 0.7;
+  text-align: center;
+
+  @media screen and (min-width: 767px) {
+    font-size: $small * 0.7;
+  }
+
+  @media screen and (min-width: 992px) {
+    font-size: $small * 0.8;
+  }
+
+}
