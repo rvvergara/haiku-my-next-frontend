@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Link from 'next/link';
 import { sendRequest } from '../utils/api';
+import setError from '../store/actions/error';
 
 const VerifyAccount = () => (
   <div>
@@ -14,7 +15,11 @@ const VerifyAccount = () => (
 VerifyAccount.getInitialProps = async (ctx) => {
   const { email, token } = ctx.query;
   const path = `v1/verify?email=${email}&token=${token}`;
-  await sendRequest('get', path);
+  try {
+    await sendRequest('get', path);
+  } catch (err) {
+    ctx.store.dispatch(setError(err));
+  }
 };
 
 export default connect((state) => state)(VerifyAccount);
