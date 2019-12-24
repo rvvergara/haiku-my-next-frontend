@@ -12,7 +12,7 @@ const PractitionerCard = ({ practitioner }) => (
     </div>
 
     <div className="profile-info-container">
-      <span className="specialties">{practitioner.specialties}</span>
+      <span className="specialties">{JSON.parse(practitioner.specialties).join(', ')}</span>
       <h2 className="practitioner-name">Dr. Peter Goh Min Yih.</h2>
       <h3 className="clinic">Advanced Surgical Group</h3>
       <div className="profile-info-container__info__card">
@@ -21,7 +21,7 @@ const PractitionerCard = ({ practitioner }) => (
         </h4>
         <ul className="profile-list grotesque-font">
           <li className="grotesque profile-info-container__info__card__content">
-            {practitioner.education}
+            {JSON.parse(practitioner.education).join(', ')}
           </li>
         </ul>
       </div>
@@ -31,7 +31,7 @@ const PractitionerCard = ({ practitioner }) => (
         </h4>
         <ul className="profile-list grotesque-font">
           <li className="grotesque-font profile-info-container__info__card__content">
-            {practitioner.specialties}
+            {JSON.parse(practitioner.specialties).join(', ')}
           </li>
         </ul>
       </div>
@@ -43,7 +43,7 @@ PractitionerCard.propTypes = {
   practitioner: PropTypes.instanceOf(Object).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   practitioner:
     Object.keys(state.displayedPractitioner).length > 0
       ? state.displayedPractitioner
