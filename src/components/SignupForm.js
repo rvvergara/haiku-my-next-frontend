@@ -76,7 +76,7 @@ class SignupForm extends React.Component {
         role,
         activated: true,
       });
-      Router.push('/profile/new');
+      Router.push('/verify');
     } catch (err) {
       this.setState(() => ({
         formError: ''

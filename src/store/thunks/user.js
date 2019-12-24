@@ -35,12 +35,12 @@ export const signup = (params) => async (dispatch) => {
   const path = 'v1/users';
   try {
     const res = await sendRequest('post', path, params);
-    const { user, token } = await res.data;
-    setCookie('token', token);
-    localStorage.setItem('token', token);
-    setAuthorizationToken(token);
-    setUserInStore({ ...user, token }, dispatch);
-    return user;
+    // const { user, token } = await res.data;
+    // setCookie('token', token);
+    // localStorage.setItem('token', token);
+    // setAuthorizationToken(token);
+    // setUserInStore({ ...user, token }, dispatch);
+    return res;
   } catch (err) {
     dispatch(setError(err.response.data.error));
     throw new Error();
