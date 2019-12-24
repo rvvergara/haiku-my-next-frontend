@@ -20,7 +20,7 @@ class PatientForm extends React.Component {
     postalCode: this.props.currentUserData.profile ? this.props.currentUserData.profile.postalCode : '',
     address: this.props.currentUserData.profile ? this.props.currentUserData.profile.address : '',
     dob: this.props.currentUserData.profile ? moment(this.props.currentUserData.profile.dob) : moment(),
-    languages: this.props.currentUserData.profile ? this.props.currentUserData.profile.languages : [],
+    languages: this.props.currentUserData.profile ? JSON.parse(this.props.currentUserData.profile.languages) : [],
     points: this.props.currentUserData.profile ? this.props.currentUserData.profile.points : 0,
     imageText: '',
     imageFile: null,
