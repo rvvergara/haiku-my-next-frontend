@@ -1,15 +1,28 @@
 import { connect } from 'react-redux';
 import Link from 'next/link';
+import Container from 'react-bootstrap/Container';
+import VisitorLayout from '../components/VisitorContent/VisitorLayout';
+import VerifyPageHeader from '../components/VisitorContent/VerifyPageHeader';
 import { sendRequest } from '../utils/api';
 import setError from '../store/actions/error';
 
 const VerifyAccount = () => (
-  <div>
-    <p>Congratulations! You are now verified. You may now log in</p>
-    <Link href='/login'>
-      <a href="/login">Link To Login</a>
-    </Link>
-  </div>
+  <VisitorLayout title='Account Verified'>
+    <VerifyPageHeader />
+    <Container>
+      <div className="verification-message">
+        <p>Congratulations! You are now verified. You may now log in</p>
+        <Link href='/login'>
+          <a
+            className="theme-button verify-login-button"
+            href="/login"
+          >
+          Login
+          </a>
+        </Link>
+      </div>
+    </Container>
+  </VisitorLayout>
 );
 
 VerifyAccount.getInitialProps = async (ctx) => {
