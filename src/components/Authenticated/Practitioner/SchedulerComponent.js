@@ -33,15 +33,17 @@ const SchedulerComponent = ({
     const endTime = moment(sessionStartTime, 'h:mm')
       .add(sessionDuration, 'minutes')
       .format('LT');
+    const processedDate = moment(sessionDate).format('YYYY-MM-DD');
+    const UTCStartTime = moment(`${processedDate} ${sessionStartTime}`).toJSON();
+    const UTCEndTime = moment(`${processedDate} ${endTime}`).toJSON();
     const bookingParams = {
-      date: moment(sessionDate).format('m-dd-yyyy'),
-      startTime: sessionStartTime,
-      endTime,
+      date: processedDate,
+      startTime: UTCStartTime,
+      endTime: UTCEndTime,
       practitionerId,
   };
     setAuthorizationToken(localStorage.token);
-    // await createAvailabilityOnDb(bookingParams);
-    console.log('PARAMS', bookingParams);
+    await createAvailabilityOnDb(bookingParams);
     setAlert('Booking added', 'success');
   };
 
