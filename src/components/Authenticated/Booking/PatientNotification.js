@@ -18,7 +18,7 @@ const PatientNotification = ({ listNotification, notification }) => {
       </div>
       <ul>
         {notification.map(notif => (
-          <li key="notif.id">
+          <li key={notif.id}>
             <p className="notif-text">
               You have appointment with : {notif.practitionerName}
             </p>
