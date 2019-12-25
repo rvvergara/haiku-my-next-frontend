@@ -9,8 +9,8 @@ const ScheduleList = ({ availabilities, listAvailabilies }) => {
   return (
     <div className="scheduler-container">
       {availabilities.map((availability) => (
-        <div>
-          <div key={availability.id}>
+        <div key={availability.id}>
+          <div>
             <strong>{availability.date}</strong>
           </div>
           <div>
@@ -18,7 +18,7 @@ const ScheduleList = ({ availabilities, listAvailabilies }) => {
             {' '}
             {availability.startTime}
             {' '}
-To
+            To
             {' '}
             {availability.endTime}
           </div>
