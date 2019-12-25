@@ -23,11 +23,16 @@ const SchedulerComponent = ({
   setSessionDuration,
   setSessionStartTime,
 }) => {
-  useEffect(() => () => {
-      setSessionDate(moment().format('MMMM D, YYYY'));
+  useEffect(() => {
+    setSessionDate(moment().format('MMMM D, YYYY'));
       setSessionDuration(30);
       setSessionStartTime('9:00 am');
-    }, []);
+    return () => {
+      setSessionDate('');
+      setSessionDuration(0);
+      setSessionStartTime('');
+    };
+}, []);
 
   const handleSubmit = async () => {
     const endTime = moment(sessionStartTime, 'h:mm')
