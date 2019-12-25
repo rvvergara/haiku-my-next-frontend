@@ -1,4 +1,4 @@
-import { LIST_CLINICS, ADD_CLINIC, UPDATE_CLINIC } from '../actions/types';
+import { ADD_CLINIC, LIST_CLINICS, UPDATE_CLINIC } from '../actions/types';
 
 export default (state = [], action) => {
   switch (action.type) {

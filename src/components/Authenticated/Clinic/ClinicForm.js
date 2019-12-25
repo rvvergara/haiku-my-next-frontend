@@ -1,6 +1,7 @@
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { setAlert } from '../../../store/actions/alerts';
 import { setClinic } from '../../../store/actions/clinic';
 import setError from '../../../store/actions/error';
 import { changeClinic, createClinic } from '../../../store/thunks/clinic';
@@ -19,8 +20,8 @@ class ClinicForm extends React.Component {
         : false,
     imageText: '',
     imageFile: null,
-    category: '',
-    openingHours: '',
+    category: this.props.clinic.category || '',
+    openingHours: this.props.clinic.openingHours || '',
   };
 
   componentWillUnmount() {
@@ -65,6 +66,7 @@ class ClinicForm extends React.Component {
   };
 
   handleSubmit = async e => {
+
     e.preventDefault();
     setAuthorizationToken(localStorage.token);
     const {
@@ -94,7 +96,7 @@ class ClinicForm extends React.Component {
       postalCode,
       image: imageUrl,
       category,
-      practitionerId:profileId,
+      practitionerId: profileId,
       openingHours,
     };
 
@@ -102,8 +104,12 @@ class ClinicForm extends React.Component {
     try {
       if (Router.pathname === '/clinics/new') {
         clinic = await createClinic(params);
+
+        this.props.setAlert('Clinic Created!', 'success');
       } else {
         clinic = await this.props.changeClinic(this.props.clinic.id, params);
+    
+        this.props.setAlert('Clinic updated!', 'success');
       }
     } catch (err) {
       return err;
@@ -128,7 +134,7 @@ class ClinicForm extends React.Component {
       associated,
       imageText,
       category,
-      openingHours
+      openingHours,
     } = this.state;
 
     return (
@@ -271,4 +277,5 @@ export default connect(mapStateToProps, {
   uploadPic,
   setClinic,
   setError,
+  setAlert,
 })(ClinicForm);
