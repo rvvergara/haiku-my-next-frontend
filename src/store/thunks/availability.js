@@ -3,7 +3,7 @@ import { addAvailability } from '../actions/availability';
 import setError from '../actions/error';
 
 export const createAvailabilityOnDb = (params) => async (dispatch) => {
-  const path = 'v1/bookings';
+  const path = 'v1/booking-slots';
 
   try {
     const res = await sendRequest('post', path, params);
