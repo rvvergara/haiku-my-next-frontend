@@ -15,7 +15,7 @@ export const createPractitioner = (params) => async (dispatch) => {
 };
 
 export const updatePractitioner = (practitionerId, params) => async (dispatch) => {
-  const path = `v1/practitioner/${practitionerId}`;
+  const path = `v1/practitioners/${practitionerId}`;
   try {
     await sendRequest('put', path, params);
     dispatch(fetchUserData(params.userId));
@@ -38,7 +38,7 @@ export const fetchPractitioners = () => async (dispatch) => {
 
 
 export const fetchOnePractitioner = (practitionerId) => async (dispatch) => {
-  const path = `v1/practitioner/${practitionerId}`;
+  const path = `v1/practitioners/${practitionerId}`;
   try {
     const res = await sendRequest('get', path);
     dispatch(setPractitioner(res.data.practitioner));

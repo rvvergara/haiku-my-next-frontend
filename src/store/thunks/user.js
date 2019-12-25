@@ -5,7 +5,7 @@ import { setCookie, removeCookie } from '../../utils/cookie';
 
 // Function to fetch profile based on role and userID
 const fetchUserProfile = async (id, role) => {
-  const path = `v1/${role}/${id}/user`;
+  const path = `v1/${role}s/${id}/user`;
   try {
     const res = await sendRequest('get', path);
     return res;
@@ -76,7 +76,7 @@ export const logout = () => (dispatch) => {
 };
 
 export const fetchUserData = (id) => async (dispatch) => {
-  const path = `v1/user/${id}`;
+  const path = `v1/users/${id}`;
   try {
     const res = await sendRequest('get', path);
     const user = await res.data;
