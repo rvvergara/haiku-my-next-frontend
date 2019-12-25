@@ -15,7 +15,7 @@ const PractitionerNavLinks = () => (
         <span className='header-navlinks-text'>Profile</span>
       </Nav.Link>
     </Link>
-    <Link href='/clinics'>
+    <Link href='/schedule'>
       <Nav.Link href='/schedule' className='header-navlinks'>
         <FaCalendarAlt className='nav-icons' />
         <span className='header-navlinks-text'>Schedule</span>
@@ -27,14 +27,14 @@ const PractitionerNavLinks = () => (
         <span className='header-navlinks-text'>Bookings</span>
       </Nav.Link>
     </Link>
-    <Link href='/rewards'>
+    <Link href='/patients'>
       <Nav.Link href='/patients' className='header-navlinks'>
         <GiHealthNormal className='nav-icons' />
         <span className='header-navlinks-text'>Patients</span>
       </Nav.Link>
     </Link>
     <Link href='/clinics'>
-      <Nav.Link href='/search' className='header-navlinks'>
+      <Nav.Link href='/clinics' className='header-navlinks'>
         <FaClinicMedical className='nav-icons' />
         <span className='header-navlinks-text'>Clinics</span>
       </Nav.Link>
