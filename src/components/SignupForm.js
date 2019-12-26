@@ -128,13 +128,13 @@ class SignupForm extends React.Component {
               </option>
               <option
                 className="user-form__option"
-                value="patient"
+                value="PATIENT"
               >
                 Patient
               </option>
               <option
                 className="user-form__option"
-                value="practitioner"
+                value="PRACTITIONER"
               >
                 Practitioner
               </option>

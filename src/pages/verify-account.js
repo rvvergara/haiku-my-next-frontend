@@ -27,9 +27,9 @@ const VerifyAccount = () => (
 
 VerifyAccount.getInitialProps = async (ctx) => {
   const { email, token } = ctx.query;
-  const path = `v1/verify?email=${email}&token=${token}`;
+  const path = 'v1/verify';
   try {
-    await sendRequest('get', path);
+    await sendRequest('post', path, { email, token });
   } catch (err) {
     ctx.store.dispatch(setError(err));
   }
