@@ -5,3 +5,13 @@
   box-shadow: 1px 1px 5px $medium-grey;
   border-radius: 5px;
 }
+
+.practitioner-card {
+  background: $white;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px $medium-grey;
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: $small;
+  width: 90%;
+}
