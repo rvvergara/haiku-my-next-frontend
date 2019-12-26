@@ -19,7 +19,7 @@ ClinicUpdatePage.getInitialProps = async (ctx) => {
   const { store, query } = ctx;
   const { dispatch, getState } = store;
   const { data } = getState().currentUser;
-  if (data.role !== 'practitioner') {
+  if (data.role !== 'PRACTITIONER') {
     return redirect(ctx, '/');
   }
   const clinic = await dispatch(fetchOneClinic(query.id));

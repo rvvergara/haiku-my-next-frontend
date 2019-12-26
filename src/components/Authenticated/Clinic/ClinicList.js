@@ -23,7 +23,7 @@ const ClinicList = ({
 
   return (
     <div>
-      {currentUserData.role === 'practitioner' && (
+      {currentUserData.role === 'PRACTITIONER' && (
         <Link href="/clinics/new">
           <a href="/clinics/new" className="nav-link add-clinic-button">
             Add new clinic
@@ -32,7 +32,7 @@ const ClinicList = ({
       )}
 
       <h5 style={{ textAlign: 'center' }}>Clinic List</h5>
-      {clinics.map(clinic => (
+      {clinics.map((clinic) => (
         <ClinicCard key={clinic.id} clinic={clinic} />
       ))}
     </div>
@@ -46,7 +46,7 @@ ClinicList.propTypes = {
   listClinics: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
   clinics: state.clinics,
 });

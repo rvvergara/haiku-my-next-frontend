@@ -17,7 +17,7 @@ SchedulePage.getInitialProps = async (ctx) => {
   const { data } = store.getState().currentUser;
   const { role, profile } = data;
   const practitionerId = profile.id;
-  if (role !== 'practitioner') {
+  if (role !== 'PRACTITIONER') {
     return redirect(ctx, '/');
   }
   await store.dispatch(fetchPractitionerAvailabilities(practitionerId));

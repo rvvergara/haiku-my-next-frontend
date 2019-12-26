@@ -5,9 +5,9 @@ import PatientNavLinks from './PatientNavLinks';
 
 const renderSideBar = (userRole) => {
   switch (userRole) {
-    case 'practitioner':
+    case 'PRACTITIONER':
       return <PractitionerNavLinks />;
-    case 'patient':
+    case 'PATIENT':
       return <PatientNavLinks />;
     default:
       return null;
