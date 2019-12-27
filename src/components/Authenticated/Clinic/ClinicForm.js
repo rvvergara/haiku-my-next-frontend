@@ -66,7 +66,6 @@ class ClinicForm extends React.Component {
   };
 
   handleSubmit = async e => {
-
     e.preventDefault();
     setAuthorizationToken(localStorage.token);
     const {
@@ -80,35 +79,36 @@ class ClinicForm extends React.Component {
       name,
       address,
       postalCode,
-      imageText,
+      imageFile,
       category,
       openingHours,
     } = this.state;
-
-    let imageUrl;
-    if (imageText) {
-      imageUrl = await this.handleUploadPic();
-    }
 
     const params = {
       name,
       address,
       postalCode,
-      image: imageUrl,
+      files: imageFile,
       category,
       practitionerId: profileId,
       openingHours,
     };
 
+    const formData = new FormData();
+
+    for (let key in params) {
+      formData.append(key, params[key]);
+    }
+
     let clinic;
     try {
       if (Router.pathname === '/clinics/new') {
-        clinic = await createClinic(params);
+        clinic = await createClinic(formData);
 
         this.props.setAlert('Clinic Created!', 'success');
       } else {
-        clinic = await this.props.changeClinic(this.props.clinic.id, params);
-    
+        clinic = await this.props.changeClinic(this.props.clinic.id, formData);
+
         this.props.setAlert('Clinic updated!', 'success');
       }
     } catch (err) {
