@@ -43,17 +43,6 @@ class PatientForm extends React.Component {
 
   onFocusChange = ({ focused }) => this.handleChange('calendarFocused', focused);
 
-  handleUploadPic = async () => {
-    const { currentUserData } = this.props;
-    const { imageFile } = this.state;
-    const { id } = currentUserData;
-    const formData = new FormData();
-    formData.append('files', imageFile);
-    formData.append('userId', id);
-    const res = await this.props.uploadPic(formData);
-    return res;
-  };
-
   imgPreviewUrl = () => {
     const { imageFile } = this.state;
     const { profile } = this.props.currentUserData;
@@ -70,18 +59,12 @@ class PatientForm extends React.Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { currentUserData } = this.props;
-    const { firstName, lastName, contactNo, passport, postalCode, address, dob, languages, points, imageText } = this.state;
+    const { firstName, lastName, contactNo, passport, postalCode, address, dob, languages, points, imageFile } = this.state;
 
     setAuthorizationToken(localStorage.token);
 
     const { id } = currentUserData;
     const patientId = currentUserData.profile ? currentUserData.profile.id : undefined;
-
-    let imageURL;
-
-    if (imageText) {
-      imageURL = await this.handleUploadPic();
-    }
 
     const params = {
       firstName,
@@ -90,20 +73,26 @@ class PatientForm extends React.Component {
       passport,
       postalCode,
       address,
+      points,
+      files: imageFile,
       dateOfBirth: moment(dob.valueOf()).toJSON(),
       languages: JSON.stringify(languages),
-      points,
-      userId: id,
-      image: imageURL,
+      userId: id
+    }
+
+    const formData = new FormData();
+    
+    for(let key in params){
+      formData.append(key, params[key])
     };
 
     try {
       if (Router.pathname === '/profile/new') {
-        await this.props.createPatient(params);
+        await this.props.createPatient(formData);
         this.props.setAlert('Profile created','success')
       }
       if (Router.pathname === '/profile/edit') {
-        await this.props.updatePatient(patientId, params);
+        await this.props.updatePatient(patientId, formData);
         this.props.setAlert('Profile updated','success')
       }
       setTimeout(() => Router.push('/'), 1000);
