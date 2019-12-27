@@ -10,12 +10,12 @@ const PractitionerList = ({
   fetchPractitionersByClinicId,
   practitioners,
   listPractitioners,
-  clinicId,
+  clinic,
 }) => {
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
-    fetchPractitionersByClinicId(clinicId);
-    console.log(clinicId);
+    fetchPractitionersByClinicId(clinic.id);
+    console.log(clinic);
     return () => {
       listPractitioners([]);
     };
@@ -39,7 +39,7 @@ PractitionerList.propTypes = {
 
 const mapStateToProps = state => ({
   practitioners: state.practitioners,
-  clinicId: state.displayedClinic.id,
+  clinic: state.displayedClinic,
 });
 
 export default connect(mapStateToProps, {
