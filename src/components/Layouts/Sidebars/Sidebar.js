@@ -5,9 +5,9 @@ import PatientNavLinks from './PatientNavLinks';
 
 const renderSideBar = (userRole) => {
   switch (userRole) {
-    case 'practitioner':
+    case 'PRACTITIONER':
       return <PractitionerNavLinks />;
-    case 'patient':
+    case 'PATIENT':
       return <PatientNavLinks />;
     default:
       return null;
@@ -23,14 +23,14 @@ export const Sidebar = ({ currentUser }) => {
   return (
     <div className="authenticated-body__sidebar">
       <div className="authenticated-body__sidebar-container">
-        <div className="profile-avatar">
+        {/* <div className="profile-avatar">
           <img
             src={imgSrc}
             alt="Patient Profile"
             className="profile-avatar__img"
           />
         </div>
-        { renderSideBar(currentUser.data.role) }
+        { renderSideBar(currentUser.data.role) } */}
       </div>
     </div>
 );

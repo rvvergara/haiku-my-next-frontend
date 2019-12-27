@@ -5,7 +5,7 @@ const ClinicCard = ({ clinic }) => {
   const { name, address, postalCode } = clinic;
 
   return (
-    <div className="practitioner-card clinic-card-container">
+    <div className="clinic-card">
       <div className="profile-image">
         <img
           className="clinic-image"
@@ -14,14 +14,14 @@ const ClinicCard = ({ clinic }) => {
         />
       </div>
 
-      <div className="profile-info-container fixed-width">
-        <h2 className="practitioner-name clinic-name">{name}</h2>
+      <div className="clinic-details">
+        <h2 className="clinic-name">{name}</h2>
         <div className="profile-info-container__info__card">
-          <ul className="profile-list grotesque-font">
-            <li className="grotesque-font profile-info-container__info__card__content">
+          <ul>
+            <li className="clinic-address">
               {address}
             </li>
-            <li className="grotesque-font profile-info-container__info__card__content">
+            <li className="clinic-postalcode">
               {postalCode}
             </li>
           </ul>

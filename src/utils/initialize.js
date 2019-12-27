@@ -17,7 +17,7 @@ const redirectIfNoProfile = (ctx, data) => {
 
 const redirectIfNoToken = (ctx) => {
   const { pathname } = ctx;
-  if (!(pathname === '/' || pathname === '/signup' || pathname === '/login')) {
+  if (!(pathname === '/' || pathname === '/signup' || pathname === '/login' || pathname === '/verify' || pathname === '/verify-account')) {
     return redirect(ctx, '/');
   }
 };

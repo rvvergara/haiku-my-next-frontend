@@ -6,6 +6,7 @@ import {
   SET_SESSION_START_TIME,
   DISPLAY_AVAILABILITY,
   ADD_AVAILABILITY,
+  BOOK_AVAILABILITY,
 } from './types';
 
 export const listAvailabilies = (availabilities) => ({
@@ -41,4 +42,11 @@ export const addAvailability = (availability) => ({
 export const displayAvailability = (availability) => ({
   type: DISPLAY_AVAILABILITY,
   availability,
+});
+
+export const bookAvailability = ({ availabilityId, patientId, remarks }) => ({
+  type: BOOK_AVAILABILITY,
+  availabilityId,
+  patientId,
+  remarks,
 });

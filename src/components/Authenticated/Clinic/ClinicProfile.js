@@ -5,7 +5,7 @@ import { setClinic } from '../../../store/actions/clinic';
 import PractitionerList from '../Practitioner/PractitionerList';
 
 const ClinicProfile = ({ setClinic, clinic }) => {
-  const { name, address, postalCode } = clinic;
+  const { name, address, postalCode, image, category,openingHours } = clinic;
 
   useEffect(
     () => () => {
@@ -18,8 +18,8 @@ const ClinicProfile = ({ setClinic, clinic }) => {
       <div className="clinic-profile-container">
         <div className="profile-image">
           <img
-            className="clinic-image"
-            src="https://www.asgsurgical.com/img/0062/915.png"
+            className="clinic-profile-image"
+            src={image}
             alt="clinic-profile"
           />
         </div>
@@ -36,14 +36,9 @@ const ClinicProfile = ({ setClinic, clinic }) => {
               </li>
               <ul className="clinic-opening-hours">
                 <h3>Clinic Opening Hours</h3>
-                <li>Thursday 9AM–6PM</li>
-                <li>Friday 9AM–6PM</li>
-                <li>Saturday 9AM–1PM</li>
-                <li>Sunday Closed</li>
-                <li>Monday 9AM–6PM</li>
-                <li>Tuesday 9AM–6PM</li>
-                <li>Wednesday 9AM–6PM</li>
+                <li>{openingHours}</li>
               </ul>
+              <h3>Category : {category}</h3>
             </ul>
           </div>
         </div>
@@ -59,7 +54,7 @@ ClinicProfile.propTypes = {
   setClinic: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   clinic: state.displayedClinic,
 });
 

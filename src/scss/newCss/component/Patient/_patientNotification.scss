@@ -1,0 +1,49 @@
+.patient-notification-container {
+  color: #1e6641;
+  background-color: #d8f3e5;
+  border-color: #c8eedb;
+  width: 90%;
+  margin: 0 auto;
+  @media screen and(min-width:768px) {
+    width: 50%;
+  }
+}
+
+.patient-notification-container ul li {
+  border-bottom: 1px solid #1e6641;
+  width: 100%;
+  padding: 1rem;
+}
+
+.patient-notification-container ul li:last-child {
+  border-bottom: none;
+}
+
+.patient-notification-container ul li:first-child {
+  border-top: 1px solid #1e6641;
+}
+
+.close-notif {
+  width: $small;
+  height: $small;
+}
+
+.patient-notif-title {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem;
+}
+
+.notif-text {
+  font-size: $small * 0.6;
+}
+
+@media only screen and(min-width:400px) {
+  .notif-text {
+    font-size: $small * 0.7;
+  }
+  .close-notif {
+    width: $medium;
+    height: $medium;
+  }
+}

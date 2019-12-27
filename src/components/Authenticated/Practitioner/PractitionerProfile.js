@@ -15,7 +15,7 @@ const PractitionerProfile = ({ setPractitioner, role }) => {
         <PractitionerDetailsCard />
       </div>
 
-      {role === 'patient' && <Booking />}
+      {role === 'PATIENT' && <Booking />}
     </div>
   );
 };

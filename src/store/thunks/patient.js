@@ -14,7 +14,7 @@ export const createPatient = (params) => async (dispatch) => {
 };
 
 export const updatePatient = (patientId, params) => async (dispatch) => {
-  const path = `v1/patient/${patientId}`;
+  const path = `v1/patients/${patientId}`;
   try {
     await sendRequest('put', path, params);
     dispatch(fetchUserData(params.userId));

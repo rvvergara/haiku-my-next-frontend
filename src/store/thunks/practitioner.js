@@ -1,7 +1,7 @@
 import { sendRequest } from '../../utils/api';
 import setError from '../actions/error';
-import { fetchUserData } from './user';
 import { listPractitioners, setPractitioner } from '../actions/practitioners';
+import { fetchUserData } from './user';
 
 export const createPractitioner = (params) => async (dispatch) => {
   const path = 'v1/practitioners';
@@ -14,8 +14,11 @@ export const createPractitioner = (params) => async (dispatch) => {
   }
 };
 
-export const updatePractitioner = (practitionerId, params) => async (dispatch) => {
-  const path = `v1/practitioner/${practitionerId}`;
+export const updatePractitioner = (
+  practitionerId,
+  params,
+) => async (dispatch) => {
+  const path = `v1/practitioners/${practitionerId}`;
   try {
     await sendRequest('put', path, params);
     dispatch(fetchUserData(params.userId));
@@ -25,10 +28,11 @@ export const updatePractitioner = (practitionerId, params) => async (dispatch) =
   }
 };
 
-export const fetchPractitioners = () => async (dispatch) => {
-  const path = 'v1/practitioners';
+export const fetchPractitionersByClinicId = (clinicId) => async (dispatch) => {
+  const path = `v1/practitioners/${clinicId}/clinic`;
   try {
     const res = await sendRequest('get', path);
+    console.log('Im called', res);
     dispatch(listPractitioners(res.data.practitioners));
     return res.data.practitioners;
   } catch (err) {
@@ -36,9 +40,8 @@ export const fetchPractitioners = () => async (dispatch) => {
   }
 };
 
-
 export const fetchOnePractitioner = (practitionerId) => async (dispatch) => {
-  const path = `v1/practitioner/${practitionerId}`;
+  const path = `v1/practitioners/${practitionerId}`;
   try {
     const res = await sendRequest('get', path);
     dispatch(setPractitioner(res.data.practitioner));

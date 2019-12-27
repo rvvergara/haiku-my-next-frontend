@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const PractitionerDetailsCard = ({ practitioner }) => (
-  <div className="practitioner-card">
+  <div className="practitioner-details-container">
     <div className="profile-info-container">
       <div className="profile-info-container__info__card container">
         <h4 className="grotesque-font profile-info-container__info__card__title">

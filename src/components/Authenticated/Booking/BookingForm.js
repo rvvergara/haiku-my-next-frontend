@@ -1,10 +1,8 @@
 import { connect } from 'react-redux';
-import moment from 'moment';
 import {
   toggleSetAppointment,
 } from '../../../store/actions/booking';
 import { displayAvailability } from '../../../store/actions/availability';
-import {addBooking} from '../../../store/actions/booking';
 import { removeAvailability } from '../../../store/actions/availability';
 
 class BookingForm extends React.Component {
@@ -24,13 +22,10 @@ class BookingForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const bookingData = {
-      startTime:  this.props.availability.startTime,
-      endTime: this.props.availability.endTime,
-      date:moment(this.props.availability.date).format('MMMM D, YYYY'),
+      patientId: this.props.patientId,
       remarks: this.state.remarks
     }
-    this.props.addBooking(bookingData);
-    this.props.removeAvailability(this.props.availability.id);
+    console.log("SUBMITTING BOOKING DATA", bookingData)
     this.setState(() => ({
       remarks: ''
     }))
@@ -85,11 +80,11 @@ class BookingForm extends React.Component {
 
 const mapStateToProps = (state) => ({
   availability: state.displayedAvailability,
+  patientId: state.currentUser.data.profile.id,
 });
 
 export default connect(mapStateToProps, {
   toggleSetAppointment,
   removeAvailability,
-  displayAvailability,
-  addBooking
+  displayAvailability
 })(BookingForm);

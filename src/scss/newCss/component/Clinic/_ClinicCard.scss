@@ -1,0 +1,41 @@
+.clinic-button {
+  background-color: #5073f1;
+  border: none;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: $small * 0.9;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.clinic-image {
+  display: block;
+  margin: $small auto;
+  width: 80%;
+  box-shadow: 1px 1px 5px $medium-grey;
+  border-radius: 5px;
+}
+
+.clinic-card {
+  margin-bottom: $xlarge;
+  box-shadow: 1px 1px 5px $medium-grey;
+  padding: $small 0 $small 0;
+}
+
+.clinic-details {
+  text-align: center;
+  margin: 0 $medium 0 $medium;
+}
+
+.clinic-address,
+.clinic-postalcode {
+  font-size: $small;
+}
+
+.clinic-name {
+  font-size: $medium;
+}

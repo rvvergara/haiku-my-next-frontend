@@ -1,0 +1,30 @@
+.practitionerCard-image {
+  display: block;
+  margin: $small auto;
+  width: 80%;
+  box-shadow: 1px 1px 5px $medium-grey;
+  border-radius: 5px;
+}
+
+.practitioner-card {
+  background: $white;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px $medium-grey;
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: $small;
+  width: 90%;
+}
+
+.practitioner-name {
+  color: $dark-blue;
+  font-family: $grotesque;
+  font-size: $xmedium * 1.8;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  margin: 0;
+  text-align: left;
+}

@@ -13,12 +13,14 @@ import {setAlert} from '../../../store/actions/alerts'
 
 class PatientForm extends React.Component {
   state = {
+    firstName: this.props.currentUserData.profile ? this.props.currentUserData.profile.firstName : '',
+    lastName: this.props.currentUserData.profile ? this.props.currentUserData.profile.lastName : '',
     contactNo: this.props.currentUserData.profile ? this.props.currentUserData.profile.contactNo : '',
     passport: this.props.currentUserData.profile ? this.props.currentUserData.profile.passport : '',
     postalCode: this.props.currentUserData.profile ? this.props.currentUserData.profile.postalCode : '',
     address: this.props.currentUserData.profile ? this.props.currentUserData.profile.address : '',
     dob: this.props.currentUserData.profile ? moment(this.props.currentUserData.profile.dob) : moment(),
-    languages: this.props.currentUserData.profile ? this.props.currentUserData.profile.languages : [],
+    languages: this.props.currentUserData.profile ? JSON.parse(this.props.currentUserData.profile.languages) : [],
     points: this.props.currentUserData.profile ? this.props.currentUserData.profile.points : 0,
     imageText: '',
     imageFile: null,
@@ -41,17 +43,6 @@ class PatientForm extends React.Component {
 
   onFocusChange = ({ focused }) => this.handleChange('calendarFocused', focused);
 
-  handleUploadPic = async () => {
-    const { currentUserData } = this.props;
-    const { imageFile } = this.state;
-    const { id } = currentUserData;
-    const formData = new FormData();
-    formData.append('files', imageFile);
-    formData.append('userId', id);
-    const res = await this.props.uploadPic(formData);
-    return res;
-  };
-
   imgPreviewUrl = () => {
     const { imageFile } = this.state;
     const { profile } = this.props.currentUserData;
@@ -68,38 +59,41 @@ class PatientForm extends React.Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { currentUserData } = this.props;
-    const { contactNo, passport, postalCode, address, dob, languages, points, imageText } = this.state;
+    const { firstName, lastName, contactNo, passport, postalCode, address, dob, languages, points, imageFile } = this.state;
 
     setAuthorizationToken(localStorage.token);
 
     const { id } = currentUserData;
     const patientId = currentUserData.profile ? currentUserData.profile.id : undefined;
 
-    let imageURL;
-
-    if (imageText) {
-      imageURL = await this.handleUploadPic();
-    }
-
     const params = {
+      firstName,
+      lastName,
       contactNo,
       passport,
       postalCode,
       address,
-      dob: dob.valueOf(),
-      languages,
       points,
-      userId: id,
-      image: imageURL,
-    };
+      files: imageFile,
+      dateOfBirth: moment(dob.valueOf()).toJSON(),
+      languages: JSON.stringify(languages),
+      userId: id
+    }
 
+    const formData = new FormData();
+    
+    for(let key in params){
+      formData.append(key, params[key])
+    };
+    console.log('PARAMS', params);
+    console.log('FORM DATA', formData);
     try {
       if (Router.pathname === '/profile/new') {
-        await this.props.createPatient(params);
+        await this.props.createPatient(formData);
         this.props.setAlert('Profile created','success')
       }
       if (Router.pathname === '/profile/edit') {
-        await this.props.updatePatient(patientId, params);
+        await this.props.updatePatient(patientId, formData);
         this.props.setAlert('Profile updated','success')
       }
       setTimeout(() => Router.push('/'), 1000);
@@ -110,7 +104,7 @@ class PatientForm extends React.Component {
   };
 
   render(){
-    const { contactNo, passport, postalCode, address, dob, languages, points, imageText, calendarFocused } = this.state;
+    const { firstName, lastName, contactNo, passport, postalCode, address, dob, languages, points, imageText, calendarFocused } = this.state;
 
     return (
       <div className="container profile-form-container">
@@ -138,6 +132,38 @@ class PatientForm extends React.Component {
                 this.handleChange('imageFile', e.target.files[0]);
               }}
               value={imageText}
+            />
+          </div>
+          <div className="form-group">
+            <label
+              className="auth-label"
+              htmlFor="first-name"
+            >
+                First Name:
+              {' '}
+            </label>
+            <input
+              className="user-form__input number__input"
+              type="text"
+              id="first-name"
+              onChange={(e) => this.handleChange('firstName', e.target.value)}
+              value={firstName}
+            />
+          </div>
+          <div className="form-group">
+            <label
+              className="auth-label"
+              htmlFor="last-name"
+            >
+                Last Name:
+              {' '}
+            </label>
+            <input
+              className="user-form__input number__input"
+              type="text"
+              id="last-name"
+              onChange={(e) => this.handleChange('lastName', e.target.value)}
+              value={lastName}
             />
           </div>
           <div className="form-group">

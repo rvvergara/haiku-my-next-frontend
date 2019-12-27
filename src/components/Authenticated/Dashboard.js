@@ -1,23 +1,23 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import PatientBookingList from './Booking/PatientBookingList';
+import PatientNotification from './Booking/PatientNotification';
 import PractitionerBookingList from './Booking/PractitionerBookingList';
 import ClinicList from './Clinic/ClinicList';
 import PractitionerProfile from './Practitioner/PractitionerProfile';
 
 const renderDashboard = (userRole) => {
   switch (userRole) {
-    case 'practitioner':
+    case 'PRACTITIONER':
       return (
         <div>
           <PractitionerBookingList />
           <PractitionerProfile />
         </div>
       );
-    case 'patient':
+    case 'PATIENT':
       return (
         <div>
-          <PatientBookingList />
+          <PatientNotification />
           <ClinicList />
         </div>
       );

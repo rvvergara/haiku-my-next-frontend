@@ -20,6 +20,9 @@ class LoginForm extends React.Component {
     const { email, password } = this.state;
     try {
       const user = await this.props.login({ email, password });
+      if(!user.activated){
+        return Router.push('/verify');
+      }
       if (!user.profile) {
         return setTimeout(() => Router.push('/profile/new'), 500);
       }

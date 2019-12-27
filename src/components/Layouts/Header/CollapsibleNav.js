@@ -25,7 +25,7 @@ export const CollapsibleNav = ({ currentUserData, logout }) => {
         <Nav className='ml-auto header-nav'>
           <div className='user-menu'>
             {
-              role === 'practitioner'
+              role === 'PRACTITIONER'
             ? <PractitionerNavLinks />
             : <PatientNavLinks />
             }
@@ -34,7 +34,7 @@ export const CollapsibleNav = ({ currentUserData, logout }) => {
             <strong className='logged-header-greeting'>
               Welcome
               {' '}
-              {role === 'practitioner' ? 'Dr. ' : ''}
+              {role === 'PRACTITIONER' ? 'Dr. ' : ''}
               {firstName}
             </strong>
           </div>

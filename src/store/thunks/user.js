@@ -5,7 +5,7 @@ import { setCookie, removeCookie } from '../../utils/cookie';
 
 // Function to fetch profile based on role and userID
 const fetchUserProfile = async (id, role) => {
-  const path = `v1/${role}/${id}/user`;
+  const path = `v1/${role}s/${id}/user`;
   try {
     const res = await sendRequest('get', path);
     return res;
@@ -21,7 +21,7 @@ const setUserInStore = async (user, dispatch) => {
     // If user has a profile already add it to user data
     dispatch(setCurrentUser({
       authenticated: true,
-      data: { ...user, profile: profile.data[role], token: user.token },
+      data: { ...user, profile: profile.data[role.toLowerCase()], token: user.token },
     }));
   } else {
     dispatch(setCurrentUser({
@@ -35,12 +35,12 @@ export const signup = (params) => async (dispatch) => {
   const path = 'v1/users';
   try {
     const res = await sendRequest('post', path, params);
-    const { user, token } = await res.data;
-    setCookie('token', token);
-    localStorage.setItem('token', token);
-    setAuthorizationToken(token);
-    setUserInStore({ ...user, token }, dispatch);
-    return user;
+    // const { user, token } = await res.data;
+    // setCookie('token', token);
+    // localStorage.setItem('token', token);
+    // setAuthorizationToken(token);
+    // setUserInStore({ ...user, token }, dispatch);
+    return res;
   } catch (err) {
     dispatch(setError(err.response.data.error));
     throw new Error();
@@ -48,7 +48,7 @@ export const signup = (params) => async (dispatch) => {
 };
 
 export const login = (params) => async (dispatch, getState) => {
-  const path = 'v1/users/login';
+  const path = 'v1/login';
 
   try {
     const res = await sendRequest('post', path, params);
@@ -76,7 +76,7 @@ export const logout = () => (dispatch) => {
 };
 
 export const fetchUserData = (id) => async (dispatch) => {
-  const path = `v1/user/${id}`;
+  const path = `v1/users/${id}`;
   try {
     const res = await sendRequest('get', path);
     const user = await res.data;
@@ -87,7 +87,7 @@ export const fetchUserData = (id) => async (dispatch) => {
       // If user has a profile already add it to user data
       dispatch(setCurrentUser({
         authenticated: true,
-        data: { ...user.user, profile: profile.data[role], token: user.token },
+        data: { ...user.user, profile: profile.data[role.toLowerCase()], token: user.token },
       }));
     } else {
       // Redirect user to profile edit page

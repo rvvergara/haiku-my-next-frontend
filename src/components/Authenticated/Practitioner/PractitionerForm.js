@@ -13,8 +13,10 @@ import {setAlert} from '../../../store/actions/alerts'
 
 class PractitionerForm extends React.Component {
   state = {
-    education: this.props.currentUserData.profile ? this.props.currentUserData.profile.education : [],
-    specialties: this.props.currentUserData.profile ? this.props.currentUserData.profile.specialities : [],
+    firstName: this.props.currentUserData.profile ? this.props.currentUserData.profile.firstName : '',
+    lastName: this.props.currentUserData.profile ? this.props.currentUserData.profile.lastName : '',
+    education: this.props.currentUserData.profile ? JSON.parse(this.props.currentUserData.profile.education) : [],
+    specialties: this.props.currentUserData.profile ? JSON.parse(this.props.currentUserData.profile.specialties) : [],
     biography: this.props.currentUserData.profile ? this.props.currentUserData.profile.biography : '',
     yearsExp: this.props.currentUserData.profile ? this.props.currentUserData.profile.yearsExp : 0,
     imageText: '',
@@ -28,17 +30,6 @@ class PractitionerForm extends React.Component {
   handleChange = (key, val) => this.setState(() => ({
     [key]: val
   }));
-
-  handleUploadPic = async () => {
-    const { currentUserData } = this.props;
-    const { imageFile } = this.state;
-    const { id } = currentUserData;
-    const formData = new FormData();
-    formData.append('files', imageFile);
-    formData.append('userId', id);
-    const res = await this.props.uploadPic(formData);
-    return res;
-  };
 
   imgPreviewUrl = () => {
     const { imageFile } = this.state;
@@ -56,7 +47,7 @@ class PractitionerForm extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
     const { currentUserData } = this.props;
-    const { education, specialties, biography, yearsExp, imageText } = this.state;
+    const { firstName, lastName, education, specialties, biography, yearsExp, imageFile } = this.state;
 
     setAuthorizationToken(localStorage.token)
     const { id } = currentUserData;
@@ -64,27 +55,33 @@ class PractitionerForm extends React.Component {
       ? currentUserData.profile.id
       : undefined;
 
-    let imageUrl;
-
-    if (imageText) {
-      imageUrl = await this.handleUploadPic();
-    }
-
     const params = {
-      education,
-      specialities: specialties,
+      firstName,
+      lastName,
+      education: JSON.stringify(education),
+      specialties: JSON.stringify(specialties),
       biography,
       yearsExp,
       userId: id,
-      image: imageUrl,
+      files: imageFile,
     };
+
+    console.log('IMAGE FILE', imageFile)
+
+    const formData = new FormData();
+
+    for(let key in params){
+      formData.append(key, params[key]);
+    }
+    console.log('PARAMS', params);
+    console.log('FORM DATA', formData);
     try {
       if (Router.pathname === '/profile/new') {
-        await this.props.createPractitioner(params);
+        await this.props.createPractitioner(formData);
         this.props.setAlert('Profile Created','success')
       }
       if (Router.pathname === '/profile/edit') {
-        await this.props.updatePractitioner(practitionerId, params);
+        await this.props.updatePractitioner(practitionerId, formData);
         this.props.setAlert('Profile updated','success')
       }
       setTimeout(() => Router.push('/'), 1000);
@@ -95,14 +92,9 @@ class PractitionerForm extends React.Component {
   };
 
   render() {
-    const { biography, education, specialties, yearsExp, imageText } = this.state;
+    const { firstName, lastName, biography, education, specialties, yearsExp, imageText } = this.state;
     return (
       <div className="container profile-form-container">
-        <div className="form-error">
-          {
-            this.props.error && <strong>{this.props.error}</strong>
-          }
-        </div>
         <form className="user-form profile-form">
           <div className="form-group">
             <div className="image-preview">
@@ -123,6 +115,38 @@ class PractitionerForm extends React.Component {
                 this.handleChange('imageFile', e.target.files[0]);
               }}
               value={imageText}
+            />
+          </div>
+          <div className="form-group">
+            <label
+              className="auth-label"
+              htmlFor="first-name"
+            >
+                First Name:
+              {' '}
+            </label>
+            <input
+              className="user-form__input number__input"
+              type="text"
+              id="first-name"
+              onChange={(e) => this.handleChange('firstName', e.target.value)}
+              value={firstName}
+            />
+          </div>
+          <div className="form-group">
+            <label
+              className="auth-label"
+              htmlFor="last-name"
+            >
+                Last Name:
+              {' '}
+            </label>
+            <input
+              className="user-form__input number__input"
+              type="text"
+              id="last-name"
+              onChange={(e) => this.handleChange('lastName', e.target.value)}
+              value={lastName}
             />
           </div>
           <div className="form-group">
