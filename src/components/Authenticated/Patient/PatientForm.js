@@ -85,7 +85,8 @@ class PatientForm extends React.Component {
     for(let key in params){
       formData.append(key, params[key])
     };
-
+    console.log('PARAMS', params);
+    console.log('FORM DATA', formData);
     try {
       if (Router.pathname === '/profile/new') {
         await this.props.createPatient(formData);

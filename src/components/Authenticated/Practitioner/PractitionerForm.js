@@ -31,17 +31,6 @@ class PractitionerForm extends React.Component {
     [key]: val
   }));
 
-  handleUploadPic = async () => {
-    const { currentUserData } = this.props;
-    const { imageFile } = this.state;
-    const { id } = currentUserData;
-    const formData = new FormData();
-    formData.append('files', imageFile);
-    formData.append('userId', id);
-    const res = await this.props.uploadPic(formData);
-    return res;
-  };
-
   imgPreviewUrl = () => {
     const { imageFile } = this.state;
     const { profile } = this.props.currentUserData;
@@ -58,19 +47,13 @@ class PractitionerForm extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
     const { currentUserData } = this.props;
-    const { firstName, lastName, education, specialties, biography, yearsExp, imageText } = this.state;
+    const { firstName, lastName, education, specialties, biography, yearsExp, imageFile } = this.state;
 
     setAuthorizationToken(localStorage.token)
     const { id } = currentUserData;
     const practitionerId = currentUserData.profile
       ? currentUserData.profile.id
       : undefined;
-
-    let imageUrl;
-
-    if (imageText) {
-      imageUrl = await this.handleUploadPic();
-    }
 
     const params = {
       firstName,
@@ -80,15 +63,25 @@ class PractitionerForm extends React.Component {
       biography,
       yearsExp,
       userId: id,
-      image: imageUrl,
+      files: imageFile,
     };
+
+    console.log('IMAGE FILE', imageFile)
+
+    const formData = new FormData();
+
+    for(let key in params){
+      formData.append(key, params[key]);
+    }
+    console.log('PARAMS', params);
+    console.log('FORM DATA', formData);
     try {
       if (Router.pathname === '/profile/new') {
-        await this.props.createPractitioner(params);
+        await this.props.createPractitioner(formData);
         this.props.setAlert('Profile Created','success')
       }
       if (Router.pathname === '/profile/edit') {
-        await this.props.updatePractitioner(practitionerId, params);
+        await this.props.updatePractitioner(practitionerId, formData);
         this.props.setAlert('Profile updated','success')
       }
       setTimeout(() => Router.push('/'), 1000);
