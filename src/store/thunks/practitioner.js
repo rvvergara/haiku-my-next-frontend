@@ -25,7 +25,8 @@ export const updatePractitioner = (practitionerId, params) => async (dispatch) =
   }
 };
 
-export const fetchPractitioners = () => async (dispatch) => {
+export const fetchPractitionersByClinicId = () => async (dispatch) => {
+  console.log('Im called');
   const path = 'v1/practitioners';
   try {
     const res = await sendRequest('get', path);

@@ -15,6 +15,8 @@ class BookingSelection extends React.Component {
     availableTimes: this.props.shownAvailabilities,
   };
 
+
+
   componentWillReceiveProps(nextProps){
     this.setState(() => ({
       availableTimes: nextProps.shownAvailabilities,
@@ -27,9 +29,11 @@ class BookingSelection extends React.Component {
     }));
 
   blocksDay = day => {
+
     const availableDates = this.props.availabilities.map(avail => avail.date);
     const dayFormatted = moment(day).format('MMMM D, YYYY');
-    return !availableDates.includes(dayFormatted);
+    console.log(!availableDates.includes(dayFormatted));
+    return availableDates.includes(dayFormatted);
   };
 
   handleTimeClick = (availability) => {
@@ -55,6 +59,8 @@ class BookingSelection extends React.Component {
     if (selectedDate) {
       this.setState(() => ({ selectedDate: selectedDate }));
     }
+
+
     this.setState(prevState => {
       const newDate = moment(prevState.selectedDate).format('MMMM D, YYYY');
       const newAvailabilities = this.props.availabilities.filter(avail => {
