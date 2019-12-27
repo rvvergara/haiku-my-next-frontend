@@ -30,10 +30,9 @@ class BookingSelection extends React.Component {
 
   blocksDay = day => {
 
-    const availableDates = this.props.availabilities.map(avail => avail.date);
-    const dayFormatted = moment(day).format('MMMM D, YYYY');
-    console.log(!availableDates.includes(dayFormatted));
-    return availableDates.includes(dayFormatted);
+    const availableDates = this.props.availabilities.map(avail => avail.date).sort();
+    const dayFormatted = moment(day).format('MMMM DD, YYYY');
+    return !availableDates.includes(dayFormatted);
   };
 
   handleTimeClick = (availability) => {
