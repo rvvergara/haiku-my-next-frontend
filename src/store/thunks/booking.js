@@ -7,6 +7,7 @@ export const bookSlot = (params, slotId) => async (dispatch) => {
 
   try {
     const res = await sendRequest('post', path, params);
+    console.log(res);
     const bookedSlot = await res.data.booking_slot;
     dispatch(addBooking(bookedSlot));
   } catch (err) {

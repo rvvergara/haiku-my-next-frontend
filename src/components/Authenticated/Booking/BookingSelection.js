@@ -7,6 +7,7 @@ import {addBooking} from '../../../store/actions/booking';
 import { removeAvailability} from '../../../store/actions/availability';
 import { displayAvailability } from '../../../store/actions/availability';
 import { toggleSetAppointment } from '../../../store/actions/booking';
+import {bookSlot} from '../../../store/thunks/booking'
 
 class BookingSelection extends React.Component {
   state = {
@@ -46,7 +47,7 @@ class BookingSelection extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const bookingData = {startTime:  this.state.confirmButtonAvailability.startTime , date:moment(this.state.selectedDate).format('MMMM D, YYYY'), remarks: this.state.remarks}
-    this.props.addBooking(bookingData);
+    this.props.bookSlot(bookingData);
     this.props.removeAvailability(this.state.confirmButtonAvailability.id);
     this.setState(() => ({
       confirmButtonAvailability: null,
@@ -107,7 +108,7 @@ class BookingSelection extends React.Component {
 
 const mapStateToProps = state => ({
   availabilities: state.availabilities,
-  initialDate: state.availabilities[0].date,
+  // initialDate: state.availabilities[0].date,
   shownAvailabilities: state.availabilities.filter(
     avail => avail.date === state.availabilities[0].date,
   ),
@@ -118,5 +119,6 @@ export default connect(mapStateToProps, {
   addBooking,
   removeAvailability,
   displayAvailability,
-  toggleSetAppointment
+  toggleSetAppointment,
+  bookSlot
 })(BookingSelection);

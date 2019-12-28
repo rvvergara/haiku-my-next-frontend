@@ -15,7 +15,7 @@ const PractitionerList = ({
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
     fetchPractitionersByClinicId(clinic.id);
-    console.log(clinic);
+    console.log(clinic, practitioners);
     return () => {
       listPractitioners([]);
     };

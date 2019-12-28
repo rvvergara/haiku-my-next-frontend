@@ -4,6 +4,8 @@ import {
 } from '../../../store/actions/booking';
 import { displayAvailability } from '../../../store/actions/availability';
 import { removeAvailability } from '../../../store/actions/availability';
+import {bookSlot} from '../../../store/thunks/booking'
+
 
 class BookingForm extends React.Component {
   state = {
@@ -30,6 +32,7 @@ class BookingForm extends React.Component {
       remarks: ''
     }))
     this.props.toggleSetAppointment(false)
+    this.props.bookSlot(bookingData,this.props.availability.id)
   };
 
   render() {
@@ -86,5 +89,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   toggleSetAppointment,
   removeAvailability,
-  displayAvailability
+  displayAvailability,
+  bookSlot
 })(BookingForm);

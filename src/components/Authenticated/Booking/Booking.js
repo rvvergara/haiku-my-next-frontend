@@ -18,7 +18,7 @@ const Booking = ({ settingAppointment }) => (
   );
 
 Booking.propTypes = {
-  settingAppointment: PropTypes.func.isRequired,
+  // settingAppointment: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
