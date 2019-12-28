@@ -7,7 +7,14 @@ import PractitionerCard from './PractitionerCard';
 import PractitionerDetailsCard from './PractitionerDetailsCard';
 
 const PractitionerProfile = ({ setPractitioner, role }) => {
-  useEffect(() => () => setPractitioner({}));
+
+  useEffect(
+    () => () => {
+      setClinic({});
+    },
+    [],
+  );
+  
   return (
     <div className="profile">
       <div>

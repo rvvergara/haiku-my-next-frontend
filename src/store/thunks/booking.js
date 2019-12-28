@@ -14,3 +14,4 @@ export const bookSlot = (params, slotId) => async (dispatch) => {
     dispatch(setError(err));
   }
 };
+
