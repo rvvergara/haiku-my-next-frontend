@@ -24,6 +24,17 @@
   margin-bottom: $xlarge;
   box-shadow: 1px 1px 5px $medium-grey;
   padding: $small 0 $small 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (min-width: 600px) {
+  .clinic-card {
+    display: flex;
+    width: 90%;
+    background-color: #fff;
+    flex-direction: row;
+  }
 }
 
 .clinic-details {
@@ -38,4 +49,17 @@
 
 .clinic-name {
   font-size: $medium;
+}
+
+.clinic-card-image {
+  text-align: center;
+  width: 100%;
+  box-shadow: 1px 1px 5px $medium-grey;
+  border-radius: 5px;
+}
+
+.clinic-card-image-container {
+  padding-top: 40px;
+  text-align: center;
+  width: 30%;
 }

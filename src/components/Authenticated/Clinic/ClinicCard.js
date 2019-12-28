@@ -6,9 +6,9 @@ const ClinicCard = ({ clinic }) => {
 
   return (
     <div className="clinic-card">
-      <div className="profile-image">
+      <div className="clinic-card-image-container">
         <img
-          className="clinic-image"
+          className="clinic-card-image"
           src={image}
           alt="clinic-profile"
         />
