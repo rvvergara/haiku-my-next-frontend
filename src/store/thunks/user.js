@@ -56,9 +56,13 @@ export const login = (params) => async (dispatch, getState) => {
     setAuthorizationToken(token);
     setCookie('token', token);
     localStorage.setItem('token', token);
-    await setUserInStore({ ...user, token }, dispatch);
-    const currentUserData = getState().currentUser.data;
-    return currentUserData;
+    // await setUserInStore({ ...user, token }, dispatch);
+    // const currentUserData = getState().currentUser.data;
+    dispatch(setCurrentUser({
+      authenticated: true,
+      data: user,
+    }));
+    return user;
   } catch (err) {
     dispatch(setError(err.response.data.error));
     throw new Error();

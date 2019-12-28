@@ -80,7 +80,7 @@ class BookingForm extends React.Component {
 
 const mapStateToProps = (state) => ({
   availability: state.displayedAvailability,
-  patientId: state.currentUser.data.profile.id,
+  patientId: state.currentUser.data.patient.id,
 });
 
 export default connect(mapStateToProps, {

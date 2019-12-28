@@ -23,10 +23,10 @@ class LoginForm extends React.Component {
       if(!user.activated){
         return Router.push('/verify');
       }
-      if (!user.profile) {
-        return setTimeout(() => Router.push('/profile/new'), 500);
+      if (user.patient || user.practitioner) {
+        return Router.push('/');
       }
-      return setTimeout(() => Router.push('/'), 500);
+      return Router.push('/profile/new');
     } catch (error) {
       return error;
     }
