@@ -1,20 +1,7 @@
-import moment from 'moment';
 import { sendRequest } from '../../utils/api';
+import { localizeBookingSlot } from '../../utils/localize';
 import { addAvailability, listAvailabilies } from '../actions/availability';
 import setError from '../actions/error';
-
-const localizeBookingSlot = (booking_slot) => {
-  const { date, startTime, endTime } = booking_slot;
-  const localizedDate = moment(date).format('MMMM DD, YYYY');
-  const localizedStartTime = moment(startTime).local().format('LT');
-  const localizedEndTime = moment(endTime).local().format('LT');
-  return {
-    ...booking_slot,
-    date: localizedDate,
-    startTime: localizedStartTime,
-    endTime: localizedEndTime,
-  };
-};
 
 export const createAvailabilityOnDb = (params) => async (dispatch) => {
   const path = 'v1/booking-slots';
