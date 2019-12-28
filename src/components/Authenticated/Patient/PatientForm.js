@@ -15,7 +15,7 @@ class PatientForm extends React.Component {
   state = {
     firstName: this.props.currentUserData.profile ? this.props.currentUserData.profile.firstName : '',
     lastName: this.props.currentUserData.profile ? this.props.currentUserData.profile.lastName : '',
-    contactNo: this.props.currentUserData.profile ? this.props.currentUserData.profile.contactNo : '',
+    contactNumber: this.props.currentUserData.profile ? this.props.currentUserData.profile.contactNumber : '',
     passport: this.props.currentUserData.profile ? this.props.currentUserData.profile.passport : '',
     postalCode: this.props.currentUserData.profile ? this.props.currentUserData.profile.postalCode : '',
     address: this.props.currentUserData.profile ? this.props.currentUserData.profile.address : '',
@@ -59,7 +59,7 @@ class PatientForm extends React.Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { currentUserData } = this.props;
-    const { firstName, lastName, contactNo, passport, postalCode, address, dob, languages, points, imageFile } = this.state;
+    const { firstName, lastName, contactNumber, passport, postalCode, address, dob, languages, points, imageFile } = this.state;
 
     setAuthorizationToken(localStorage.token);
 
@@ -69,7 +69,7 @@ class PatientForm extends React.Component {
     const params = {
       firstName,
       lastName,
-      contactNo,
+      contactNumber,
       passport,
       postalCode,
       address,
@@ -81,7 +81,7 @@ class PatientForm extends React.Component {
     }
 
     const formData = new FormData();
-    
+
     for(let key in params){
       formData.append(key, params[key])
     };
@@ -104,7 +104,7 @@ class PatientForm extends React.Component {
   };
 
   render(){
-    const { firstName, lastName, contactNo, passport, postalCode, address, dob, languages, points, imageText, calendarFocused } = this.state;
+    const { firstName, lastName, contactNumber, passport, postalCode, address, dob, languages, points, imageText, calendarFocused } = this.state;
 
     return (
       <div className="container profile-form-container">
@@ -178,8 +178,8 @@ class PatientForm extends React.Component {
               className="user-form__input number__input"
               type="text"
               id="contact-no"
-              onChange={(e) => this.handleChange('contactNo', e.target.value)}
-              value={contactNo}
+              onChange={(e) => this.handleChange('contactNumber', e.target.value)}
+              value={contactNumber}
             />
           </div>
           <div className="form-group">

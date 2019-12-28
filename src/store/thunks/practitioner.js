@@ -36,7 +36,6 @@ export const fetchPractitionersByClinicId = (clinicId) => async (dispatch) => {
   const path = `v1/practitioners/${clinicId}/clinic`;
   try {
     const res = await sendRequest('get', path);
-    console.log('Im called', res);
     dispatch(listPractitioners(res.data.practitioners));
     return res.data.practitioners;
   } catch (err) {
