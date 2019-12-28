@@ -29,3 +29,13 @@ export const updatePatient = (patientId, params) => async (dispatch, getState) =
     throw new Error();
   }
 };
+
+export const fetchPatientBookedSlot = patiendId => async dispatch => {
+  const path = `v1/booking-slots/${patiendId}/patient`;
+  try {
+    const res = await sendRequest('get', path);
+    return res.data;
+  } catch (err) {
+    return dispatch(setError(err.response.data));
+  }
+};

@@ -1,10 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { connect } from 'react-redux';
 import { listNotification } from '../../../store/actions/notification';
+import { fetchPatientBookedSlot } from '../../../store/thunks/patient';
 
-const PatientNotification = ({ listNotification, notification }) => {
+const PatientNotification = ({
+  listNotification,
+  notification,
+  fetchPatientBookedSlot,
+  patientId
+}) => {
   const [isClosed, setIsClosed] = useState(false);
+
+  useEffect(() => {
+    fetchPatientBookedSlot(patientId);
+  }, []);
 
   const handleClick = () => {
     setIsClosed(true);
@@ -35,8 +45,10 @@ const PatientNotification = ({ listNotification, notification }) => {
 
 const mapStateToProps = state => ({
   notification: state.notification,
+  patientId: state.currentUser.data.patient.id,
 });
 
-export default connect(mapStateToProps, { listNotification })(
-  PatientNotification,
-);
+export default connect(mapStateToProps, {
+  listNotification,
+  fetchPatientBookedSlot,
+})(PatientNotification);
