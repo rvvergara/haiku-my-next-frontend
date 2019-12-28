@@ -13,15 +13,14 @@ import {setAlert} from '../../../store/actions/alerts'
 
 class PatientForm extends React.Component {
   state = {
-    firstName: this.props.currentUserData.profile ? this.props.currentUserData.profile.firstName : '',
-    lastName: this.props.currentUserData.profile ? this.props.currentUserData.profile.lastName : '',
-    contactNumber: this.props.currentUserData.profile ? this.props.currentUserData.profile.contactNumber : '',
-    passport: this.props.currentUserData.profile ? this.props.currentUserData.profile.passport : '',
-    postalCode: this.props.currentUserData.profile ? this.props.currentUserData.profile.postalCode : '',
-    address: this.props.currentUserData.profile ? this.props.currentUserData.profile.address : '',
-    dob: this.props.currentUserData.profile ? moment(this.props.currentUserData.profile.dob) : moment(),
-    languages: this.props.currentUserData.profile ? JSON.parse(this.props.currentUserData.profile.languages) : [],
-    points: this.props.currentUserData.profile ? this.props.currentUserData.profile.points : 0,
+    firstName: this.props.currentUserData.patient ? this.props.currentUserData.patient.firstName : '',
+    lastName: this.props.currentUserData.patient ? this.props.currentUserData.patient.lastName : '',
+    contactNumber: this.props.currentUserData.patient ? this.props.currentUserData.patient.contactNumber : '',
+    passport: this.props.currentUserData.patient ? this.props.currentUserData.patient.passport : '',
+    postalCode: this.props.currentUserData.patient ? this.props.currentUserData.patient.postalCode : '',
+    address: this.props.currentUserData.patient ? this.props.currentUserData.patient.address : '',
+    dateOfBirth: this.props.currentUserData.patient ? moment(this.props.currentUserData.patient.dateOfBirth) : moment(),
+    languages: this.props.currentUserData.patient ? JSON.parse(this.props.currentUserData.patient.languages) : [],
     imageText: '',
     imageFile: null,
     calendarFocused: false,
@@ -35,9 +34,9 @@ class PatientForm extends React.Component {
     [key]: val
   }));
 
-  onDateChange = (dob) => {
-    if (dob) {
-      this.setState(() => ({'dob': dob}));
+  onDateChange = (dateOfBirth) => {
+    if (dateOfBirth) {
+      this.setState(() => ({'dateOfBirth': dateOfBirth}));
     }
   };
 
@@ -45,13 +44,13 @@ class PatientForm extends React.Component {
 
   imgPreviewUrl = () => {
     const { imageFile } = this.state;
-    const { profile } = this.props.currentUserData;
+    const { patient } = this.props.currentUserData;
 
     if (imageFile) {
       return URL.createObjectURL(imageFile);
     }
-    if (profile && profile.image) {
-      return profile.image;
+    if (patient && patient.image) {
+      return patient.image;
     }
     return 'https://tinyimg.io/i/BmtLUPZ.jpg';
   };
@@ -59,12 +58,12 @@ class PatientForm extends React.Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { currentUserData } = this.props;
-    const { firstName, lastName, contactNumber, passport, postalCode, address, dob, languages, points, imageFile } = this.state;
+    const { firstName, lastName, contactNumber, passport, postalCode, address, dateOfBirth, languages, imageFile } = this.state;
 
     setAuthorizationToken(localStorage.token);
 
     const { id } = currentUserData;
-    const patientId = currentUserData.profile ? currentUserData.profile.id : undefined;
+    const patientId = currentUserData.patient ? currentUserData.patient.id : undefined;
 
     const params = {
       firstName,
@@ -73,9 +72,8 @@ class PatientForm extends React.Component {
       passport,
       postalCode,
       address,
-      points,
       files: imageFile,
-      dateOfBirth: moment(dob.valueOf()).toJSON(),
+      dateOfBirth: moment(dateOfBirth.valueOf()).toJSON(),
       languages: JSON.stringify(languages),
       userId: id
     }
@@ -85,8 +83,6 @@ class PatientForm extends React.Component {
     for(let key in params){
       formData.append(key, params[key])
     };
-    console.log('PARAMS', params);
-    console.log('FORM DATA', formData);
     try {
       if (Router.pathname === '/profile/new') {
         await this.props.createPatient(formData);
@@ -104,7 +100,7 @@ class PatientForm extends React.Component {
   };
 
   render(){
-    const { firstName, lastName, contactNumber, passport, postalCode, address, dob, languages, points, imageText, calendarFocused } = this.state;
+    const { firstName, lastName, contactNumber, passport, postalCode, address, dateOfBirth, languages, points, imageText, calendarFocused } = this.state;
 
     return (
       <div className="container profile-form-container">
@@ -236,7 +232,7 @@ class PatientForm extends React.Component {
             </label>
             <SingleDatePicker
               id="dob"
-              date={dob}
+              date={dateOfBirth}
               onDateChange={this.onDateChange}
               focused={calendarFocused}
               onFocusChange={this.onFocusChange}
@@ -250,21 +246,6 @@ class PatientForm extends React.Component {
               selectedInputs={(inputs) => this.handleChange('languages',inputs)}
               values={languages}
               labelId="languages"
-            />
-          </div>
-          <div className="form-group">
-            <label
-              className="auth-label"
-              htmlFor="points"
-            >
-              Points
-            </label>
-            <input
-              className="user-form__input"
-              type="number"
-              id="points"
-              onChange={(e) => this.handleChange('points', e.target.value)}
-              value={points}
             />
           </div>
           <div className="form-group profile-form-group">

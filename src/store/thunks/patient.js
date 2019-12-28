@@ -1,23 +1,29 @@
 import { sendRequest } from '../../utils/api';
 import setError from '../actions/error';
-import { fetchUserData } from './user';
+import { setCurrentUser } from '../actions/user';
 
-export const createPatient = (params) => async (dispatch) => {
+export const createPatient = (params) => async (dispatch, getState) => {
   const path = 'v1/patients';
   try {
-    await sendRequest('post', path, params);
-    dispatch(fetchUserData(params.userId));
+    const res = await sendRequest('post', path, params);
+    const patient = res.data;
+    const { currentUser } = getState();
+    const updatedUserData = { ...currentUser.data, patient };
+    dispatch(setCurrentUser({ ...currentUser, data: updatedUserData }));
   } catch (err) {
     dispatch(setError(err.response.data));
     throw new Error();
   }
 };
 
-export const updatePatient = (patientId, params) => async (dispatch) => {
+export const updatePatient = (patientId, params) => async (dispatch, getState) => {
   const path = `v1/patients/${patientId}`;
   try {
-    await sendRequest('put', path, params);
-    dispatch(fetchUserData(params.userId));
+    const res = await sendRequest('put', path, params);
+    const { patient } = res.data;
+    const { currentUser } = getState();
+    const updatedUserData = { ...currentUser.data, patient };
+    dispatch(setCurrentUser({ ...currentUser, data: updatedUserData }));
   } catch (err) {
     dispatch(setError(err.response.data));
     throw new Error();

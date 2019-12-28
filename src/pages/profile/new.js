@@ -16,7 +16,7 @@ NewProfilePage.getInitialProps = (ctx) => {
   const { store } = ctx;
   const { data } = store.getState().currentUser;
 
-  if (data.profile) {
+  if (data.patient || data.practitioner) {
     return redirect(ctx, '/');
   }
 

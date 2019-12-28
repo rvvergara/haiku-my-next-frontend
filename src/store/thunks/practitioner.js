@@ -24,7 +24,7 @@ export const updatePractitioner = (
     const res = await sendRequest('put', path, params);
     const { practitioner } = res.data;
     const { currentUser } = getState();
-    const updatedUserData = { ...currentUser.data, profile: practitioner };
+    const updatedUserData = { ...currentUser.data, practitioner };
     dispatch(setCurrentUser({ ...currentUser, data: updatedUserData }));
   } catch (err) {
     dispatch(setError(err.response.data));

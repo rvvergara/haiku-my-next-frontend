@@ -13,23 +13,23 @@ import { setAlert } from '../../../store/actions/alerts';
 
 class PractitionerForm extends React.Component {
   state = {
-    firstName: this.props.currentUserData.profile
-      ? this.props.currentUserData.profile.firstName
+    firstName: this.props.currentUserData.practitioner
+      ? this.props.currentUserData.practitioner.firstName
       : '',
-    lastName: this.props.currentUserData.profile
-      ? this.props.currentUserData.profile.lastName
+    lastName: this.props.currentUserData.practitioner
+      ? this.props.currentUserData.practitioner.lastName
       : '',
-    education: this.props.currentUserData.profile
-      ? JSON.parse(this.props.currentUserData.profile.education)
+    education: this.props.currentUserData.practitioner
+      ? JSON.parse(this.props.currentUserData.practitioner.education)
       : [],
-    specialties: this.props.currentUserData.profile
-      ? JSON.parse(this.props.currentUserData.profile.specialties)
+    specialties: this.props.currentUserData.practitioner
+      ? JSON.parse(this.props.currentUserData.practitioner.specialties)
       : [],
-    biography: this.props.currentUserData.profile
-      ? this.props.currentUserData.profile.biography
+    biography: this.props.currentUserData.practitioner
+      ? this.props.currentUserData.practitioner.biography
       : '',
-    yearsOfExperience: this.props.currentUserData.profile
-      ? this.props.currentUserData.profile.yearsOfExperience
+    yearsOfExperience: this.props.currentUserData.practitioner
+      ? this.props.currentUserData.practitioner.yearsOfExperience
       : 0,
     imageText: '',
     imageFile: null
@@ -46,13 +46,13 @@ class PractitionerForm extends React.Component {
 
   imgPreviewUrl = () => {
     const { imageFile } = this.state;
-    const { profile } = this.props.currentUserData;
+    const { practitioner } = this.props.currentUserData;
 
     if (imageFile) {
       return URL.createObjectURL(imageFile);
     }
-    if (profile && profile.image) {
-      return profile.image;
+    if (practitioner && practitioner.image) {
+      return practitioner.image;
     }
     return 'https://tinyimg.io/i/BmtLUPZ.jpg';
   };
@@ -72,8 +72,8 @@ class PractitionerForm extends React.Component {
 
     setAuthorizationToken(localStorage.token);
     const { id } = currentUserData;
-    const practitionerId = currentUserData.profile
-      ? currentUserData.profile.id
+    const practitionerId = currentUserData.practitioner
+      ? currentUserData.practitioner.id
       : undefined;
 
     const params = {
@@ -87,15 +87,11 @@ class PractitionerForm extends React.Component {
       files: imageFile
     };
 
-    console.log('IMAGE FILE', imageFile);
-
     const formData = new FormData();
 
     for (let key in params) {
       formData.append(key, params[key]);
     }
-    console.log('PARAMS', params);
-    console.log('FORM DATA', formData);
     try {
       if (Router.pathname === '/profile/new') {
         await this.props.createPractitioner(formData);

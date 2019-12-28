@@ -7,7 +7,7 @@ import { fetchUserData } from '../store/thunks/user';
 import { setCurrentUser } from '../store/actions/user';
 
 const redirectIfNoProfile = (ctx, data) => {
-  if (!data.profile && !(ctx.pathname === '/profile/new')) {
+  if (!(data.patient || data.practitioner) && !(ctx.pathname === '/profile/new')) {
     return redirect(ctx, '/profile/new');
   }
   if (ctx.pathname === '/login' || ctx.pathname === '/signup') {
