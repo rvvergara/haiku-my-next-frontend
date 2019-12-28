@@ -15,8 +15,8 @@ const SchedulePage = () => (
 SchedulePage.getInitialProps = async (ctx) => {
   const { store } = ctx;
   const { data } = store.getState().currentUser;
-  const { role, profile } = data;
-  const practitionerId = profile.id;
+  const { role, practitioner } = data;
+  const practitionerId = practitioner.id;
   if (role !== 'PRACTITIONER') {
     return redirect(ctx, '/');
   }

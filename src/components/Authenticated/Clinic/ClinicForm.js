@@ -15,7 +15,7 @@ class ClinicForm extends React.Component {
     address: this.props.clinic.address || '',
     postalCode: this.props.clinic.postalCode || '',
     associated:
-      this.props.clinic !== {} && this.props.currentUserData.profile.clinicId
+      this.props.clinic !== {} && this.props.currentUserData.practitioner.clinicId
         ? true
         : false,
     imageText: '',
@@ -74,7 +74,7 @@ class ClinicForm extends React.Component {
       updatePractitioner,
       changeClinic,
     } = this.props;
-    const profileId = currentUserData.profile.id;
+    const profileId = currentUserData.practitioner.id;
     const {
       name,
       address,

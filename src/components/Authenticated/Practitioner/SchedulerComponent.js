@@ -80,7 +80,7 @@ SchedulerComponent.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  practitionerId: state.currentUser.data.profile.id,
+  practitionerId: state.currentUser.data.practitioner.id,
   sessionDate: state.sessionDate,
   sessionDuration: state.sessionDuration,
   sessionStartTime: state.sessionStartTime,
