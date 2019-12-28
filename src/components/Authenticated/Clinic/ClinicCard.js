@@ -2,14 +2,14 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 const ClinicCard = ({ clinic }) => {
-  const { name, address, postalCode } = clinic;
+  const { name, address, postalCode,image } = clinic;
 
   return (
     <div className="clinic-card">
       <div className="profile-image">
         <img
           className="clinic-image"
-          src="https://www.asgsurgical.com/img/0062/915.png"
+          src={image}
           alt="clinic-profile"
         />
       </div>
