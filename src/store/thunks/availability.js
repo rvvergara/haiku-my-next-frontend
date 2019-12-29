@@ -3,7 +3,7 @@ import { localizeBookingSlot } from '../../utils/localize';
 import { addAvailability, listAvailabilies } from '../actions/availability';
 import setError from '../actions/error';
 
-export const createAvailabilityOnDb = (params) => async (dispatch) => {
+export const createAvailabilityOnDb = params => async dispatch => {
   const path = 'v1/booking-slots';
 
   try {
@@ -17,14 +17,38 @@ export const createAvailabilityOnDb = (params) => async (dispatch) => {
   }
 };
 
-export const fetchPractitionerAvailabilities = (practitionerId) => async (dispatch) => {
+export const fetchPractitionerAvailabilities = practitionerId => async dispatch => {
   const path = `v1/booking-slots/${practitionerId}/practitioner`;
 
   try {
     const res = await sendRequest('get', path);
     const { booking_slots } = res.data;
-    const localizedAvailabilities = booking_slots.map((slot) => localizeBookingSlot(slot));
+    const localizedAvailabilities = booking_slots.map(slot =>
+      localizeBookingSlot(slot),
+    );
     return dispatch(listAvailabilies(localizedAvailabilities));
+  } catch (err) {
+    return dispatch(setError(err));
+  }
+};
+
+export const acceptBookingSlot = bookingSlotId => async dispatch => {
+  const path = `v1/booking-slots/${bookingSlotId}/accept`;
+
+  try {
+    const res = await sendRequest('post', path);
+    return res;
+  } catch (err) {
+    return dispatch(setError(err));
+  }
+};
+
+export const rejectBookingSlot = bookingSlotId => async dispatch => {
+  const path = `v1/booking-slots/${bookingSlotId}/reject`;
+
+  try {
+    const res = await sendRequest('post', path);
+    return res;
   } catch (err) {
     return dispatch(setError(err));
   }
