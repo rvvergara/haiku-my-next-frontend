@@ -12,6 +12,7 @@ import {
   toggleSetAppointment,
 } from '../../../store/actions/booking';
 import { bookSlot } from '../../../store/thunks/booking';
+import { setAlert } from '../../../store/actions/alerts';
 
 class BookingSelection extends React.Component {
   state = {
@@ -56,6 +57,7 @@ class BookingSelection extends React.Component {
       remarks: this.state.remarks,
     };
     this.props.bookSlot(bookingData);
+    setAlert('Booking Created', 'success');
     this.props.removeAvailability(this.state.confirmButtonAvailability.id);
     this.setState(() => ({
       confirmButtonAvailability: null,
