@@ -3,16 +3,18 @@ import { IoMdClose } from 'react-icons/io';
 import { connect } from 'react-redux';
 import { listNotification } from '../../../store/actions/notification';
 import { fetchPatientBookedSlot } from '../../../store/thunks/patient';
+import { setAuthorizationToken } from '../../../utils/api';
 
 const PatientNotification = ({
   listNotification,
   notification,
   fetchPatientBookedSlot,
-  patientId
+  patientId,
 }) => {
   const [isClosed, setIsClosed] = useState(false);
 
   useEffect(() => {
+    setAuthorizationToken(localStorage.token);
     fetchPatientBookedSlot(patientId);
   }, []);
 
