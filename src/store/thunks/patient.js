@@ -45,7 +45,8 @@ export const fetchPatient = (patientId) => async (dispatch) => {
 
   try {
     const res = await sendRequest('get', path);
-    console.log(res);
+    const { patient } = res.data;
+    return patient;
   } catch (err) {
     dispatch(setError(err.response.data));
   }

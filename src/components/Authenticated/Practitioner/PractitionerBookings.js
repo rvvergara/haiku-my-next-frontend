@@ -9,7 +9,7 @@ const PractitionerBookings = ({ bookings, fetchPractitionerAvailabilities, pract
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
     fetchPractitionerAvailabilities(practitionerId);
-  });
+  }, []);
   return (
     <div>
       <h2>My Booked Slots</h2>
