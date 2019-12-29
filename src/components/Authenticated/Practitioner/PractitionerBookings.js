@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setAuthorizationToken } from '../../../utils/api';
 import { fetchPractitionerAvailabilities } from '../../../store/thunks/availability';
+import BookedSlot from '../Booking/BookedSlot';
 
 const PractitionerBookings = ({ bookings, fetchPractitionerAvailabilities, practitionerId }) => {
   useEffect(() => {
@@ -14,13 +15,14 @@ const PractitionerBookings = ({ bookings, fetchPractitionerAvailabilities, pract
       <h2>My Booked Slots</h2>
       {
       bookings.map((booking) => (
-        <div key={booking.id}>
-          { booking.id }
-        </div>
+        <BookedSlot
+          key={booking.id}
+          booking={booking}
+        />
       ))
     }
     </div>
-);
+  );
 };
 
 PractitionerBookings.propTypes = {
@@ -30,7 +32,7 @@ PractitionerBookings.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  bookings: state.availabilities,
+  bookings: state.availabilities.filter((avail) => avail.patientId !== null),
   practitionerId: state.currentUser.data.practitioner.id,
 });
 
