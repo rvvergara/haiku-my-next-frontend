@@ -30,12 +30,23 @@ export const updatePatient = (patientId, params) => async (dispatch, getState) =
   }
 };
 
-export const fetchPatientBookedSlot = patiendId => async dispatch => {
+export const fetchPatientBookedSlot = (patiendId) => async (dispatch) => {
   const path = `v1/booking-slots/${patiendId}/patient`;
   try {
     const res = await sendRequest('get', path);
     return res.data;
   } catch (err) {
     return dispatch(setError(err.response.data));
+  }
+};
+
+export const fetchPatient = (patientId) => async (dispatch) => {
+  const path = `v1/patients/${patientId}`;
+
+  try {
+    const res = await sendRequest('get', path);
+    console.log(res);
+  } catch (err) {
+    dispatch(setError(err.response.data));
   }
 };
