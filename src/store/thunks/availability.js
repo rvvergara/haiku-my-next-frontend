@@ -1,6 +1,7 @@
 import { sendRequest } from '../../utils/api';
 import { localizeBookingSlot } from '../../utils/localize';
 import { addAvailability, listAvailabilies } from '../actions/availability';
+import { confirmBooking } from '../actions/booking';
 import setError from '../actions/error';
 
 export const createAvailabilityOnDb = (params) => async (dispatch) => {
@@ -30,11 +31,12 @@ export const fetchPractitionerAvailabilities = (practitionerId) => async (dispat
   }
 };
 
-export const confirmBookingSlot = (bookingSlotId) => async (dispatch) => {
+export const confirmBookingSlotInDb = (bookingSlotId) => async (dispatch) => {
   const path = `v1/booking-slots/${bookingSlotId}/confirm`;
 
   try {
     const res = await sendRequest('post', path);
+    dispatch(confirmBooking(bookingSlotId));
     return res;
   } catch (err) {
     return dispatch(setError(err));

@@ -2,6 +2,7 @@ import {
  ADD_BOOKING,
   LIST_BOOKINGS,
   SETTING_APPOINTMENT,
+  CONFIRM_BOOKING,
 } from './types';
 
 export const addBooking = (booking) => ({
@@ -17,4 +18,9 @@ export const listBookings = (bookings) => ({
 export const toggleSetAppointment = (isBooking) => ({
   type: SETTING_APPOINTMENT,
   isBooking,
+});
+
+export const confirmBooking = (bookingId) => ({
+  type: CONFIRM_BOOKING,
+  bookingId,
 });

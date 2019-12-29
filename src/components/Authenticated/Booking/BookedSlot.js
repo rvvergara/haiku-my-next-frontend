@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchPatient } from '../../../store/thunks/patient';
-import { confirmBookingSlot, rejectBookingSlot } from '../../../store/thunks/availability';
+import { confirmBookingSlotInDb, rejectBookingSlot } from '../../../store/thunks/availability';
 import { setAuthorizationToken } from '../../../utils/api';
 
 const BookedSlot = ({
- booking, fetchPatient, confirmBookingSlot, rejectBookingSlot,
+ booking, fetchPatient, confirmBookingSlotInDb, rejectBookingSlot,
 }) => {
   useEffect(() => {
 
@@ -33,7 +33,7 @@ const BookedSlot = ({
       <div>
         <button
           className="theme-button"
-          onClick={() => confirmBookingSlot(booking.id)}
+          onClick={() => confirmBookingSlotInDb(booking.id)}
         >
         Accept
         </button>
@@ -49,4 +49,4 @@ const BookedSlot = ({
 );
 };
 
-export default connect(null, { fetchPatient, confirmBookingSlot, rejectBookingSlot })(BookedSlot);
+export default connect(null, { fetchPatient, confirmBookingSlotInDb, rejectBookingSlot })(BookedSlot);
