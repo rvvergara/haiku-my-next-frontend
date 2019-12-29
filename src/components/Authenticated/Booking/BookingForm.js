@@ -27,7 +27,6 @@ class BookingForm extends React.Component {
       patientId: this.props.patientId,
       remarks: this.state.remarks
     }
-    console.log("SUBMITTING BOOKING DATA", bookingData)
     this.setState(() => ({
       remarks: ''
     }))

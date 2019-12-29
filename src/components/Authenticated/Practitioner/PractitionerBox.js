@@ -2,7 +2,6 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 const PractitionerBox = ({ practitioner }) => {
-  console.log(practitioner);
   const {
     biography,
     specialties,
