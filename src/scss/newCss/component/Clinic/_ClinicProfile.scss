@@ -15,3 +15,8 @@
   box-shadow: 1px 1px 5px $medium-grey;
   border-radius: 5px;
 }
+
+.clinic-profile-container {
+  display: flex;
+  justify-content: space-around;
+}

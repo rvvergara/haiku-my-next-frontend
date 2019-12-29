@@ -13,9 +13,13 @@ const PractitionerBox = ({ practitioner }) => {
 
   return (
     <div className="practitionerBox-container">
-      <div className="practitioner-info-container">
-        <img className="practitioner-image" src={image} alt="doctor-profile" />
-        <div className="practitioner-profile-info">
+      <div className="profile-info-container">
+        <img
+          className="practitionerBox-image"
+          src={image}
+          alt="doctor-profile"
+        />
+        <div className="">
           <p className="practitioner-name">{`${firstName} ${lastName}`}</p>
           <p className="specialties">{specialties.replace(/[\[\]"]+/g, '')}</p>
           <p className="grotesque-font profile-info-container__info__card__conten">
@@ -24,12 +28,13 @@ const PractitionerBox = ({ practitioner }) => {
           </p>
         </div>
       </div>
-
-      <Link href="/practitioners/[id]" as={`/practitioners/${id}`}>
-        <a className="clinic-button" href="/practitioner/[id]">
-          Book an Appointment
-        </a>
-      </Link>
+      <div>
+        <Link href="/practitioners/[id]" as={`/practitioners/${id}`}>
+          <a className="book-doctor-button" href="/practitioner/[id]">
+            Book an Appointment
+          </a>
+        </Link>
+      </div>
     </div>
   );
 };

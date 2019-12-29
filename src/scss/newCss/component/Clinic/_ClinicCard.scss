@@ -26,6 +26,7 @@
   padding: $small 0 $small 0;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 }
 
 @media only screen and (min-width: 600px) {
@@ -39,7 +40,7 @@
 
 .clinic-details {
   text-align: center;
-  margin: 0 $medium 0 $medium;
+  padding: $small;
 }
 
 .clinic-address,
@@ -59,7 +60,7 @@
 }
 
 .clinic-card-image-container {
-  padding-top: 40px;
+  padding: $small;
   text-align: center;
-  width: 30%;
+  width: 35%;
 }
