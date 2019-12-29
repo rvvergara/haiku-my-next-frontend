@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { connect } from 'react-redux';
-import { listNotification } from '../../../store/actions/notification';
+import { listNotificationPractitioner } from '../../../store/actions/notification';
 import { fetchPractitionerBookedSlot } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
 
 const PractitionerNotification = ({
-  listNotification,
+  listNotificationPractitioner,
   notification,
   practitionerId,
   fetchPractitionerBookedSlot,
@@ -29,23 +29,14 @@ const PractitionerNotification = ({
         <IoMdClose className="close-notif" onClick={handleClick} />
       </div>
       <ul>
-        {notification.map((notif) => (
+        {notification.map(notif => (
           <li key={notif.id}>
             <p className="notif-text">
-              You have appointment with :
-              {' '}
-              {notif.practitionerName}
+              You have appointment with : {notif.practitionerName}
             </p>
+            <p className="notif-text">Date :{notif.date}</p>
             <p className="notif-text">
-Date :
-              {notif.date}
-            </p>
-            <p className="notif-text">
-              Time :
-              {' '}
-              {notif.startTime}
--
-              {notif.endTime}
+              Time : {notif.startTime}-{notif.endTime}
             </p>
           </li>
         ))}
@@ -54,12 +45,12 @@ Date :
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   notification: state.notification,
   practitionerId: state.currentUser.data.practitioner.id,
 });
 
 export default connect(mapStateToProps, {
-  listNotification,
+  listNotificationPractitioner,
   fetchPractitionerBookedSlot,
 })(PractitionerNotification);

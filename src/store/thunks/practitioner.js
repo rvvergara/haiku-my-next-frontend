@@ -1,3 +1,4 @@
+import { listNotificationPractitioner } from '../../store/actions/notification';
 import { sendRequest } from '../../utils/api';
 import setError from '../actions/error';
 import { listPractitioners, setPractitioner } from '../actions/practitioners';
@@ -58,6 +59,7 @@ export const fetchPractitionerBookedSlot = practitionerId => async dispatch => {
   const path = `v1/booking-slots/${practitionerId}/practitioner`;
   try {
     const res = await sendRequest('get', path);
+    listNotificationPractitioner(res.data);
     return res.data;
   } catch (err) {
     return dispatch(setError(err.response.data));
