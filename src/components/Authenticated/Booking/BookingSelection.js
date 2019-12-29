@@ -2,12 +2,16 @@ import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/initialize';
 import { connect } from 'react-redux';
-import { listAvailabilies } from '../../../store/actions/availability';
-import {addBooking} from '../../../store/actions/booking';
-import { removeAvailability} from '../../../store/actions/availability';
-import { displayAvailability } from '../../../store/actions/availability';
-import { toggleSetAppointment } from '../../../store/actions/booking';
-import {bookSlot} from '../../../store/thunks/booking'
+import {
+  displayAvailability,
+  listAvailabilies,
+  removeAvailability,
+} from '../../../store/actions/availability';
+import {
+  addBooking,
+  toggleSetAppointment,
+} from '../../../store/actions/booking';
+import { bookSlot } from '../../../store/thunks/booking';
 
 class BookingSelection extends React.Component {
   state = {
@@ -16,12 +20,11 @@ class BookingSelection extends React.Component {
     availableTimes: this.props.shownAvailabilities,
   };
 
-
-
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     this.setState(() => ({
       availableTimes: nextProps.shownAvailabilities,
-      selectedDate: moment(nextProps.initialDate)    }))
+      selectedDate: moment(nextProps.initialDate),
+    }));
   }
 
   handleChange = (key, val) =>
@@ -30,36 +33,40 @@ class BookingSelection extends React.Component {
     }));
 
   blocksDay = day => {
-
-    const availableDates = this.props.availabilities.map(avail => avail.date).sort();
+    const availableDates = this.props.availabilities
+      .map(avail => avail.date)
+      .sort();
     const dayFormatted = moment(day).format('MMMM DD, YYYY');
     return !availableDates.includes(dayFormatted);
   };
 
-  handleTimeClick = (availability) => {
+  handleTimeClick = availability => {
     this.setState(() => ({
-    confirmButtonAvailability: availability
+      confirmButtonAvailability: availability,
     }));
     this.props.toggleSetAppointment(true);
-    this.props.displayAvailability(availability)
-  }
+    this.props.displayAvailability(availability);
+  };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
-    const bookingData = {startTime:  this.state.confirmButtonAvailability.startTime , date:moment(this.state.selectedDate).format('MMMM D, YYYY'), remarks: this.state.remarks}
+    const bookingData = {
+      startTime: this.state.confirmButtonAvailability.startTime,
+      date: moment(this.state.selectedDate).format('MMMM D, YYYY'),
+      remarks: this.state.remarks,
+    };
     this.props.bookSlot(bookingData);
     this.props.removeAvailability(this.state.confirmButtonAvailability.id);
     this.setState(() => ({
       confirmButtonAvailability: null,
-      remarks: ''
-    }))
+      remarks: '',
+    }));
   };
 
   onDateChange = selectedDate => {
     if (selectedDate) {
       this.setState(() => ({ selectedDate: selectedDate }));
     }
-
 
     this.setState(prevState => {
       const newDate = moment(prevState.selectedDate).format('MMMM D, YYYY');
@@ -75,9 +82,9 @@ class BookingSelection extends React.Component {
 
   render() {
     return (
-      <div className="user-form profile-form">
-        <div className="form-group">
-          <label htmlFor="booking-date" className="auth-label">
+      <div className="booking-selection-container">
+        <div>
+          <label htmlFor="booking-date" className="select-date">
             Select Date
           </label>
           <SingleDatePicker
@@ -120,5 +127,5 @@ export default connect(mapStateToProps, {
   removeAvailability,
   displayAvailability,
   toggleSetAppointment,
-  bookSlot
+  bookSlot,
 })(BookingSelection);

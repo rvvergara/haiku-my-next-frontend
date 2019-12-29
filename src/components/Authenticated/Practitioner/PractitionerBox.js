@@ -17,7 +17,7 @@ const PractitionerBox = ({ practitioner }) => {
         <img className="practitioner-image" src={image} alt="doctor-profile" />
         <div className="practitioner-profile-info">
           <p className="practitioner-name">{`${firstName} ${lastName}`}</p>
-          <p className="specialties">{specialties}</p>
+          <p className="specialties">{specialties.replace(/[\[\]"]+/g, '')}</p>
           <p className="grotesque-font profile-info-container__info__card__conten">
             {biography.substring(0, 100)}
             ...

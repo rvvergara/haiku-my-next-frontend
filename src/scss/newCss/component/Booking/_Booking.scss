@@ -1,6 +1,7 @@
 .booking-container {
   margin: 0 auto;
   width: 35%;
+  min-width: 250px;
   background-color: #ffff;
   height: 100%;
   margin-bottom: 50px;
@@ -12,6 +13,7 @@
   text-align: center;
   background-color: #5073f1;
   color: #fff;
+  margin-bottom: $small;
 }
 
 .booking-form-header h3 {
@@ -27,7 +29,8 @@
   border: 2px solid #00a2ff;
   width: 80%;
   height: 40px;
-  margin-bottom: 20px;
+  margin-bottom: $small;
+  margin-top: $medium;
   outline: none;
 }
 

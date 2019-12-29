@@ -16,7 +16,7 @@ const PractitionerProfile = ({ setPractitioner, role, setClinic }) => {
   );
 
   return (
-    <div className="profile">
+    <div className="practitioner-profile-container">
       <div>
         <PractitionerCard />
         <PractitionerDetailsCard />
