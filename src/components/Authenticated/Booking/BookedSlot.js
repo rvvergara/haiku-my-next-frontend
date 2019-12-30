@@ -7,9 +7,13 @@ import { setAuthorizationToken } from '../../../utils/api';
 const BookedSlot = ({
  booking, fetchPatient, confirmBookingSlotInDb, rejectBookingSlot,
 }) => {
+  let patient;
   useEffect(() => {
-
-  }, [booking.status]);
+    fetchPatient(booking.patientId)
+      .then((data) => {
+        patient = data;
+      }).then(() => console.log('PATIENT TO SHOW', patient));
+  }, []);
   return (
     <div>
       <p>
@@ -25,19 +29,21 @@ const BookedSlot = ({
         {booking.endTime}
       </p>
       <p>
-      PatientID:
+      Patient:
         {' '}
-        {booking.patientId}
+        { patient && patient.firstName}
       </p>
       {booking.status === 'PENDING' && (
       <div>
         <button
+          type="button"
           className="theme-button"
           onClick={() => confirmBookingSlotInDb(booking.id)}
         >
         Accept
         </button>
         <button
+          type="button"
           className="theme-button"
           onClick={() => rejectBookingSlot(booking.id)}
         >

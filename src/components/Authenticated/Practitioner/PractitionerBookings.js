@@ -8,7 +8,7 @@ import BookedSlot from '../Booking/BookedSlot';
 const PractitionerBookings = ({ bookings, fetchPractitionerAvailabilities, practitionerId }) => {
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
-    fetchPractitionerAvailabilities(practitionerId);
+    fetchPractitionerAvailabilities(practitionerId, '', '');
   }, []);
   return (
     <div>
