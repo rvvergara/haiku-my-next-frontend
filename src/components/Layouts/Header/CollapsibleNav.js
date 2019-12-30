@@ -30,12 +30,22 @@ export const CollapsibleNav = ({ currentUserData, logout }) => {
               <PatientNavLinks />
             )}
           </div>
-          <div className="header__links__welcome">
-            <strong className="logged-header-greeting">
-              Welcome {role === 'PRACTITIONER' ? 'Dr. ' : ''}
-              {currentUserData.practitioner.firstName}
-            </strong>
-          </div>
+          {
+            (currentUserData.patient || currentUserData.practitioner) && (
+            <div className="header__links__welcome">
+              <strong className="logged-header-greeting">
+              Welcome
+                {' '}
+                {
+                role === 'PRACTITIONER'
+                 ? 'Dr. '
+                 : ''
+              }
+                {currentUserData.practitioner.firstName}
+              </strong>
+            </div>
+            )
+          }
           <Nav.Link
             type="button"
             className="theme-button inverse-theme-button"
@@ -55,7 +65,7 @@ CollapsibleNav.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
 });
 
