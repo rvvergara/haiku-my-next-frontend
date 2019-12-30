@@ -1,7 +1,7 @@
 import { sendRequest } from '../../utils/api';
 import { localizeBookingSlot } from '../../utils/localize';
 import { addAvailability, listAvailabilies } from '../actions/availability';
-import { confirmBooking } from '../actions/booking';
+import { confirmBooking, rejectBooking } from '../actions/booking';
 import setError from '../actions/error';
 
 export const createAvailabilityOnDb = (params) => async (dispatch) => {
@@ -45,11 +45,12 @@ export const confirmBookingSlotInDb = (bookingSlotId) => async (dispatch) => {
   }
 };
 
-export const rejectBookingSlot = (bookingSlotId) => async (dispatch) => {
+export const rejectBookingSlotInDb = (bookingSlotId) => async (dispatch) => {
   const path = `v1/booking-slots/${bookingSlotId}/reject`;
 
   try {
     const res = await sendRequest('post', path);
+    dispatch(rejectBooking(bookingSlotId));
     return res;
   } catch (err) {
     return dispatch(setError(err));

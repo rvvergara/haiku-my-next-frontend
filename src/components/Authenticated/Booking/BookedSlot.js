@@ -1,17 +1,23 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchPatient } from '../../../store/thunks/patient';
-import { confirmBookingSlotInDb, rejectBookingSlot } from '../../../store/thunks/availability';
+import { confirmBookingSlotInDb, rejectBookingSlotInDb } from '../../../store/thunks/availability';
 import { setAlert } from '../../../store/actions/alerts';
 import { setAuthorizationToken } from '../../../utils/api';
 
 const BookedSlot = ({
- booking, fetchPatient, confirmBookingSlotInDb, rejectBookingSlot, setAlert,
+ booking, fetchPatient, confirmBookingSlotInDb, rejectBookingSlotInDb, setAlert,
 }) => {
   let patient;
+
   const handleConfirm = () => {
     confirmBookingSlotInDb(booking.id);
     setAlert('Booking confirmed', 'success');
+  };
+
+  const handleReject = () => {
+    rejectBookingSlotInDb(booking.id);
+    setAlert('Booking rejected', 'danger');
   };
   // useEffect(() => {
 
@@ -47,7 +53,7 @@ const BookedSlot = ({
         <button
           type="button"
           className="theme-button"
-          onClick={() => rejectBookingSlot(booking.id)}
+          onClick={handleReject}
         >
         Reject
         </button>
@@ -64,6 +70,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
  fetchPatient,
 confirmBookingSlotInDb,
-  rejectBookingSlot,
+  rejectBookingSlotInDb,
   setAlert,
 })(BookedSlot);
