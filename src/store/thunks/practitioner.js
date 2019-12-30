@@ -64,6 +64,8 @@ export const fetchPractitionerBookedSlot = (practitionerId) => async (dispatch) 
     listNotificationPractitioner(res.data);
     return res.data;
   } catch (err) {
-    return dispatch(setError(err.response.data));
+    console.log('ERROR IN FETCHPRACTBOOK', err);
+    console.log('ERROR RESPOSNE', err.response);
+    return dispatch(setError(err));
   }
 };
