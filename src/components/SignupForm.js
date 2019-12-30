@@ -1,10 +1,10 @@
-import { connect } from 'react-redux';
-import Router from 'next/router';
 import Link from 'next/link';
-import validator from 'validator';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
-import { signup } from '../store/thunks/user';
+import { connect } from 'react-redux';
+import validator from 'validator';
 import setError from '../store/actions/error';
+import { signup } from '../store/thunks/user';
 
 class SignupForm extends React.Component {
   state = {
@@ -12,90 +12,86 @@ class SignupForm extends React.Component {
     role: '',
     password: '',
     pwConfirm: '',
-    formError: ''
-  }
+    referralCode: '',
+    formError: '',
+  };
 
   componentWillUnmount() {
     this.props.setError('');
   }
 
   isValidSignup = () => {
-    const {
-      email, password, pwConfirm, role
-    } = this.state;
+    const { email, password, pwConfirm, role } = this.state;
 
     if (!password || !pwConfirm) {
       this.setState(() => ({
-        formError: 'All fields are required'
-      }))
+        formError: 'All fields are required',
+      }));
     } else if (!validator.isEmail(email)) {
       this.setState(() => ({
-        formError: 'Please put a valid email'
+        formError: 'Please put a valid email',
       }));
     } else if (password !== pwConfirm) {
       this.setState(() => ({
-        formError: "Passwords don't match"
+        formError: "Passwords don't match",
       }));
     } else if (role === '') {
       this.setState(() => ({
-        formError: 'Please select a role'
+        formError: 'Please select a role',
       }));
     } else {
-        return true;
+      return true;
     }
     return false;
-  }
+  };
 
   handleChange = (key, val) => {
     this.setState(() => ({
-      [key]: val
+      [key]: val,
     }));
-  }
+  };
 
-  handleSignup = async (e) => {
+  handleSignup = async e => {
     e.preventDefault();
     if (!this.isValidSignup()) {
       return;
     }
-    const {
-      email,
-      password,
-      role
-    } = this.state;
+    const { email, password, role ,referralCode} = this.state;
 
     try {
       await this.props.signup({
         email,
         password,
-        role
+        role,
+        referralCode
       });
       Router.push('/verify');
     } catch (err) {
       this.setState(() => ({
-        formError: ''
-      }))
+        formError: '',
+      }));
       return err;
     }
-  }
+  };
 
-  render(){
+  render() {
     const {
-      email, password, pwConfirm, role, formError
+      email,
+      password,
+      pwConfirm,
+      role,
+      referralCode,
+      formError,
     } = this.state;
     return (
       <div>
         <div className="form-error">
-          {formError && (<strong>{formError}</strong>)}
-          {
-            this.props.error && <strong>{this.props.error}</strong>
-          }
+          {formError && <strong>{formError}</strong>}
+          {this.props.error && <strong>{this.props.error}</strong>}
         </div>
         <form className="user-form">
           <div className="form-group">
-            <label
-              className="auth-label"
-              htmlFor="email"
-            >
+            <label className="auth-label" htmlFor="email">
               Email
             </label>
             <input
@@ -103,14 +99,11 @@ class SignupForm extends React.Component {
               className="user-form__input"
               type="email"
               value={email}
-              onChange={(e) => this.handleChange('email', e.target.value)}
+              onChange={e => this.handleChange('email', e.target.value)}
             />
           </div>
           <div className="form-group">
-            <label
-              className="auth-label"
-              htmlFor="role"
-            >
+            <label className="auth-label" htmlFor="role">
               Select Role
             </label>
             <select
@@ -118,33 +111,21 @@ class SignupForm extends React.Component {
               className="user-form__input"
               name="role"
               value={role}
-              onChange={(e) => this.handleChange('role', e.target.value)}
+              onChange={e => this.handleChange('role', e.target.value)}
             >
-              <option
-                className="user-form__option"
-                value=""
-              >
+              <option className="user-form__option" value="">
                 I am a...
               </option>
-              <option
-                className="user-form__option"
-                value="PATIENT"
-              >
+              <option className="user-form__option" value="PATIENT">
                 Patient
               </option>
-              <option
-                className="user-form__option"
-                value="PRACTITIONER"
-              >
+              <option className="user-form__option" value="PRACTITIONER">
                 Practitioner
               </option>
             </select>
           </div>
           <div className="form-group">
-            <label
-              className="auth-label"
-              htmlFor="password"
-            >
+            <label className="auth-label" htmlFor="password">
               Password
             </label>
             <input
@@ -152,15 +133,12 @@ class SignupForm extends React.Component {
               className="user-form__input"
               type="password"
               value={password}
-              onChange={(e) => this.handleChange('password', e.target.value)}
+              onChange={e => this.handleChange('password', e.target.value)}
               placeholder="Password"
             />
           </div>
           <div className="form-group">
-            <label
-              className="auth-label"
-              htmlFor="password-confirm"
-            >
+            <label className="auth-label" htmlFor="password-confirm">
               Confirm Password
             </label>
             <input
@@ -168,7 +146,20 @@ class SignupForm extends React.Component {
               className="user-form__input"
               type="password"
               value={pwConfirm}
-              onChange={(e) => this.handleChange('pwConfirm', e.target.value)}
+              onChange={e => this.handleChange('pwConfirm', e.target.value)}
+              placeholder="Confirm Password"
+            />
+          </div>
+          <div className="form-group">
+            <label className="auth-label" htmlFor="referral-code">
+              Referral Code
+            </label>
+            <input
+              id="referral-code"
+              className="user-form__input"
+              type="text"
+              value={referralCode}
+              onChange={e => this.handleChange('referralCode', e.target.value)}
               placeholder="Confirm Password"
             />
           </div>
@@ -178,17 +169,14 @@ class SignupForm extends React.Component {
               type="submit"
               onClick={this.handleSignup}
             >
-          Create Account
+              Create Account
             </button>
           </div>
           <footer className="user-form__footer">
             <small>
               Already have an account?
               <Link href="/login">
-                <button
-                  type="button"
-                  className="login-text"
-                >
+                <button type="button" className="login-text">
                   Login
                 </button>
               </Link>
@@ -205,7 +193,7 @@ SignupForm.propTypes = {
   signup: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   error: state.error,
 });
 
