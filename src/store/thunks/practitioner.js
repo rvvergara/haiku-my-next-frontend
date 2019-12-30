@@ -36,7 +36,7 @@ export const updatePractitioner = (practitionerId, params) => async (
 };
 
 export const fetchPractitionersByClinicId = (clinicId) => async (dispatch) => {
-  const path = `v1/practitioners/${clinicId}/clinic`;
+  const path = `v1/clinics/${clinicId}/practitioners`;
   try {
     const res = await sendRequest('get', path);
     dispatch(listPractitioners(res.data.practitioners));
