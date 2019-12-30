@@ -8,7 +8,8 @@
     "dev": "next -p 3000",
     "lint": "eslint .eslintrc.json --fix --ignore-pattern '!.eslintrc.json'",
     "start": "next start",
-    "test": "jest --config jest.config.json"
+    "test": "jest --config jest.config.json",
+    "prod": "npm run build && npm run start"
   },
   "proxy": "http://localhost:8000",
   "repository": {
