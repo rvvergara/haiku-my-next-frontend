@@ -18,8 +18,10 @@ export const createAvailabilityOnDb = (params) => async (dispatch) => {
   }
 };
 
-export const fetchPractitionerAvailabilities = (practitionerId) => async (dispatch) => {
-  const path = `v1/practitioners/${practitionerId}/booking-slots`;
+export const fetchPractitionerAvailabilities = (practitionerId,
+  patientId,
+  status) => async (dispatch) => {
+  const path = `v1/practitioners/${practitionerId}/booking-slots?patientId=${patientId}&status=${status.toUpperCase()}`;
 
   try {
     const res = await sendRequest('get', path);

@@ -15,7 +15,7 @@ DoctorProfile.getInitialProps = async (ctx) => {
   const { dispatch } = store;
   await dispatch(fetchOnePractitioner(query.id));
   const practitionerId = store.getState().displayedPractitioner.id;
-  await dispatch(fetchPractitionerAvailabilities(practitionerId));
+  await dispatch(fetchPractitionerAvailabilities(practitionerId, '', ''));
 };
 
 export default connect((state) => state)(DoctorProfile);

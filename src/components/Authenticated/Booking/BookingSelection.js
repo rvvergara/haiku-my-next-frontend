@@ -13,6 +13,8 @@ import {
 } from '../../../store/actions/booking';
 import { bookSlot } from '../../../store/thunks/booking';
 import { setAlert } from '../../../store/actions/alerts';
+import { setAuthorizationToken } from '../../../utils/api';
+import { fetchPractitionerAvailabilities } from '../../../store/thunks/availability';
 
 class BookingSelection extends React.Component {
   state = {
@@ -20,6 +22,11 @@ class BookingSelection extends React.Component {
     selectedDate: moment(this.props.initialDate),
     availableTimes: this.props.shownAvailabilities,
   };
+
+  componentDidMount(){
+    setAuthorizationToken(localStorage.token)
+    this.props.fetchPractitionerAvailabilities(this.props.displayedPractitioner.id, '', 'PENDING')
+  }
 
   componentWillReceiveProps(nextProps) {
     this.setState(() => ({
@@ -52,8 +59,7 @@ class BookingSelection extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     const bookingData = {
-      startTime: this.state.confirmButtonAvailability.startTime,
-      date: moment(this.state.selectedDate).format('MMMM D, YYYY'),
+      patientId: this.props.patientId,
       remarks: this.state.remarks,
     };
     this.props.bookSlot(bookingData);
@@ -117,10 +123,12 @@ class BookingSelection extends React.Component {
 
 const mapStateToProps = state => ({
   availabilities: state.availabilities,
-  // initialDate: state.availabilities[0].date,
   shownAvailabilities: state.availabilities.filter(
     avail => avail.date === state.availabilities[0].date,
   ),
+  displayedPractitioner: state.displayedPractitioner,
+  displayedAvailability: state.displayedAvailability,
+  patientId: state.currentUser.data.patient.id
 });
 
 export default connect(mapStateToProps, {
@@ -130,4 +138,5 @@ export default connect(mapStateToProps, {
   displayAvailability,
   toggleSetAppointment,
   bookSlot,
+  fetchPractitionerAvailabilities
 })(BookingSelection);
