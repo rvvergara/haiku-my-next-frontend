@@ -10,6 +10,7 @@ import MultipleInput from '../ProfileCommon/MultipleInput';
 import { setAuthorizationToken } from '../../../utils/api';
 import setError from '../../../store/actions/error';
 import { setAlert } from '../../../store/actions/alerts';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 class PractitionerForm extends React.Component {
   state = {
@@ -32,6 +33,7 @@ class PractitionerForm extends React.Component {
       ? this.props.currentUserData.practitioner.yearsOfExperience
       : 0,
     imageText: '',
+    referralCode: this.props.currentUserData.referralCode,
     imageFile: null
   };
 
@@ -67,7 +69,8 @@ class PractitionerForm extends React.Component {
       specialties,
       biography,
       yearsOfExperience,
-      imageFile
+      imageFile,
+      referralCode
     } = this.state;
 
     setAuthorizationToken(localStorage.token);
@@ -116,7 +119,8 @@ class PractitionerForm extends React.Component {
       education,
       specialties,
       yearsOfExperience,
-      imageText
+      imageText,
+      referralCode
     } = this.state;
     return (
       <div className='container profile-form-container'>
@@ -142,6 +146,19 @@ class PractitionerForm extends React.Component {
               value={imageText}
             />
           </div>
+
+          <div className="form-group">
+            <label className="auth-label" htmlFor="first-name">
+              Referral Code:{' '}
+            </label>
+
+            <div>{referralCode}</div>
+            <CopyToClipboard text={referralCode}>
+              <p className="copy-clipboard">Copy to clipboard</p>
+            </CopyToClipboard>
+          </div>
+
+
           <div className='form-group'>
             <label className='auth-label' htmlFor='first-name'>
               First Name:{' '}
