@@ -1,15 +1,17 @@
-import { listNotificationPractitioner } from '../../store/actions/notification';
+import { listNotificationPractitioner } from '../actions/notification';
 import { sendRequest } from '../../utils/api';
 import setError from '../actions/error';
 import { listPractitioners, setPractitioner } from '../actions/practitioners';
 import { setCurrentUser } from '../actions/user';
-import { fetchUserData } from './user';
 
-export const createPractitioner = params => async dispatch => {
+export const createPractitioner = (params) => async (dispatch, getState) => {
   const path = 'v1/practitioners';
   try {
-    await sendRequest('post', path, params);
-    dispatch(fetchUserData(params.userId));
+    const res = await sendRequest('post', path, params);
+    const { practitioner } = res.data;
+    const { currentUser } = getState();
+    const updatedUserData = { ...currentUser.data, practitioner };
+    dispatch(setCurrentUser({ ...currentUser, data: updatedUserData }));
   } catch (err) {
     dispatch(setError(err.response.data));
     throw new Error();
@@ -33,7 +35,7 @@ export const updatePractitioner = (practitionerId, params) => async (
   }
 };
 
-export const fetchPractitionersByClinicId = clinicId => async dispatch => {
+export const fetchPractitionersByClinicId = (clinicId) => async (dispatch) => {
   const path = `v1/practitioners/${clinicId}/clinic`;
   try {
     const res = await sendRequest('get', path);
@@ -44,7 +46,7 @@ export const fetchPractitionersByClinicId = clinicId => async dispatch => {
   }
 };
 
-export const fetchOnePractitioner = practitionerId => async dispatch => {
+export const fetchOnePractitioner = (practitionerId) => async (dispatch) => {
   const path = `v1/practitioners/${practitionerId}`;
   try {
     const res = await sendRequest('get', path);
@@ -55,7 +57,7 @@ export const fetchOnePractitioner = practitionerId => async dispatch => {
   }
 };
 
-export const fetchPractitionerBookedSlot = practitionerId => async dispatch => {
+export const fetchPractitionerBookedSlot = (practitionerId) => async (dispatch) => {
   const path = `v1/booking-slots/${practitionerId}/practitioner`;
   try {
     const res = await sendRequest('get', path);
