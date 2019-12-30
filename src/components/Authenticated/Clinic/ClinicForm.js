@@ -15,13 +15,14 @@ class ClinicForm extends React.Component {
     address: this.props.clinic.address || '',
     postalCode: this.props.clinic.postalCode || '',
     associated:
-      this.props.clinic !== {} && this.props.currentUserData.practitioner.clinicId
+      this.props.clinic !== {} &&
+      this.props.currentUserData.practitioner.clinicId
         ? true
         : false,
     imageText: '',
     imageFile: null,
     category: this.props.clinic.category || '',
-    openingHours: this.props.clinic.openingHours || '',
+    openingHours: this.props.clinic.openingHours || ''
   };
 
   componentWillUnmount() {
@@ -31,13 +32,13 @@ class ClinicForm extends React.Component {
 
   handleChange = (key, val) => {
     this.setState(() => ({
-      [key]: val,
+      [key]: val
     }));
   };
 
   handleAssociated = () => {
     this.setState(prevState => ({
-      associated: !prevState.associated,
+      associated: !prevState.associated
     }));
   };
 
@@ -61,7 +62,7 @@ class ClinicForm extends React.Component {
       currentUserData,
       createClinic,
       updatePractitioner,
-      changeClinic,
+      changeClinic
     } = this.props;
     const profileId = currentUserData.practitioner.id;
     const {
@@ -70,7 +71,7 @@ class ClinicForm extends React.Component {
       postalCode,
       imageFile,
       category,
-      openingHours,
+      openingHours
     } = this.state;
 
     const params = {
@@ -80,7 +81,7 @@ class ClinicForm extends React.Component {
       files: imageFile,
       category,
       practitionerId: profileId,
-      openingHours,
+      openingHours
     };
 
     const formData = new FormData();
@@ -93,7 +94,6 @@ class ClinicForm extends React.Component {
     try {
       if (Router.pathname === '/clinics/new') {
         clinic = await createClinic(formData);
-        console.log("CLINIC CREATED", clinic)
         this.props.setAlert('Clinic Created!', 'success');
       } else {
         clinic = await this.props.changeClinic(this.props.clinic.id, formData);
@@ -107,11 +107,10 @@ class ClinicForm extends React.Component {
     if (clinic && this.state.associated) {
       await updatePractitioner(profileId, {
         clinicId: clinic.id,
-        userId: currentUserData.id,
+        userId: currentUserData.id
       });
     }
     if (clinic) {
-      console.log("THIS SHOULD PUSH!!")
       Router.push('/clinics');
     }
   };
@@ -124,29 +123,29 @@ class ClinicForm extends React.Component {
       associated,
       imageText,
       category,
-      openingHours,
+      openingHours
     } = this.state;
 
     return (
-      <div className="container profile-form-container">
-        <div className="form-error">
+      <div className='container profile-form-container'>
+        <div className='form-error'>
           {this.props.error && <strong>{this.props.error}</strong>}
         </div>
-        <form className="user-form profile-form">
-          <div className="form-group">
-            <div className="image-preview">
+        <form className='user-form profile-form'>
+          <div className='form-group'>
+            <div className='image-preview'>
               <img
                 src={this.imgPreviewUrl()}
-                alt="Patient"
-                className="profile-avatar__img"
+                alt='Patient'
+                className='profile-avatar__img'
               />
             </div>
-            <label className="auth-label" htmlFor="profile-pic">
+            <label className='auth-label' htmlFor='profile-pic'>
               Profile Pic:{' '}
             </label>
             <input
-              type="file"
-              id="profile-pic"
+              type='file'
+              id='profile-pic'
               onChange={e => {
                 this.handleChange('imageText', e.target.value);
                 this.handleChange('imageFile', e.target.files[0]);
@@ -154,86 +153,86 @@ class ClinicForm extends React.Component {
               value={imageText}
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="clinic-name" className="auth-label">
+          <div className='form-group'>
+            <label htmlFor='clinic-name' className='auth-label'>
               Name
             </label>
             <input
-              id="clinic-name"
-              className="user-form__input"
-              type="text"
+              id='clinic-name'
+              className='user-form__input'
+              type='text'
               onChange={e => this.handleChange('name', e.target.value)}
               value={name}
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="clinic-address" className="auth-label">
+          <div className='form-group'>
+            <label htmlFor='clinic-address' className='auth-label'>
               Address
             </label>
             <input
-              className="user-form__input"
-              id="clinic-address"
-              type="text"
+              className='user-form__input'
+              id='clinic-address'
+              type='text'
               onChange={e => this.handleChange('address', e.target.value)}
               value={address}
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="clinic-postal-code" className="auth-label">
+          <div className='form-group'>
+            <label htmlFor='clinic-postal-code' className='auth-label'>
               Postal Code
             </label>
             <input
-              id="clinic-postal-code"
-              className="user-form__input"
-              type="number"
+              id='clinic-postal-code'
+              className='user-form__input'
+              type='number'
               onChange={e => this.handleChange('postalCode', e.target.value)}
               value={postalCode}
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="category" className="auth-label">
+          <div className='form-group'>
+            <label htmlFor='category' className='auth-label'>
               category
             </label>
             <input
-              id="category"
-              className="user-form__input"
-              type="text"
+              id='category'
+              className='user-form__input'
+              type='text'
               onChange={e => this.handleChange('category', e.target.value)}
               value={category}
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="openingHours" className="auth-label">
+          <div className='form-group'>
+            <label htmlFor='openingHours' className='auth-label'>
               Opening Hours
             </label>
             <input
-              id="openingHours"
-              className="user-form__input"
-              type="text"
+              id='openingHours'
+              className='user-form__input'
+              type='text'
               onChange={e => this.handleChange('openingHours', e.target.value)}
               value={openingHours}
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="associated" className="auth-label">
+          <div className='form-group'>
+            <label htmlFor='associated' className='auth-label'>
               Do i work here?
             </label>
             <input
-              id="associated"
-              type="checkbox"
+              id='associated'
+              type='checkbox'
               checked={associated}
               onChange={this.handleAssociated}
-              className="checkbox-round"
+              className='checkbox-round'
             />
           </div>
 
-          <div className="form-group">
-            <button className="user-form__button" onClick={this.handleSubmit}>
+          <div className='form-group'>
+            <button className='user-form__button' onClick={this.handleSubmit}>
               Submit
             </button>
           </div>
@@ -251,13 +250,13 @@ ClinicForm.propTypes = {
   setError: PropTypes.func.isRequired,
   changeClinic: PropTypes.func.isRequired,
   setClinic: PropTypes.func.isRequired,
-  error: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
   currentUserData: state.currentUser.data,
   clinic: state.displayedClinic,
-  error: state.error,
+  error: state.error
 });
 
 export default connect(mapStateToProps, {
@@ -267,5 +266,5 @@ export default connect(mapStateToProps, {
   uploadPic,
   setClinic,
   setError,
-  setAlert,
+  setAlert
 })(ClinicForm);

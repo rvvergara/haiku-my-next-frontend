@@ -31,7 +31,7 @@ export const updatePatient = (patientId, params) => async (dispatch, getState) =
 };
 
 export const fetchPatientBookedSlot = (patiendId) => async (dispatch) => {
-  const path = `v1/booking-slots/${patiendId}/patient`;
+  const path = `v1/patients/${patiendId}/booking-slots`;
   try {
     const res = await sendRequest('get', path);
     return res.data;

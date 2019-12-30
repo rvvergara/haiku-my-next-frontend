@@ -10,7 +10,7 @@
     "start": "next start",
     "test": "jest --config jest.config.json"
   },
-  "proxy": "https://api.igaku.co",
+  "proxy": "http://localhost:8000",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/igaku/New-frontend.git"

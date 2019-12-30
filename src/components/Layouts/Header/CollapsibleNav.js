@@ -41,7 +41,7 @@ export const CollapsibleNav = ({ currentUserData, logout }) => {
                  ? 'Dr. '
                  : ''
               }
-                {currentUserData.practitioner.firstName}
+                {role === 'PRACTITIONER' ? currentUserData.practitioner.firstName : currentUserData.patient.firstName}
               </strong>
             </div>
             )
