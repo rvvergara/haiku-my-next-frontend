@@ -19,7 +19,7 @@ export const createAvailabilityOnDb = (params) => async (dispatch) => {
 };
 
 export const fetchPractitionerAvailabilities = (practitionerId) => async (dispatch) => {
-  const path = `v1/booking-slots/${practitionerId}/practitioner`;
+  const path = `v1/practitioners/${practitionerId}/booking-slots`;
 
   try {
     const res = await sendRequest('get', path);

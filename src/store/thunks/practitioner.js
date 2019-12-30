@@ -58,14 +58,12 @@ export const fetchOnePractitioner = (practitionerId) => async (dispatch) => {
 };
 
 export const fetchPractitionerBookedSlot = (practitionerId) => async (dispatch) => {
-  const path = `v1/booking-slots/${practitionerId}/practitioner`;
+  const path = `v1/practitioners/${practitionerId}/booking-slots`;
   try {
     const res = await sendRequest('get', path);
     listNotificationPractitioner(res.data);
     return res.data;
   } catch (err) {
-    console.log('ERROR IN FETCHPRACTBOOK', err);
-    console.log('ERROR RESPOSNE', err.response);
     return dispatch(setError(err));
   }
 };

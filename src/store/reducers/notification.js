@@ -11,7 +11,6 @@ export default (state = notification, action) => {
     case LIST_NOTIFICATION:
       return action.notification;
     case LIST_NOTIFICATION_PRACTITIONER:
-      console.log(action);
       return action.booking_slots;
     default:
       return state;
