@@ -4,6 +4,7 @@ import {
   LIST_AVAILABILITIES,
   REMOVE_AVAILABILITY,
   BOOK_AVAILABILITY,
+  CONFIRM_BOOKING,
 } from '../actions/types';
 
 // Temporarily setting id for new availabilities until we connect to backend
@@ -24,6 +25,15 @@ export default (state = [], action) => {
         newState[indexToBook] = bookedSlot;
         return newState;
       }
+      case CONFIRM_BOOKING:
+        {
+          const indexToConfirm = state.findIndex((slot) => slot.id === action.bookingId);
+
+          const newState = [...state];
+          const confirmedSlot = { ...newState[indexToConfirm], status: 'CONFIRMED' };
+          newState[indexToConfirm] = confirmedSlot;
+          return newState;
+        }
     default:
       return state;
   }
