@@ -3,12 +3,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setAuthorizationToken } from '../../../utils/api';
 import { fetchPractitionerAvailabilities } from '../../../store/thunks/availability';
+import { setPractitioner } from '../../../store/actions/practitioners';
 import BookedSlot from '../Booking/BookedSlot';
 
 const PractitionerBookings = ({ bookings, fetchPractitionerAvailabilities, practitionerId }) => {
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
     fetchPractitionerAvailabilities(practitionerId, '', '');
+    return () => {
+      setPractitioner({});
+    };
   }, []);
   return (
     <div>
@@ -36,4 +40,4 @@ const mapStateToProps = (state) => ({
   practitionerId: state.currentUser.data.practitioner.id,
 });
 
-export default connect(mapStateToProps, { fetchPractitionerAvailabilities })(PractitionerBookings);
+export default connect(mapStateToProps, { fetchPractitionerAvailabilities, setPractitioner })(PractitionerBookings);

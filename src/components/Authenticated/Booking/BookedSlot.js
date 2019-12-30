@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { fetchPatient } from '../../../store/thunks/patient';
 import { confirmBookingSlotInDb, rejectBookingSlotInDb } from '../../../store/thunks/availability';
 import { setAlert } from '../../../store/actions/alerts';
-import { setAuthorizationToken } from '../../../utils/api';
+import { listAvailabilies } from '../../../store/actions/availability';
 
 const BookedSlot = ({
- booking, fetchPatient, confirmBookingSlotInDb, rejectBookingSlotInDb, setAlert,
+ booking, fetchPatient, confirmBookingSlotInDb, rejectBookingSlotInDb, setAlert, listAvailabilies,
 }) => {
   let patient;
 
@@ -19,9 +19,9 @@ const BookedSlot = ({
     rejectBookingSlotInDb(booking.id);
     setAlert('Booking rejected', 'danger');
   };
-  // useEffect(() => {
-
-  // }, [availabilities, booking]);
+  useEffect(() => () => {
+      listAvailabilies([]);
+    }, []);
   return (
     <div>
       <p>
@@ -72,4 +72,5 @@ export default connect(mapStateToProps, {
 confirmBookingSlotInDb,
   rejectBookingSlotInDb,
   setAlert,
+  listAvailabilies,
 })(BookedSlot);
