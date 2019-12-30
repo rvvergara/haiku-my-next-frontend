@@ -41,17 +41,6 @@ class ClinicForm extends React.Component {
     }));
   };
 
-  handleUploadPic = async () => {
-    const { currentUserData } = this.props;
-    const { imageFile } = this.state;
-    const { id } = currentUserData;
-    const formData = new FormData();
-    formData.append('files', imageFile);
-    formData.append('userId', id);
-    const res = await this.props.uploadPic(formData);
-    return res;
-  };
-
   imgPreviewUrl = () => {
     const { imageFile } = this.state;
     const { clinic } = this.props;
@@ -104,7 +93,7 @@ class ClinicForm extends React.Component {
     try {
       if (Router.pathname === '/clinics/new') {
         clinic = await createClinic(formData);
-
+        console.log("CLINIC CREATED", clinic)
         this.props.setAlert('Clinic Created!', 'success');
       } else {
         clinic = await this.props.changeClinic(this.props.clinic.id, formData);
@@ -122,6 +111,7 @@ class ClinicForm extends React.Component {
       });
     }
     if (clinic) {
+      console.log("THIS SHOULD PUSH!!")
       Router.push('/clinics');
     }
   };
