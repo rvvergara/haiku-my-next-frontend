@@ -1,0 +1,24 @@
+.booking-duration {
+  margin: 0 auto;
+  font-size: 1.5rem;
+  color: $calendly-blue;
+  border: 2px solid $calendly-blue;
+  width: 150px;
+  height: 40px;
+  margin-bottom: 20px;
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+    background: $calendly-blue;
+    color: $light-grey;
+    font-weight: 700;
+  }
+}
+
+.selected-duration {
+  cursor: pointer;
+  background: $calendly-blue;
+  color: $light-grey;
+  font-weight: 700;
+}

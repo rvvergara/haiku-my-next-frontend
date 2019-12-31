@@ -1,4 +1,4 @@
-import { ADD_BOOKING, LIST_BOOKINGS } from '../actions/types';
+import { ADD_BOOKING, LIST_BOOKINGS, CONFIRM_BOOKING } from '../actions/types';
 
 export default (state = [], action) => {
   switch (action.type) {

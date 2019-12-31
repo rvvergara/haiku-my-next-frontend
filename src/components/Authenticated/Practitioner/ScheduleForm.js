@@ -7,7 +7,7 @@ import { setSessionDate } from '../../../store/actions/availability';
 class ScheduleForm extends React.Component {
   state = {
     calendarFocused: false,
-    selectedDate: moment(this.props.sessionDate),
+    selectedDate: moment(),
     availableTimes: this.props.shownAvailabilities,
   };
 

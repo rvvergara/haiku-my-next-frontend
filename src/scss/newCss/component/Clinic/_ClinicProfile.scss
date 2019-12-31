@@ -1,0 +1,22 @@
+.clinic-profile-card {
+  margin-bottom: 2.6rem;
+  padding-bottom: 50px;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px #c7d0d8;
+  display: flex;
+  flex-direction: column;
+}
+
+.clinic-profile-image {
+  display: block;
+  margin: $small auto;
+  width: 80%;
+  box-shadow: 1px 1px 5px $medium-grey;
+  border-radius: 5px;
+}
+
+.clinic-profile-container {
+  display: flex;
+  justify-content: space-around;
+}

@@ -2,26 +2,26 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 const ClinicCard = ({ clinic }) => {
-  const { name, address, postalCode } = clinic;
+  const { name, address, postalCode,image } = clinic;
 
   return (
-    <div className="practitioner-card clinic-card-container">
-      <div className="profile-image">
+    <div className="clinic-card">
+      <div className="clinic-card-image-container">
         <img
-          className="clinic-image"
-          src="https://www.asgsurgical.com/img/0062/915.png"
+          className="clinic-card-image"
+          src={image}
           alt="clinic-profile"
         />
       </div>
 
-      <div className="profile-info-container fixed-width">
-        <h2 className="practitioner-name clinic-name">{name}</h2>
+      <div className="clinic-details">
+        <h2 className="clinic-name">{name}</h2>
         <div className="profile-info-container__info__card">
-          <ul className="profile-list grotesque-font">
-            <li className="grotesque-font profile-info-container__info__card__content">
+          <ul>
+            <li className="clinic-address">
               {address}
             </li>
-            <li className="grotesque-font profile-info-container__info__card__content">
+            <li className="clinic-postalcode">
               {postalCode}
             </li>
           </ul>

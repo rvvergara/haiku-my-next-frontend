@@ -1,0 +1,17 @@
+body{
+  background: $light-grey;
+}
+
+.authenticated-body {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: $container-side-pad*0.25;
+  padding: 0 $container-side-pad
+}
+
+.authenticated-body__content {
+  background: $light-blue;
+  background: none;
+  flex: 1;
+}

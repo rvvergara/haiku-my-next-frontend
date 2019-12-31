@@ -13,7 +13,7 @@ const CreateClinic = () => (
 CreateClinic.getInitialProps = (ctx) => {
   const { store } = ctx;
   const { data } = store.getState().currentUser;
-  if (data.role !== 'practitioner') {
+  if (data.role !== 'PRACTITIONER') {
     return redirect(ctx, '/');
   }
   return { currentUserData: data };

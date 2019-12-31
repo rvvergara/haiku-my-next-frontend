@@ -1,106 +1,129 @@
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import Router from 'next/router';
 import moment from 'moment';
-import 'react-dates/initialize';
+import Router from 'next/router';
+import PropTypes from 'prop-types';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { SingleDatePicker } from 'react-dates';
-import MultipleInput from '../ProfileCommon/MultipleInput';
+import 'react-dates/initialize';
+import { connect } from 'react-redux';
+import { setAlert } from '../../../store/actions/alerts';
+import setError from '../../../store/actions/error';
 import { createPatient, updatePatient } from '../../../store/thunks/patient';
 import { uploadPic } from '../../../store/thunks/upload';
 import { setAuthorizationToken } from '../../../utils/api';
-import setError from '../../../store/actions/error';
-import {setAlert} from '../../../store/actions/alerts'
+import MultipleInput from '../ProfileCommon/MultipleInput';
 
 class PatientForm extends React.Component {
   state = {
-    contactNo: this.props.currentUserData.profile ? this.props.currentUserData.profile.contactNo : '',
-    passport: this.props.currentUserData.profile ? this.props.currentUserData.profile.passport : '',
-    postalCode: this.props.currentUserData.profile ? this.props.currentUserData.profile.postalCode : '',
-    address: this.props.currentUserData.profile ? this.props.currentUserData.profile.address : '',
-    dob: this.props.currentUserData.profile ? moment(this.props.currentUserData.profile.dob) : moment(),
-    languages: this.props.currentUserData.profile ? this.props.currentUserData.profile.languages : [],
-    points: this.props.currentUserData.profile ? this.props.currentUserData.profile.points : 0,
+    firstName: this.props.currentUserData.patient
+      ? this.props.currentUserData.patient.firstName
+      : '',
+    lastName: this.props.currentUserData.patient
+      ? this.props.currentUserData.patient.lastName
+      : '',
+    contactNumber: this.props.currentUserData.patient
+      ? this.props.currentUserData.patient.contactNumber
+      : '',
+    passport: this.props.currentUserData.patient
+      ? this.props.currentUserData.patient.passport
+      : '',
+    postalCode: this.props.currentUserData.patient
+      ? this.props.currentUserData.patient.postalCode
+      : '',
+    address: this.props.currentUserData.patient
+      ? this.props.currentUserData.patient.address
+      : '',
+    dateOfBirth: this.props.currentUserData.patient
+      ? moment(this.props.currentUserData.patient.dateOfBirth)
+      : moment(),
+    languages: this.props.currentUserData.patient
+      ? JSON.parse(this.props.currentUserData.patient.languages)
+      : [],
+    referralCode: this.props.currentUserData.referralCode,
     imageText: '',
     imageFile: null,
     calendarFocused: false,
-  }
+  };
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.props.setError('');
   }
 
-  handleChange = (key, val) => this.setState(() => ({
-    [key]: val
-  }));
+  handleChange = (key, val) =>
+    this.setState(() => ({
+      [key]: val,
+    }));
 
-  onDateChange = (dob) => {
-    if (dob) {
-      this.setState(() => ({'dob': dob}));
+  onDateChange = dateOfBirth => {
+    if (dateOfBirth) {
+      this.setState(() => ({ dateOfBirth: dateOfBirth }));
     }
   };
 
-  onFocusChange = ({ focused }) => this.handleChange('calendarFocused', focused);
-
-  handleUploadPic = async () => {
-    const { currentUserData } = this.props;
-    const { imageFile } = this.state;
-    const { id } = currentUserData;
-    const formData = new FormData();
-    formData.append('files', imageFile);
-    formData.append('userId', id);
-    const res = await this.props.uploadPic(formData);
-    return res;
-  };
+  onFocusChange = ({ focused }) =>
+    this.handleChange('calendarFocused', focused);
 
   imgPreviewUrl = () => {
     const { imageFile } = this.state;
-    const { profile } = this.props.currentUserData;
+    const { patient } = this.props.currentUserData;
 
     if (imageFile) {
       return URL.createObjectURL(imageFile);
     }
-    if (profile && profile.image) {
-      return profile.image;
+    if (patient && patient.image) {
+      return patient.image;
     }
     return 'https://tinyimg.io/i/BmtLUPZ.jpg';
   };
 
-  handleSubmit = async (e) => {
+  handleSubmit = async e => {
     e.preventDefault();
     const { currentUserData } = this.props;
-    const { contactNo, passport, postalCode, address, dob, languages, points, imageText } = this.state;
+
+    const {
+      firstName,
+      lastName,
+      contactNumber,
+      passport,
+      postalCode,
+      address,
+      dateOfBirth,
+      languages,
+      imageFile,
+    } = this.state;
 
     setAuthorizationToken(localStorage.token);
 
     const { id } = currentUserData;
-    const patientId = currentUserData.profile ? currentUserData.profile.id : undefined;
-
-    let imageURL;
-
-    if (imageText) {
-      imageURL = await this.handleUploadPic();
-    }
+    const patientId = currentUserData.patient
+      ? currentUserData.patient.id
+      : undefined;
 
     const params = {
-      contactNo,
+      firstName,
+      lastName,
+      contactNumber,
       passport,
       postalCode,
       address,
-      dob: dob.valueOf(),
-      languages,
-      points,
+      files: imageFile,
+      dateOfBirth: moment(dateOfBirth.valueOf()).toJSON(),
+      languages: JSON.stringify(languages),
       userId: id,
-      image: imageURL,
     };
 
+    const formData = new FormData();
+
+    for (let key in params) {
+      formData.append(key, params[key]);
+    }
     try {
       if (Router.pathname === '/profile/new') {
-        await this.props.createPatient(params);
-        this.props.setAlert('Profile created','success')
+        await this.props.createPatient(formData);
+        this.props.setAlert('Profile created', 'success');
       }
       if (Router.pathname === '/profile/edit') {
-        await this.props.updatePatient(patientId, params);
-        this.props.setAlert('Profile updated','success')
+        await this.props.updatePatient(patientId, formData);
+        this.props.setAlert('Profile updated', 'success');
       }
       setTimeout(() => Router.push('/'), 1000);
       return true;
@@ -109,8 +132,21 @@ class PatientForm extends React.Component {
     }
   };
 
-  render(){
-    const { contactNo, passport, postalCode, address, dob, languages, points, imageText, calendarFocused } = this.state;
+  render() {
+    const {
+      firstName,
+      lastName,
+      contactNumber,
+      passport,
+      postalCode,
+      address,
+      dateOfBirth,
+      languages,
+      points,
+      imageText,
+      calendarFocused,
+      referralCode,
+    } = this.state;
 
     return (
       <div className="container profile-form-container">
@@ -123,94 +159,111 @@ class PatientForm extends React.Component {
                 className="profile-avatar__img"
               />
             </div>
-            <label
-              className="auth-label"
-              htmlFor="profile-pic"
-            >
-            Profile Pic:
-              {' '}
+
+            <label className="auth-label" htmlFor="profile-pic">
+              Profile Pic:{' '}
             </label>
             <input
               type="file"
               id="profile-pic"
-              onChange={(e) => {
+              onChange={e => {
                 this.handleChange('imageText', e.target.value);
                 this.handleChange('imageFile', e.target.files[0]);
               }}
               value={imageText}
             />
           </div>
+
           <div className="form-group">
-            <label
-              className="auth-label"
-              htmlFor="contact-no"
-            >
-                Contact Number:
-              {' '}
+            <label className="auth-label" htmlFor="first-name">
+              Referral Code:{' '}
+            </label>
+
+            <div>{referralCode}</div>
+            <CopyToClipboard text={referralCode}>
+              <p className="copy-clipboard">Copy to clipboard</p>
+            </CopyToClipboard>
+          </div>
+
+          <div className="form-group">
+            <label className="auth-label" htmlFor="first-name">
+              First Name:{' '}
+            </label>
+            <input
+              className="user-form__input number__input"
+              type="text"
+              id="first-name"
+              onChange={e => this.handleChange('firstName', e.target.value)}
+              value={firstName}
+            />
+          </div>
+          <div className="form-group">
+            <label className="auth-label" htmlFor="last-name">
+              Last Name:{' '}
+            </label>
+            <input
+              className="user-form__input number__input"
+              type="text"
+              id="last-name"
+              onChange={e => this.handleChange('lastName', e.target.value)}
+              value={lastName}
+            />
+          </div>
+          <div className="form-group">
+            <label className="auth-label" htmlFor="contact-no">
+              Contact Number:{' '}
             </label>
             <input
               className="user-form__input number__input"
               type="text"
               id="contact-no"
-              onChange={(e) => this.handleChange('contactNo', e.target.value)}
-              value={contactNo}
+              onChange={e => this.handleChange('contactNumber', e.target.value)}
+              value={contactNumber}
             />
           </div>
           <div className="form-group">
-            <label
-              className="auth-label"
-              htmlFor="passport"
-            >
+            <label className="auth-label" htmlFor="passport">
               Passport No.
             </label>
             <input
               className="user-form__input number__input"
               type="text"
               id="passport"
-              onChange={(e) => this.handleChange('passport', e.target.value)}
+              onChange={e => this.handleChange('passport', e.target.value)}
               value={passport}
             />
           </div>
           <div className="form-group">
-            <label
-              className="auth-label"
-              htmlFor="address"
-            >
+            <label className="auth-label" htmlFor="address">
               Address
             </label>
             <input
               className="user-form__input"
               type="text"
               id="address"
-              onChange={(e) => this.handleChange('address', e.target.value)}
+              onChange={e => this.handleChange('address', e.target.value)}
               value={address}
             />
           </div>
           <div className="form-group">
-            <label
-              className="auth-label"
-              htmlFor="postal-code"
-            >
+            <label className="auth-label" htmlFor="postal-code">
               Postal Code
             </label>
             <input
               className="user-form__input number__input"
               type="text"
               id="postal-code"
-              onChange={(e) => this.handleChange('postalCode', e.target.value)}
+              onChange={e => this.handleChange('postalCode', e.target.value)}
               value={postalCode}
             />
           </div>
           <div className="form-group">
-            <label
-              className="auth-label"
-              htmlFor="dob"
-            >
+            <label className="auth-label" htmlFor="dob">
               Date of Birth:
             </label>
             <SingleDatePicker
               id="dob"
-              date={dob}
+              date={dateOfBirth}
               onDateChange={this.onDateChange}
               focused={calendarFocused}
               onFocusChange={this.onFocusChange}
@@ -221,24 +274,9 @@ class PatientForm extends React.Component {
           <div className="form-group">
             <label htmlFor="languages">Languages</label>
             <MultipleInput
-              selectedInputs={(inputs) => this.handleChange('languages',inputs)}
+              selectedInputs={inputs => this.handleChange('languages', inputs)}
               values={languages}
               labelId="languages"
-            />
-          </div>
-          <div className="form-group">
-            <label
-              className="auth-label"
-              htmlFor="points"
-            >
-              Points
-            </label>
-            <input
-              className="user-form__input"
-              type="number"
-              id="points"
-              onChange={(e) => this.handleChange('points', e.target.value)}
-              value={points}
             />
           </div>
           <div className="form-group profile-form-group">
@@ -265,7 +303,7 @@ PatientForm.propTypes = {
   uploadPic: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   currentUserData: state.currentUser.data,
   error: state.error,
 });
@@ -275,5 +313,5 @@ export default connect(mapStateToProps, {
   setError,
   updatePatient,
   uploadPic,
-  setAlert
+  setAlert,
 })(PatientForm);

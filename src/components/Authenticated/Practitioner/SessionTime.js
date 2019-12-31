@@ -11,11 +11,9 @@ const SessionTimes = ({
   setSessionStartTime,
 }) => {
   const format = 'h:mm a';
-  const now = moment(sessionStartTime, 'LTS');
   const handleChange = (val) => {
     if (val) setSessionStartTime(val.format(format));
   };
-
   return (
     <div className="scheduler-inner-component-container">
       <h3 className="scheduler-inner-component__title">Choose an available time for your appointment</h3>
@@ -23,7 +21,7 @@ const SessionTimes = ({
       <TimePicker
         id="from-time"
         showSecond={false}
-        defaultValue={now}
+        defaultValue={moment('9:00 am', 'LTS')}
         className="xxx"
         onChange={handleChange}
         format={format}

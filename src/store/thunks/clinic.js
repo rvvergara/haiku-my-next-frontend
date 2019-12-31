@@ -1,10 +1,13 @@
 import { sendRequest } from '../../utils/api';
 import {
- addClinic, listClinics, setClinic, updateClinic,
+  addClinic,
+  listClinics,
+  setClinic,
+  updateClinic,
 } from '../actions/clinic';
 import setError from '../actions/error';
 
-export const createClinic = (params) => async (dispatch) => {
+export const createClinic = params => async dispatch => {
   const path = 'v1/clinics';
   try {
     const res = await sendRequest('post', path, params);
@@ -16,8 +19,8 @@ export const createClinic = (params) => async (dispatch) => {
   }
 };
 
-export const changeClinic = (clinicId, params) => async (dispatch) => {
-  const path = `v1/clinic/${clinicId}`;
+export const changeClinic = (clinicId, params) => async dispatch => {
+  const path = `v1/clinics/${clinicId}`;
   try {
     const res = await sendRequest('put', path, params);
     const changedClinic = res.data.clinic;
@@ -28,7 +31,7 @@ export const changeClinic = (clinicId, params) => async (dispatch) => {
   }
 };
 
-export const fetchClinics = () => async (dispatch) => {
+export const fetchClinics = () => async dispatch => {
   const path = 'v1/clinics';
   try {
     const res = await sendRequest('get', path);
@@ -39,8 +42,8 @@ export const fetchClinics = () => async (dispatch) => {
   }
 };
 
-export const fetchOneClinic = (clinicId) => async (dispatch) => {
-  const path = `v1/clinic/${clinicId}`;
+export const fetchOneClinic = clinicId => async dispatch => {
+  const path = `v1/clinics/${clinicId}`;
   try {
     const res = await sendRequest('get', path);
     const clinic = await res.data.clinic;

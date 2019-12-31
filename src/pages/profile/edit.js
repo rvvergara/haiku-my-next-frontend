@@ -6,7 +6,7 @@ import ConnectedPatientForm from '../../components/Authenticated/Patient/Patient
 
 export const ProfileEditPage = ({ currentUserData }) => (
   <Layout title={`Edit ${currentUserData.role} profile`}>
-    {currentUserData.role === 'practitioner' ? <ConnectedPractitionerForm /> : <ConnectedPatientForm />}
+    {currentUserData.role === 'PRACTITIONER' ? <ConnectedPractitionerForm /> : <ConnectedPatientForm />}
   </Layout>
 );
 

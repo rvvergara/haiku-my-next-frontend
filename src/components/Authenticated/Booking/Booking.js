@@ -6,8 +6,7 @@ import BookingForm from './BookingForm';
 const Booking = ({ settingAppointment }) => (
   <div className="booking-container">
     <div className="booking-form-header">
-      <h3>Book an Appointment</h3>
-      <p>Monday to Friday 09.00am-06.00pm</p>
+      <h5>Book an Appointment</h5>
     </div>
     {
       settingAppointment
@@ -18,7 +17,7 @@ const Booking = ({ settingAppointment }) => (
   );
 
 Booking.propTypes = {
-  settingAppointment: PropTypes.func.isRequired,
+  // settingAppointment: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

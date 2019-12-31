@@ -3,52 +3,58 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   createPractitioner,
-  updatePractitioner,
+  updatePractitioner
 } from '../../../store/thunks/practitioner';
 import { uploadPic } from '../../../store/thunks/upload';
 import MultipleInput from '../ProfileCommon/MultipleInput';
 import { setAuthorizationToken } from '../../../utils/api';
 import setError from '../../../store/actions/error';
-import {setAlert} from '../../../store/actions/alerts'
+import { setAlert } from '../../../store/actions/alerts';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 class PractitionerForm extends React.Component {
   state = {
-    education: this.props.currentUserData.profile ? this.props.currentUserData.profile.education : [],
-    specialties: this.props.currentUserData.profile ? this.props.currentUserData.profile.specialities : [],
-    biography: this.props.currentUserData.profile ? this.props.currentUserData.profile.biography : '',
-    yearsExp: this.props.currentUserData.profile ? this.props.currentUserData.profile.yearsExp : 0,
+    firstName: this.props.currentUserData.practitioner
+      ? this.props.currentUserData.practitioner.firstName
+      : '',
+    lastName: this.props.currentUserData.practitioner
+      ? this.props.currentUserData.practitioner.lastName
+      : '',
+    education: this.props.currentUserData.practitioner
+      ? JSON.parse(this.props.currentUserData.practitioner.education)
+      : [],
+    specialties: this.props.currentUserData.practitioner
+      ? JSON.parse(this.props.currentUserData.practitioner.specialties)
+      : [],
+    biography: this.props.currentUserData.practitioner
+      ? this.props.currentUserData.practitioner.biography
+      : '',
+    yearsOfExperience: this.props.currentUserData.practitioner
+      ? this.props.currentUserData.practitioner.yearsOfExperience
+      : 0,
     imageText: '',
+    referralCode: this.props.currentUserData.referralCode,
     imageFile: null
-  }
+  };
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.props.setError('');
   }
 
-  handleChange = (key, val) => this.setState(() => ({
-    [key]: val
-  }));
-
-  handleUploadPic = async () => {
-    const { currentUserData } = this.props;
-    const { imageFile } = this.state;
-    const { id } = currentUserData;
-    const formData = new FormData();
-    formData.append('files', imageFile);
-    formData.append('userId', id);
-    const res = await this.props.uploadPic(formData);
-    return res;
-  };
+  handleChange = (key, val) =>
+    this.setState(() => ({
+      [key]: val
+    }));
 
   imgPreviewUrl = () => {
     const { imageFile } = this.state;
-    const { profile } = this.props.currentUserData;
+    const { practitioner } = this.props.currentUserData;
 
     if (imageFile) {
       return URL.createObjectURL(imageFile);
     }
-    if (profile && profile.image) {
-      return profile.image;
+    if (practitioner && practitioner.image) {
+      return practitioner.image;
     }
     return 'https://tinyimg.io/i/BmtLUPZ.jpg';
   };
@@ -56,36 +62,47 @@ class PractitionerForm extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
     const { currentUserData } = this.props;
-    const { education, specialties, biography, yearsExp, imageText } = this.state;
+    const {
+      firstName,
+      lastName,
+      education,
+      specialties,
+      biography,
+      yearsOfExperience,
+      imageFile,
+      referralCode
+    } = this.state;
 
-    setAuthorizationToken(localStorage.token)
+    setAuthorizationToken(localStorage.token);
     const { id } = currentUserData;
-    const practitionerId = currentUserData.profile
-      ? currentUserData.profile.id
+    const practitionerId = currentUserData.practitioner
+      ? currentUserData.practitioner.id
       : undefined;
 
-    let imageUrl;
-
-    if (imageText) {
-      imageUrl = await this.handleUploadPic();
-    }
-
     const params = {
-      education,
-      specialities: specialties,
+      firstName,
+      lastName,
+      education: JSON.stringify(education),
+      specialties: JSON.stringify(specialties),
       biography,
-      yearsExp,
+      yearsOfExperience,
       userId: id,
-      image: imageUrl,
+      files: imageFile
     };
+
+    const formData = new FormData();
+
+    for (let key in params) {
+      formData.append(key, params[key]);
+    }
     try {
       if (Router.pathname === '/profile/new') {
-        await this.props.createPractitioner(params);
-        this.props.setAlert('Profile Created','success')
+        await this.props.createPractitioner(formData);
+        this.props.setAlert('Profile Created', 'success');
       }
       if (Router.pathname === '/profile/edit') {
-        await this.props.updatePractitioner(practitionerId, params);
-        this.props.setAlert('Profile updated','success')
+        await this.props.updatePractitioner(practitionerId, formData);
+        this.props.setAlert('Profile updated', 'success');
       }
       setTimeout(() => Router.push('/'), 1000);
       return true;
@@ -95,29 +112,33 @@ class PractitionerForm extends React.Component {
   };
 
   render() {
-    const { biography, education, specialties, yearsExp, imageText } = this.state;
+    const {
+      firstName,
+      lastName,
+      biography,
+      education,
+      specialties,
+      yearsOfExperience,
+      imageText,
+      referralCode
+    } = this.state;
     return (
-      <div className="container profile-form-container">
-        <div className="form-error">
-          {
-            this.props.error && <strong>{this.props.error}</strong>
-          }
-        </div>
-        <form className="user-form profile-form">
-          <div className="form-group">
-            <div className="image-preview">
+      <div className='container profile-form-container'>
+        <form className='user-form profile-form'>
+          <div className='form-group'>
+            <div className='image-preview'>
               <img
                 src={this.imgPreviewUrl()}
-                alt="Patient"
-                className="profile-avatar__img"
+                alt='Patient'
+                className='profile-avatar__img'
               />
             </div>
-            <label className="auth-label" htmlFor="profile-pic">
+            <label className='auth-label' htmlFor='profile-pic'>
               Profile Pic:{' '}
             </label>
             <input
-              type="file"
-              id="profile-pic"
+              type='file'
+              id='profile-pic'
               onChange={e => {
                 this.handleChange('imageText', e.target.value);
                 this.handleChange('imageFile', e.target.files[0]);
@@ -125,55 +146,96 @@ class PractitionerForm extends React.Component {
               value={imageText}
             />
           </div>
+
           <div className="form-group">
-            <label className="auth-label" htmlFor="contact-no">
+            <label className="auth-label" htmlFor="first-name">
+              Referral Code:{' '}
+            </label>
+
+            <div>{referralCode}</div>
+            <CopyToClipboard text={referralCode}>
+              <p className="copy-clipboard">Copy to clipboard</p>
+            </CopyToClipboard>
+          </div>
+
+
+          <div className='form-group'>
+            <label className='auth-label' htmlFor='first-name'>
+              First Name:{' '}
+            </label>
+            <input
+              className='user-form__input number__input'
+              type='text'
+              id='first-name'
+              onChange={e => this.handleChange('firstName', e.target.value)}
+              value={firstName}
+            />
+          </div>
+          <div className='form-group'>
+            <label className='auth-label' htmlFor='last-name'>
+              Last Name:{' '}
+            </label>
+            <input
+              className='user-form__input number__input'
+              type='text'
+              id='last-name'
+              onChange={e => this.handleChange('lastName', e.target.value)}
+              value={lastName}
+            />
+          </div>
+          <div className='form-group'>
+            <label className='auth-label' htmlFor='contact-no'>
               Education:{' '}
             </label>
             <MultipleInput
               selectedInputs={inputs => this.handleChange('education', inputs)}
               values={education}
-              labelId="education"
+              labelId='education'
             />
           </div>
-          <div className="form-group">
-            <label className="auth-label" htmlFor="specialties">
+          <div className='form-group'>
+            <label className='auth-label' htmlFor='specialties'>
               Specialties:{' '}
             </label>
             <MultipleInput
-              selectedInputs={inputs => this.handleChange('specialties', inputs)}
+              selectedInputs={inputs =>
+                this.handleChange('specialties', inputs)
+              }
               values={specialties}
-              labelId="specialties"
+              labelId='specialties'
             />
           </div>
-          <div className="form-group">
-            <label className="auth-label" htmlFor="address">
+          <div className='form-group'>
+            <label className='auth-label' htmlFor='address'>
               Biography:{' '}
             </label>
             <textarea
               rows={5}
-              className="user-form__input"
-              type="text"
-              id="biography"
+              className='user-form__input'
+              type='text'
+              id='biography'
               onChange={e => this.handleChange('biography', e.target.value)}
               value={biography}
             />
           </div>
-          <div className="form-group">
-            <label className="auth-label" htmlFor="years-experience">
+          <div className='form-group'>
+            <label className='auth-label' htmlFor='years-experience'>
               Years Experience:{' '}
             </label>
             <input
-              className="user-form__input number__input"
-              type="number"
-              id="years-experience"
-              onChange={e => this.handleChange('yearsExp', e.target.value)}
-              value={yearsExp}
+              className='user-form__input number__input'
+              type='number'
+              id='years-experience'
+              onChange={e =>
+                this.handleChange('yearsOfExperience', e.target.value)
+              }
+              value={yearsOfExperience}
             />
           </div>
-          <div className="form-group profile-form-group">
+          <div className='form-group profile-form-group'>
             <button
-              className="user-form__button profile-button"
-              type="submit"
+              className='user-form__button profile-button'
+              type='submit'
               onClick={this.handleSubmit}
             >
               Update Profile
@@ -191,7 +253,7 @@ PractitionerForm.propTypes = {
   error: PropTypes.string.isRequired,
   setError: PropTypes.func.isRequired,
   updatePractitioner: PropTypes.func.isRequired,
-  uploadPic: PropTypes.func.isRequired,
+  uploadPic: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

@@ -1,20 +1,47 @@
-@import './base/variables';
-@import './base/base';
-// Components
-@import './components/Layouts/Header';
-@import './components/Layouts/Sidebar/Sidebar';
-@import './components/Layouts/Layout.scss';
-@import './components/VisitorContent/Intro';
-@import './components/VisitorContent/About';
-@import './components/VisitorContent/Offerings/Offering';
-@import './components/VisitorContent/VisitorHeader';
-@import './components/VisitorContent/VisitorContent';
-@import './components/Form';
-@import './components/Authenticated/ProfileCommon/ProfileInfoGroup';
-@import './components/Authenticated/ProfileCommon/MultipleInput';
-@import './components/Clinic/ClinicCard';
-@import './components/Practitioners/Practitioner';
-@import './components/Booking/Booking';
-@import './components/Practitioners/Sessions';
-@import './components/Layouts/Alert';
-@import './components//Practitioners/Scheduler'
+// @import './base/variables';
+// @import './base/base';
+// Old CSS Components
+// @import './components/Layouts/Header';
+// @import './components/Layouts/Sidebar/Sidebar';
+// @import './components/Layouts/Layout.scss';
+// @import './components/VisitorContent/Intro';
+// @import './components/VisitorContent/About';
+// @import './components/VisitorContent/Offerings/Offering';
+// @import './components/VisitorContent/VisitorHeader';
+// @import './components/VisitorContent/VisitorContent';
+// @import './components/Form';
+// @import './components/Authenticated/ProfileCommon/ProfileInfoGroup';
+// @import './components/Authenticated/ProfileCommon/MultipleInput';
+// @import './components/Clinic/ClinicCard';
+// @import './components/Practitioners/Practitioner';
+// @import './components/Booking/Booking';
+// @import './components/Practitioners/Sessions';
+// @import './components/Layouts/Alert';
+// @import './components//Practitioners/Scheduler'
+
+// New Css
+@import './newCss/base/variables';
+@import './newCss/base/base';
+@import './newCss/VisitorLayout/homepage';
+@import './newCss/component/common';
+@import './newCss/VisitorLayout/login';
+@import './newCss/VisitorLayout/signup';
+@import './newCss/Logged/logged_header';
+@import './newCss/component/Patient/patientNotification';
+@import './newCss/component/Clinic/ClinicCard.scss';
+@import './newCss/component/Clinic/ClinicProfile';
+@import './newCss/component/Practitioner/practitioner';
+@import './newCss/component/Practitioner/practitionerCard';
+@import './newCss/VisitorLayout/verification';
+@import './newCss/component/Alert';
+@import './newCss/component/Practitioner/practitionerDetailsCard';
+@import './newCss/component/Booking/Booking';
+@import './newCss//component/Layout.scss';
+@import './newCss/component/Practitioner/practitionerProfile';
+@import './newCss/component/Booking/BookingSelection';
+@import './newCss/component/Practitioner/PractitionerBox';
+@import './newCss/component/Practitioner/PractitionerList';
+@import './newCss/component/Scheduler/SchedulerComponent.scss';
+@import './newCss/component/Scheduler/DurationButton.scss';
+@import './newCss/component/Patient/patientForm';
+@import './newCss/component/MultipleInput'

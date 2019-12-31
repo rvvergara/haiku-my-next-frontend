@@ -3,6 +3,7 @@ import redirect from 'next-redirect';
 import SchedulerComponent from '../components/Authenticated/Practitioner/SchedulerComponent';
 import ScheduleList from '../components/Authenticated/Practitioner/ScheduleList';
 import Layout from '../components/Layouts/Layout';
+import { fetchPractitionerAvailabilities } from '../store/thunks/availability';
 
 const SchedulePage = () => (
   <Layout title="Schedule Availability">
@@ -11,13 +12,15 @@ const SchedulePage = () => (
   </Layout>
 );
 
-SchedulePage.getInitialProps = (ctx) => {
+SchedulePage.getInitialProps = async (ctx) => {
   const { store } = ctx;
   const { data } = store.getState().currentUser;
-  const { role } = data;
-  if (role !== 'practitioner') {
+  const { role, practitioner } = data;
+  const practitionerId = practitioner.id;
+  if (role !== 'PRACTITIONER') {
     return redirect(ctx, '/');
   }
+  await store.dispatch(fetchPractitionerAvailabilities(practitionerId));
   return data;
 };
 

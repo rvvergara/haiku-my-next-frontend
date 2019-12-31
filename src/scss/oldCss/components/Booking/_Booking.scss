@@ -1,0 +1,92 @@
+.booking-container {
+  width: 35%;
+  background-color: #ffff;
+  height: 100%;
+  margin-bottom: 50px;
+  box-shadow: 1px 1px 5px #c7d0d8;
+}
+
+.booking-form-header {
+  padding: 20px 6px 20px 6px;
+  text-align: center;
+  background-color: #5073f1;
+  color: #fff;
+
+}
+
+.booking-form-header h3{
+  margin-bottom: 15px;
+}
+
+// styling for bookingform
+
+.booking-availabilities {
+  margin: 0 auto;
+  font-size: 1.5rem;
+  color: #00a2ff;
+  border: 2px solid #00a2ff;
+  width: 80%;
+  height: 40px;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.booking-availabilities:hover {
+  cursor: pointer;
+}
+
+.confirm-booking {
+  display: block;
+  margin: 0 auto;
+  font-size: 1.5rem;
+  color: #fff;
+  background-color: #00a2ff;
+  width:64px;
+  height: 40px;
+  outline: none;
+  border-radius: 3px;
+}
+
+.patient-booking-box,
+.practitioner-booking-box {
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px #c7d0d8;
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 1.4rem;
+  width: 90%;
+  padding: 20px;
+}
+
+.booking-modal{
+  margin-top:20px;
+ padding: 0px 20px 20px 20px;
+}
+
+#remarks{
+  padding:10px;
+}
+
+.remark-label{
+  display: inline-block;
+  margin:20px 0px 10px 0px;
+  color: #20385a;
+  font-weight: 700;
+  text-align: left;
+}
+
+.booking-form-title p{
+  font-size: 1.5 rem;
+}
+
+.booking-button{
+  margin-top:15px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.orange{
+  background-color: tomato;
+}

@@ -11,9 +11,9 @@ services:
       dockerfile: dev.Dockerfile
       context: ./
     volumes:
-      - "./:/app"
+      - './:/app'
       - /app/node_modules
     ports:
-      - "3000:3000"
-    networks: 
+      - '3000:3000'
+    networks:
       - igaku
