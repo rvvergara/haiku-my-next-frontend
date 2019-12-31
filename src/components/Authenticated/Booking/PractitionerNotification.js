@@ -28,7 +28,7 @@ const PractitionerNotification = ({
         <h4>Notification for doctor</h4>
         <IoMdClose className="close-notif" onClick={handleClick} />
       </div>
-      <ul>
+      {/* <ul>
         {notification.map((notif) => (
           <li key={notif.id}>
             <p className="notif-text">
@@ -49,7 +49,7 @@ Date :
             </p>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
