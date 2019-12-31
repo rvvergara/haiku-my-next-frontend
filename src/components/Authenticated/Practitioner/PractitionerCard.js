@@ -5,7 +5,7 @@ const PractitionerCard = ({ practitioner }) => {
   const defaultPic = 'https://i.imgur.com/GJxJnJ1.png'
   return (
     <div className="practitioner-card">
-      <div className="profile-image">
+      <div className="practitionerCard-image-container">
         <img
           className="practitionerCard-image"
           src={practitioner.image === null ? defaultPic : practitioner.image}
