@@ -72,7 +72,7 @@ class PatientForm extends React.Component {
     if (patient && patient.image) {
       return patient.image;
     }
-    return 'https://tinyimg.io/i/BmtLUPZ.jpg';
+    return 'https://i.imgur.com/GJxJnJ1.png';
   };
 
   handleSubmit = async e => {
@@ -156,7 +156,7 @@ class PatientForm extends React.Component {
               <img
                 src={this.imgPreviewUrl()}
                 alt="Patient"
-                className="profile-avatar__img"
+                className="patientForm-image"
               />
             </div>
 
@@ -281,7 +281,7 @@ class PatientForm extends React.Component {
           </div>
           <div className="form-group profile-form-group">
             <button
-              className="user-form__button profile-button"
+              className="patientForm-button"
               type="submit"
               onClick={this.handleSubmit}
             >
