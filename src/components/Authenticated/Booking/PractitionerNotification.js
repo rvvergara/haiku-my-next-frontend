@@ -8,14 +8,14 @@ import { setAuthorizationToken } from '../../../utils/api';
 const PractitionerNotification = ({
   listNotificationPractitioner,
   notification,
-  practitionerId,
+  currentUserData,
   fetchPractitionerBookedSlot,
 }) => {
   const [isClosed, setIsClosed] = useState(false);
 
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
-    fetchPractitionerBookedSlot(practitionerId);
+    fetchPractitionerBookedSlot(currentUserData.practitioner.id);
   }, []);
 
   const handleClick = () => {
@@ -29,14 +29,23 @@ const PractitionerNotification = ({
         <IoMdClose className="close-notif" onClick={handleClick} />
       </div>
       <ul>
-        {notification.map(notif => (
+        {notification.map((notif) => (
           <li key={notif.id}>
             <p className="notif-text">
-              You have appointment with : {notif.practitionerName}
+              You have appointment with :
+              {' '}
+              {notif.practitionerName}
             </p>
-            <p className="notif-text">Date :{notif.date}</p>
             <p className="notif-text">
-              Time : {notif.startTime}-{notif.endTime}
+Date :
+              {notif.date}
+            </p>
+            <p className="notif-text">
+              Time :
+              {' '}
+              {notif.startTime}
+-
+              {notif.endTime}
             </p>
           </li>
         ))}
@@ -45,9 +54,9 @@ const PractitionerNotification = ({
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   notification: state.notification,
-  practitionerId: state.currentUser.data.practitioner.id,
+  currentUserData: state.currentUser.data,
 });
 
 export default connect(mapStateToProps, {

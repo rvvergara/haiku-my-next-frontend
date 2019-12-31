@@ -6,10 +6,10 @@ import { fetchPractitionerAvailabilities } from '../../../store/thunks/availabil
 import { setPractitioner } from '../../../store/actions/practitioners';
 import BookedSlot from '../Booking/BookedSlot';
 
-const PractitionerBookings = ({ bookings, fetchPractitionerAvailabilities, practitionerId }) => {
+const PractitionerBookings = ({ bookings, fetchPractitionerAvailabilities, currentUserData }) => {
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
-    fetchPractitionerAvailabilities(practitionerId, '', '');
+    fetchPractitionerAvailabilities(currentUserData.practitioner.id, '', '');
     return () => {
       setPractitioner({});
     };
@@ -31,13 +31,16 @@ const PractitionerBookings = ({ bookings, fetchPractitionerAvailabilities, pract
 
 PractitionerBookings.propTypes = {
   bookings: PropTypes.instanceOf(Object).isRequired,
-  practitionerId: PropTypes.string.isRequired,
+  currentUserData: PropTypes.instanceOf(Object).isRequired,
   fetchPractitionerAvailabilities: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   bookings: state.availabilities.filter((avail) => avail.patientId !== null),
-  practitionerId: state.currentUser.data.practitioner.id,
+  currentUserData: state.currentUser.data,
 });
 
-export default connect(mapStateToProps, { fetchPractitionerAvailabilities, setPractitioner })(PractitionerBookings);
+export default connect(mapStateToProps, {
+  fetchPractitionerAvailabilities,
+  setPractitioner,
+})(PractitionerBookings);

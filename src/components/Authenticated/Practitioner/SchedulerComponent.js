@@ -13,7 +13,7 @@ import SessionDuration from './SessionDuration';
 import SessionTime from './SessionTime';
 
 const SchedulerComponent = ({
-  practitionerId,
+  currentUserData,
   sessionDate,
   sessionDuration,
   sessionStartTime,
@@ -45,7 +45,7 @@ const SchedulerComponent = ({
       date: processedDate,
       startTime: UTCStartTime,
       endTime: UTCEndTime,
-      practitionerId,
+      practitionerId: currentUserData.practitioner.id,
   };
     setAuthorizationToken(localStorage.token);
     await createAvailabilityOnDb(bookingParams);
@@ -68,7 +68,7 @@ const SchedulerComponent = ({
 
 SchedulerComponent.propTypes = {
   createAvailabilityOnDb: PropTypes.func.isRequired,
-  practitionerId: PropTypes.string.isRequired,
+  currentUserData: PropTypes.instanceOf(Object).isRequired,
   sessionDate: PropTypes.string.isRequired,
   sessionDuration: PropTypes.number.isRequired,
   sessionStartTime: PropTypes.string.isRequired,
@@ -80,7 +80,7 @@ SchedulerComponent.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  practitionerId: state.currentUser.data.practitioner.id,
+  currentUserData: state.currentUser.data,
   sessionDate: state.sessionDate,
   sessionDuration: state.sessionDuration,
   sessionStartTime: state.sessionStartTime,
