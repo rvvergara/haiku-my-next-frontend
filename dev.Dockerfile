@@ -1,20 +1,17 @@
-FROM node:alpine
+FROM node:10 
 
-RUN apk update && apk upgrade \
-	&& apk add --no-cache git \
-	&& apk --no-cache add --virtual builds-deps build-base python \
-	&& npm install -g node-gyp node-pre-gyp && npm install
+# Setting working directory. All the path will be relative to WORKDIR 
+WORKDIR /usr/src/app 
 
-# Create app directory
-RUN mkdir -p /app
-WORKDIR /app
+# Installing dependencies 
+COPY package*.json ./ 
+RUN npm install 
 
-# Install app dependencies
-COPY package.json /app
-RUN npm install
+# Copying source files 
+COPY . . 
 
-# Bundle app source
-COPY . /app
+# Building app 
+RUN npm run build 
 
-EXPOSE 3000
-CMD [ "npm", "run", "prod" ]
+# Running the app 
+CMD [ "npm", "start" ] 
