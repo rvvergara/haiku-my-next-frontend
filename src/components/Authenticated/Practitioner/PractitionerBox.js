@@ -30,8 +30,8 @@ const PractitionerBox = ({ practitioner }) => {
       </div>
       <div>
         <Link href="/practitioners/[id]" as={`/practitioners/${id}`}>
-          <a className="book-doctor-button" href="/practitioner/[id]">
-            Book an Appointment
+          <a className="practitionerbox-profile-button" href="/practitioner/[id]">
+            View Doctor Profile
           </a>
         </Link>
       </div>

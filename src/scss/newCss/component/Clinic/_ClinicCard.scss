@@ -1,4 +1,4 @@
-.clinic-button {
+.clinic-card-button{
   background-color: #5073f1;
   border: none;
   color: white;
@@ -10,6 +10,10 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 5px;
+}
+
+.clinic-card-button:hover{
+  text-decoration: none;
 }
 
 .clinic-image {
