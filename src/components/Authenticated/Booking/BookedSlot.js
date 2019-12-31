@@ -4,6 +4,7 @@ import { fetchPatient } from '../../../store/thunks/patient';
 import { confirmBookingSlotInDb, rejectBookingSlotInDb } from '../../../store/thunks/availability';
 import { setAlert } from '../../../store/actions/alerts';
 import { listAvailabilies } from '../../../store/actions/availability';
+import PatientCard from './PatientCard';
 
 const BookedSlot = ({
  booking, fetchPatient, confirmBookingSlotInDb, rejectBookingSlotInDb, setAlert, listAvailabilies,
@@ -36,11 +37,7 @@ const BookedSlot = ({
         {' '}
         {booking.endTime}
       </p>
-      <p>
-      Patient:
-        {' '}
-        { booking.patient.firstName}
-      </p>
+      <PatientCard patient={booking.patient} />
       {booking.status === 'PENDING' && (
       <div>
         <button
