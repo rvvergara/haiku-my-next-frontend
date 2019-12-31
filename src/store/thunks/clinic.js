@@ -53,3 +53,15 @@ export const fetchOneClinic = clinicId => async dispatch => {
     return dispatch(setError(err.response.data));
   }
 };
+
+export const addPractitionerToClinic =( clinicId,params) => async dispatch => {
+  const path = `v1/clinics/${clinicId}/add-practitioner`;
+  try {
+    const res = await sendRequest('post', path, params);
+    console.log('asda',res);
+    return res;
+  } catch (error) {
+    console.log('ERROR',error);
+    return dispatch(setError(error.response.data.error));
+  }
+};

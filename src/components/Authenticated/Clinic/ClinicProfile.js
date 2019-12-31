@@ -2,10 +2,19 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setClinic } from '../../../store/actions/clinic';
+import { addPractitionerToClinic } from '../../../store/thunks/clinic';
 import PractitionerList from '../Practitioner/PractitionerList';
 
-const ClinicProfile = ({ setClinic, clinic }) => {
-  const { name, address, postalCode, image, category,openingHours } = clinic;
+const ClinicProfile = ({ setClinic, clinic, practitioner }) => {
+  const { name, address, postalCode, image, category, openingHours } = clinic;
+
+  const defaultPic =
+    'https://images.unsplash.com/photo-1533042789716-e9a9c97cf4ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80';
+
+  const handleAdd = () => {
+    console.log('asdas');
+    addPractitionerToClinic(clinic.id, { practitionerId: practitioner.id });
+  };
 
   useEffect(
     () => () => {
@@ -19,7 +28,7 @@ const ClinicProfile = ({ setClinic, clinic }) => {
         <div className="profile-image">
           <img
             className="clinic-profile-image"
-            src={image}
+            src={image === null ? defaultPic : image}
             alt="clinic-profile"
           />
         </div>
@@ -40,6 +49,7 @@ const ClinicProfile = ({ setClinic, clinic }) => {
               </ul>
               <h3>Category : {category}</h3>
             </ul>
+            <button onClick={handleAdd}>Add me to this clinic</button>
           </div>
         </div>
       </div>
@@ -56,6 +66,7 @@ ClinicProfile.propTypes = {
 
 const mapStateToProps = state => ({
   clinic: state.displayedClinic,
+  practitioner: state.currentUser.data.practitioner,
 });
 
 export default connect(mapStateToProps, { setClinic })(ClinicProfile);
