@@ -59,7 +59,7 @@ class BookingSelection extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     const bookingData = {
-      patientId: this.props.patientId,
+      patientId: this.props.currentUserData.patient.id,
       remarks: this.state.remarks,
     };
     this.props.bookSlot(bookingData);
@@ -128,7 +128,7 @@ const mapStateToProps = state => ({
   ),
   displayedPractitioner: state.displayedPractitioner,
   displayedAvailability: state.displayedAvailability,
-  patientId: state.currentUser.data.patient.id
+  currentUserData: state.currentUser.data
 });
 
 export default connect(mapStateToProps, {

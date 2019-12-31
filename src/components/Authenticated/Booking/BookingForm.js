@@ -24,7 +24,7 @@ class BookingForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     const bookingData = {
-      patientId: this.props.patientId,
+      patientId: this.props.currentUserData.patient.id,
       remarks: this.state.remarks,
     };
     this.setState(() => ({
@@ -83,7 +83,7 @@ class BookingForm extends React.Component {
 
 const mapStateToProps = state => ({
   availability: state.displayedAvailability,
-  patientId: state.currentUser.data.patient.id,
+  currentUserData: state.currentUser.data,
 });
 
 export default connect(mapStateToProps, {

@@ -9,13 +9,13 @@ const PatientNotification = ({
   listNotification,
   notification,
   fetchPatientBookedSlot,
-  patientId,
+  currentUserData,
 }) => {
   const [isClosed, setIsClosed] = useState(false);
 
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
-    fetchPatientBookedSlot(patientId);
+    fetchPatientBookedSlot(currentUserData.patient.id);
   }, []);
 
   const handleClick = () => {
@@ -29,14 +29,23 @@ const PatientNotification = ({
         <IoMdClose className="close-notif" onClick={handleClick} />
       </div>
       <ul>
-        {notification.map(notif => (
+        {notification.map((notif) => (
           <li key={notif.id}>
             <p className="notif-text">
-              You have appointment with : {notif.practitionerName}
+              You have appointment with :
+              {' '}
+              {notif.practitionerName}
             </p>
-            <p className="notif-text">Date : {notif.date}</p>
             <p className="notif-text">
-              Time : {notif.startTime}-{notif.endTime}
+Date :
+              {notif.date}
+            </p>
+            <p className="notif-text">
+              Time :
+              {' '}
+              {notif.startTime}
+-
+              {notif.endTime}
             </p>
           </li>
         ))}
@@ -45,9 +54,9 @@ const PatientNotification = ({
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   notification: state.notification,
-  patientId: state.currentUser.data.patient.id,
+  currentUserData: state.currentUser.data,
 });
 
 export default connect(mapStateToProps, {

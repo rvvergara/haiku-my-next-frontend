@@ -1,8 +1,6 @@
 import axios from 'axios';
 
 const baseUrl = 'https://api.igaku.co';
-// const baseUrl = 'http://localhost:8000';
-
 
 export const sendRequest = async (method, path, data) => {
   const result = await axios[method](`${baseUrl}/${path}`, data);
