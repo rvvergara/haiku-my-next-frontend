@@ -1,4 +1,3 @@
-import notification from '../../Dummy/notification';
 import {
   LIST_NOTIFICATION,
   LIST_NOTIFICATION_PRACTITIONER,
@@ -6,7 +5,7 @@ import {
 
 // Temporarily set notification from local file
 
-export default (state = notification, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case LIST_NOTIFICATION:
       return action.notification;
