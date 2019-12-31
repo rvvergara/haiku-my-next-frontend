@@ -11,10 +11,9 @@ const ClinicProfile = ({ setClinic, clinic, practitioner }) => {
   const defaultPic =
     'https://images.unsplash.com/photo-1533042789716-e9a9c97cf4ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80';
 
-  const handleAdd = () => {
-    console.log('asdas');
-    addPractitionerToClinic(clinic.id, { practitionerId: practitioner.id });
-  };
+  // const handleAdd = () => {
+  //   addPractitionerToClinic(clinic.id, { practitionerId: practitioner.id });
+  // };
 
   useEffect(
     () => () => {
@@ -49,7 +48,7 @@ const ClinicProfile = ({ setClinic, clinic, practitioner }) => {
               </ul>
               <h3>Category : {category}</h3>
             </ul>
-            <button onClick={handleAdd}>Add me to this clinic</button>
+            {/* <button onClick={handleAdd}>Add me to this clinic</button> */}
           </div>
         </div>
       </div>
