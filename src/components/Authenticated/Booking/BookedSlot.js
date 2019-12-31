@@ -39,7 +39,7 @@ const BookedSlot = ({
       <p>
       Patient:
         {' '}
-        { patient && patient.firstName}
+        { booking.patient.firstName}
       </p>
       {booking.status === 'PENDING' && (
       <div>
