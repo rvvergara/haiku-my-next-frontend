@@ -1,16 +1,13 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchPatient } from '../../../store/thunks/patient';
 import { confirmBookingSlotInDb, rejectBookingSlotInDb } from '../../../store/thunks/availability';
 import { setAlert } from '../../../store/actions/alerts';
 import { listAvailabilies } from '../../../store/actions/availability';
-import PatientCard from './PatientCard';
+import ProfileCard from './ProfileCard';
 
 const BookedSlot = ({
- booking, fetchPatient, confirmBookingSlotInDb, rejectBookingSlotInDb, setAlert, listAvailabilies,
+ booking, confirmBookingSlotInDb, rejectBookingSlotInDb, setAlert, listAvailabilies, currentUserData,
 }) => {
-  let patient;
-
   const handleConfirm = () => {
     confirmBookingSlotInDb(booking.id);
     setAlert('Booking confirmed', 'success');
@@ -37,9 +34,9 @@ const BookedSlot = ({
         {' '}
         {booking.endTime}
       </p>
-      <PatientCard patient={booking.patient} />
-      {booking.status === 'PENDING' && (
-      <div>
+      <ProfileCard profile={currentUserData.role === 'PRACTITIONER' ? booking.patient : booking.practitioner} />
+      {(booking.status === 'PENDING' && currentUserData.role === 'PRACTITIONER') && (
+      <div className="practitioner-actions">
         <button
           type="button"
           className="theme-button"
@@ -62,10 +59,10 @@ const BookedSlot = ({
 
 const mapStateToProps = (state) => ({
   availabilities: state.availabilities,
+  currentUserData: state.currentUser.data,
 });
 
 export default connect(mapStateToProps, {
- fetchPatient,
 confirmBookingSlotInDb,
   rejectBookingSlotInDb,
   setAlert,
