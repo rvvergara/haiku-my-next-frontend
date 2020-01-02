@@ -10,7 +10,7 @@ export const fetchPatientNotification = (patiendId) => async (dispatch) => {
     // dispatch(listNotification(res.data.booking_slots));
     // return res.data;
   } catch (err) {
-    return dispatch(setError(err.response.data));
+    return dispatch(setError(err));
   }
 };
 
