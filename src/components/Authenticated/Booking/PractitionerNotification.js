@@ -7,7 +7,7 @@ import { setAuthorizationToken } from '../../../utils/api';
 
 const PractitionerNotification = ({
   listNotificationPractitioner,
-  notification,
+  notifications,
   currentUserData,
   fetchPractitionerBookedSlot,
 }) => {
@@ -28,8 +28,8 @@ const PractitionerNotification = ({
         <h4>Notification for doctor</h4>
         <IoMdClose className="close-notif" onClick={handleClick} />
       </div>
-      {/* <ul>
-        {notification.map((notif) => (
+      <ul>
+        {notifications.map((notif) => (
           <li key={notif.id}>
             <p className="notif-text">
               You have appointment with :
@@ -49,13 +49,13 @@ Date :
             </p>
           </li>
         ))}
-      </ul> */}
+      </ul>
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
-  notification: state.notification,
+  notifications: state.notifications,
   currentUserData: state.currentUser.data,
 });
 
