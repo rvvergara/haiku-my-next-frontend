@@ -2,27 +2,28 @@ import { useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { connect } from 'react-redux';
 import { listNotifications } from '../../../store/actions/notification';
-import { fetchPatientNotification } from '../../../store/thunks/notification';
+import { fetchPatientNotification, fetchUpcomingAppointment } from '../../../store/thunks/notification';
+
 import { setAuthorizationToken } from '../../../utils/api';
 
 const PatientNotification = ({
   listNotifications,
-  notification,
+  notifications,
   fetchPatientNotification,
   currentUserData,
+  fetchUpcomingAppointment,
 }) => {
   const [isClosed, setIsClosed] = useState(false);
 
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
-    fetchPatientNotification(currentUserData.patient.id);
+    // fetchPatientNotification(currentUserData.patient.id);
+    fetchUpcomingAppointment(currentUserData.role, currentUserData.patient.id);
   }, []);
 
   const handleClick = () => {
     setIsClosed(true);
   };
-
-  console.log(notification);
 
   return isClosed ? null : (
     <div className="patient-notification-container">
@@ -30,29 +31,39 @@ const PatientNotification = ({
         <h4>Upcoming Appointment</h4>
         <IoMdClose className="close-notif" onClick={handleClick} />
       </div>
-      {/* <ul>
-        {notification.map(notif => (
+      <ul>
+        {notifications.map((notif) => (
           <li key={notif.id}>
             <p className="notif-text">
-              You have appointment with : {notif.practitionerName}
+              You have appointment with :
+              {' '}
+              {`Dr. ${notif.practitioner.firstName} ${notif.practitioner.lastName}`}
             </p>
-            <p className="notif-text">Date :{notif.date}</p>
             <p className="notif-text">
-              Time : {notif.startTime}-{notif.endTime}
+Date :
+              {notif.date}
+            </p>
+            <p className="notif-text">
+              Time :
+              {' '}
+              {notif.startTime}
+-
+              {notif.endTime}
             </p>
           </li>
         ))}
-      </ul> */}
+      </ul>
     </div>
   );
 };
 
-const mapStateToProps = state => ({
-  notification: state.notification,
+const mapStateToProps = (state) => ({
+  notifications: state.notifications,
   currentUserData: state.currentUser.data,
 });
 
 export default connect(mapStateToProps, {
   listNotifications,
   fetchPatientNotification,
+  fetchUpcomingAppointment,
 })(PatientNotification);
