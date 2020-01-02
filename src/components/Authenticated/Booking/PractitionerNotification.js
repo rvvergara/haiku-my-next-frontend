@@ -15,8 +15,6 @@ const PractitionerNotification = ({
 }) => {
   const [isClosed, setIsClosed] = useState(false);
 
-  console.log(notifications);
-
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
     // fetchPractitionerBookedSlot(currentUserData.practitioner.id);
@@ -37,15 +35,23 @@ const PractitionerNotification = ({
         <IoMdClose className="close-notif" onClick={handleClick} />
       </div>
       <ul>
-        {notifications.map(notif => (
+        {notifications.map((notif) => (
           <li key={notif.id}>
             <p className="notif-text">
-              You have appointment with :{' '}
+              You have appointment with :
+              {' '}
               {`${notif.patient.firstName} ${notif.patient.lastName}`}
             </p>
-            <p className="notif-text">Date :{notif.date}</p>
             <p className="notif-text">
-              Time : {notif.startTime}-{notif.endTime}
+Date :
+              {notif.date}
+            </p>
+            <p className="notif-text">
+              Time :
+              {' '}
+              {notif.startTime}
+-
+              {notif.endTime}
             </p>
           </li>
         ))}
@@ -54,7 +60,7 @@ const PractitionerNotification = ({
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   notifications: state.notifications,
   currentUserData: state.currentUser.data,
 });

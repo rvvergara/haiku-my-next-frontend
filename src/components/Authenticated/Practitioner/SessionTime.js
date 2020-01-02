@@ -14,6 +14,7 @@ const SessionTimes = ({
   const handleChange = (val) => {
     if (val) setSessionStartTime(val.format(format));
   };
+
   return (
     <div className="scheduler-inner-component-container">
       <h3 className="scheduler-inner-component__title">Choose an available time for your appointment</h3>
@@ -31,7 +32,7 @@ const SessionTimes = ({
       <label htmlFor="to-time" className="auth-label schedule-label">End time:</label>
       <span className="rc-time-picker xxx read-only-time-span">
         <span className="rc-time-picker-input">
-          {moment(sessionStartTime, 'h:mm')
+          {moment(sessionStartTime, 'h:mm a')
             .add(sessionDuration, 'minutes')
             .format('LT')}
         </span>
