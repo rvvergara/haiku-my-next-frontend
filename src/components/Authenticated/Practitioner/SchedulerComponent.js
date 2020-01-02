@@ -35,7 +35,7 @@ const SchedulerComponent = ({
 }, []);
 
   const handleSubmit = async () => {
-    const endTime = moment(sessionStartTime, 'h:mm')
+    const endTime = moment(sessionStartTime, 'h:mm a')
       .add(sessionDuration, 'minutes')
       .format('LT');
     const processedDate = moment(sessionDate).format('YYYY-MM-DD');
