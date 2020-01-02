@@ -9,7 +9,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - REPOSITORY_URI=875439973742.dkr.ecr.ap-southeast-1.amazonaws.com/igaku-frontend-test
+      - REPOSITORY_URI=875439973742.dkr.ecr.ap-southeast-1.amazonaws.com/igaku-frontend
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
   build:
@@ -17,13 +17,13 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker-compose build
-      - docker tag igaku-frontend-test:latest $REPOSITORY_URI:latest
+      - docker tag igaku-frontend:latest $REPOSITORY_URI:latest
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI:latest
-      - printf '[{"name":"Igaku-Frontend-Test-Container","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
+      - printf '[{"name":"Igaku-Frontend-Container","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
 
