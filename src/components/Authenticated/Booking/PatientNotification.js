@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { connect } from 'react-redux';
-import { listNotification } from '../../../store/actions/notification';
+import { listNotifications } from '../../../store/actions/notification';
 import { fetchPatientNotification } from '../../../store/thunks/notification';
 import { setAuthorizationToken } from '../../../utils/api';
 
 const PatientNotification = ({
-  listNotification,
+  listNotifications,
   notification,
   fetchPatientNotification,
   currentUserData,
@@ -47,12 +47,12 @@ const PatientNotification = ({
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   notification: state.notification,
   currentUserData: state.currentUser.data,
 });
 
 export default connect(mapStateToProps, {
-  listNotification,
+  listNotifications,
   fetchPatientNotification,
 })(PatientNotification);

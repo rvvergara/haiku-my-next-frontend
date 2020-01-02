@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { listNotificationPractitioner } from '../../../store/actions/notification';
 import { fetchPractitionerBookedSlot } from '../../../store/thunks/practitioner';
+import { fetchUpcomingAppointment } from '../../../store/thunks/notification';
 import { setAuthorizationToken } from '../../../utils/api';
 
 const PractitionerNotification = ({
@@ -10,12 +12,14 @@ const PractitionerNotification = ({
   notifications,
   currentUserData,
   fetchPractitionerBookedSlot,
+  fetchUpcomingAppointment,
 }) => {
   const [isClosed, setIsClosed] = useState(false);
 
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
-    fetchPractitionerBookedSlot(currentUserData.practitioner.id);
+    // fetchPractitionerBookedSlot(currentUserData.practitioner.id);
+    fetchUpcomingAppointment(currentUserData.role, currentUserData.practitioner.id);
   }, []);
 
   const handleClick = () => {
@@ -62,4 +66,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   listNotificationPractitioner,
   fetchPractitionerBookedSlot,
+  fetchUpcomingAppointment,
 })(PractitionerNotification);
