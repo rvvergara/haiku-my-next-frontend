@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import { listNotificationPractitioner } from '../../../store/actions/notification';
-import { fetchPractitionerBookedSlot } from '../../../store/thunks/practitioner';
 import { fetchUpcomingAppointment } from '../../../store/thunks/notification';
+import { fetchPractitionerBookedSlot } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
 
 const PractitionerNotification = ({
@@ -16,10 +15,15 @@ const PractitionerNotification = ({
 }) => {
   const [isClosed, setIsClosed] = useState(false);
 
+  console.log(notifications);
+
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
     // fetchPractitionerBookedSlot(currentUserData.practitioner.id);
-    fetchUpcomingAppointment(currentUserData.role, currentUserData.practitioner.id);
+    fetchUpcomingAppointment(
+      currentUserData.role,
+      currentUserData.practitioner.id,
+    );
   }, []);
 
   const handleClick = () => {
@@ -29,27 +33,19 @@ const PractitionerNotification = ({
   return isClosed ? null : (
     <div className="patient-notification-container">
       <div className="patient-notif-title">
-        <h4>Notification for doctor</h4>
+        <h4>Upcoming Appointment</h4>
         <IoMdClose className="close-notif" onClick={handleClick} />
       </div>
       <ul>
-        {notifications.map((notif) => (
+        {notifications.map(notif => (
           <li key={notif.id}>
             <p className="notif-text">
-              You have appointment with :
-              {' '}
-              {notif.practitionerName}
+              You have appointment with :{' '}
+              {`${notif.patient.firstName} ${notif.patient.lastName}`}
             </p>
+            <p className="notif-text">Date :{notif.date}</p>
             <p className="notif-text">
-Date :
-              {notif.date}
-            </p>
-            <p className="notif-text">
-              Time :
-              {' '}
-              {notif.startTime}
--
-              {notif.endTime}
+              Time : {notif.startTime}-{notif.endTime}
             </p>
           </li>
         ))}
@@ -58,7 +54,7 @@ Date :
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   notifications: state.notifications,
   currentUserData: state.currentUser.data,
 });

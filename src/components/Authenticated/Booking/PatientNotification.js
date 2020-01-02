@@ -27,7 +27,7 @@ const PatientNotification = ({
   return isClosed ? null : (
     <div className="patient-notification-container">
       <div className="patient-notif-title">
-        <h4>Notification</h4>
+        <h4>Upcoming Appointment</h4>
         <IoMdClose className="close-notif" onClick={handleClick} />
       </div>
       {/* <ul>
@@ -47,7 +47,7 @@ const PatientNotification = ({
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   notification: state.notification,
   currentUserData: state.currentUser.data,
 });
