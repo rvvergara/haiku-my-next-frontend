@@ -1,28 +1,38 @@
 .practitionerBox-container {
+  background-color: #fff;
+  margin-bottom: $xlarge;
+  box-shadow: 1px 1px 5px $medium-grey;
+  padding: $small 0 $small 0;
   display: flex;
-  justify-content: space-around;
   flex-direction: column;
-  margin-bottom: $large;
-  @media only screen and (min-width: 600px) {
+  justify-content: space-around;
+}
+
+@media only screen and (min-width: 600px) {
+  .practitionerBox-container {
+    display: flex;
+    width: 90%;
+    flex-direction: row;
   }
 }
 
-.practitionerBox-info-container {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
+.practitionerBox-image-container {
+  margin: 0 auto;
+  padding: $small;
+  text-align: center;
+  width: 90%;
 }
 
 .practitionerBox-image {
-  width: 30%;
-}
-
-.profile-info-container {
-}
-
-.practitionerbox-profile-button {
   display: block;
+  margin: $small auto;
+  width: 80%;
+  box-shadow: 1px 1px 5px $medium-grey;
+  border-radius: 5px;
+}
+
+
+.practitionerBox-button {
   background-color: #5073f1;
   border: none;
   color: white;
@@ -34,9 +44,9 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 5px;
-  width: 200px;
 }
 
-.practitionerbox-profile-button:hover {
-  text-decoration: none;
+.practitionerBox-info{
+  text-align: center;
+  padding: $small;
 }

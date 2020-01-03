@@ -1,0 +1,42 @@
+.practitionerBox-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  margin-bottom: $large;
+  @media only screen and (min-width: 600px) {
+  }
+}
+
+.practitionerBox-info-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.practitionerBox-image {
+  width: 30%;
+}
+
+.profile-info-container {
+}
+
+.practitionerbox-profile-button {
+  display: block;
+  background-color: #5073f1;
+  border: none;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: $small * 0.9;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.practitionerbox-profile-button:hover {
+  text-decoration: none;
+}
