@@ -1,6 +1,7 @@
 import { sendRequest } from '../../utils/api';
 import setError from '../actions/error';
 import { setCurrentUser } from '../actions/user';
+import { listBookings } from '../actions/booking';
 
 export const createPatient = (params) => async (dispatch, getState) => {
   const path = 'v1/patients';
@@ -31,10 +32,11 @@ export const updatePatient = (patientId, params) => async (dispatch, getState) =
 };
 
 export const fetchPatientBookedSlot = (patiendId) => async (dispatch) => {
-  const path = `v1/patients/${patiendId}/booking-slots`;
+  const path = `v1/patients/${patiendId}/booking-slots?include=practitioner`;
   try {
     const res = await sendRequest('get', path);
-    return res.data;
+    const { booking_slots } = res.data;
+    return dispatch(listBookings(booking_slots));
   } catch (err) {
     return dispatch(setError(err.response.data));
   }

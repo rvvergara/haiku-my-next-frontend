@@ -9,7 +9,6 @@ import { setAuthorizationToken } from '../../../utils/api';
 const PatientNotification = ({
   listNotifications,
   notifications,
-  fetchPatientNotification,
   currentUserData,
   fetchUpcomingAppointment,
 }) => {
@@ -17,8 +16,8 @@ const PatientNotification = ({
 
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
-    // fetchPatientNotification(currentUserData.patient.id);
     fetchUpcomingAppointment(currentUserData.role, currentUserData.patient.id);
+    return () => listNotifications([]);
   }, []);
 
   const handleClick = () => {
