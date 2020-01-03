@@ -11,6 +11,7 @@ const PractitionerProfile = ({ setPractitioner, role, setClinic }) => {
   useEffect(
     () => () => {
       setClinic({});
+      setPractitioner({});
     },
     [],
   );
