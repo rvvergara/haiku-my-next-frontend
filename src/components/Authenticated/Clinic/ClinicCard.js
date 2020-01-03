@@ -2,14 +2,18 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 const ClinicCard = ({ clinic }) => {
-  const { name, address, postalCode,image } = clinic;
+  const {
+ name, address, postalCode, image,
+} = clinic;
+
+  const defaultPic = 'https://images.unsplash.com/photo-1533042789716-e9a9c97cf4ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80';
 
   return (
     <div className="clinic-card">
       <div className="clinic-card-image-container">
         <img
           className="clinic-card-image"
-          src={image}
+          src={image || defaultPic}
           alt="clinic-profile"
         />
       </div>

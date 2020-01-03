@@ -1,3 +1,6 @@
 .practitionerList-container {
-  padding: $large;
+  padding: $small;
+  @media only screen and (min-width: 600px) {
+    padding: $large;
+  }
 }

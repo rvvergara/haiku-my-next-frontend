@@ -1,6 +1,10 @@
 .practitionerBox-container {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
+  margin-bottom: $large;
+  @media only screen and (min-width: 600px) {
+  }
 }
 
 .practitionerBox-info-container {

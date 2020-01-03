@@ -27,12 +27,12 @@ const ClinicProfile = ({ setClinic, clinic, practitioner }) => {
         <div className="profile-image">
           <img
             className="clinic-profile-image"
-            src={image === null ? defaultPic : image}
+            src={image|| defaultPic}
             alt="clinic-profile"
           />
         </div>
 
-        <div className="profile-info-container fixed-width">
+        <div className="clinic-profile-info-container">
           <h2 className="practitioner-name clinic-name">{name}</h2>
           <div className="profile-info-container__info__card">
             <ul className="profile-list grotesque-font">

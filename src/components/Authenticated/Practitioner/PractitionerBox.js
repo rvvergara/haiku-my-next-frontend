@@ -11,12 +11,15 @@ const PractitionerBox = ({ practitioner }) => {
     lastName,
   } = practitioner;
 
+  const defaultPic =
+    'https://i.imgur.com/GJxJnJ1.png';
+
   return (
     <div className="practitionerBox-container">
       <div className="profile-info-container">
         <img
           className="practitionerBox-image"
-          src={image}
+          src={image || defaultPic}
           alt="doctor-profile"
         />
         <div className="">
@@ -30,7 +33,10 @@ const PractitionerBox = ({ practitioner }) => {
       </div>
       <div>
         <Link href="/practitioners/[id]" as={`/practitioners/${id}`}>
-          <a className="practitionerbox-profile-button" href="/practitioner/[id]">
+          <a
+            className="practitionerbox-profile-button"
+            href="/practitioner/[id]"
+          >
             View Doctor Profile
           </a>
         </Link>

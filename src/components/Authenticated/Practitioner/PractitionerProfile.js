@@ -17,12 +17,11 @@ const PractitionerProfile = ({ setPractitioner, role, setClinic }) => {
 
   return (
     <div className="practitioner-profile-container">
+      {role === 'PATIENT' && <Booking />}
       <div>
         <PractitionerCard />
         <PractitionerDetailsCard />
       </div>
-
-      {role === 'PATIENT' && <Booking />}
     </div>
   );
 };
@@ -32,7 +31,7 @@ PractitionerProfile.propTypes = {
   role: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   role: state.currentUser.data.role,
 });
 

@@ -19,4 +19,9 @@
 .clinic-profile-container {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
+}
+
+.clinic-profile-info-container {
+  padding: $small;
 }

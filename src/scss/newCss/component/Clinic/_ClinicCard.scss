@@ -1,4 +1,4 @@
-.clinic-card-button{
+.clinic-card-button {
   background-color: #5073f1;
   border: none;
   color: white;
@@ -12,7 +12,7 @@
   border-radius: 5px;
 }
 
-.clinic-card-button:hover{
+.clinic-card-button:hover {
   text-decoration: none;
 }
 
@@ -25,6 +25,7 @@
 }
 
 .clinic-card {
+  background-color: #fff;
   margin-bottom: $xlarge;
   box-shadow: 1px 1px 5px $medium-grey;
   padding: $small 0 $small 0;
@@ -37,7 +38,6 @@
   .clinic-card {
     display: flex;
     width: 90%;
-    background-color: #fff;
     flex-direction: row;
   }
 }
@@ -64,9 +64,10 @@
 }
 
 .clinic-card-image-container {
+  margin: 0 auto;
   padding: $small;
   text-align: center;
-  width: 35%;
+  width: 90%;
 }
 
 .add-clinic-button {
