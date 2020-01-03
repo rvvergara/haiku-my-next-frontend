@@ -1,10 +1,10 @@
-import { listNotificationPractitioner } from '../actions/notification';
 import { sendRequest } from '../../utils/api';
 import setError from '../actions/error';
+import { listNotificationPractitioner } from '../actions/notification';
 import { listPractitioners, setPractitioner } from '../actions/practitioners';
 import { setCurrentUser } from '../actions/user';
 
-export const createPractitioner = (params) => async (dispatch, getState) => {
+export const createPractitioner = params => async (dispatch, getState) => {
   const path = 'v1/practitioners';
   try {
     const res = await sendRequest('post', path, params);
@@ -35,7 +35,7 @@ export const updatePractitioner = (practitionerId, params) => async (
   }
 };
 
-export const fetchPractitionersByClinicId = (clinicId) => async (dispatch) => {
+export const fetchPractitionersByClinicId = clinicId => async dispatch => {
   const path = `v1/clinics/${clinicId}/practitioners`;
   try {
     const res = await sendRequest('get', path);
@@ -46,7 +46,7 @@ export const fetchPractitionersByClinicId = (clinicId) => async (dispatch) => {
   }
 };
 
-export const fetchOnePractitioner = (practitionerId) => async (dispatch) => {
+export const fetchOnePractitioner = practitionerId => async dispatch => {
   const path = `v1/practitioners/${practitionerId}`;
   try {
     const res = await sendRequest('get', path);
@@ -57,7 +57,7 @@ export const fetchOnePractitioner = (practitionerId) => async (dispatch) => {
   }
 };
 
-export const fetchPractitionerBookedSlot = (practitionerId) => async (dispatch) => {
+export const fetchPractitionerBookedSlot = practitionerId => async dispatch => {
   const path = `v1/practitioners/${practitionerId}/booking-slots`;
   try {
     const res = await sendRequest('get', path);
@@ -65,5 +65,16 @@ export const fetchPractitionerBookedSlot = (practitionerId) => async (dispatch) 
     return res.data;
   } catch (err) {
     return dispatch(setError(err));
+  }
+};
+
+export const fetchAllPractitioner = () => async dispatch => {
+  const path = 'v1/practitioners';
+  try {
+    const res = await sendRequest('get', path);
+    dispatch(listPractitioners(res.data.practitioners));
+    return res.data;
+  } catch (err) {
+    return dispatch(setError(err.response.data));
   }
 };

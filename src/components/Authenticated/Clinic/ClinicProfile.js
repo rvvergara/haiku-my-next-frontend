@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setClinic } from '../../../store/actions/clinic';
-import { addPractitionerToClinic } from '../../../store/thunks/clinic';
-import PractitionerList from '../Practitioner/PractitionerList';
+import PractitionerListClinic from '../Practitioner/PractitionerListClinic';
 
 const ClinicProfile = ({ setClinic, clinic, practitioner }) => {
   const { name, address, postalCode, image, category, openingHours } = clinic;
@@ -27,7 +26,7 @@ const ClinicProfile = ({ setClinic, clinic, practitioner }) => {
         <div className="profile-image">
           <img
             className="clinic-profile-image"
-            src={image|| defaultPic}
+            src={image || defaultPic}
             alt="clinic-profile"
           />
         </div>
@@ -53,7 +52,7 @@ const ClinicProfile = ({ setClinic, clinic, practitioner }) => {
         </div>
       </div>
 
-      <PractitionerList />
+      <PractitionerListClinic />
     </div>
   );
 };
