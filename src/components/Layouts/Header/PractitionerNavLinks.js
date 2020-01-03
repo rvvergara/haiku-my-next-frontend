@@ -9,6 +9,12 @@ import { MdSchedule } from 'react-icons/md';
 
 const PractitionerNavLinks = () => (
   <>
+    <Link href='/account/edit'>
+      <Nav.Link href='/account/edit' className='header-navlinks'>
+        <GoPerson className='nav-icons' />
+        <span className='header-navlinks-text'>Account</span>
+      </Nav.Link>
+    </Link>
     <Link href='/profile/edit'>
       <Nav.Link href='/profile/edit' className='header-navlinks'>
         <GoPerson className='nav-icons' />

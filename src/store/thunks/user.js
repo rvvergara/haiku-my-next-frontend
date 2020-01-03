@@ -81,3 +81,14 @@ export const logout = () => (dispatch) => {
     data: {},
   }));
 };
+
+export const updatePassword = (id, params) => async (dispatch) => {
+  const path = `v1/users/${id}/update-password`;
+
+  try {
+    const res = await sendRequest('post', path, params);
+    return res.message;
+  } catch (err) {
+    dispatch(setError(err));
+  }
+};

@@ -6,16 +6,22 @@ import { MdSchedule } from 'react-icons/md';
 
 const PatientNavLinks = () => (
   <>
+    <Link href='/account/edit'>
+      <Nav.Link href='/account/edit' className='header-navlinks'>
+        <GoPerson className='nav-icons' />
+        <span className='header-navlinks-text'>Account</span>
+      </Nav.Link>
+    </Link>
     <Link href='/profile/edit'>
       <Nav.Link href='/profile/edit' className='header-navlinks'>
         <GoPerson className='nav-icons' />
         <span className='header-navlinks-text'>Profile</span>
       </Nav.Link>
     </Link>
-    <Link href='/clinics'>
-      <Nav.Link href='/clinics' className='header-navlinks'>
+    <Link href='/practitioners'>
+      <Nav.Link href='/practitioners' className='header-navlinks'>
         <FaClinicMedical className='nav-icons' />
-        <span className='header-navlinks-text'>Clinics</span>
+        <span className='header-navlinks-text'>Practitioners</span>
       </Nav.Link>
     </Link>
     <Link href='/bookings'>
