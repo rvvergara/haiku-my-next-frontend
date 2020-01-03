@@ -9,6 +9,7 @@ import { listAvailabilies } from '../../../store/actions/availability';
 const localizer = momentLocalizer(moment);
 
 const ScheduleList = ({ availabilities, listAvailabilies }) => {
+
   useEffect(() => () => listAvailabilies([]), []);
   return (
     <div className="scheduler-container">
@@ -31,14 +32,14 @@ const ScheduleList = ({ availabilities, listAvailabilies }) => {
       ))} */}
       <Calendar
         localizer={localizer}
-        events={[
-          {
-            title: '10am-2pm',
+        events={availabilities.map(avail => {
+          return {
+            title: `${avail.startTime} - ${avail.endTime}`,
             allDay: false,
             start: new Date(2020, 0, 1, 10, 0), // 10.00 AM
             end: new Date(2020, 0, 1, 14, 0), // 2.00 PM
-          },
-        ]}
+          };
+        })}
         startAccessor="start"
         endAccessor="end"
         style={{ height: 500 }}
