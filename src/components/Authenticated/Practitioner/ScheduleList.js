@@ -5,7 +5,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { connect } from 'react-redux';
 import { listAvailabilies } from '../../../store/actions/availability';
-
+ 
 const localizer = momentLocalizer(moment);
 
 const ScheduleList = ({ availabilities, listAvailabilies }) => {

@@ -12,7 +12,7 @@ const PractitionerNavLinks = () => (
     <Link href='/account/edit'>
       <Nav.Link href='/account/edit' className='header-navlinks'>
         <GoPerson className='nav-icons' />
-        <span className='header-navlinks-text'>Account</span>
+        <span className='header-navlinks-text'>Settings</span>
       </Nav.Link>
     </Link>
     <Link href='/profile/edit'>

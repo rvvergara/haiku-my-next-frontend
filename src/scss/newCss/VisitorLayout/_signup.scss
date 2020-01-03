@@ -2,7 +2,7 @@
   background: $theme-gradient;
   height: 100%;
   padding-top: 10vh;
- padding-bottom: 10vh;
+  padding-bottom: 10vh;
 }
 
 .login-box {
@@ -23,7 +23,8 @@
   }
 }
 
-.signup-button{
+.signup-button {
+  margin-top: $small;
   background: #5073f1;
   border-radius: 5px;
   color: #ffffff;
@@ -34,7 +35,6 @@
   margin-left: 10%;
   width: 80%;
 }
-
 
 .login-text {
   font-weight: bold;
