@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PatientNotification from './Booking/PatientNotification';
 import PractitionerNotification from './Booking/PractitionerNotification';
-import ClinicList from './Clinic/ClinicList';
+import PractitionerList from './Practitioner/PractitionerList';
 import PractitionerProfile from './Practitioner/PractitionerProfile';
 
 const renderDashboard = (userRole) => {
@@ -18,7 +18,7 @@ const renderDashboard = (userRole) => {
       return (
         <div>
           <PatientNotification />
-          <ClinicList />
+          <PractitionerList />
         </div>
       );
     default:
