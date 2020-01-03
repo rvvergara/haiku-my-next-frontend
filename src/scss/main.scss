@@ -1,25 +1,3 @@
-// @import './base/variables';
-// @import './base/base';
-// Old CSS Components
-// @import './components/Layouts/Header';
-// @import './components/Layouts/Sidebar/Sidebar';
-// @import './components/Layouts/Layout.scss';
-// @import './components/VisitorContent/Intro';
-// @import './components/VisitorContent/About';
-// @import './components/VisitorContent/Offerings/Offering';
-// @import './components/VisitorContent/VisitorHeader';
-// @import './components/VisitorContent/VisitorContent';
-// @import './components/Form';
-// @import './components/Authenticated/ProfileCommon/ProfileInfoGroup';
-// @import './components/Authenticated/ProfileCommon/MultipleInput';
-// @import './components/Clinic/ClinicCard';
-// @import './components/Practitioners/Practitioner';
-// @import './components/Booking/Booking';
-// @import './components/Practitioners/Sessions';
-// @import './components/Layouts/Alert';
-// @import './components//Practitioners/Scheduler'
-
-// New Css
 @import './newCss/base/variables';
 @import './newCss/base/base';
 @import './newCss/VisitorLayout/homepage';
@@ -45,4 +23,5 @@
 @import './newCss/component/Scheduler/DurationButton.scss';
 @import './newCss/component/Patient/patientForm';
 @import './newCss/component/MultipleInput';
-@import './newCss/component/Practitioner/PractitionerForm'
+@import './newCss/component/Practitioner/PractitionerForm';
+@import './newCss/component/Scheduler/ScheduleList';
