@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const PractitionerDetailsCard = ({ practitioner }) => (
   <div className="practitioner-details-container">
-    <div className="profile-info-container">
+    <div className="practitionerDtails-info">
       <div className="profile-info-container__info__card container">
         <h4 className="grotesque-font profile-info-container__info__card__title">
           Bio
