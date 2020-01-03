@@ -39,12 +39,6 @@ const PractitionerNavLinks = () => (
         <span className='header-navlinks-text'>Patients</span>
       </Nav.Link>
     </Link>
-    <Link href='/clinics'>
-      <Nav.Link href='/clinics' className='header-navlinks'>
-        <FaClinicMedical className='nav-icons' />
-        <span className='header-navlinks-text'>Clinics</span>
-      </Nav.Link>
-    </Link>
   </>
 );
 
