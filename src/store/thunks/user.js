@@ -87,8 +87,9 @@ export const updatePassword = (id, params) => async (dispatch) => {
 
   try {
     const res = await sendRequest('post', path, params);
-    return res.message;
+    return res.data;
   } catch (err) {
     dispatch(setError(err));
+    return err.response.data;
   }
 };

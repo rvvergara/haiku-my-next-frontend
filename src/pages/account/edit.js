@@ -3,7 +3,10 @@ import PasswordUpdateForm from '../../components/Authenticated/UserAccount/Passw
 
 const AccountEditPage = () => (
   <Layout title='Edit Account'>
-    <PasswordUpdateForm />
+    <div className='login-box'>
+      <PasswordUpdateForm />
+    </div>
+
   </Layout>
 );
 
