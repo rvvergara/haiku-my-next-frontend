@@ -1,7 +1,6 @@
 .practitionerCard-image {
-  display: block;
-  margin: $small auto;
-  width: 80%;
+  text-align: center;
+  width: 100%;
   box-shadow: 1px 1px 5px $medium-grey;
   border-radius: 5px;
 }
@@ -13,6 +12,7 @@
   display: flex;
   margin: 0 auto;
   margin-bottom: $small;
+  flex-direction: column;
   width: 90%;
 }
 
@@ -30,9 +30,10 @@
 }
 
 .practitionerCard-image-container {
-  padding-top: 40px;
+  margin: 0 auto;
+  padding: $small;
   text-align: center;
-  width: 30%;
+  width: 90%;
 }
 
 .practitioner-card-specialties {
@@ -45,6 +46,11 @@
   line-height: 1.18;
   letter-spacing: normal;
   text-align: left;
+}
+
+.practitionerCard-info-container{
+  text-align: center;
+  padding: $small;
 }
 
 .practitioner-card-education {

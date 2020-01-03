@@ -13,7 +13,7 @@ const PractitionerCard = ({ practitioner }) => {
         />
       </div>
 
-      <div className="profile-info-container">
+      <div className="practitionerCard-info-container">
         <span className="practitioner-card-specialties">
           {JSON.parse(practitioner.specialties).join(', ')}
         </span>
