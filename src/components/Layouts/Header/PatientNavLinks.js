@@ -36,12 +36,12 @@ const PatientNavLinks = () => (
         <span className='header-navlinks-text'>Rewards</span>
       </Nav.Link>
     </Link>
-    <Link href='/search'>
+    {/* <Link href='/search'>
       <Nav.Link href='/search' className='header-navlinks'>
         <FaSearch className='nav-icons' />
         <span className='header-navlinks-text'>Search</span>
       </Nav.Link>
-    </Link>
+    </Link> */}
   </>
 );
 
