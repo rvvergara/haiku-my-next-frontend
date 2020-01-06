@@ -232,7 +232,7 @@ class ClinicForm extends React.Component {
           </div>
 
           <div className='form-group'>
-            <button className='user-form__button' onClick={this.handleSubmit}>
+            <button className='ClinicForm-button' onClick={this.handleSubmit}>
               Submit
             </button>
           </div>
