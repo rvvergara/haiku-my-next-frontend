@@ -67,7 +67,7 @@ export const login = (params) => async (dispatch) => {
     }));
     return user;
   } catch (err) {
-    dispatch(setError(err.response.data.error));
+    dispatch(setError('Invalid Credentials'));
     throw new Error();
   }
 };
