@@ -52,7 +52,7 @@ class ClinicForm extends React.Component {
     if (clinic && clinic.image) {
       return clinic.image;
     }
-    return 'https://tinyimg.io/i/BmtLUPZ.jpg';
+    return 'https://images.unsplash.com/photo-1533042789716-e9a9c97cf4ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80';
   };
 
   handleSubmit = async e => {
@@ -137,7 +137,7 @@ class ClinicForm extends React.Component {
               <img
                 src={this.imgPreviewUrl()}
                 alt='Patient'
-                className='profile-avatar__img'
+                className='clinic-form-image'
               />
             </div>
             <label className='auth-label' htmlFor='profile-pic'>
