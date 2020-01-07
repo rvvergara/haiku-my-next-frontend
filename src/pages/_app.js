@@ -1,10 +1,11 @@
-import { Provider } from 'react-redux';
-import App from 'next/app';
 import withRedux from 'next-redux-wrapper';
+import App from 'next/app';
 import 'react-dates/lib/css/_datepicker.css';
+import { Provider } from 'react-redux';
+import { appWithTranslation } from '../../i18n';
+import '../scss/main.scss';
 import initializeStore from '../store/initializeStore';
 import initialize from '../utils/initialize';
-import '../scss/main.scss';
 
 class IgakuApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -26,4 +27,5 @@ class IgakuApp extends App {
   }
 }
 
-export default withRedux(initializeStore)(IgakuApp);
+export default withRedux(initializeStore)(appWithTranslation(IgakuApp));
+// export default appWithTranslation(withRedux(initializeStore)(IgakuApp));

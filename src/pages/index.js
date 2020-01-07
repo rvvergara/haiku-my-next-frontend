@@ -4,11 +4,12 @@ import Layout from '../components/Layouts/Layout';
 import VisitorLayout from '../components/VisitorContent/VisitorLayout';
 import VisitorContent from '../components/VisitorContent/VisitorContent';
 import ConnectedDashboard from '../components/Authenticated/Dashboard';
+import { withTranslation } from '../../i18n';
 
-export const IndexPage = ({ currentUser }) => {
+export const IndexPage = ({ currentUser, t }) => {
   if (currentUser.authenticated) {
     return (
-      <Layout title="Home" userName={currentUser.data.firstName}>
+      <Layout title={t('title')} userName={currentUser.data.firstName}>
         <ConnectedDashboard />
       </Layout>
     );
@@ -22,11 +23,12 @@ export const IndexPage = ({ currentUser }) => {
 
 IndexPage.propTypes = {
   currentUser: PropTypes.instanceOf(Object).isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 IndexPage.getInitialProps = (ctx) => {
   const { currentUser } = ctx.store.getState();
-  return { currentUser };
+  return { currentUser, namespacesRequired: ['practitionerNavLink', 'index'] };
 };
 
-export default connect((state) => state)(IndexPage);
+export default (connect((state) => state)(withTranslation('index')(IndexPage)));

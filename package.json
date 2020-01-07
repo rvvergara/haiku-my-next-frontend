@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "next build",
-    "dev": "next -p 3000",
+    "dev": "node index.js",
     "lint": "eslint .eslintrc.json --fix --ignore-pattern '!.eslintrc.json'",
     "start": "next start",
     "test": "jest --config jest.config.json",
@@ -45,6 +45,7 @@
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
     "next": "^9.1.4",
+    "next-i18next": "^3.0.1",
     "next-redirect": "^1.0.1",
     "next-redux-wrapper": "^4.0.1",
     "node-sass": "^4.13.0",

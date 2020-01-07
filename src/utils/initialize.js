@@ -1,5 +1,5 @@
 import decode from 'jwt-decode';
-import { getCookie, removeCookie } from './cookie';
+import { getCookie, removeCookie, findIfCookiePresent } from './cookie';
 import { setAuthorizationToken } from './api';
 import { fetchUserData } from '../store/thunks/user';
 import { setCurrentUser } from '../store/actions/user';
@@ -7,7 +7,7 @@ import { checkIfTokenExp, redirectIfNoProfile, redirectIfNoToken } from './initi
 
 export default async (ctx) => {
   if (ctx.isServer) {
-    if (ctx.req.headers.cookie) {
+    if (findIfCookiePresent(ctx.req, 'token')) {
       const { req, store } = ctx;
       const { dispatch } = store;
       const token = getCookie('token', req);

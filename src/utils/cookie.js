@@ -36,3 +36,8 @@ const getCookieFromServer = (key, req) => {
 export const getCookie = (key, req) => (
   process.browser ? getCookieFromBrowser(key) : getCookieFromServer(key, req)
 );
+
+export const findIfCookiePresent = (req, name) => {
+  const cookieArr = req.headers.cookie.split(';');
+  return cookieArr.some((cookie) => cookie.includes(name));
+};

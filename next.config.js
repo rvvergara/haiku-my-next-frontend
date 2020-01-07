@@ -2,6 +2,15 @@ const withSass = require('@zeit/next-sass');
 const withCSS = require('@zeit/next-css');
 require('dotenv').config();
 
+// module.exports = {
+//   publicRuntimeConfig: {
+//     localeSubpaths:
+//       typeof process.env.LOCALE_SUBPATHS === 'string'
+//         ? process.env.LOCALE_SUBPATHS
+//         : 'none',
+//   },
+// };
+
 module.exports = withCSS(
   withSass({
     webpack(config) {
@@ -19,6 +28,12 @@ module.exports = withCSS(
     },
     env: {
       API_URL: process.env.API_URL,
+    },
+    publicRuntimeConfig: {
+      localeSubpaths:
+        typeof process.env.LOCALE_SUBPATHS === 'string'
+          ? process.env.LOCALE_SUBPATHS
+          : 'none',
     },
   }),
 );

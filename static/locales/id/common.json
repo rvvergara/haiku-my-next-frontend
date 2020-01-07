@@ -1,0 +1,6 @@
+{
+  "change-locale": "Ubah Bahasa",
+  "to-second-page": "Ke halaman kedua",
+  "error-with-status": "Status eror ({{statusCode}}) aufgetreten",
+  "error-without-status": "Status eror"
+}
