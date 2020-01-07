@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = process.env.API_URL;
+const baseUrl = process.env.API_URL || 'https://api.igaku.co';
 
 export const sendRequest = async (method, path, data) => {
   const result = await axios[method](`${baseUrl}/${path}`, data);
