@@ -6,13 +6,8 @@ body {
   height: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top: $container-side-pad * 0.25;
-  @media screen and(min-width:768px) {
-    padding: 0 $container-side-pad
-  }
+  margin-top: $container-side-pad * 0.25 auto;
 }
-
-
 
 .authenticated-body__content {
   background: $light-blue;

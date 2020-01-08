@@ -20,15 +20,11 @@ const PractitionerList = ({
   }, []);
 
   return (
-    <div>
-      <div className="doctor-list-background">
-        <h3 className="clinic-name">Practitioner List</h3>
-      </div>
-
+    <>
       {practitioners.map(practitioner => (
         <PractitionerBox key={practitioner.id} practitioner={practitioner} />
       ))}
-    </div>
+    </>
   );
 };
 
