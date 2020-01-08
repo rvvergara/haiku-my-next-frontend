@@ -24,18 +24,20 @@ const PractitionerBox = ({ practitioner }) => {
       </div>
       <div className="practitionerBox-info">
         <p className="practitioner-name">{`${firstName} ${lastName}`}</p>
-        <p className="grotesque-font practitionerBox-specialties">{specialties.replace(/[\[\]"]+/g, '')}</p>
+        <p className="grotesque-font practitionerBox-specialties">
+          {specialties.replace(/[\[\]"]+/g, '')}
+        </p>
         <p className="grotesque-font practitionerBox-bio">
           {biography.substring(0, 100)}
           ...
         </p>
-        <div>
-          <Link href="/practitioners/[id]" as={`/practitioners/${id}`}>
-            <a className="practitionerBox-button" href="/practitioner/[id]">
-              View Doctor Profile
-            </a>
-          </Link>
-        </div>
+      </div>
+      <div>
+        <Link href="/practitioners/[id]" as={`/practitioners/${id}`}>
+          <a className="practitionerBox-button" href="/practitioner/[id]">
+            View Doctor Profile
+          </a>
+        </Link>
       </div>
     </div>
   );

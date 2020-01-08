@@ -8,23 +8,24 @@
   justify-content: space-around;
   @media only screen and (min-width: 600px) {
     flex-direction: row;
-    margin: $large;
+    margin: $large $large * 1.5 $small $large * 1.5;
+    justify-content: none;
   }
 }
 
 .practitionerBox-image-container {
   margin: 0 auto;
   text-align: center;
-  width: 90%;
   @media only screen and (min-width: 600px) {
     width: 30%;
+    margin-left: 0px;
   }
 }
 
 .practitionerBox-image {
   display: block;
   margin: $small auto;
-  width: 80%;
+  width: 60%;
   box-shadow: 1px 1px 5px $medium-grey;
   border-radius: 5px;
 }
@@ -40,6 +41,11 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 5px;
+  margin: 0%;
+  margin-right: $small;
+  @media only screen and (min-width: 600px) {
+    margin-top: 70%;
+  }
 }
 
 .practitionerBox-button:hover {
@@ -49,6 +55,11 @@
 .practitionerBox-info {
   text-align: center;
   padding: $small;
+  @media only screen and (min-width: 600px) {
+    text-align: left;
+    padding: none;
+    flex: 3;
+  }
 }
 
 .practitionerBox-bio {
