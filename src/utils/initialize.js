@@ -3,10 +3,17 @@ import { getCookie, removeCookie, findIfCookiePresent } from './cookie';
 import { setAuthorizationToken } from './api';
 import { fetchUserData } from '../store/thunks/user';
 import { setCurrentUser } from '../store/actions/user';
+import { setLanguage } from '../store/actions/language';
 import { checkIfTokenExp, redirectIfNoProfile, redirectIfNoToken } from './initializeHelpers';
 
 export default async (ctx) => {
   if (ctx.isServer) {
+    if (ctx.req.headers.cookie) {
+      const cookiesArr = ctx.req.headers.cookie.split(';');
+      const langCookie = cookiesArr.find((cookie) => cookie.includes('next-i18next'));
+      const lang = langCookie.split('=')[1];
+      ctx.store.dispatch(setLanguage(lang));
+    }
     if (ctx.req.headers.cookie && findIfCookiePresent(ctx.req, 'token')) {
       const { req, store } = ctx;
       const { dispatch } = store;
