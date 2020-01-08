@@ -1,8 +1,9 @@
 {
   "settings": "Pengaturan",
-  "profile": "Profile",
+  "profile": "Profil",
   "schedule": "Jadwal",
-  "bookings": "Bookings",
+  "bookings": "Pemesanan",
   "clinics": "Klinik",
+  "feedback": "Saran",
   "logout": "Logout"
 }

@@ -43,7 +43,7 @@ const PractitionerNavLinks = ({ t }) => (
     <Link href='/feedback'>
       <Nav.Link href='/feedback' className='header-navlinks prominent'>
         <MdFeedback className='nav-icons' />
-        <span className='header-navlinks-text'>Feedback</span>
+        <span className='header-navlinks-text'>{t('feedback')}</span>
       </Nav.Link>
     </Link>
   </>

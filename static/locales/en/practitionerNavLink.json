@@ -4,5 +4,6 @@
   "schedule": "Schedule",
   "bookings": "Bookings",
   "clinics": "Clinics",
+  "feedback": "Feedback",
   "logout": "Logout"
 }
