@@ -1,22 +1,31 @@
+import Router from 'next/router';
 import { useState } from 'react';
-import { setAlert } from '../store/actions/alerts';
 import { connect } from 'react-redux';
+import { setAlert } from '../store/actions/alerts';
+import { sendFeedback } from '../store/thunks/feedback';
+import { setAuthorizationToken } from '../utils/api';
 
-const FeedbackForm = ({setAlert}) => {
-  const [formData, setFormData] = useState({
-    feedbackText: '',
-    feedbackType: 'comments',
-  });
+const FeedbackForm = ({ setAlert, currentUserData, sendFeedback }) => {
+  const [body, setBody] = useState('');
+  const [feedbackType, setFeedbackType] = useState('comment');
 
-  const { feedbackText } = formData;
-
-  const handleChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const params = {
+    authorId: currentUserData.id,
+    feedbackType,
+    body,
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log(formData);
+    setAuthorizationToken(localStorage.token);
+
+    try {
+      await sendFeedback(params);
+      Router.push('/');
+    } catch (error) {
+      console.log(error);
+    }
+
     setAlert('Feedback Submitted', 'success');
   };
 
@@ -32,8 +41,9 @@ const FeedbackForm = ({setAlert}) => {
         <input
           type="radio"
           name="feedbackType"
-          value="comments"
-          onChange={e => handleChange(e)}
+          value="comment"
+          checked={feedbackType === 'comment'}
+          onChange={e => setFeedbackType(e.target.value)}
         />
         Comments
         <br />
@@ -41,7 +51,7 @@ const FeedbackForm = ({setAlert}) => {
           type="radio"
           name="feedbackType"
           value="bugReports"
-          onChange={e => handleChange(e)}
+          onChange={e => setFeedbackType(e.target.value)}
         />
         Bug Reports
         <br />
@@ -49,7 +59,7 @@ const FeedbackForm = ({setAlert}) => {
           type="radio"
           name="feedbackType"
           value="questions"
-          onChange={e => handleChange(e)}
+          onChange={e => setFeedbackType(e.target.value)}
         />
         Questions
         <br />
@@ -60,27 +70,19 @@ const FeedbackForm = ({setAlert}) => {
           name="feedbackText"
           form="feedbackform"
           placeholder="Your feedback here"
-          value={feedbackText}
-          onChange={e => handleChange(e)}
+          value={body}
+          onChange={e => setBody(e.target.value)}
         />
-        <br />
-        <br />
-        First name:
-        <br />
-        <input type="text" name="firstname" />
-        <br />
-        Last name:
-        <br />
-        <input type="text" name="lastname" />
-        <br />
-        <br />
-        Email:
-        <br />
-        <input type="email" name="email" />
         <button type="submit">Submit</button>
       </form>
     </div>
   );
 };
 
-export default connect(null,{setAlert})(FeedbackForm);
+const mapStateToProps = state => ({
+  currentUserData: state.currentUser.data,
+});
+
+export default connect(mapStateToProps, { setAlert, sendFeedback })(
+  FeedbackForm,
+);
