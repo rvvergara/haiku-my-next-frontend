@@ -5,7 +5,7 @@ import PractitionerNotification from './Booking/PractitionerNotification';
 import PractitionerList from './Practitioner/PractitionerList';
 import PractitionerProfile from './Practitioner/PractitionerProfile';
 
-const renderDashboard = (userRole) => {
+const renderDashboard = (userRole, notifications) => {
   switch (userRole) {
     case 'PRACTITIONER':
       return (
@@ -17,7 +17,7 @@ const renderDashboard = (userRole) => {
     case 'PATIENT':
       return (
         <div>
-          <PatientNotification />
+          {notifications.length > 0 && <PatientNotification />}
           <PractitionerList />
         </div>
       );
@@ -26,16 +26,18 @@ const renderDashboard = (userRole) => {
   }
 };
 
-export const Dashboard = ({ userRole }) => (
-  <div className="dashboard">{renderDashboard(userRole)}</div>
+export const Dashboard = ({ userRole, notifications }) => (
+  <div className="dashboard">{renderDashboard(userRole, notifications)}</div>
 );
 
 Dashboard.propTypes = {
   userRole: PropTypes.string.isRequired,
+  notifications: PropTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   userRole: state.currentUser.data.role,
+  notifications: state.notifications,
 });
 
 export default connect(mapStateToProps)(Dashboard);
