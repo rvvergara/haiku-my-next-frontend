@@ -7,13 +7,11 @@ import { i18n, Link, withTranslation } from '../../i18n';
 const Homepage = ({ t }) => (
   <div>
     <main>
-      <div title={t('h1')}></div>
+      <div title={t('h1')} />
       <div>
         <button
           type="button"
-          onClick={() =>
-            i18n.changeLanguage(i18n.language === 'en' ? 'id' : 'en')
-          }
+          onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'id' : 'en')}
         >
           {t('change-locale')}
         </button>
@@ -22,7 +20,7 @@ const Homepage = ({ t }) => (
         </Link>
       </div>
     </main>
-    <div></div>
+    <div />
   </div>
 );
 
