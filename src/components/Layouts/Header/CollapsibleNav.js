@@ -49,13 +49,6 @@ export const CollapsibleNav = ({
               <PatientNavLinks />
             )}
           </div>
-          <button
-            type="button"
-            onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'id' : 'en')}
-          >
-            {t('change-locale')}
-          </button>
-
           <select onChange={handleChange} value={local}>
             <option value="id">Bahasa Indonesia</option>
             <option value="en">English</option>

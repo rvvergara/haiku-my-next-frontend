@@ -34,16 +34,16 @@ const PractitionerNavLinks = ({ t }) => (
         <span className='header-navlinks-text'>{t('bookings')}</span>
       </Nav.Link>
     </Link>
-    {/* <Link href='/patients'>
-      <Nav.Link href='/patients' className='header-navlinks'>
-        <GiHealthNormal className='nav-icons' />
-        <span className='header-navlinks-text'>Patients</span>
-      </Nav.Link>
-    </Link> */}
     <Link href='/clinics'>
       <Nav.Link href='/clinics' className='header-navlinks'>
         <GiHealthNormal className='nav-icons' />
         <span className='header-navlinks-text'>{t('clinics')}</span>
+      </Nav.Link>
+    </Link>
+    <Link href='/feedback'>
+      <Nav.Link href='/feedback' className='header-navlinks'>
+        <GiHealthNormal className='nav-icons' />
+        <span className='header-navlinks-text'>Feedback</span>
       </Nav.Link>
     </Link>
   </>
