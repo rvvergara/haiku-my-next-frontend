@@ -1,5 +1,6 @@
 import Router from 'next/router';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { FiLogOut } from 'react-icons/fi';
@@ -8,11 +9,19 @@ import { i18n, withTranslation } from '../../../../i18n';
 import { logout } from '../../../store/thunks/user';
 import PatientNavLinks from './PatientNavLinks';
 import PractitionerNavLinks from './PractitionerNavLinks';
+import {getCookie} from '../../../utils/cookie'
+import localLanguanges from '../../../utils/languange'
 
 export const CollapsibleNav = ({ currentUserData, logout, t }) => {
   const handleLogout = () => {
     logout();
     Router.push('/');
+  };
+
+  const [language, setLanguage] = useState(localLanguanges[getCookie('next-i18next')]);
+
+  const handleChange = e => {
+    setLanguange(e.target.value);
   };
 
   const { role } = currentUserData;
@@ -55,6 +64,12 @@ export const CollapsibleNav = ({ currentUserData, logout, t }) => {
           >
             {t('change-locale')}
           </button>
+
+          <select onChange={e => handleChange(e)} value={languange}>
+            <option value="id">Bahasa Indonesia</option>
+            <option value="en">English</option>
+          </select>
+
           <Nav.Link
             type="button"
             className="theme-button inverse-theme-button"
