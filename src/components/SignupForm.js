@@ -14,7 +14,16 @@ class SignupForm extends React.Component {
     pwConfirm: '',
     referralCode: '',
     formError: '',
+    disabled: false,
   };
+
+  componentDidMount() {
+    this.setState(() => ({
+      email: Router.query.referred,
+      referralCode: Router.query.code,
+      disabled: Router.query.referred ? true : false
+    }))
+  }
 
   componentWillUnmount() {
     this.props.setError('');
@@ -98,7 +107,6 @@ class SignupForm extends React.Component {
               id="email"
               className="user-form__input"
               type="email"
-              value={email}
               onChange={e => this.handleChange('email', e.target.value)}
             />
           </div>
@@ -159,6 +167,7 @@ class SignupForm extends React.Component {
               className="user-form__input"
               type="text"
               value={referralCode}
+              disabled={this.state.disabled}
               onChange={e => this.handleChange('referralCode', e.target.value)}
               placeholder="Confirm Password"
             />
