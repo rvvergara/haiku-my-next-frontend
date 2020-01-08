@@ -4,11 +4,12 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { FiLogOut } from 'react-icons/fi';
 import { connect } from 'react-redux';
+import { i18n, withTranslation } from '../../../../i18n';
 import { logout } from '../../../store/thunks/user';
 import PatientNavLinks from './PatientNavLinks';
 import PractitionerNavLinks from './PractitionerNavLinks';
 
-export const CollapsibleNav = ({ currentUserData, logout }) => {
+export const CollapsibleNav = ({ currentUserData, logout, t }) => {
   const handleLogout = () => {
     logout();
     Router.push('/');
@@ -30,7 +31,7 @@ export const CollapsibleNav = ({ currentUserData, logout }) => {
               <PatientNavLinks />
             )}
           </div>
-          {
+          {/* {
             (currentUserData.patient || currentUserData.practitioner) && (
             <div className="header__links__welcome">
               <strong className="logged-header-greeting">
@@ -45,7 +46,15 @@ export const CollapsibleNav = ({ currentUserData, logout }) => {
               </strong>
             </div>
             )
-          }
+          } */}
+          <button
+            type="button"
+            onClick={() =>
+              i18n.changeLanguage(i18n.language === 'en' ? 'id' : 'en')
+            }
+          >
+            {t('change-locale')}
+          </button>
           <Nav.Link
             type="button"
             className="theme-button inverse-theme-button"
@@ -65,8 +74,14 @@ CollapsibleNav.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+CollapsibleNav.getInitialProps = async () => ({
+  namespacesRequired: ['common', 'footer'],
+});
+
+const mapStateToProps = state => ({
   currentUserData: state.currentUser.data,
 });
 
-export default connect(mapStateToProps, { logout })(CollapsibleNav);
+export default connect(mapStateToProps, { logout })(
+  withTranslation('common')(CollapsibleNav),
+);
