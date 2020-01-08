@@ -14,7 +14,7 @@
   margin-bottom: $small;
   flex-direction: column;
   width: 90%;
-  justify-content:space-between;
+  justify-content: space-between;
   @media only screen and (min-width: 600px) {
     flex-direction: row;
   }
@@ -30,6 +30,12 @@
   line-height: 1.2;
   letter-spacing: normal;
   margin: 0;
+  @media only screen and (min-width: 600px) {
+    font-family: Josefin Sans, sans-serif;
+    font-size: $medium;
+    color: #47495a;
+    margin-bottom: 20px;
+  }
 }
 
 .practitionerCard-image-container {
@@ -38,7 +44,7 @@
   text-align: center;
   width: 90%;
   @media only screen and (min-width: 600px) {
-   width: 35%;
+    width: 35%;
   }
 }
 
@@ -54,7 +60,7 @@
   text-align: left;
 }
 
-.practitionerCard-info-container{
+.practitionerCard-info-container {
   text-align: center;
   padding: $small;
 }

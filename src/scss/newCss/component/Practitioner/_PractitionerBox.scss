@@ -38,13 +38,14 @@
   text-align: center;
   display: inline-block;
   font-size: $small * 0.9;
-  margin: 4px 2px;
   cursor: pointer;
   border-radius: 5px;
-  margin: 0%;
-  margin-right: $small;
+  margin-left: 30%;
+
   @media only screen and (min-width: 600px) {
+    margin-left: 0;
     margin-top: 70%;
+    margin-right: $small;
   }
 }
 
