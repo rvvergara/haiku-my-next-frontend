@@ -1,39 +1,46 @@
 import Link from 'next/link';
 import Nav from 'react-bootstrap/Nav';
-import { FaClinicMedical, FaSearch, FaGift } from 'react-icons/fa';
+import { FaClinicMedical, FaGift } from 'react-icons/fa';
 import { GoPerson } from 'react-icons/go';
-import { MdSchedule } from 'react-icons/md';
+import { MdFeedback, MdSchedule } from 'react-icons/md';
+import { withTranslation } from '../../../../i18n';
 
-const PatientNavLinks = () => (
+const PatientNavLinks = ({ t }) => (
   <>
-    <Link href='/account/edit'>
-      <Nav.Link href='/account/edit' className='header-navlinks'>
-        <GoPerson className='nav-icons' />
-        <span className='header-navlinks-text'>Settings</span>
+    <Link href="/account/edit">
+      <Nav.Link href="/account/edit" className="header-navlinks">
+        <GoPerson className="nav-icons" />
+        <span className="header-navlinks-text">{t('settings')}</span>
       </Nav.Link>
     </Link>
-    <Link href='/profile/edit'>
-      <Nav.Link href='/profile/edit' className='header-navlinks'>
-        <GoPerson className='nav-icons' />
-        <span className='header-navlinks-text'>Profile</span>
+    <Link href="/profile/edit">
+      <Nav.Link href="/profile/edit" className="header-navlinks">
+        <GoPerson className="nav-icons" />
+        <span className="header-navlinks-text">{t('profile')}</span>
       </Nav.Link>
     </Link>
-    <Link href='/practitioners'>
-      <Nav.Link href='/practitioners' className='header-navlinks'>
-        <FaClinicMedical className='nav-icons' />
-        <span className='header-navlinks-text'>Practitioners</span>
+    <Link href="/practitioners">
+      <Nav.Link href="/practitioners" className="header-navlinks">
+        <FaClinicMedical className="nav-icons" />
+        <span className="header-navlinks-text">{t('practitioners')}</span>
       </Nav.Link>
     </Link>
-    <Link href='/bookings'>
-      <Nav.Link href='/bookings' className='header-navlinks'>
-        <MdSchedule className='nav-icons' />
-        <span className='header-navlinks-text'>Bookings</span>
+    <Link href="/bookings">
+      <Nav.Link href="/bookings" className="header-navlinks">
+        <MdSchedule className="nav-icons" />
+        <span className="header-navlinks-text">{t('bookings')}</span>
       </Nav.Link>
     </Link>
-    <Link href='/rewards'>
-      <Nav.Link href='/rewards' className='header-navlinks'>
-        <FaGift className='nav-icons' />
-        <span className='header-navlinks-text'>Rewards</span>
+    <Link href="/rewards">
+      <Nav.Link href="/rewards" className="header-navlinks">
+        <FaGift className="nav-icons" />
+        <span className="header-navlinks-text">{t('reward')}</span>
+      </Nav.Link>
+    </Link>
+    <Link href="/feedback">
+      <Nav.Link href="/feedback" className="header-navlinks prominent">
+        <MdFeedback className="nav-icons" />
+        <span className="header-navlinks-text">{t('feedback')}</span>
       </Nav.Link>
     </Link>
     {/* <Link href='/search'>
@@ -45,4 +52,4 @@ const PatientNavLinks = () => (
   </>
 );
 
-export default PatientNavLinks;
+export default withTranslation('patientNavLink')(PatientNavLinks);

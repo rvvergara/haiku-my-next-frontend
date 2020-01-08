@@ -1,7 +1,9 @@
 {
   "settings": "Pengaturan",
   "profile": "Profil",
+  "practitioners": "Praktisi",
   "bookings": "Pemesanan",
+  "reward": "Hadiah",
   "feedback": "Saran",
   "logout": "Logout"
 }
