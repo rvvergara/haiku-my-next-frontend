@@ -14,6 +14,7 @@ import sessionStartTime from './sessionStartTime';
 import settingAppointment from './settingAppointment';
 import displayedAvailability from './displayedAvailability';
 import notifications from './notifications';
+import language from './language';
 
 export default combineReducers({
   currentUser,
@@ -31,4 +32,5 @@ export default combineReducers({
   settingAppointment,
   displayedAvailability,
   notifications,
+  language,
 });
