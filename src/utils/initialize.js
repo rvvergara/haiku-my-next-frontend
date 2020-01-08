@@ -7,7 +7,7 @@ import { checkIfTokenExp, redirectIfNoProfile, redirectIfNoToken } from './initi
 
 export default async (ctx) => {
   if (ctx.isServer) {
-    if (findIfCookiePresent(ctx.req, 'token')) {
+    if (ctx.req.headers.cookie && findIfCookiePresent(ctx.req, 'token')) {
       const { req, store } = ctx;
       const { dispatch } = store;
       const token = getCookie('token', req);
