@@ -5,7 +5,7 @@ import {
 } from 'react-icons/fa';
 import { GiHealthNormal } from 'react-icons/gi';
 import { GoPerson } from 'react-icons/go';
-import { MdSchedule } from 'react-icons/md';
+import { MdSchedule, MdFeedback } from 'react-icons/md';
 import { withTranslation } from '../../../../i18n';
 
 const PractitionerNavLinks = ({ t }) => (
@@ -41,9 +41,9 @@ const PractitionerNavLinks = ({ t }) => (
       </Nav.Link>
     </Link>
     <Link href='/feedback'>
-      <Nav.Link href='/feedback' className='header-navlinks'>
-        <GiHealthNormal className='nav-icons' />
-        <span className='header-navlinks-text prominent'>Feedback</span>
+      <Nav.Link href='/feedback' className='header-navlinks prominent'>
+        <MdFeedback className='nav-icons' />
+        <span className='header-navlinks-text'>Feedback</span>
       </Nav.Link>
     </Link>
   </>
