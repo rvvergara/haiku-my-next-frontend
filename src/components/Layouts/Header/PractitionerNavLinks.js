@@ -43,7 +43,7 @@ const PractitionerNavLinks = ({ t }) => (
     <Link href='/feedback'>
       <Nav.Link href='/feedback' className='header-navlinks'>
         <GiHealthNormal className='nav-icons' />
-        <span className='header-navlinks-text'>Feedback</span>
+        <span className='header-navlinks-text prominent'>Feedback</span>
       </Nav.Link>
     </Link>
   </>
