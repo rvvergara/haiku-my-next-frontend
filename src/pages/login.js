@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Col from 'react-bootstrap/Col';
 import LoginForm from '../components/LoginForm';
 import VisitorLayout from '../components/VisitorContent/VisitorLayout';
+import { withTranslation } from '../../i18n';
 
 const LoginPage = () => (
   <VisitorLayout title="Login">
@@ -22,4 +23,8 @@ const LoginPage = () => (
   </VisitorLayout>
 );
 
-export default LoginPage;
+LoginPage.getInitialProps = () => ({
+  namespacesRequired: ['login'],
+});
+
+export default withTranslation('login')(LoginPage);

@@ -4,11 +4,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import setError from '../store/actions/error';
 import { login } from '../store/thunks/user';
+import { i18n, withTranslation } from '../../i18n';
+import { setLanguage } from '../store/actions/language';
 
 class LoginForm extends React.Component {
   state = {
     email: '',
     password: '',
+    local: this.props.localLang
   };
 
   componentWillUnmount() {
@@ -38,8 +41,15 @@ class LoginForm extends React.Component {
     }));
   };
 
+  handleChangeLang = (val) => {
+    this.handleChange('local', val);
+    this.props.setLanguage(val);
+    i18n.changeLanguage(val);
+  }
+
   render() {
     const { email, password } = this.state;
+    const { t } = this.props;
     return (
       <div>
         <div className="form-error">
@@ -81,10 +91,20 @@ class LoginForm extends React.Component {
           </div>
           <footer className="user-form__footer">
             <small>
-              No account yet?
+              { t('no-account-yet') }
+              {' '}
               <Link href="/signup">
-                <button className="signup-text">Signup</button>
+                <button className="signup-text">
+                  { t('signup') }
+                </button>
               </Link>
+              <select 
+              onChange={(e) => this.handleChangeLang(e.target.value)} 
+              value={this.state.local}
+              >
+              <option value="id">Bahasa Indonesia</option>
+              <option value="en">English</option>
+            </select>
             </small>
           </footer>
         </form>
@@ -100,6 +120,7 @@ LoginForm.propTypes = {
 
 const mapStateToProps = state => ({
   error: state.error,
+  localLang: state.language,
 });
 
-export default connect(mapStateToProps, { login, setError })(LoginForm);
+export default connect(mapStateToProps, { login, setError, setLanguage })(withTranslation('login')(LoginForm));
