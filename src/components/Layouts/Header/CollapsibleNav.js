@@ -10,17 +10,16 @@ import { logout } from '../../../store/thunks/user';
 import { setLanguage } from '../../../store/actions/language';
 import PatientNavLinks from './PatientNavLinks';
 import PractitionerNavLinks from './PractitionerNavLinks';
-import localLanguanges from '../../../utils/languange';
 
 export const CollapsibleNav = ({
- currentUserData, logout, t, localLang, setLanguage,
+ currentUserData, logout, localLang, setLanguage,
 }) => {
   const handleLogout = () => {
     logout();
     Router.push('/');
   };
 
-  const [local, setLocal] = useState(localLanguanges[localLang]);
+  const [local, setLocal] = useState(localLang);
 
 
   useEffect(() => {
@@ -71,6 +70,8 @@ export const CollapsibleNav = ({
 CollapsibleNav.propTypes = {
   currentUserData: PropTypes.instanceOf(Object).isRequired,
   logout: PropTypes.func.isRequired,
+  localLang: PropTypes.string.isRequired,
+  setLanguage: PropTypes.func.isRequired,
 };
 
 CollapsibleNav.getInitialProps = async () => ({

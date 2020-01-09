@@ -6,10 +6,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { i18n, withTranslation } from '../../../i18n';
 import { setLanguage } from '../../store/actions/language';
-import localLanguages from '../../utils/languange';
 
 const VisitorHeader = ({ t, localLang, setLanguage }) => {
-  const [local, setLocal] = useState(localLanguages[localLang]);
+  const [local, setLocal] = useState(localLang);
 
   useEffect(() => {
     setLocal(localLang);
