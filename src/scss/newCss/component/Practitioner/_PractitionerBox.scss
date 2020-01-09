@@ -34,17 +34,18 @@
   background-color: #5073f1;
   border: none;
   color: white;
-  padding: 1rem;
+  padding: $small * 0.5;
   text-align: center;
   display: inline-block;
-  font-size: $small * 0.9;
+  font-size: $small * 0.7;
   cursor: pointer;
   border-radius: 5px;
   margin-left: 30%;
 
   @media only screen and (min-width: 600px) {
+    font-family: Josefin Sans, sans-serif;
     margin-left: 0;
-    margin-top: 35%;
+    margin-top: 40%;
     margin-right: $small * 2;
   }
 }
