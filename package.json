@@ -7,7 +7,7 @@
     "build": "next build",
     "dev": "node index.js",
     "lint": "eslint .eslintrc.json --fix --ignore-pattern '!.eslintrc.json'",
-    "start": "node index.js",
+    "start": "next start",
     "test": "jest --config jest.config.json",
     "prod": "npm run build && npm run start"
   },
