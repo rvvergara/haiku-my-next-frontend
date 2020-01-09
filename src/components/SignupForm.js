@@ -17,6 +17,7 @@ class SignupForm extends React.Component {
     referralCode: '',
     formError: '',
     disabled: false,
+    local: this.props.localLang
   };
 
   componentDidMount() {
