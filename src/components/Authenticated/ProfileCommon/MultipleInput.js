@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid';
 
-const MultipleInput = ({ selectedInputs, values, labelId }) => {
+const MultipleInput = ({
+ selectedInputs, values, labelId,
+}) => {
   let initialInputs;
 
   if (values.length > 0) {
@@ -15,6 +17,10 @@ const MultipleInput = ({ selectedInputs, values, labelId }) => {
   }
 
   const [inputs, setInputs] = useState(initialInputs);
+
+  useEffect(() => {
+    if (values.length === 0) setInputs(values);
+  }, [values, setInputs]);
 
   const addInputs = (e) => {
     if (e.key === ',' && e.target.value !== '') {

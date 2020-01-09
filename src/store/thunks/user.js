@@ -93,3 +93,25 @@ export const updatePassword = (id, params) => async (dispatch) => {
     return err.response.data;
   }
 };
+
+export const sendReferralLink = (id, params) => async (dispatch) => {
+  const path = `v1/users/${id}/send-referral-link`;
+
+  try {
+    const res = await sendRequest('post', path, params);
+    const success = await res.data.success;
+    return success;
+  } catch (err) {
+    if (err.response.data.error.errors) {
+      const { errors } = err.response.data.error;
+      const emailInvalidError = errors.some((error) => error.msg === 'Please provide a valid email');
+      if (emailInvalidError) {
+        const invalidEmails = errors.map((error) => error.value).join(', ');
+      dispatch(setError(`These emails are invalid: ${invalidEmails}`));
+      }
+    } else {
+      dispatch(setError(err.response.data.error));
+    }
+    return false;
+  }
+};

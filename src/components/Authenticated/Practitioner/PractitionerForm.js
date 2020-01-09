@@ -70,7 +70,6 @@ class PractitionerForm extends React.Component {
       biography,
       yearsOfExperience,
       imageFile,
-      referralCode
     } = this.state;
 
     setAuthorizationToken(localStorage.token);
@@ -184,7 +183,7 @@ class PractitionerForm extends React.Component {
             />
           </div>
           <div className='form-group'>
-            <label className='auth-label' htmlFor='contact-no'>
+            <label className='auth-label' htmlFor='education'>
               Education:{' '}
             </label>
             <MultipleInput
