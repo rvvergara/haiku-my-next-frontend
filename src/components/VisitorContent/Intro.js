@@ -1,8 +1,9 @@
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import { withTranslation } from '../../../i18n';
 
-const Intro = () => (
+const Intro = ({ t }) => (
   <Container fluid>
     <Row>
       <Col className="mobile-container">
@@ -14,11 +15,11 @@ const Intro = () => (
               alt="Igaku Logo With Text"
             />
           </h2>
-          <h3 className="intro-content-subtitle">Health That Cares</h3>
+          <h3 className="intro-content-subtitle">{t('visitorIntro')}</h3>
         </div>
       </Col>
     </Row>
   </Container>
 );
 
-export default Intro;
+export default withTranslation('index')(Intro);

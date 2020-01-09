@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { withTranslation } from '../../../i18n';
 
-const VisitorHeader = () => (
+const VisitorHeader = ({ t }) => (
   <header>
     <Navbar bg="light" expand="sm">
       <Navbar.Brand href="/">
@@ -27,7 +28,7 @@ const VisitorHeader = () => (
               onClick={() => localStorage.clear()}
               href="/login"
             >
-              Login
+              {t('login')}
             </Nav.Link>
           </Link>
           <Link href="/signup">
@@ -37,7 +38,7 @@ const VisitorHeader = () => (
               href="/signup"
               onClick={() => localStorage.clear()}
             >
-              Signup
+              {t('signup')}
             </Nav.Link>
           </Link>
         </Nav>
@@ -46,4 +47,4 @@ const VisitorHeader = () => (
   </header>
 );
 
-export default VisitorHeader;
+export default withTranslation('visitorHeader')(VisitorHeader);

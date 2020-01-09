@@ -15,7 +15,7 @@ export const IndexPage = ({ currentUser, t }) => {
     );
   }
     return (
-      <VisitorLayout title="Health That Cares">
+      <VisitorLayout title={t('visitorTitle')}>
         <VisitorContent />
       </VisitorLayout>
     );
@@ -28,7 +28,7 @@ IndexPage.propTypes = {
 
 IndexPage.getInitialProps = (ctx) => {
   const { currentUser } = ctx.store.getState();
-  return { currentUser, namespacesRequired: ['practitionerNavLink', 'index'] };
+  return { currentUser, namespacesRequired: ['practitionerNavLink', 'index', 'visitorHeader', 'patientNavLink'] };
 };
 
 export default (connect((state) => state)(withTranslation('index')(IndexPage)));
