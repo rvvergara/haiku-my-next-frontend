@@ -1,0 +1,13 @@
+{
+  "email": "Email",
+  "select-role": "Select Role",
+  "i-am-a": "I am a...",
+  "patient": "Patient",
+  "practitioner": "Practitioner",
+  "password": "Password",
+  "confirm-password": "Confirm Password",
+  "referral-code": "Referral Code",
+  "create-account": "Create Account",
+  "already-have-an-account": "Already have an account?",
+  "login": "Login"
+}

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import SignupForm from '../components/SignupForm';
 import VisitorLayout from '../components/VisitorContent/VisitorLayout';
+import { withTranslation } from '../../i18n';
 
 const SignupPage = () => (
   <VisitorLayout title="Create Account">
@@ -21,4 +22,8 @@ const SignupPage = () => (
   </VisitorLayout>
 );
 
-export default SignupPage;
+SignupPage.getInitialProps = () => ({
+  namespacesRequired: ['signup'],
+});
+
+export default withTranslation('signup')(SignupPage);

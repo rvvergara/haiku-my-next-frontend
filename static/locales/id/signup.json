@@ -1,0 +1,13 @@
+{
+  "email": "Email",
+  "select-role": "Pilih Peran",
+  "i-am-a": "Saya seorang...",
+  "patient": "Pasien",
+  "practitioner": "Praktisi",
+  "password": "Password",
+  "confirm-password": "Konfirmasi Password",
+  "referral-code": "Kode Referral",
+  "create-account": "Daftar",
+  "already-have-an-account": "Sudah punya akun?",
+  "login": "Login"
+}

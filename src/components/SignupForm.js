@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import validator from 'validator';
 import setError from '../store/actions/error';
 import { signup } from '../store/thunks/user';
+import { setLanguage} from '../store/actions/language';
+import { i18n, withTranslation } from '../../i18n';
 
 class SignupForm extends React.Component {
   state = {
@@ -19,8 +21,8 @@ class SignupForm extends React.Component {
 
   componentDidMount() {
     this.setState(() => ({
-      email: Router.query.referred,
-      referralCode: Router.query.code,
+      email: Router.query.referred || '',
+      referralCode: Router.query.code || '',
       disabled: Router.query.referred ? true : false
     }))
   }
@@ -60,6 +62,12 @@ class SignupForm extends React.Component {
     }));
   };
 
+  handleChangeLang = (val) => {
+    this.handleChange('local', val);
+    this.props.setLanguage(val);
+    i18n.changeLanguage(val);
+  }
+
   handleSignup = async e => {
     e.preventDefault();
     if (!this.isValidSignup()) {
@@ -92,6 +100,8 @@ class SignupForm extends React.Component {
       referralCode,
       formError,
     } = this.state;
+    const { t } = this.props;
+
     return (
       <div>
         <div className="form-error">
@@ -101,18 +111,20 @@ class SignupForm extends React.Component {
         <form className="user-form">
           <div className="form-group">
             <label className="auth-label" htmlFor="email">
-              Email
+              {t('email')}
             </label>
             <input
               id="email"
               className="user-form__input"
               type="email"
               onChange={e => this.handleChange('email', e.target.value)}
+              value={email}
+              placeholder={t('email')}
             />
           </div>
           <div className="form-group">
             <label className="auth-label" htmlFor="role">
-              Select Role
+              {t('select-role')}
             </label>
             <select
               id="role"
@@ -122,19 +134,19 @@ class SignupForm extends React.Component {
               onChange={e => this.handleChange('role', e.target.value)}
             >
               <option className="user-form__option" value="">
-                I am a...
+                {t('i-am-a')}
               </option>
               <option className="user-form__option" value="PATIENT">
-                Patient
+                {t('patient')}
               </option>
               <option className="user-form__option" value="PRACTITIONER">
-                Practitioner
+                {t('practitioner')}
               </option>
             </select>
           </div>
           <div className="form-group">
             <label className="auth-label" htmlFor="password">
-              Password
+              {t('password')}
             </label>
             <input
               id="password"
@@ -142,12 +154,12 @@ class SignupForm extends React.Component {
               type="password"
               value={password}
               onChange={e => this.handleChange('password', e.target.value)}
-              placeholder="Password"
+              placeholder={t('password')}
             />
           </div>
           <div className="form-group">
             <label className="auth-label" htmlFor="password-confirm">
-              Confirm Password
+              {t('confirm-password')}
             </label>
             <input
               id="password-confirm"
@@ -155,12 +167,12 @@ class SignupForm extends React.Component {
               type="password"
               value={pwConfirm}
               onChange={e => this.handleChange('pwConfirm', e.target.value)}
-              placeholder="Confirm Password"
+              placeholder={t('confirm-password')}
             />
           </div>
           <div className="form-group">
             <label className="auth-label" htmlFor="referral-code">
-              Referral Code
+              {t('referral-code')}
             </label>
             <input
               id="referral-code"
@@ -169,7 +181,7 @@ class SignupForm extends React.Component {
               value={referralCode}
               disabled={this.state.disabled}
               onChange={e => this.handleChange('referralCode', e.target.value)}
-              placeholder="Confirm Password"
+              placeholder={t('referral-code')}
             />
           </div>
           <div className="form-group">
@@ -178,17 +190,26 @@ class SignupForm extends React.Component {
               type="submit"
               onClick={this.handleSignup}
             >
-              Create Account
+              {t('create-account')}
             </button>
           </div>
           <footer className="user-form__footer">
             <small>
-              Already have an account?
+              {t('already-have-an-account')}
+              {' '}
               <Link href="/login">
                 <button type="button" className="login-text">
-                  Login
+                  {t('login')}
                 </button>
               </Link>
+              {' '}
+              <select 
+              onChange={(e) => this.handleChangeLang(e.target.value)} 
+              value={this.state.local}
+              >
+              <option value="id">Bahasa Indonesia</option>
+              <option value="en">English</option>
+            </select>
             </small>
           </footer>
         </form>
@@ -200,10 +221,17 @@ class SignupForm extends React.Component {
 SignupForm.propTypes = {
   error: PropTypes.string.isRequired,
   signup: PropTypes.func.isRequired,
+  setLanguage: PropTypes.func.isRequired,
+  localLang: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
   error: state.error,
+  localLang: state.language
 });
 
-export default connect(mapStateToProps, { signup, setError })(SignupForm);
+export default connect(mapStateToProps, {
+   signup,
+   setError,
+   setLanguage 
+  })(withTranslation('signup')(SignupForm));
