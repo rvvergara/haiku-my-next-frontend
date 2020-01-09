@@ -32,13 +32,13 @@ const Booking = ({
 Booking.propTypes = {
   displayedPractitioner: PropTypes.instanceOf(Object).isRequired,
   fetchPractitionerAvailabilities: PropTypes.func.isRequired,
-  settingAppointment: PropTypes.func.isRequired,
+  settingAppointment: PropTypes.bool.isRequired,
   listAvailabilies: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   settingAppointment: state.settingAppointment,
-  displayedPractitioner: state.displayedPractitioner.id,
+  displayedPractitioner: state.displayedPractitioner,
 });
 
 export default connect(mapStateToProps, {
