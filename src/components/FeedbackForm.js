@@ -30,7 +30,7 @@ const FeedbackForm = ({ setAlert, currentUserData, sendFeedback }) => {
   };
 
   return (
-    <div>
+    <div className="feedbackForm-container">
       <h1>Feedback Form</h1>
       <p>
         We would love to hear your thoughts, concerns or problem with anything
@@ -65,6 +65,7 @@ const FeedbackForm = ({ setAlert, currentUserData, sendFeedback }) => {
         <br />
         <h6>Describe Feedback:</h6>
         <textarea
+        className="feedbackForm-textarea"
           rows="4"
           cols="50"
           name="feedbackText"
@@ -73,7 +74,9 @@ const FeedbackForm = ({ setAlert, currentUserData, sendFeedback }) => {
           value={body}
           onChange={e => setBody(e.target.value)}
         />
-        <button type="submit">Submit</button>
+        <button className="feedbackForm-button" type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );

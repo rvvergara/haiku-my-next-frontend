@@ -1,12 +1,11 @@
-import Layout from '../../components/Layouts/Layout';
 import PasswordUpdateForm from '../../components/Authenticated/UserAccount/PasswordUpdateForm';
+import Layout from '../../components/Layouts/Layout';
 
 const AccountEditPage = () => (
-  <Layout title='Edit Account'>
-    <div className='login-box'>
+  <Layout title="Edit Account">
+    <div className="passwordUpdate-container">
       <PasswordUpdateForm />
     </div>
-
   </Layout>
 );
 

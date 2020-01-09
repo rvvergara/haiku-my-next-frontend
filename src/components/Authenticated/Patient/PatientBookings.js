@@ -18,7 +18,7 @@ const PatientBooking = ({
     return () => listBookings([]);
   }, []);
   return (
-    <div>
+    <div className="patientBooking-container">
       <h2>My Doctor Appointments</h2>
       {
       bookings.map((booking) => (
