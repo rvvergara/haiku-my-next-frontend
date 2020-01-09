@@ -44,8 +44,8 @@
 
   @media only screen and (min-width: 600px) {
     margin-left: 0;
-    margin-top: 70%;
-    margin-right: $small;
+    margin-top: 35%;
+    margin-right: $small * 2;
   }
 }
 
@@ -68,6 +68,31 @@
 }
 
 .practitionerBox-specialties {
-  padding-top: $small * 0.8;
-  font-size: $small * 0.8;
+  font-family: Josefin Sans, sans-serif;
+  font-size: $small;
+  color: #47495a;
+}
+
+.practitionerBox-exp {
+  font-family: Josefin Sans, sans-serif;
+  font-size: $small * 0.7;
+  color: #47495a;
+}
+
+.quote {
+  font-family: Josefin Sans, sans-serif;
+  font-size: $small;
+  color: #47495a;
+  margin-right: $small * 2.2;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: $small * 0.5;
+}
+
+.quote-value {
+  margin-left: $small * 0.4;
+}
+
+.quote-icon {
+  margin-top: 3px;
 }

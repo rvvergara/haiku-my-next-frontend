@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { IoMdPricetags } from 'react-icons/io';
 
 const PractitionerBox = ({ practitioner }) => {
   const {
-    biography,
+    yearsOfExperience,
     specialties,
     id,
     image,
@@ -27,12 +28,15 @@ const PractitionerBox = ({ practitioner }) => {
         <p className="grotesque-font practitionerBox-specialties">
           {specialties.replace(/[\[\]"]+/g, '')}
         </p>
-        <p className="grotesque-font practitionerBox-bio">
-          {biography.substring(0, 100)}
-          ...
+        <p className="practitionerBox-exp">
+          {`${yearsOfExperience} years of experience overall`}{' '}
         </p>
       </div>
       <div>
+        <div className="quote">
+          <IoMdPricetags className="quote-icon" />
+          <p className="quote-value">$50</p>
+        </div>
         <Link href="/practitioners/[id]" as={`/practitioners/${id}`}>
           <a className="practitionerBox-button" href="/practitioner/[id]">
             View Doctor Profile
