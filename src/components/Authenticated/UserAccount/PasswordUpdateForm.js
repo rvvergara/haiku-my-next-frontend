@@ -3,6 +3,7 @@ import Router from 'next/router';
 import { updatePassword } from '../../../store/thunks/user';
 import { setAuthorizationToken} from '../../../utils/api';
 import setError from '../../../store/actions/error';
+import { withTranslation } from '../../../../i18n';
 
 class PasswordUpdateForm extends React.Component {
   state = {
@@ -28,7 +29,7 @@ class PasswordUpdateForm extends React.Component {
     }
     setAuthorizationToken(localStorage.token);
     const res = await this.props.updatePassword(this.props.currentUserData.id, this.state);
-    
+
     if(res.success){
       Router.push('/');
     } else {
@@ -36,7 +37,7 @@ class PasswordUpdateForm extends React.Component {
         formError: 'Wrong password given'
       }))
     }
-      
+
   }
 
 
@@ -51,12 +52,12 @@ class PasswordUpdateForm extends React.Component {
         </div>
         <form className="user-form">
           <div className="form-group">
-            <label 
+            <label
             htmlFor="current-password" className="auth-label"
             >
-              Current Password
+             {this.props.t('currentPassword')}
             </label>
-            <input 
+            <input
               type="password"
               id="current-password"
               className="user-form__input"
@@ -65,12 +66,12 @@ class PasswordUpdateForm extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label 
+            <label
             htmlFor="new-password" className="auth-label"
             >
-              Type New Password
+              {this.props.t('newPassword')}
             </label>
-            <input 
+            <input
               type="password"
               id="new-password"
               className="user-form__input"
@@ -79,12 +80,12 @@ class PasswordUpdateForm extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label 
+            <label
             htmlFor="password-confirm" className="auth-label"
             >
-              Confirm New Password
+              {this.props.t('confirmNewPassword')}
             </label>
-            <input 
+            <input
               type="password"
               id="password-confirm"
               className="user-form__input"
@@ -112,4 +113,4 @@ const mapStateToProps = (state) => ({
   error: state.error
 })
 
-export default connect(mapStateToProps, { updatePassword, setError })(PasswordUpdateForm)
+export default connect(mapStateToProps, { updatePassword, setError }) (withTranslation('passwordUpdateForm')(PasswordUpdateForm))

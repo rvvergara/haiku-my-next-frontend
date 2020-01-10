@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { IoMdPricetags } from 'react-icons/io';
+import { withTranslation } from '../../../../i18n';
 
-const PractitionerBox = ({ practitioner }) => {
+const PractitionerBox = ({ practitioner, t }) => {
   const {
     yearsOfExperience,
     specialties,
@@ -29,7 +30,7 @@ const PractitionerBox = ({ practitioner }) => {
           {specialties.replace(/[\[\]"]+/g, '')}
         </p>
         <p className="practitionerBox-exp">
-          {`${yearsOfExperience} years of experience overall`}{' '}
+          {`${yearsOfExperience} ${t('yearsOfExp')}`}
         </p>
       </div>
       <div>
@@ -51,4 +52,4 @@ PractitionerBox.propTypes = {
   practitioner: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default PractitionerBox;
+export default withTranslation('practitionerBox')(PractitionerBox);
