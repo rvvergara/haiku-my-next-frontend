@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import PatientBookings from '../components/Authenticated/Patient/PatientBookings';
 import PractitionerBookings from '../components/Authenticated/Practitioner/PractitionerBookings';
 import Layout from '../components/Layouts/Layout';
+import { withTranslation } from '../../i18n';
 
-const BookingsPage = ({ currentUserData }) => (
-  <Layout title="Bookings">
+const BookingsPage = ({ currentUserData, t }) => (
+  <Layout title={t('title')}>
     {currentUserData.role === 'PRACTITIONER' ? (
       <PractitionerBookings />
     ) : (
@@ -16,10 +17,26 @@ const BookingsPage = ({ currentUserData }) => (
 
 BookingsPage.propTypes = {
   currentUserData: PropTypes.instanceOf(Object).isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+BookingsPage.getInitialProps = (ctx) => {
+  const { store } = ctx;
+  const { data } = store.getState().currentUser;
+  return {
+    currentUserData: data,
+    namespacesRequired: [
+      'bookings',
+      'practitionerBookings',
+      'patientBookings',
+      'practitionerNavLink',
+      'patientNavLink',
+    ],
+  };
+};
+
+const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
 });
 
-export default connect(mapStateToProps, null)(BookingsPage);
+export default connect(mapStateToProps, null)(withTranslation('bookings')(BookingsPage));
