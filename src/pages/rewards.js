@@ -1,11 +1,12 @@
-import Layout from '../components/Layouts/Layout';
 import ReferralForm from '../components/Authenticated/ReferralForm';
+import Rewards from '../components/Authenticated/Rewards';
+import Layout from '../components/Layouts/Layout';
 
 const rewards = () => (
   <Layout title="Bookings">
-    <div>
-      <h1>Earn Rewards by Inviting your friends</h1>
+    <div className="rewards-container">
       <ReferralForm />
+      <Rewards />
     </div>
   </Layout>
 );

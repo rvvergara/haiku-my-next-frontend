@@ -1,0 +1,42 @@
+.voucher {
+  width: 30vw;
+  height: 50vh;
+}
+
+.rewards-container {
+  margin: 0 10% 0 10%;
+}
+
+.invite-rewards {
+  margin-top: 1.4rem;
+  background: #5073f1;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 1rem;
+  letter-spacing: 0.2rem;
+  padding: 0.75rem 0.5rem;
+  text-shadow: 0.5px 0.5px 0.5px #eff0f2;
+  margin-left: 40%;
+}
+
+.rewards-title {
+  text-align: center;
+}
+
+.voucher-desc {
+  font-size: $small * 0.8;
+  margin-top: 5vh;
+}
+
+.rewards-point {
+  text-align: center;
+}
+
+.voucher-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rewards-point {
+  margin-bottom: 10vh;
+}
