@@ -10,7 +10,7 @@ const renderDashboard = (userRole, notifications) => {
     case 'PRACTITIONER':
       return (
         <div>
-          <PractitionerNotification />
+          {notifications.length > 0 && <PractitionerNotification />}
           <PractitionerProfile />
         </div>
       );
@@ -35,7 +35,7 @@ Dashboard.propTypes = {
   notifications: PropTypes.instanceOf(Object).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   userRole: state.currentUser.data.role,
   notifications: state.notifications,
 });
