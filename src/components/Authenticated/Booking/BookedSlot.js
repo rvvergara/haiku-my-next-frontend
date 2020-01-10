@@ -1,12 +1,20 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { confirmBookingSlotInDb, rejectBookingSlotInDb } from '../../../store/thunks/availability';
 import { setAlert } from '../../../store/actions/alerts';
 import { listAvailabilies } from '../../../store/actions/availability';
 import ProfileCard from './ProfileCard';
+import { withTranslation } from '../../../../i18n';
 
 const BookedSlot = ({
- booking, confirmBookingSlotInDb, rejectBookingSlotInDb, setAlert, listAvailabilies, currentUserData,
+ booking,
+ confirmBookingSlotInDb,
+ rejectBookingSlotInDb,
+ setAlert,
+ listAvailabilies,
+ currentUserData,
+ t,
 }) => {
   const handleConfirm = () => {
     confirmBookingSlotInDb(booking.id);
@@ -23,14 +31,14 @@ const BookedSlot = ({
   return (
     <div>
       <p>
-      Date:
+        {t('date')}
         {booking.date}
       </p>
       <p>
-      Time:
+        {t('time')}
         {booking.startTime}
         {' '}
-      to
+        {t('to')}
         {' '}
         {booking.endTime}
       </p>
@@ -42,19 +50,28 @@ const BookedSlot = ({
           className="theme-button"
           onClick={handleConfirm}
         >
-        Accept
+          {t('accept')}
         </button>
         <button
           type="button"
           className="theme-button"
           onClick={handleReject}
         >
-        Reject
+          {t('reject')}
         </button>
       </div>
     )}
     </div>
 );
+};
+
+BookedSlot.propTypes = {
+  booking: PropTypes.instanceOf(Object).isRequired,
+ confirmBookingSlotInDb: PropTypes.func.isRequired,
+ rejectBookingSlotInDb: PropTypes.func.isRequired,
+ setAlert: PropTypes.func.isRequired,
+ listAvailabilies: PropTypes.func.isRequired,
+ currentUserData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -67,4 +84,4 @@ confirmBookingSlotInDb,
   rejectBookingSlotInDb,
   setAlert,
   listAvailabilies,
-})(BookedSlot);
+})(withTranslation('bookedSlot')(BookedSlot));
