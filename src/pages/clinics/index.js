@@ -21,7 +21,7 @@ ClinicsPage.propTypes = {
 
 ClinicsPage.getInitialProps = () => ({
   namespacesRequired: [
-    'clincs',
+    'clinics',
     'clinicList',
     'practitionerNavLink',
     'patientNavLink',

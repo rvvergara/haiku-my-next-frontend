@@ -6,12 +6,14 @@ import { listClinics } from '../../../store/actions/clinic';
 import { fetchClinics } from '../../../store/thunks/clinic';
 import { setAuthorizationToken } from '../../../utils/api';
 import ClinicCard from './ClinicCard';
+import { withTranslation } from '../../../../i18n';
 
 const ClinicList = ({
   currentUserData,
   clinics,
   fetchClinics,
   listClinics,
+  t,
 }) => {
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
@@ -26,12 +28,14 @@ const ClinicList = ({
       {currentUserData.role === 'PRACTITIONER' && (
         <Link href="/clinics/new">
           <a href="/clinics/new" className="nav-link add-clinic-button">
-            Add new clinic
+            {t('add-new-clinic')}
           </a>
         </Link>
       )}
 
-      <h5 style={{ textAlign: 'center' }}>Clinic List</h5>
+      <h5 style={{ textAlign: 'center' }}>
+        {t('clinic-list')}
+      </h5>
       {clinics.map((clinic) => (
         <ClinicCard key={clinic.id} clinic={clinic} />
       ))}
@@ -44,6 +48,7 @@ ClinicList.propTypes = {
   currentUserData: PropTypes.instanceOf(Object).isRequired,
   fetchClinics: PropTypes.func.isRequired,
   listClinics: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -51,6 +56,4 @@ const mapStateToProps = (state) => ({
   clinics: state.clinics,
 });
 
-export default connect(mapStateToProps, { fetchClinics, listClinics })(
-  ClinicList,
-);
+export default connect(mapStateToProps, { fetchClinics, listClinics })(withTranslation('clinicList')(ClinicList));
