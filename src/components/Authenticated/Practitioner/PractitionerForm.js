@@ -11,6 +11,7 @@ import { setAuthorizationToken } from '../../../utils/api';
 import setError from '../../../store/actions/error';
 import { setAlert } from '../../../store/actions/alerts';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { withTranslation} from '../../../../i18n';
 
 class PractitionerForm extends React.Component {
   state = {
@@ -121,6 +122,7 @@ class PractitionerForm extends React.Component {
       imageText,
       referralCode
     } = this.state;
+    const { t } = this.props;
     return (
       <div className='container profile-form-container'>
         <form className='user-form profile-form'>
@@ -133,7 +135,7 @@ class PractitionerForm extends React.Component {
               />
             </div>
             <label className='auth-label' htmlFor='profile-pic'>
-              Profile Pic:{' '}
+              {t('profile-pic')}{' '}
             </label>
             <input
               type='file'
@@ -148,19 +150,21 @@ class PractitionerForm extends React.Component {
 
           <div className="form-group">
             <label className="auth-label" htmlFor="first-name">
-              Referral Code:{' '}
+              {t('referral-code')}{' '}
             </label>
 
             <div>{referralCode}</div>
             <CopyToClipboard text={referralCode}>
-              <p className="copy-clipboard">Copy to clipboard</p>
+              <p className="copy-clipboard">
+                {t('copy-to-clipboard')}
+              </p>
             </CopyToClipboard>
           </div>
 
 
           <div className='form-group'>
             <label className='auth-label' htmlFor='first-name'>
-              First Name:{' '}
+              {t('first-name')}{' '}
             </label>
             <input
               className='user-form__input number__input'
@@ -172,7 +176,7 @@ class PractitionerForm extends React.Component {
           </div>
           <div className='form-group'>
             <label className='auth-label' htmlFor='last-name'>
-              Last Name:{' '}
+              {t('last-name')}{' '}
             </label>
             <input
               className='user-form__input number__input'
@@ -184,7 +188,7 @@ class PractitionerForm extends React.Component {
           </div>
           <div className='form-group'>
             <label className='auth-label' htmlFor='education'>
-              Education:{' '}
+              {t('education')}{' '}
             </label>
             <MultipleInput
               selectedInputs={inputs => this.handleChange('education', inputs)}
@@ -194,7 +198,7 @@ class PractitionerForm extends React.Component {
           </div>
           <div className='form-group'>
             <label className='auth-label' htmlFor='specialties'>
-              Specialties:{' '}
+              {t('specialties')}{' '}
             </label>
             <MultipleInput
               selectedInputs={inputs =>
@@ -206,7 +210,7 @@ class PractitionerForm extends React.Component {
           </div>
           <div className='form-group'>
             <label className='auth-label' htmlFor='address'>
-              Biography:{' '}
+              {t('biography')}{' '}
             </label>
             <textarea
               rows={5}
@@ -219,7 +223,7 @@ class PractitionerForm extends React.Component {
           </div>
           <div className='form-group'>
             <label className='auth-label' htmlFor='years-experience'>
-              Years Experience:{' '}
+              {t('years-experience')}{' '}
             </label>
             <input
               className='user-form__input number__input'
@@ -237,7 +241,7 @@ class PractitionerForm extends React.Component {
               type='submit'
               onClick={this.handleSubmit}
             >
-              Update Profile
+              {t('update-profile')}
             </button>
           </div>
         </form>
@@ -266,4 +270,4 @@ export default connect(mapStateToProps, {
   updatePractitioner,
   uploadPic,
   setAlert
-})(PractitionerForm);
+})(withTranslation('practitionerForm')(PractitionerForm));

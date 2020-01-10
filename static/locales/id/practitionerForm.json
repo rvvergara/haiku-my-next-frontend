@@ -4,11 +4,9 @@
   "copy-to-clipboard": "Salin Kode Referal:",
   "first-name": "Nama Depan:",
   "last-name": "Nama Belakang:",
-  "contact-number": "Nomor Kontak:",
-  "passport-no": "Nomor Pasport:",
-  "address": "Alamat:",
-  "postal-code": "Kode Pos:",
-  "date-of-birth": "Tanggal Lahir:",
-  "languages": "Bahasa:",
+  "education": "Lulusan dari:",
+  "specialties": "Spesialis:",
+  "biography": "Biografi:",
+  "years-experience": "Tahun pengalaman:",
   "update-profile": "Ubah Profil"
 }
