@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
+import { withTranslation } from '../../../../i18n';
 
-const ClinicCard = ({ clinic }) => {
+const ClinicCard = ({ clinic, t }) => {
   const {
  name, address, postalCode, image,
 } = clinic;
@@ -32,7 +33,7 @@ const ClinicCard = ({ clinic }) => {
         </div>
         <div className="clinic-button-container">
           <Link href="/clinics/[id]" as={`/clinics/${clinic.id}`}>
-            <a className="clinic-card-button" href="/clinics/[id]">See more info</a>
+            <a className="clinic-card-button" href="/clinics/[id]">{t('see-more-info')}</a>
           </Link>
         </div>
       </div>
@@ -43,6 +44,7 @@ const ClinicCard = ({ clinic }) => {
 
 ClinicCard.propTypes = {
   clinic: PropTypes.instanceOf(Object).isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-export default ClinicCard;
+export default withTranslation('clinicCard')(ClinicCard);

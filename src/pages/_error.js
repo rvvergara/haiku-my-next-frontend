@@ -8,4 +8,12 @@ const ErrorPage = () => (
   </Layout>
 );
 
+ErrorPage.getInitialProps = () => ({
+  namespacesRequired: [
+    'error',
+    'practitionerNavLink',
+    'patientNavLink',
+  ],
+});
+
 export default ErrorPage;
