@@ -29,11 +29,29 @@ class BookingSelection extends React.Component {
     this.props.fetchPractitionerAvailabilities(this.props.displayedPractitioner.id, '', 'PENDING')
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState(() => ({
-      availableTimes: nextProps.shownAvailabilities,
-      selectedDate: moment(nextProps.initialDate),
-    }));
+
+  // componentWillReceiveProps(nextProps) {
+  //   this.setState(() => ({
+  //     availableTimes: nextProps.shownAvailabilities,
+  //     selectedDate: moment(nextProps.initialDate),
+  //   }));
+  // }
+
+  static getDerivedStateFromProps(props, state) {
+    if(props.shownAvailabilities !== state.availableTimes){
+      return {
+        availableTimes: props.shownAvailabilities,
+      }
+    }
+    if(props.initialDate !== state.selectedDate){
+      return {
+        selectedDate: moment(props.initialDate)
+      }
+    }
+  }
+
+  componentDidUpdate(){
+    this.setState()
   }
 
   handleChange = (key, val) =>
