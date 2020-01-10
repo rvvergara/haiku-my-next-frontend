@@ -5,11 +5,13 @@ import BookingSelection from './BookingSelection';
 import BookingForm from './BookingForm';
 import { fetchPractitionerAvailabilities } from '../../../store/thunks/availability';
 import { listAvailabilies } from '../../../store/actions/availability';
+import { withTranslation } from '../../../../i18n';
 
 const Booking = ({
   settingAppointment, fetchPractitionerAvailabilities,
    displayedPractitioner,
    listAvailabilies,
+   t,
 }) => {
   useEffect(() => {
     fetchPractitionerAvailabilities(displayedPractitioner.id);
@@ -18,7 +20,7 @@ const Booking = ({
   return (
     <div className="booking-container">
       <div className="booking-form-header">
-        <h5>Book an Appointment</h5>
+        <h5>{t('book-an-appointment')}</h5>
       </div>
       {
       settingAppointment
@@ -34,6 +36,7 @@ Booking.propTypes = {
   fetchPractitionerAvailabilities: PropTypes.func.isRequired,
   settingAppointment: PropTypes.bool.isRequired,
   listAvailabilies: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -44,4 +47,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
    fetchPractitionerAvailabilities,
    listAvailabilies,
-  })(Booking);
+  })(withTranslation('bookings')(Booking));

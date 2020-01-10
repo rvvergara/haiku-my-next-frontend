@@ -15,6 +15,7 @@ import { bookSlot } from '../../../store/thunks/booking';
 import { setAlert } from '../../../store/actions/alerts';
 import { setAuthorizationToken } from '../../../utils/api';
 import { fetchPractitionerAvailabilities } from '../../../store/thunks/availability';
+import { withTranslation} from '../../../../i18n';
 
 class BookingSelection extends React.Component {
   state = {
@@ -89,11 +90,13 @@ class BookingSelection extends React.Component {
     this.handleChange('calendarFocused', focused);
 
   render() {
+    const { t } = this.props;
+
     return (
       <div className="booking-selection-container">
         <div>
           <label htmlFor="booking-date" className="select-date">
-            Select Date
+            {t('select-date')}
           </label>
           <SingleDatePicker
             id="booking-date"
@@ -139,4 +142,4 @@ export default connect(mapStateToProps, {
   toggleSetAppointment,
   bookSlot,
   fetchPractitionerAvailabilities
-})(BookingSelection);
+})(withTranslation('bookingSelection')(BookingSelection));

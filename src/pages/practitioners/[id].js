@@ -14,7 +14,15 @@ DoctorProfile.getInitialProps = async (ctx) => {
   const { store, query } = ctx;
   const { dispatch } = store;
   await dispatch(fetchOnePractitioner(query.id));
-  return { namespacesRequired: ['practitionerPage', 'patientNavLink'] };
+  return {
+ namespacesRequired: [
+    'bookings',
+    'bookingSelection',
+    'practitionerPage',
+    'patientNavLink',
+    'practitionerCard',
+  ],
+};
 };
 
 export default connect((state) => state)(withTranslation('practitionerPage')(DoctorProfile));
