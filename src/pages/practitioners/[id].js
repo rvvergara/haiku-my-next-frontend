@@ -17,6 +17,7 @@ DoctorProfile.getInitialProps = async (ctx) => {
   return {
  namespacesRequired: [
     'bookings',
+    'bookingForm',
     'bookingSelection',
     'practitionerPage',
     'patientNavLink',

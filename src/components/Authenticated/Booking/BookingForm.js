@@ -6,6 +6,7 @@ import {
 } from '../../../store/actions/availability';
 import { toggleSetAppointment } from '../../../store/actions/booking';
 import { bookSlot } from '../../../store/thunks/booking';
+import { withTranslation} from '../../../../i18n';
 
 class BookingForm extends React.Component {
   state = {
@@ -36,19 +37,21 @@ class BookingForm extends React.Component {
   };
 
   render() {
+    const { t } = this.props;
+
     return (
       <div className="booking-modal">
         <div className="booking-form-title">
           <p className="grotesque-font">Date: {this.props.availability.date}</p>
           <p className="grotesque-font">
-            Start Time: {this.props.availability.startTime}
+            {t('start-time')} {this.props.availability.startTime}
           </p>
           <p className="grotesque-font">
-            End Time: {this.props.availability.endTime}
+          {t('end-time')} {this.props.availability.endTime}
           </p>
         </div>
         <label className="remark-label" htmlFor="remarks">
-          Remarks:
+        {t('remarks')}
         </label>
         <textarea
           id="remarks"
@@ -64,14 +67,14 @@ class BookingForm extends React.Component {
             className="confirm-booking"
             onClick={this.handleSubmit}
           >
-            Confirm
+            {t('confirm')}
           </button>
           <button
             type="button"
             className="confirm-booking orange"
             onClick={() => this.props.toggleSetAppointment(false)}
           >
-            Go Back
+            {t('go-back')}
           </button>
 
           <div className="form-group"></div>
@@ -91,4 +94,4 @@ export default connect(mapStateToProps, {
   removeAvailability,
   displayAvailability,
   bookSlot,
-})(BookingForm);
+})(withTranslation('bookingForm')(BookingForm));
