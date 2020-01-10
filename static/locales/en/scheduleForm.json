@@ -1,0 +1,8 @@
+{
+  "title": "Choose an available day for your appointment",
+  "date": "Select Date",
+  "duration": "Choose Duration",
+  "time": "Choose an available time for your appointment",
+  "startTime": "Start Time:",
+  "endTime": "End time:"
+}

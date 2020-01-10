@@ -3,22 +3,26 @@ import PropTypes from 'prop-types';
 import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
 import { connect } from 'react-redux';
+import { withTranslation } from '../../../../i18n';
 import { setSessionStartTime } from '../../../store/actions/availability';
 
 const SessionTimes = ({
   sessionDuration,
   sessionStartTime,
   setSessionStartTime,
+  t,
 }) => {
   const format = 'h:mm a';
-  const handleChange = (val) => {
+  const handleChange = val => {
     if (val) setSessionStartTime(val.format(format));
   };
 
   return (
     <div className="scheduler-inner-component-container">
-      <h3 className="scheduler-inner-component__title">Choose an available time for your appointment</h3>
-      <label htmlFor="from-time" className="auth-label schedule-label">Start Time: </label>
+      <h3 className="scheduler-inner-component__title">{t('time')}</h3>
+      <label htmlFor="from-time" className="auth-label schedule-label">
+        {t('startTime')}
+      </label>
       <TimePicker
         id="from-time"
         showSecond={false}
@@ -29,7 +33,9 @@ const SessionTimes = ({
         use12Hours
         inputReadOnly
       />
-      <label htmlFor="to-time" className="auth-label schedule-label">End time:</label>
+      <label htmlFor="to-time" className="auth-label schedule-label">
+        {t('endTime')}
+      </label>
       <span className="rc-time-picker xxx read-only-time-span">
         <span className="rc-time-picker-input">
           {moment(sessionStartTime, 'h:mm a')
@@ -47,9 +53,11 @@ SessionTimes.propTypes = {
   sessionStartTime: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   sessionStartTime: state.sessionStartTime,
   sessionDuration: state.sessionDuration,
 });
 
-export default connect(mapStateToProps, { setSessionStartTime })(SessionTimes);
+export default connect(mapStateToProps, { setSessionStartTime })(
+  withTranslation('scheduleForm')(SessionTimes),
+);

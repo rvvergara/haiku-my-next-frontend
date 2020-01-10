@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from '../../../../i18n';
 import { setSessionDuration } from '../../../store/actions/availability';
 import DurationButton from './DurationButton';
 
-const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
+const SessionDuration = ({ setSessionDuration, sessionDuration, t }) => {
   const [durationValue, setDurationValue] = useState(sessionDuration);
   const [customValue, setCustomValue] = useState('');
-  const handleClick = (value) => {
+  const handleClick = value => {
     setSessionDuration(parseInt(value));
     setDurationValue(value);
   };
 
-  const handleChange = (value) => {
+  const handleChange = value => {
     const re = /^\d+(\.\d{0,2})?$/gi;
     if (!value || value.match(re)) {
       setSessionDuration(parseInt(value || '0'));
@@ -23,7 +24,7 @@ const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
 
   return (
     <div className="scheduler-inner-component-container">
-      <h3 className="scheduler-inner-component__title">Choose Duration</h3>
+      <h3 className="scheduler-inner-component__title">{t('duration')}</h3>
       <div className="duration-container">
         <DurationButton
           value={30}
@@ -50,7 +51,7 @@ const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
             }
             value={customValue}
             placeholder="Set custom minutes"
-            onChange={(e) => handleChange(e.target.value)}
+            onChange={e => handleChange(e.target.value)}
             onFocus={() => handleChange('')}
           />
         </div>
@@ -59,7 +60,7 @@ const SessionDuration = ({ setSessionDuration, sessionDuration }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   sessionDuration: state.sessionDuration,
 });
 
@@ -69,5 +70,5 @@ SessionDuration.propTypes = {
 };
 
 export default connect(mapStateToProps, { setSessionDuration })(
-  SessionDuration,
+  withTranslation('scheduleForm')(SessionDuration),
 );
