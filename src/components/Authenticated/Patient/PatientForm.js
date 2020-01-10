@@ -11,6 +11,7 @@ import { createPatient, updatePatient } from '../../../store/thunks/patient';
 import { uploadPic } from '../../../store/thunks/upload';
 import { setAuthorizationToken } from '../../../utils/api';
 import MultipleInput from '../ProfileCommon/MultipleInput';
+import { withTranslation } from '../../../../i18n';
 
 class PatientForm extends React.Component {
   state = {
@@ -41,7 +42,7 @@ class PatientForm extends React.Component {
     referralCode: this.props.currentUserData.referralCode,
     imageText: '',
     imageFile: null,
-    calendarFocused: false,
+    calendarFocused: false
   };
 
   componentWillUnmount() {
@@ -50,7 +51,7 @@ class PatientForm extends React.Component {
 
   handleChange = (key, val) =>
     this.setState(() => ({
-      [key]: val,
+      [key]: val
     }));
 
   onDateChange = dateOfBirth => {
@@ -88,7 +89,7 @@ class PatientForm extends React.Component {
       address,
       dateOfBirth,
       languages,
-      imageFile,
+      imageFile
     } = this.state;
 
     setAuthorizationToken(localStorage.token);
@@ -108,7 +109,7 @@ class PatientForm extends React.Component {
       files: imageFile,
       dateOfBirth: moment(dateOfBirth.valueOf()).toJSON(),
       languages: JSON.stringify(languages),
-      userId: id,
+      userId: id
     };
 
     const formData = new FormData();
@@ -145,27 +146,29 @@ class PatientForm extends React.Component {
       points,
       imageText,
       calendarFocused,
-      referralCode,
+      referralCode
     } = this.state;
 
+    const { t } = this.props;
+
     return (
-      <div className="container profile-form-container">
-        <form className="user-form profile-form">
-          <div className="form-group">
-            <div className="image-preview">
+      <div className='container profile-form-container'>
+        <form className='user-form profile-form'>
+          <div className='form-group'>
+            <div className='image-preview'>
               <img
                 src={this.imgPreviewUrl()}
-                alt="Patient"
-                className="patientForm-image"
+                alt='Patient'
+                className='patientForm-image'
               />
             </div>
 
-            <label className="auth-label" htmlFor="profile-pic">
-              Profile Pic:{' '}
+            <label className='auth-label' htmlFor='profile-pic'>
+              {t('profile-pic')}{' '}
             </label>
             <input
-              type="file"
-              id="profile-pic"
+              type='file'
+              id='profile-pic'
               onChange={e => {
                 this.handleChange('imageText', e.target.value);
                 this.handleChange('imageFile', e.target.files[0]);
@@ -174,95 +177,95 @@ class PatientForm extends React.Component {
             />
           </div>
 
-          <div className="form-group">
-            <label className="auth-label" htmlFor="first-name">
-              Referral Code:{' '}
+          <div className='form-group'>
+            <label className='auth-label' htmlFor='first-name'>
+              {t('referral-code')}{' '}
             </label>
 
             <div>{referralCode}</div>
             <CopyToClipboard text={referralCode}>
-              <p className="copy-clipboard">Copy to clipboard</p>
+              <p className='copy-clipboard'>{t('copy-to-clipboard')}</p>
             </CopyToClipboard>
           </div>
 
-          <div className="form-group">
-            <label className="auth-label" htmlFor="first-name">
-              First Name:{' '}
+          <div className='form-group'>
+            <label className='auth-label' htmlFor='first-name'>
+              {t('first-name')}{' '}
             </label>
             <input
-              className="user-form__input number__input"
-              type="text"
-              id="first-name"
+              className='user-form__input number__input'
+              type='text'
+              id='first-name'
               onChange={e => this.handleChange('firstName', e.target.value)}
               value={firstName}
             />
           </div>
-          <div className="form-group">
-            <label className="auth-label" htmlFor="last-name">
-              Last Name:{' '}
+          <div className='form-group'>
+            <label className='auth-label' htmlFor='last-name'>
+              {t('last-name')}{' '}
             </label>
             <input
-              className="user-form__input number__input"
-              type="text"
-              id="last-name"
+              className='user-form__input number__input'
+              type='text'
+              id='last-name'
               onChange={e => this.handleChange('lastName', e.target.value)}
               value={lastName}
             />
           </div>
-          <div className="form-group">
-            <label className="auth-label" htmlFor="contact-no">
-              Contact Number:{' '}
+          <div className='form-group'>
+            <label className='auth-label' htmlFor='contact-no'>
+              {t('contact-number')}{' '}
             </label>
             <input
-              className="user-form__input number__input"
-              type="text"
-              id="contact-no"
+              className='user-form__input number__input'
+              type='text'
+              id='contact-no'
               onChange={e => this.handleChange('contactNumber', e.target.value)}
               value={contactNumber}
             />
           </div>
-          <div className="form-group">
-            <label className="auth-label" htmlFor="passport">
-              Passport No.
+          <div className='form-group'>
+            <label className='auth-label' htmlFor='passport'>
+              {t('passport-no')}
             </label>
             <input
-              className="user-form__input number__input"
-              type="text"
-              id="passport"
+              className='user-form__input number__input'
+              type='text'
+              id='passport'
               onChange={e => this.handleChange('passport', e.target.value)}
               value={passport}
             />
           </div>
-          <div className="form-group">
-            <label className="auth-label" htmlFor="address">
-              Address
+          <div className='form-group'>
+            <label className='auth-label' htmlFor='address'>
+              {t('address')}
             </label>
             <input
-              className="user-form__input"
-              type="text"
-              id="address"
+              className='user-form__input'
+              type='text'
+              id='address'
               onChange={e => this.handleChange('address', e.target.value)}
               value={address}
             />
           </div>
-          <div className="form-group">
-            <label className="auth-label" htmlFor="postal-code">
-              Postal Code
+          <div className='form-group'>
+            <label className='auth-label' htmlFor='postal-code'>
+              {t('postal-code')}
             </label>
             <input
-              className="user-form__input number__input"
-              type="text"
-              id="postal-code"
+              className='user-form__input number__input'
+              type='text'
+              id='postal-code'
               onChange={e => this.handleChange('postalCode', e.target.value)}
               value={postalCode}
             />
           </div>
-          <div className="form-group">
-            <label className="auth-label" htmlFor="dob">
-              Date of Birth:
+          <div className='form-group'>
+            <label className='auth-label' htmlFor='dob'>
+              {t('date-of-birth')}
             </label>
             <SingleDatePicker
-              id="dob"
+              id='dob'
               date={dateOfBirth}
               onDateChange={this.onDateChange}
               focused={calendarFocused}
@@ -271,21 +274,23 @@ class PatientForm extends React.Component {
               isOutsideRange={() => false}
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="languages">Languages</label>
+          <div className='form-group'>
+            <label htmlFor='languages' className='auth-label'>
+              {t('languages')}
+            </label>
             <MultipleInput
               selectedInputs={inputs => this.handleChange('languages', inputs)}
               values={languages}
-              labelId="languages"
+              labelId='languages'
             />
           </div>
-          <div className="form-group profile-form-group">
+          <div className='form-group profile-form-group'>
             <button
-              className="patientForm-button"
-              type="submit"
+              className='patientForm-button'
+              type='submit'
               onClick={this.handleSubmit}
             >
-              Update Profile
+              {t('update-profile')}
             </button>
           </div>
         </form>
@@ -301,11 +306,12 @@ PatientForm.propTypes = {
   setError: PropTypes.func.isRequired,
   updatePatient: PropTypes.func.isRequired,
   uploadPic: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   currentUserData: state.currentUser.data,
-  error: state.error,
+  error: state.error
 });
 
 export default connect(mapStateToProps, {
@@ -313,5 +319,5 @@ export default connect(mapStateToProps, {
   setError,
   updatePatient,
   uploadPic,
-  setAlert,
-})(PatientForm);
+  setAlert
+})(withTranslation('patientForm')(PatientForm));
