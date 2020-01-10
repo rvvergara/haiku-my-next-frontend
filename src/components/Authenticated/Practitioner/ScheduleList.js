@@ -4,11 +4,12 @@ import { useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { connect } from 'react-redux';
+import { withTranslation } from '../../../../i18n';
 import { listAvailabilies } from '../../../store/actions/availability';
- 
+
 const localizer = momentLocalizer(moment);
 
-const ScheduleList = ({ availabilities, listAvailabilies }) => {
+const ScheduleList = ({ availabilities, listAvailabilies, t }) => {
   const eventStyleGetter = (event, start, end, isSelected) => {
     let newStyle = {
       backgroundColor: 'lightgrey',
@@ -39,16 +40,18 @@ const ScheduleList = ({ availabilities, listAvailabilies }) => {
   return (
     <div className="scheduler-container">
       <div className="color-legend">
-        <div className="booked"></div> <h6> Booked</h6>
-        <div className="open-slot"></div> <h6>Open Slot</h6>
+        <div className="booked" />
+        <h6>{t('booked')}</h6>
+        <div className="open-slot" />
+        <h6>{t('openSlot')}</h6>
       </div>
       <Calendar
         localizer={localizer}
         events={availabilities.map(avail => ({
           title: `${avail.startTime} - ${avail.endTime}`,
           allDay: false,
-          start: new Date(`${avail.date} ${avail.startTime}`), // 10.00 AM
-          end: new Date(`${avail.date} ${avail.endTime}`), // 2.00 PM
+          start: new Date(`${avail.date} ${avail.startTime}`),
+          end: new Date(`${avail.date} ${avail.endTime}`),
           status: avail.status,
           patientId: avail.patientId,
         }))}
@@ -72,4 +75,6 @@ const mapStateToProps = state => ({
   ),
 });
 
-export default connect(mapStateToProps, { listAvailabilies })(ScheduleList);
+export default connect(mapStateToProps, { listAvailabilies })(
+  withTranslation('scheduleForm')(ScheduleList),
+);

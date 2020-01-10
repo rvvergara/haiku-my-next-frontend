@@ -4,5 +4,8 @@
   "duration": "Pilih Durasi",
   "time": "Pilih jam yang tersedia untuk pertemuan anda",
   "startTime": "Mulai jam:",
-  "endTime":"Selesai jam:"
+  "endTime": "Selesai jam:",
+  "submit": "Kirim",
+  "booked": "Sudah dipesan",
+  "openSlot": "Tersedia"
 }

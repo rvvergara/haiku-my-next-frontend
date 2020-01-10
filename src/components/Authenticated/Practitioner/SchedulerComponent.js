@@ -1,10 +1,14 @@
-import { useEffect } from 'react';
 import moment from 'moment';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { withTranslation } from '../../../../i18n';
 import { setAlert } from '../../../store/actions/alerts';
 import {
- addAvailability, setSessionDate, setSessionDuration, setSessionStartTime,
+  addAvailability,
+  setSessionDate,
+  setSessionDuration,
+  setSessionStartTime,
 } from '../../../store/actions/availability';
 import { createAvailabilityOnDb } from '../../../store/thunks/availability';
 import { setAuthorizationToken } from '../../../utils/api';
@@ -22,31 +26,34 @@ const SchedulerComponent = ({
   setSessionDate,
   setSessionDuration,
   setSessionStartTime,
+  t,
 }) => {
   useEffect(() => {
     setSessionDate(moment().format('MMMM D, YYYY'));
-      setSessionDuration(30);
-      setSessionStartTime('9:00 am');
+    setSessionDuration(30);
+    setSessionStartTime('9:00 am');
     return () => {
       setSessionDate('');
       setSessionDuration(0);
       setSessionStartTime('');
     };
-}, []);
+  }, []);
 
   const handleSubmit = async () => {
     const endTime = moment(sessionStartTime, 'h:mm a')
       .add(sessionDuration, 'minutes')
       .format('LT');
     const processedDate = moment(sessionDate).format('YYYY-MM-DD');
-    const UTCStartTime = moment(`${processedDate} ${sessionStartTime}`).toJSON();
+    const UTCStartTime = moment(
+      `${processedDate} ${sessionStartTime}`,
+    ).toJSON();
     const UTCEndTime = moment(`${processedDate} ${endTime}`).toJSON();
     const bookingParams = {
       date: processedDate,
       startTime: UTCStartTime,
       endTime: UTCEndTime,
       practitionerId: currentUserData.practitioner.id,
-  };
+    };
     setAuthorizationToken(localStorage.token);
     await createAvailabilityOnDb(bookingParams);
     setAlert('Booking added', 'success');
@@ -58,8 +65,8 @@ const SchedulerComponent = ({
       <SessionDuration />
       <SessionTime />
       <div>
-        <button type="button" className="clinic-button" onClick={handleSubmit}>
-          Submit
+        <button type="button" className="scheduler-button" onClick={handleSubmit}>
+          {t('submit')}
         </button>
       </div>
     </div>
@@ -79,7 +86,7 @@ SchedulerComponent.propTypes = {
   setSessionStartTime: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   currentUserData: state.currentUser.data,
   sessionDate: state.sessionDate,
   sessionDuration: state.sessionDuration,
@@ -93,4 +100,4 @@ export default connect(mapStateToProps, {
   setSessionDate,
   setSessionDuration,
   setSessionStartTime,
-})(SchedulerComponent);
+})(withTranslation('scheduleForm')(SchedulerComponent));

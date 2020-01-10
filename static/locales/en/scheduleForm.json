@@ -4,5 +4,8 @@
   "duration": "Choose Duration",
   "time": "Choose an available time for your appointment",
   "startTime": "Start Time:",
-  "endTime": "End time:"
+  "endTime": "End time:",
+  "submit": "Submit",
+  "booked": "Booked",
+  "openSlot": "Open Slot"
 }
