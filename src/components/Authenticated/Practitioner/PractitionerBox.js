@@ -40,7 +40,7 @@ const PractitionerBox = ({ practitioner, t }) => {
         </div>
         <Link href="/practitioners/[id]" as={`/practitioners/${id}`}>
           <a className="practitionerBox-button" href="/practitioner/[id]">
-            View Doctor Profile
+            {t('view-doctor-profile')}
           </a>
         </Link>
       </div>
