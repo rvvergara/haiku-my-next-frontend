@@ -26,7 +26,7 @@ NewProfilePage.getInitialProps = (ctx) => {
 
   return {
     currentUserData: data,
-    namespacesRequired: ['newProfile'],
+    namespacesRequired: ['newProfile', 'practionerNavLink', 'patientNavLink'],
   };
 };
 
