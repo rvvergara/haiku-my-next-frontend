@@ -50,10 +50,6 @@ class BookingSelection extends React.Component {
     }
   }
 
-  componentDidUpdate(){
-    this.setState()
-  }
-
   handleChange = (key, val) =>
     this.setState(() => ({
       [key]: val,
