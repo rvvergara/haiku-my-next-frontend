@@ -4,13 +4,17 @@ import redirect from 'next-redirect';
 import Layout from '../../components/Layouts/Layout';
 import ConnectedPractitionerForm from '../../components/Authenticated/Practitioner/PractitionerForm';
 import ConnectedPatientForm from '../../components/Authenticated/Patient/PatientForm';
+import { withTranslation } from '../../../i18n';
 
-export const NewProfilePage = ({ currentUserData }) => (
-  <Layout title={`New ${currentUserData.role} profile`}>
-    <h1>Please fill up your information first</h1>
-    {currentUserData.role === 'PRACTITIONER' ? <ConnectedPractitionerForm /> : <ConnectedPatientForm />}
-  </Layout>
+export const NewProfilePage = ({ currentUserData, t }) => {
+  const role = currentUserData.role.toLowerCase();
+  return (
+    <Layout title={t('title', { role })}>
+      <h1>{t('please-fill-up')}</h1>
+      {currentUserData.role === 'PRACTITIONER' ? <ConnectedPractitionerForm /> : <ConnectedPatientForm />}
+    </Layout>
 );
+};
 
 NewProfilePage.getInitialProps = (ctx) => {
   const { store } = ctx;
@@ -20,11 +24,14 @@ NewProfilePage.getInitialProps = (ctx) => {
     return redirect(ctx, '/');
   }
 
-  return { currentUserData: data };
+  return {
+    currentUserData: data,
+    namespacesRequired: ['newProfile'],
+  };
 };
 
 NewProfilePage.propTypes = {
   currentUserData: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default connect((state) => state)(NewProfilePage);
+export default connect((state) => state)(withTranslation('newProfile')(NewProfilePage));
