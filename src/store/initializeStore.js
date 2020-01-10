@@ -1,7 +1,6 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import logger from 'redux-logger';
 import rootReducer from './reducers';
 
 const composeEnhancers = composeWithDevTools({
@@ -9,14 +8,12 @@ const composeEnhancers = composeWithDevTools({
   traceLimit: 25,
 });
 
-const middlewares = process.env.NODE_ENV === 'development'
-    ? composeEnhancers(applyMiddleware(thunk, logger))
+const middlewares =
+  process.env.NODE_ENV === 'development'
+    ? composeEnhancers(applyMiddleware(thunk))
     : compose(applyMiddleware(thunk));
 
-const initializeStore = (initialState = {}) => createStore(
-    rootReducer,
-    initialState,
-    middlewares,
-  );
+const initializeStore = (initialState = {}) =>
+  createStore(rootReducer, initialState, middlewares);
 
 export default initializeStore;
