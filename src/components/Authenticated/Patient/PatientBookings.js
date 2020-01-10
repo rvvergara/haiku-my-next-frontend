@@ -5,12 +5,14 @@ import { fetchPatientBookedSlot } from '../../../store/thunks/patient';
 import { listBookings } from '../../../store/actions/booking';
 import { setAuthorizationToken } from '../../../utils/api';
 import BookedSlot from '../Booking/BookedSlot';
+import { withTranslation } from '../../../../i18n';
 
 const PatientBooking = ({
  fetchPatientBookedSlot,
   currentUserData,
   bookings,
   listBookings,
+  t,
 }) => {
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
@@ -19,7 +21,7 @@ const PatientBooking = ({
   }, []);
   return (
     <div className="patientBooking-container">
-      <h2>My Doctor Appointments</h2>
+      <h2>{t('my-doctor-appointments')}</h2>
       {
       bookings.map((booking) => (
         <BookedSlot
@@ -37,6 +39,7 @@ PatientBooking.propTypes = {
   currentUserData: PropTypes.instanceOf(Object).isRequired,
   listBookings: PropTypes.func.isRequired,
   bookings: PropTypes.instanceOf(Object).isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -44,4 +47,4 @@ const mapStateToProps = (state) => ({
   bookings: state.bookings,
 });
 
-export default connect(mapStateToProps, { fetchPatientBookedSlot, listBookings })(PatientBooking);
+export default connect(mapStateToProps, { fetchPatientBookedSlot, listBookings })(withTranslation('patientBookings')(PatientBooking));
