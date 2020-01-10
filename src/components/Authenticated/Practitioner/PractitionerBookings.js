@@ -5,8 +5,14 @@ import { setAuthorizationToken } from '../../../utils/api';
 import { fetchPractitionerAvailabilities } from '../../../store/thunks/availability';
 import { setPractitioner } from '../../../store/actions/practitioners';
 import BookedSlot from '../Booking/BookedSlot';
+import { withTranslation } from '../../../../i18n';
 
-const PractitionerBookings = ({ bookings, fetchPractitionerAvailabilities, currentUserData }) => {
+const PractitionerBookings = ({
+  bookings,
+  fetchPractitionerAvailabilities,
+   currentUserData,
+   t,
+  }) => {
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
     fetchPractitionerAvailabilities(currentUserData.practitioner.id, '', '');
@@ -16,7 +22,7 @@ const PractitionerBookings = ({ bookings, fetchPractitionerAvailabilities, curre
   }, []);
   return (
     <div>
-      <h2>My Booked Slots</h2>
+      <h2>{t('my-booked-slots')}</h2>
       {
       bookings.map((booking) => (
         <BookedSlot
@@ -33,6 +39,7 @@ PractitionerBookings.propTypes = {
   bookings: PropTypes.instanceOf(Object).isRequired,
   currentUserData: PropTypes.instanceOf(Object).isRequired,
   fetchPractitionerAvailabilities: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -43,4 +50,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   fetchPractitionerAvailabilities,
   setPractitioner,
-})(PractitionerBookings);
+})(withTranslation('practitionerBookings')(PractitionerBookings));
