@@ -1,11 +1,12 @@
 import Router from 'next/router';
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from '../../i18n';
 import { setAlert } from '../store/actions/alerts';
 import { sendFeedback } from '../store/thunks/feedback';
 import { setAuthorizationToken } from '../utils/api';
 
-const FeedbackForm = ({ setAlert, currentUserData, sendFeedback }) => {
+const FeedbackForm = ({ setAlert, currentUserData, sendFeedback, t }) => {
   const [body, setBody] = useState('');
   const [feedbackType, setFeedbackType] = useState('comment');
 
@@ -31,11 +32,8 @@ const FeedbackForm = ({ setAlert, currentUserData, sendFeedback }) => {
 
   return (
     <div className="feedbackForm-container">
-      <h1>Feedback Form</h1>
-      <p>
-        We would love to hear your thoughts, concerns or problem with anything
-        so we can improve!
-      </p>
+      <h1>{t('feedbackForm')}</h1>
+      <p>{t('feedbackDesc')}</p>
 
       <form id="feedbackform" onSubmit={handleSubmit}>
         <input
@@ -45,7 +43,7 @@ const FeedbackForm = ({ setAlert, currentUserData, sendFeedback }) => {
           checked={feedbackType === 'comment'}
           onChange={e => setFeedbackType(e.target.value)}
         />
-        Comments
+        {t('comment')}
         <br />
         <input
           type="radio"
@@ -53,7 +51,7 @@ const FeedbackForm = ({ setAlert, currentUserData, sendFeedback }) => {
           value="bugReports"
           onChange={e => setFeedbackType(e.target.value)}
         />
-        Bug Reports
+        {t('bug')}
         <br />
         <input
           type="radio"
@@ -61,21 +59,22 @@ const FeedbackForm = ({ setAlert, currentUserData, sendFeedback }) => {
           value="questions"
           onChange={e => setFeedbackType(e.target.value)}
         />
-        Questions
+        {t('question')}
+
         <br />
-        <h6>Describe Feedback:</h6>
+        <h6>{t('feedbackTitle')} </h6>
         <textarea
-        className="feedbackForm-textarea"
+          className="feedbackForm-textarea"
           rows="4"
           cols="50"
           name="feedbackText"
           form="feedbackform"
-          placeholder="Your feedback here"
+          placeholder={t('placeholder')}
           value={body}
           onChange={e => setBody(e.target.value)}
         />
         <button className="feedbackForm-button" type="submit">
-          Submit
+          {t('submit')}
         </button>
       </form>
     </div>
@@ -87,5 +86,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { setAlert, sendFeedback })(
-  FeedbackForm,
+  withTranslation('feedbackForm')(FeedbackForm),
 );
