@@ -181,7 +181,7 @@ class SignupForm extends React.Component {
           </div>
           <footer className="user-form__footer">
             <small>
-              {/*<div>
+              {this.props.route === '/signup' && <div>
                 {t('already-have-an-account')}
                 {' '}
                 <Link href="/login">
@@ -190,7 +190,7 @@ class SignupForm extends React.Component {
                   </button>
                 </Link>
                 {' '}
-              </div>*/}
+              </div>}
               <select
               onChange={(e) => this.handleChangeLang(e.target.value)}
               value={this.state.local || 'en'}

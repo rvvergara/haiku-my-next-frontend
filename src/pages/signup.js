@@ -16,7 +16,7 @@ const SignupPage = () => (
             />
           </Link>
         </div>
-        <SignupForm />
+        <SignupForm route='/signup' />
       </div>
     </div>
   </VisitorLayout>

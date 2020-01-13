@@ -10,7 +10,7 @@ const Intro = ({ t }) => (
       <Col className="mobile-container">
         <div className="intro-content">
           <div className="signup-container homepage-signup">
-            <SignupForm />
+            <SignupForm route='/' />
           </div>
           <h2 className="intro-content-title">
             {/* <img
