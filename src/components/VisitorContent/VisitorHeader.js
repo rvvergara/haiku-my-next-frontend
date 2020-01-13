@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { connect } from 'react-redux';
 import { i18n, withTranslation } from '../../../i18n';
 import { setLanguage } from '../../store/actions/language';
+import LoginHeader from '../VisitorContent/LoginHeader';
 
 const VisitorHeader = ({ t, localLang, setLanguage }) => {
   const [local, setLocal] = useState(localLang);
@@ -20,7 +21,7 @@ const VisitorHeader = ({ t, localLang, setLanguage }) => {
     setLocal(localLang);
   }, [localLang]);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setLocal(e.target.value);
     setLanguage(e.target.value);
     i18n.changeLanguage(e.target.value);
@@ -40,6 +41,7 @@ const VisitorHeader = ({ t, localLang, setLanguage }) => {
             className="header-logo-text"
             alt="Igaku Logo"
           />
+          <LoginHeader />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -48,7 +50,7 @@ const VisitorHeader = ({ t, localLang, setLanguage }) => {
               <option value="en">English</option>
               <option value="id">Bahasa Indonesia</option>
             </select>
-            <Link href="/login">
+            {/* <Link href="/login">
               <Nav.Link
                 className="theme-button"
                 onClick={() => localStorage.clear()}
@@ -66,12 +68,12 @@ const VisitorHeader = ({ t, localLang, setLanguage }) => {
               >
                 {t('signup')}
               </Nav.Link>
-            </Link>
+            </Link> */}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
     </header>
-);
+  );
 };
 
 VisitorHeader.propTypes = {
@@ -80,8 +82,10 @@ VisitorHeader.propTypes = {
   setLanguage: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   localLang: state.language,
 });
 
-export default connect(mapStateToProps, { setLanguage })(withTranslation('visitorHeader')(VisitorHeader));
+export default connect(mapStateToProps, { setLanguage })(
+  withTranslation('visitorHeader')(VisitorHeader),
+);
