@@ -109,11 +109,11 @@ class SignupForm extends React.Component {
         </div>
         <form className="user-form">
           <div className="form-group">
-            <label className="auth-label" htmlFor="email">
+            <label className="auth-label" htmlFor="signup-email">
               {t('email')}
             </label>
             <input
-              id="email"
+              id="signup-email"
               className="user-form__input"
               type="email"
               onChange={e => this.handleChange('email', e.target.value)}
@@ -144,11 +144,11 @@ class SignupForm extends React.Component {
             </select>
           </div>
           <div className="form-group">
-            <label className="auth-label" htmlFor="password">
+            <label className="auth-label" htmlFor="signup-password">
               {t('password')}
             </label>
             <input
-              id="password"
+              id="signup-password"
               className="user-form__input"
               type="password"
               value={password}
