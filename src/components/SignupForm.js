@@ -13,7 +13,6 @@ class SignupForm extends React.Component {
     email: '',
     role: '',
     password: '',
-    pwConfirm: '',
     referralCode: '',
     formError: '',
     disabled: false,
@@ -45,10 +44,6 @@ class SignupForm extends React.Component {
     } else if (!validator.isEmail(email)) {
       this.setState(() => ({
         formError: 'Please put a valid email',
-      }));
-    } else if (password !== pwConfirm) {
-      this.setState(() => ({
-        formError: "Passwords don't match",
       }));
     } else if (role === '') {
       this.setState(() => ({
@@ -162,19 +157,6 @@ class SignupForm extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label className="auth-label" htmlFor="password-confirm">
-              {t('confirm-password')}
-            </label>
-            <input
-              id="password-confirm"
-              className="user-form__input"
-              type="password"
-              value={pwConfirm}
-              onChange={e => this.handleChange('pwConfirm', e.target.value)}
-              placeholder={t('confirm-password')}
-            />
-          </div>
-          <div className="form-group">
             <label className="auth-label" htmlFor="referral-code">
               {t('referral-code')}
             </label>
@@ -207,8 +189,8 @@ class SignupForm extends React.Component {
                 </button>
               </Link>
               {' '}
-              <select 
-              onChange={(e) => this.handleChangeLang(e.target.value)} 
+              <select
+              onChange={(e) => this.handleChangeLang(e.target.value)}
               value={this.state.local || 'en'}
               >
               <option value="id">Bahasa Indonesia</option>
@@ -237,5 +219,5 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
    signup,
    setError,
-   setLanguage 
+   setLanguage
   })(withTranslation('signup')(SignupForm));
