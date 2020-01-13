@@ -10,9 +10,12 @@ export default async (ctx) => {
   if (ctx.isServer) {
     if (ctx.req.headers.cookie) {
       const cookiesArr = ctx.req.headers.cookie.split(';');
-      const langCookie = cookiesArr.find((cookie) => cookie.includes('next-i18next'));
-      const lang = langCookie.split('=')[1];
-      ctx.store.dispatch(setLanguage(lang));
+      const hasLangCookie = cookiesArr.some((cookie) => cookie.includes('next-i18next'));
+      if (hasLangCookie) {
+        const langCookie = cookiesArr.find((cookie) => cookie.includes('next-i18next'));
+        const lang = langCookie.split('=')[1];
+        ctx.store.dispatch(setLanguage(lang));
+      }
     }
     if (ctx.req.headers.cookie && findIfCookiePresent(ctx.req, 'token')) {
       const { req, store } = ctx;
