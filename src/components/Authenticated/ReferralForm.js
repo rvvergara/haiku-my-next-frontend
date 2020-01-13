@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withTranslation } from '../../../i18n';
 import { setAlert } from '../../store/actions/alerts';
 import setError from '../../store/actions/error';
 import { sendReferralLink } from '../../store/thunks/user';
@@ -44,7 +45,7 @@ class ReferralForm extends React.Component {
         <form className="user-form">
           <div className="form-group">
             <label htmlFor="referrals" className="auth-label">
-              Referral email addresses:
+              {this.props.t('referral')}:
             </label>
             <MultipleInput
               selectedInputs={inputs => this.handleChange('emails', inputs)}
@@ -77,4 +78,4 @@ export default connect(mapStateToProps, {
   setAlert,
   setError,
   sendReferralLink,
-})(ReferralForm);
+})(withTranslation('reward')(ReferralForm));

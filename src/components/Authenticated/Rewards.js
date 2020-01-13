@@ -15,6 +15,7 @@ const Rewards = ({ t }) => {
             alt=""
           />
           <p className="voucher-desc">{t('hotel-desc')}</p>
+          <b className="redeem">{t('redeem')}</b>
         </div>
 
         <div>
@@ -26,6 +27,18 @@ const Rewards = ({ t }) => {
             alt=""
           />
           <p className="voucher-desc">{t('cash-desc')}</p>
+          <b className="redeem">{t('redeem')}</b>
+        </div>
+
+        <div>
+          <h4>{t('airline')}</h4>
+          <img
+            className="voucher"
+            src="https://www.i-customerservicenumber.com/wp-content/uploads/2019/10/American-Airline-voucher.png"
+            alt=""
+          />
+          <p className="voucher-desc">{t('airline-desc')}</p>
+          <b className="redeem">{t('redeem')}</b>
         </div>
       </div>
     </div>

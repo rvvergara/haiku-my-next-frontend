@@ -4,5 +4,10 @@
   "hotel": "Hotel Voucher",
   "hotel-desc": "You can redeem this hotel coupon for 300 points",
   "cash": "Cash Voucher",
-  "cash-desc": "  You can redeem this voucher coupon for 100 points"
+  "cash-desc": "You can redeem this voucher coupon for 100 points",
+  "airline": "Airline Voucher",
+  "airline-desc": "You can redeem this voucher coupon for 500 points",
+  "redeem": "Redeem",
+  "referral": "Referral email addresses",
+  "invite": "Invite Friends"
 }

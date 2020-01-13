@@ -1,5 +1,5 @@
 .voucher {
-  width: 30vw;
+  width: 80%;
   height: 50vh;
 }
 
@@ -33,10 +33,26 @@
 }
 
 .voucher-container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-items: center;
+  grid-row-gap: 50px;
+  margin-bottom: 10vh;
 }
 
 .rewards-point {
   margin-bottom: 10vh;
+}
+
+.redeem {
+  margin-left: 30%;
+  background-color: #5073f1;
+  border: none;
+  color: white;
+  padding: 0.7rem;
+  text-align: center;
+  display: inline-block;
+  font-size: 0.98rem;
+  cursor: pointer;
+  border-radius: 5px;
 }

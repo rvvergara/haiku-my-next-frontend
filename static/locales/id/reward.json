@@ -4,5 +4,10 @@
   "hotel": "Voucher Hotel",
   "hotel-desc": "Kamu bisa tukarkan 300 poin untuk Voucher Hotel",
   "cash": "Voucher Uang",
-  "cash-desc": "Kamu bisa tukarkan 100 poin untuk Voucher Uang"
+  "cash-desc": "Kamu bisa tukarkan 100 poin untuk Voucher Uang",
+  "airline": "Voucher Tiket Pesawat",
+  "airline-desc": "Kamu bisa tukarkan 500 poin untuk Voucher Tiket Pesawat",
+  "redeem": "Tukarkan",
+  "referral": "Alamat email referral",
+  "invite": "Undang Teman"
 }
