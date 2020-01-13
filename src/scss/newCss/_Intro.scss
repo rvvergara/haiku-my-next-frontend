@@ -2,3 +2,11 @@
   background-color: #fff;
   padding: $small;
 }
+
+.homepage-signup {
+  display: none;
+
+  @media screen and (min-width: 992px) {
+    display: block;
+  }
+}

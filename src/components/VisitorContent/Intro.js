@@ -9,7 +9,7 @@ const Intro = ({ t }) => (
     <Row>
       <Col className="mobile-container">
         <div className="intro-content">
-          <div className="signup-container">
+          <div className="signup-container homepage-signup">
             <SignupForm />
           </div>
           <h2 className="intro-content-title">

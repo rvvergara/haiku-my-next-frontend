@@ -28,7 +28,7 @@ const VisitorHeader = ({ t, localLang, setLanguage }) => {
   };
   return (
     <header>
-      <Navbar bg="light" expand="sm">
+      <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/">
           <img
             src="./static/igaku_social_logo_text.png"
@@ -49,26 +49,30 @@ const VisitorHeader = ({ t, localLang, setLanguage }) => {
               <option value="en">English</option>
               <option value="id">Bahasa Indonesia</option>
             </select>
-            <LoginHeader />
-            {/* <Link href="/login">
-              <Nav.Link
-                className="theme-button"
-                onClick={() => localStorage.clear()}
-                href="/login"
-              >
-                {t('login')}
-              </Nav.Link>
-            </Link>
-            <Link href="/signup">
-              <Nav.Link
-                className="theme-button"
-                type="button"
-                href="/signup"
-                onClick={() => localStorage.clear()}
-              >
-                {t('signup')}
-              </Nav.Link>
-            </Link> */}
+            <div className="inline-login-form">
+              <LoginHeader />
+            </div>
+            <div className="auth-buttons">
+              <Link href="/login">
+                <Nav.Link
+                  className="theme-button"
+                  onClick={() => localStorage.clear()}
+                  href="/login"
+                >
+                  {t('login')}
+                </Nav.Link>
+              </Link>
+              <Link href="/signup">
+                <Nav.Link
+                  className="theme-button"
+                  type="button"
+                  href="/signup"
+                  onClick={() => localStorage.clear()}
+                >
+                  {t('signup')}
+                </Nav.Link>
+              </Link>
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

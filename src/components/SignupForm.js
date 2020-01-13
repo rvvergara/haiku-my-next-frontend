@@ -37,7 +37,7 @@ class SignupForm extends React.Component {
   isValidSignup = () => {
     const { email, password, pwConfirm, role } = this.state;
 
-    if (!password || !pwConfirm) {
+    if (!password) {
       this.setState(() => ({
         formError: 'All fields are required',
       }));
@@ -181,14 +181,16 @@ class SignupForm extends React.Component {
           </div>
           <footer className="user-form__footer">
             <small>
-              {t('already-have-an-account')}
-              {' '}
-              <Link href="/login">
-                <button type="button" className="login-text">
-                  {t('login')}
-                </button>
-              </Link>
-              {' '}
+              {/*<div>
+                {t('already-have-an-account')}
+                {' '}
+                <Link href="/login">
+                  <button type="button" className="login-text">
+                    {t('login')}
+                  </button>
+                </Link>
+                {' '}
+              </div>*/}
               <select
               onChange={(e) => this.handleChangeLang(e.target.value)}
               value={this.state.local || 'en'}
