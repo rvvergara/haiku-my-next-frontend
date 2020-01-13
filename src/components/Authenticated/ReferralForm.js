@@ -60,7 +60,7 @@ class ReferralForm extends React.Component {
               type="submit"
               onClick={this.handleSubmit}
             >
-              Invite Friends
+              {this.props.t('invite')}:
             </button>
           </div>
         </form>

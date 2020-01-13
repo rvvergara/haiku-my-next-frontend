@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { listPractitioners } from '../../../store/actions/practitioners';
 import { fetchAllPractitioner } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
+import Filter from '../../Authenticated/Filter';
 import PractitionerBox from './PractitionerBox';
 
 const PractitionerList = ({
@@ -20,11 +21,14 @@ const PractitionerList = ({
   }, []);
 
   return (
-    <>
-      {practitioners.map(practitioner => (
-        <PractitionerBox key={practitioner.id} practitioner={practitioner} />
-      ))}
-    </>
+    <div className="practitionerList-container">
+      <Filter />
+      <div>
+        {practitioners.map(practitioner => (
+          <PractitionerBox key={practitioner.id} practitioner={practitioner} />
+        ))}
+      </div>
+    </div>
   );
 };
 
