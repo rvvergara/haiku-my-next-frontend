@@ -11,6 +11,12 @@ const VisitorHeader = ({ t, localLang, setLanguage }) => {
   const [local, setLocal] = useState(localLang);
 
   useEffect(() => {
+    if (!localLang) {
+      setLanguage('en');
+    }
+  }, []);
+
+  useEffect(() => {
     setLocal(localLang);
   }, [localLang]);
 
@@ -38,9 +44,9 @@ const VisitorHeader = ({ t, localLang, setLanguage }) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
-            <select onChange={handleChange} value={local}>
-              <option value="id">Bahasa Indonesia</option>
+            <select onChange={handleChange} value={local || 'en'}>
               <option value="en">English</option>
+              <option value="id">Bahasa Indonesia</option>
             </select>
             <Link href="/login">
               <Nav.Link

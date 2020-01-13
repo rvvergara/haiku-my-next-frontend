@@ -21,6 +21,9 @@ class SignupForm extends React.Component {
   };
 
   componentDidMount() {
+    if(!this.props.localLang){
+      this.props.setLanguage('en');
+    }
     this.setState(() => ({
       email: Router.query.referred || '',
       referralCode: Router.query.code || '',
@@ -206,7 +209,7 @@ class SignupForm extends React.Component {
               {' '}
               <select 
               onChange={(e) => this.handleChangeLang(e.target.value)} 
-              value={this.state.local}
+              value={this.state.local || 'en'}
               >
               <option value="id">Bahasa Indonesia</option>
               <option value="en">English</option>

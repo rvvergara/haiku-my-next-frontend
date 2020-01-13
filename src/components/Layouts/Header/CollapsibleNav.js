@@ -21,6 +21,11 @@ export const CollapsibleNav = ({
 
   const [local, setLocal] = useState(localLang);
 
+  useEffect(() => {
+    if (!localLang) {
+      setLanguage('en');
+    }
+  }, []);
 
   useEffect(() => {
     setLocal(localLang);
@@ -48,7 +53,10 @@ export const CollapsibleNav = ({
               <PatientNavLinks />
             )}
           </div>
-          <select onChange={handleChange} value={local}>
+          <select
+            onChange={handleChange}
+            value={local || 'en'}
+          >
             <option value="id">Bahasa Indonesia</option>
             <option value="en">English</option>
           </select>

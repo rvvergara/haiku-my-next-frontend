@@ -14,6 +14,12 @@ class LoginForm extends React.Component {
     local: this.props.localLang
   };
 
+  componentDidMount(){
+    if(!this.props.localLang){
+      this.props.setLanguage('en');
+    }
+  }
+
   componentWillUnmount() {
     this.props.setError('');
   }
@@ -100,7 +106,7 @@ class LoginForm extends React.Component {
               </Link>
               <select 
               onChange={(e) => this.handleChangeLang(e.target.value)} 
-              value={this.state.local}
+              value={this.state.local || 'en'}
               >
               <option value="id">Bahasa Indonesia</option>
               <option value="en">English</option>
