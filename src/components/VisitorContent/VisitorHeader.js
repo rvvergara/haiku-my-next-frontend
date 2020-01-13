@@ -6,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { connect } from 'react-redux';
 import { i18n, withTranslation } from '../../../i18n';
 import { setLanguage } from '../../store/actions/language';
-import LoginHeader from '../VisitorContent/LoginHeader';
+import LoginHeader from './LoginHeader';
 
 const VisitorHeader = ({ t, localLang, setLanguage }) => {
   const [local, setLocal] = useState(localLang);
@@ -21,7 +21,7 @@ const VisitorHeader = ({ t, localLang, setLanguage }) => {
     setLocal(localLang);
   }, [localLang]);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setLocal(e.target.value);
     setLanguage(e.target.value);
     i18n.changeLanguage(e.target.value);
@@ -41,7 +41,6 @@ const VisitorHeader = ({ t, localLang, setLanguage }) => {
             className="header-logo-text"
             alt="Igaku Logo"
           />
-          <LoginHeader />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -50,6 +49,7 @@ const VisitorHeader = ({ t, localLang, setLanguage }) => {
               <option value="en">English</option>
               <option value="id">Bahasa Indonesia</option>
             </select>
+            <LoginHeader />
             {/* <Link href="/login">
               <Nav.Link
                 className="theme-button"
@@ -82,7 +82,7 @@ VisitorHeader.propTypes = {
   setLanguage: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   localLang: state.language,
 });
 
