@@ -56,11 +56,11 @@ class LoginHeader extends React.Component {
     const { email, password } = this.state;
     const { t } = this.props;
     return (
-      <div>
+      <div className="loginHeader-container">
         <div className="form-error">
           {this.props.error && <strong>{this.props.error}</strong>}
         </div>
-        <form className="loginHeader-container">
+        <form className="loginForm">
           <div className="form-group">
             <label className="auth-label" htmlFor="email">
               Email
