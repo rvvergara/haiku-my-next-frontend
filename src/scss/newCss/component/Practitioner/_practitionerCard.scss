@@ -10,13 +10,11 @@
   border-radius: 5px;
   box-shadow: 1px 1px 5px $medium-grey;
   display: flex;
-  margin: 0 auto;
   margin-bottom: $small;
   flex-direction: column;
-  width: 90%;
+  width: 50vw;
   @media only screen and (min-width: 600px) {
     flex-direction: row;
-    margin-right: 10vh;
   }
 }
 
