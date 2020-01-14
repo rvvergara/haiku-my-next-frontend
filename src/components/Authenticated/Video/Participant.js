@@ -41,10 +41,9 @@ const Participant = ({ participant }) => {
   useEffect(() => {
     const videoTrack = videoTracks[0];
     if (videoTrack) {
-      console.log('VIDEO TRACK', videoTrack);
-      videoTrack.attach(videoRef.current);
+      videoTrack.track.attach(videoRef.current);
       return () => {
-        videoTrack.detach();
+        videoTrack.track.detach();
       };
     }
   }, [videoTracks]);
@@ -52,9 +51,9 @@ const Participant = ({ participant }) => {
   useEffect(() => {
     const audioTrack = audioTracks[0];
     if (audioTrack) {
-      audioTrack.attach(audioRef.current);
+      audioTrack.track.attach(audioRef.current);
       return () => {
-        audioTrack.detach();
+        audioTrack.track.detach();
       };
     }
   }, [audioTracks]);
