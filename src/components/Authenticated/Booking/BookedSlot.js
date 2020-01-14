@@ -71,7 +71,7 @@ BookedSlot.propTypes = {
  rejectBookingSlotInDb: PropTypes.func.isRequired,
  setAlert: PropTypes.func.isRequired,
  listAvailabilies: PropTypes.func.isRequired,
- currentUserData: PropTypes.func.isRequired,
+ currentUserData: PropTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
