@@ -36,10 +36,9 @@ const sendTokenResponse = (token, res) => {
     sendTokenResponse(token, res);
   });
 
-  server.post('/video/token', (req, res) => {
-    console.log('REQ BODY', req.body);
-    const { identity } = req.body;
-    const { room } = req.body;
+  server.get('/video/token', (req, res) => {
+    const { identity } = req.query;
+    const { room } = req.query;
     const token = videoToken(identity, room);
     sendTokenResponse(token, res);
   });

@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import axios from 'axios';
 import Lobby from './Lobby';
 import Room from './Room';
 
@@ -7,33 +8,26 @@ const VideoChat = () => {
   const [roomName, setRoomName] = useState('');
   const [token, setToken] = useState(null);
 
-  const handleUsernameChange = useCallback(event => {
+  const handleUsernameChange = useCallback((event) => {
     setUsername(event.target.value);
   }, []);
 
-  const handleRoomNameChange = useCallback(event => {
+  const handleRoomNameChange = useCallback((event) => {
     setRoomName(event.target.value);
   }, []);
 
   const handleSubmit = useCallback(
-    async event => {
+    async (event) => {
       event.preventDefault();
-      const data = await fetch('/video/token', {
-        method: 'POST',
-        body: JSON.stringify({
-          identity: username,
-          room: roomName
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then(res => res.json());
+      const path = `/video/token?identity=${username}&room=${room}`;
+      const res = await axios.get(path);
+      const { data } = res;
       setToken(data.token);
     },
-    [roomName, username]
+    [roomName, username],
   );
 
-  const handleLogout = useCallback(event => {
+  const handleLogout = useCallback((event) => {
     setToken(null);
   }, []);
 
