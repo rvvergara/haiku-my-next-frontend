@@ -1,12 +1,14 @@
 .filter {
   display: flex;
   flex-direction: column;
-  width: 20%;
-  float: left;
-  height: auto;
+  width: 30%;
+  height: 70vh;
   margin-top: $small;
   background-color: #fff;
   padding: $small;
+  margin-left: 5vw;
+  border-radius: 5px;
+  box-shadow: rgb(199, 208, 216) 1px 1px 5px;
 }
 
 .filter h1 {

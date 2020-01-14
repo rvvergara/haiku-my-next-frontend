@@ -14,9 +14,9 @@
   margin-bottom: $small;
   flex-direction: column;
   width: 90%;
-  justify-content: space-between;
   @media only screen and (min-width: 600px) {
     flex-direction: row;
+    margin-right: 10vh;
   }
 }
 
@@ -39,12 +39,12 @@
 }
 
 .practitionerCard-image-container {
-  margin: 0 auto;
   padding: $small;
-  text-align: center;
   width: 90%;
   @media only screen and (min-width: 600px) {
-    width: 35%;
+    width: 15vw;
+    margin-left: 5vw;
+    margin-right: 8vw;
   }
 }
 
@@ -61,7 +61,6 @@
 }
 
 .practitionerCard-info-container {
-  text-align: center;
   padding: $small;
 }
 

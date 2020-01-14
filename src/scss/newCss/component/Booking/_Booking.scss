@@ -6,6 +6,9 @@
   height: 100%;
   margin-bottom: 50px;
   box-shadow: 1px 1px 5px #c7d0d8;
+  @media only screen and (min-width: 600px) {
+    height: 100%;
+  }
 }
 
 .booking-form-header {
@@ -40,7 +43,7 @@
 
 .confirm-booking {
   display: block;
-  padding: $small*0.5;
+  padding: $small * 0.5;
   font-size: 1rem;
   color: #fff;
   background-color: #00a2ff;
