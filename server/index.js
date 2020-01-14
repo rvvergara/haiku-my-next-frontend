@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const next = require('next');
 const nextI18NextMiddleware = require('next-i18next/middleware').default;
 const nextI18next = require('../i18n');
@@ -20,7 +21,7 @@ const sendTokenResponse = (token, res) => {
 (async () => {
   await app.prepare();
   const server = express();
-
+  server.use(bodyParser.json());
   server.use(nextI18NextMiddleware(nextI18next));
 
   server.get('/api/greeting', (req, res) => {
@@ -29,9 +30,9 @@ const sendTokenResponse = (token, res) => {
     res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
   });
 
-  server.get('/video/token', (req, res) => {
-    const { identity } = req.query;
-    const { room } = req.query;
+  server.post('/video/token', (req, res) => {
+    console.log('REQUEST BODY', req.body);
+    const { identity, room } = req.body;
     const token = videoToken(identity, room);
     sendTokenResponse(token, res);
   });

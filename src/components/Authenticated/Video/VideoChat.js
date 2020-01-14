@@ -19,8 +19,7 @@ const VideoChat = () => {
   const handleSubmit = useCallback(
     async (event) => {
       event.preventDefault();
-      const path = `/video/token?identity=${username}&room=${room}`;
-      const res = await axios.get(path);
+      const res = await axios.post('/video/token', { identity: username, room: roomName });
       const { data } = res;
       setToken(data.token);
     },
