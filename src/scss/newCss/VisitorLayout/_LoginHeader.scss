@@ -4,9 +4,27 @@
   width: 60vw;
   margin-right: 5vw;
   margin-bottom: 1vh;
-  height: 2vh;
 }
 
-.loginForm {
-  display: flex;
+.inline-input {
+  font-size: $regular/2 !important;
+  padding: 2px 5px !important;
+}
+
+.inline-login-button-col {
+  max-width: 80px !important;
+  padding: 0 !important;
+}
+
+.inline-login-button {
+  font-size: $regular/2;
+  height: 35px;
+  margin-left: 0;
+  padding: 7px;
+}
+
+.lang-select {
+  height: 35px;
+  margin-right: 5px;
+  max-width: 100px;
 }

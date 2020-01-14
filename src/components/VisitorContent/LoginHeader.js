@@ -1,6 +1,8 @@
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
 import { i18n, withTranslation } from '../../../i18n';
 import setError from '../../store/actions/error';
 import { setLanguage } from '../../store/actions/language';
@@ -56,12 +58,43 @@ class LoginHeader extends React.Component {
     const { email, password } = this.state;
     const { t } = this.props;
     return (
-      <div className="loginHeader-container">
-        <div className="form-error">
+      <Form className="user-form">
+        <Form.Row>
+          <Col>
+            <Form.Control
+              className="inline-input"
+              placeholder='Email'
+              value={email}
+              type='email'
+              onChange={(e) => this.handleChange('email', e.target.value)}
+            />
+          </Col>
+          <Col>
+            <Form.Control
+              className="inline-input"
+              onChange={(e) => this.handleChange('password', e.target.value)}
+              placeholder='Password'
+              type='password'
+              value={password}
+            />
+          </Col>
+          <Col className='inline-login-button-col'>
+              <button
+              className="theme-button inline-login-button"
+              type="submit"
+              onClick={this.handleLogin}
+              >
+                Login
+              </button>
+            </Col>
+        </Form.Row>
+      </Form>);
+      {/*<div className="loginHeader-container">
+        <div className="form-error error-inline">
           {this.props.error && <strong>{this.props.error}</strong>}
         </div>
-        <form className="loginForm">
-          <div className="form-group">
+        <form className="inline-login-form">
+          <div className="form-group form-inline">
             <label className="auth-label" htmlFor="email">
               Email
             </label>
@@ -95,8 +128,7 @@ class LoginHeader extends React.Component {
             </button>
           </div>
         </form>
-      </div>
-    );
+    </div>*/}
   }
 }
 
