@@ -10,7 +10,7 @@
   }
 
   @media screen and(min-width:840px) {
-    background: url('http://tinyimg.io/i/ItatAT5.jpg') no-repeat;
+    background: url('https://tinyimg.io/i/ItatAT5.jpg') no-repeat;
     background-position: 20%;
   }
 
@@ -22,7 +22,7 @@
 .intro-content {
   position: relative;
   left: 65%;
-  top: 10%;
+  top: 5%;
   display: none;
   width: 26%;
 
@@ -91,5 +91,12 @@
 .navbar-light {
   @media screen and(min-width:576px) {
     padding: $small 0;
+  }
+}
+
+.homepage-signup {
+  .user-form__input {
+    font-size: $regular/1.5;
+    padding: 4px;
   }
 }
