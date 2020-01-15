@@ -22,11 +22,13 @@ const VideoChat = () => {
       const res = await axios.post('/video/token', { identity: username, room: roomName });
       const { data } = res;
       setToken(data.token);
+      setUsername('');
+      setRoomName('');
     },
     [roomName, username],
   );
 
-  const handleLogout = useCallback((event) => {
+  const handleLogout = useCallback(() => {
     setToken(null);
   }, []);
 
