@@ -15,7 +15,7 @@ export default () => (
     />
     <noscript dangerouslySetInnerHTML={{
  __html: `<img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXXXX&ev=PageView&noscript=1" />`,
+      src="https://www.facebook.com/tr?id=462313667765551&ev=PageView&noscript=1" />`,
 }}
     />
   </>
