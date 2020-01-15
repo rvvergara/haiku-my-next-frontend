@@ -21,6 +21,7 @@ const sendTokenResponse = (token, res) => {
 (async () => {
   await app.prepare();
   const server = express();
+  server.use(bodyParser.urlencoded({ extended: false }));
   server.use(bodyParser.json());
   server.use(nextI18NextMiddleware(nextI18next));
 

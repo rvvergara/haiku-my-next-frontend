@@ -64,7 +64,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "twilio": "^3.39.2",
-    "twilio-video": "^2.0.0",
+    "twilio-video": "^1.19.2",
     "uuid": "^3.3.3",
     "validator": "^12.1.0"
   }
