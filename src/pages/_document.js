@@ -1,4 +1,5 @@
 import Document, { Head, Main, NextScript } from 'next/document';
+import FACEBOOK_PIXEL_1 from '../components/Pixel/pixel-1';
 
 export default class MyDocument extends Document {
   render() {
@@ -24,6 +25,7 @@ export default class MyDocument extends Document {
             href='https://fonts.googleapis.com/css?family=Darker+Grotesque&display=swap'
             rel='stylesheet'
           />
+          <FACEBOOK_PIXEL_1 />
         </Head>
         <body>
           <Main />
