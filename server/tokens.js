@@ -1,7 +1,12 @@
 const twilio = require('twilio');
+const secrets = require('../src/utils/secrets-manager');
 
 const { AccessToken } = twilio.jwt;
 const { VideoGrant } = AccessToken;
+
+if (process.env === 'production') {
+  secrets.getAPIKey();
+}
 
 const generateToken = () => new AccessToken(
   process.env.TWILIO_ACCOUNT_SID,
