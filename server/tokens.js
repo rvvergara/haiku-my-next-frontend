@@ -4,7 +4,7 @@ const secrets = require('../src/utils/secrets-manager');
 const { AccessToken } = twilio.jwt;
 const { VideoGrant } = AccessToken;
 
-if (process.env === 'production') {
+if (process.env.NODE_ENV === 'production') {
   secrets.getAPIKey();
 }
 
