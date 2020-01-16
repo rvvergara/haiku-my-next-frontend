@@ -1,19 +1,21 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import Lobby from './Lobby';
 import Room from './Room';
 
-const VideoChat = () => {
-  const [username, setUsername] = useState('');
-  const [roomName, setRoomName] = useState('');
+const VideoChat = ({ username, roomName }) => {
   const [token, setToken] = useState(null);
 
-  const handleUsernameChange = useCallback((event) => {
-    setUsername(event.target.value);
-  }, []);
-
-  const handleRoomNameChange = useCallback((event) => {
-    setRoomName(event.target.value);
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.post('/video/token', { identity: username, room: roomName });
+        const { data } = res;
+        setToken(data.token);
+      } catch (err) {
+        console.log('ERROR', err);
+      }
+    })();
   }, []);
 
   const handleSubmit = useCallback(
@@ -22,8 +24,6 @@ const VideoChat = () => {
       const res = await axios.post('/video/token', { identity: username, room: roomName });
       const { data } = res;
       setToken(data.token);
-      setUsername('');
-      setRoomName('');
     },
     [roomName, username],
   );
@@ -40,10 +40,7 @@ const VideoChat = () => {
   } else {
     render = (
       <Lobby
-        username={username}
         roomName={roomName}
-        handleUsernameChange={handleUsernameChange}
-        handleRoomNameChange={handleRoomNameChange}
         handleSubmit={handleSubmit}
       />
     );

@@ -1,38 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Lobby = ({
-  username,
-  handleUsernameChange,
   roomName,
-  handleRoomNameChange,
   handleSubmit,
 }) => (
-  <form onSubmit={handleSubmit}>
-    <h2>Enter a room</h2>
-    <div>
-      <label htmlFor="name">Name:</label>
-      <input
-        type="text"
-        id="field"
-        value={username}
-        onChange={handleUsernameChange}
-        required
-      />
-    </div>
-
-    <div>
-      <label htmlFor="room">Room name:</label>
-      <input
-        type="text"
-        id="room"
-        value={roomName}
-        onChange={handleRoomNameChange}
-        required
-      />
-    </div>
-
-    <button type="submit">Submit</button>
-  </form>
+  <div>
+    <h3>
+Call Title:
+      {' '}
+      {roomName}
+    </h3>
+    <button
+      type='button'
+      onClick={handleSubmit}
+    >
+        Return to Call
+    </button>
+  </div>
   );
+
+Lobby.propTypes = {
+  roomName: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};
 
 export default Lobby;
