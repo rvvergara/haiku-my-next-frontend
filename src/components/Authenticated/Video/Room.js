@@ -5,13 +5,6 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Participant from './Participant';
 
-// if (process.browser) {
-//   navigator.mediaDevices.enumerateDevices().then((devices) => {
-//     const audioInput = devices.find((device) => device.kind === 'audioinput');
-//     return Video.createLocalTracks({ audio: { deviceId: audioInput.deviceId }, video: false });
-//   }).then();
-// }
-
 const Room = ({ roomName, token, handleLogout }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
@@ -26,31 +19,15 @@ const Room = ({ roomName, token, handleLogout }) => {
       setParticipants((prevParticipants) => prevParticipants.filter((p) => p !== participant));
     };
 
-    // LET US TRY THIS
-    navigator.mediaDevices.enumerateDevices().then((devices) => {
-      const audioInput = devices.find((device) => device.kind === 'audioinput');
-      return Video.createLocalTracks({ audio: { deviceId: audioInput.deviceId }, video: false });
-    }).then((localTracks) => Video.connect(token, {
-        name: roomName,
-        logLevel: 'debug',
-        tracks: localTracks,
-      }).then((room) => {
-        setRoom(room);
-        room.on('participantConnected', participantConnected);
-        room.on('participantDisconnected', participantDisconnected);
-        room.participants.forEach(participantConnected);
-      }).catch(() => setHasError(true)));
-      // END OF CODE TO TRY
-
-    // Video.connect(token, {
-    //   name: roomName,
-    //   logLevel: 'debug',
-    // }).then((room) => {
-    //   setRoom(room);
-    //   room.on('participantConnected', participantConnected);
-    //   room.on('participantDisconnected', participantDisconnected);
-    //   room.participants.forEach(participantConnected);
-    // }).catch(() => setHasError(true));
+    Video.connect(token, {
+      name: roomName,
+      logLevel: 'debug',
+    }).then((room) => {
+      setRoom(room);
+      room.on('participantConnected', participantConnected);
+      room.on('participantDisconnected', participantDisconnected);
+      room.participants.forEach(participantConnected);
+    }).catch(() => setHasError(true));
 
     return () => {
       setRoom((currentRoom) => {
