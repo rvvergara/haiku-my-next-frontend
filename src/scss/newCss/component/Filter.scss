@@ -14,3 +14,27 @@
 .filter h1 {
   margin-bottom: 20px;
 }
+
+.filter-select {
+  padding: $small;
+}
+
+.filter-select {
+  height: 5vh;
+  font-size: $small * 0.6;
+  padding: $small;
+}
+
+.filter-button {
+  background-color: #5073f1;
+  border: none;
+  color: white;
+  padding: 0.1rem;
+  text-align: center;
+  display: inline-block;
+  font-size: 0.98rem;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 2vh auto;
+  width: 50%;
+}

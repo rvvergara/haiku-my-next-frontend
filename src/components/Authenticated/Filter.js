@@ -1,19 +1,31 @@
 const Filter = () => {
   return (
     <div className="filter">
-      <h1>Filter Results</h1>
+      <h6>Filter Results</h6>
       <label htmlFor="">Filter by Speciality</label>
-      <select>
+
+      <select className="filter-select">
+        <option value="any">Any</option>
         <option value="volvo">Gastroenterology</option>
         <option value="saab">Metabolic surgery</option>
       </select>
-      <label htmlFor="">Filter by Insurance Provider</label>
-      <select>
+      <label htmlFor="">Insurance Accepted</label>
+      <select className="filter-select">
+        <option value="any">Any</option>
         <option value="prudential">Prudential</option>
         <option value="aia">AIA</option>
         <option value="aviva">AVIVA</option>
       </select>
-      <submit>Search</submit>
+      <label htmlFor="">Years of Experience</label>
+      <select className="filter-select">
+        <option value="any">Any</option>
+        <option value="5-10">5-10 years</option>
+        <option value="11-15">11-15 years</option>
+        <option value="16-20">16-20 years</option>
+        <option value="20+">20+ years</option>
+      </select>
+
+      <submit className="filter-button">Search</submit>
     </div>
   );
 };
