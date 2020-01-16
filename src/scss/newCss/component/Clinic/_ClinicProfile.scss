@@ -1,5 +1,8 @@
 .clinic-profile-card {
-  margin-bottom: 2.6rem;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
   padding-bottom: 50px;
   background: #ffffff;
   border-radius: 5px;
@@ -14,6 +17,9 @@
   width: 80%;
   box-shadow: 1px 1px 5px $medium-grey;
   border-radius: 5px;
+  @media only screen and (min-width: 600px) {
+    width: 30%;
+  }
 }
 
 .clinic-profile-container {
