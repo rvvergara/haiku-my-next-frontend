@@ -1,44 +1,39 @@
 import decode from 'jwt-decode';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import VideoChat from '../components/Authenticated/Video/VideoChat';
 import Layout from '../components/Layouts/Layout';
-import { checkIfTokenExp } from '../utils/initializeHelpers';
+import { fetchOneAvailability } from '../store/thunks/availability';
 
-const VideoPage = ({ username, roomName, expired }) => (
+const VideoPage = ({ roomName }) => (
   <Layout title="Video">
     <VideoChat
-      username={username}
       roomName={roomName}
-      expired={expired}
     />
   </Layout>
 );
 
-VideoPage.getInitialProps = (ctx) => {
-  const { query } = ctx;
+VideoPage.getInitialProps = async (ctx) => {
+  const { query, store } = ctx;
   const { token } = query;
+  const { dispatch, getState } = store;
   try {
     const decoded = decode(token);
-  const { username, roomName } = decoded;
-  const expired = checkIfTokenExp(decoded);
-  return {
-    username,
-    roomName,
-    expired,
-  };
+    const { slotId, roomName } = decoded;
+    await dispatch(fetchOneAvailability(slotId));
+    const bookingSlot = getState().displayedAvailability;
+    return {
+      roomName,
+    };
   } catch (err) {
     return {
-      username: '',
       roomName: '',
-      expired: true,
     };
   }
 };
 
 VideoPage.propTypes = {
-  username: PropTypes.string.isRequired,
   roomName: PropTypes.string.isRequired,
-  expired: PropTypes.bool.isRequired,
 };
 
 export default VideoPage;

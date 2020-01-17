@@ -1,17 +1,19 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Lobby from './Lobby';
 import Room from './Room';
 
-const VideoChat = ({ username, roomName, expired }) => {
+const VideoChat = ({ roomName, profile }) => {
   const [token, setToken] = useState(null);
+  const fullName = `${profile.firstName} ${profile.lastName}`;
 
   useEffect(() => {
     (async () => {
       try {
         const res = await axios.post('/video/token', {
-          identity: username,
+          identity: fullName,
           room: roomName,
         });
         const { data } = res;
@@ -26,40 +28,34 @@ const VideoChat = ({ username, roomName, expired }) => {
     async (event) => {
       event.preventDefault();
       const res = await axios.post('/video/token', {
-        identity: username,
+        identity: fullName,
         room: roomName,
       });
       const { data } = res;
       setToken(data.token);
     },
-    [roomName, username],
+    [roomName, fullName],
   );
 
   const handleLogout = useCallback(() => {
     setToken(null);
   }, []);
 
-  if (!expired) {
-    return token ? (
-      <Room roomName={roomName} token={token} handleLogout={handleLogout} />
-    ) : (
-      <Lobby roomName={roomName} handleSubmit={handleSubmit} />
-    );
-  }
-  return (
-    <div>
-      <h3>Token Invalid</h3>
-      <p>
-        Token in video link is invalid or the call has already ended.
-      </p>
-    </div>
+  return token ? (
+    <Room roomName={roomName} token={token} handleLogout={handleLogout} />
+  ) : (
+    <Lobby roomName={roomName} handleSubmit={handleSubmit} />
   );
 };
 
+const mapStateToProps = (state) => ({
+  profile: state.currentUser.data.patient || state.currentUser.data.practitioner,
+  bookingSlot: state.bookingSlot,
+});
+
 VideoChat.propTypes = {
-  username: PropTypes.string.isRequired,
   roomName: PropTypes.string.isRequired,
-  expired: PropTypes.bool.isRequired,
+  profile: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default VideoChat;
+export default connect(mapStateToProps)(VideoChat);

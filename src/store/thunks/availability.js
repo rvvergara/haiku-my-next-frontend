@@ -1,6 +1,6 @@
 import { sendRequest } from '../../utils/api';
 import { localizeBookingSlot } from '../../utils/localize';
-import { addAvailability, listAvailabilies } from '../actions/availability';
+import { addAvailability, listAvailabilies, displayAvailability } from '../actions/availability';
 import { confirmBooking, rejectBooking } from '../actions/booking';
 import setError from '../actions/error';
 
@@ -54,5 +54,17 @@ export const rejectBookingSlotInDb = (bookingSlotId) => async (dispatch) => {
     return res;
   } catch (err) {
     return dispatch(setError(err));
+  }
+};
+
+export const fetchOneAvailability = (bookingSlotId) => async (dispatch) => {
+  const path = `v1/booking-slots/${bookingSlotId}`;
+
+  try {
+    const res = await sendRequest('get', path);
+    const { booking_slot } = res.data;
+    dispatch(displayAvailability(localizeBookingSlot(booking_slot)));
+  } catch (err) {
+    dispatch(setError(err));
   }
 };
