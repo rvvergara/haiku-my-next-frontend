@@ -12,7 +12,7 @@ const VideoChat = ({ username, roomName, expired }) => {
       try {
         const res = await axios.post('/video/token', {
           identity: username,
-          room: roomName
+          room: roomName,
         });
         const { data } = res;
         setToken(data.token);
@@ -23,16 +23,16 @@ const VideoChat = ({ username, roomName, expired }) => {
   }, []);
 
   const handleSubmit = useCallback(
-    async event => {
+    async (event) => {
       event.preventDefault();
       const res = await axios.post('/video/token', {
         identity: username,
-        room: roomName
+        room: roomName,
       });
       const { data } = res;
       setToken(data.token);
     },
-    [roomName, username]
+    [roomName, username],
   );
 
   const handleLogout = useCallback(() => {
@@ -48,7 +48,10 @@ const VideoChat = ({ username, roomName, expired }) => {
   }
   return (
     <div>
-      <h1>Call has ended</h1>
+      <h3>Token Invalid</h3>
+      <p>
+        Token in video link is invalid or the call has already ended.
+      </p>
     </div>
   );
 };
@@ -56,7 +59,7 @@ const VideoChat = ({ username, roomName, expired }) => {
 VideoChat.propTypes = {
   username: PropTypes.string.isRequired,
   roomName: PropTypes.string.isRequired,
-  expired: PropTypes.bool.isRequired
+  expired: PropTypes.bool.isRequired,
 };
 
 export default VideoChat;

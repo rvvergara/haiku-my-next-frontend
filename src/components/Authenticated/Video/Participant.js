@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
+
 
 const Participant = ({ participant }) => {
   const [videoTracks, setVideoTracks] = useState([]);
@@ -12,19 +14,20 @@ const Participant = ({ participant }) => {
     setVideoTracks(Array.from(participant.videoTracks.values()));
     setAudioTracks(Array.from(participant.audioTracks.values()));
 
-    const trackSubscribed = track => {
+    const trackSubscribed = (track) => {
       if (track.kind === 'video') {
-        setVideoTracks(videoTracks => [...videoTracks, track]);
+        setVideoTracks((videoTracks) => [...videoTracks, track]);
+        console.log('VIDEO TRACKS', videoTracks);
       } else {
-        setAudioTracks(audioTracks => [...audioTracks, track]);
+        setAudioTracks((audioTracks) => [...audioTracks, track]);
       }
     };
 
-    const trackUnsubscribed = track => {
+    const trackUnsubscribed = (track) => {
       if (track.kind === 'video') {
-        setVideoTracks(videoTracks => videoTracks.filter(v => v !== track));
+        setVideoTracks((videoTracks) => videoTracks.filter((v) => v !== track));
       } else {
-        setAudioTracks(audioTracks => audioTracks.filter(a => a !== track));
+        setAudioTracks((audioTracks) => audioTracks.filter((a) => a !== track));
       }
     };
 
@@ -62,10 +65,18 @@ const Participant = ({ participant }) => {
   return (
     <div className="participant">
       <h3>{participant.identity}</h3>
-      <video ref={videoRef} autoPlay={true} />
-      <audio ref={audioRef} autoPlay={true} muted={false} />
+      <video ref={videoRef} autoPlay>
+        <track src={videoTracks[0]} kind='captions' />
+      </video>
+      <audio ref={audioRef} autoPlay muted={false}>
+        <track src={audioTracks[0]} kind='captions' />
+      </audio>
     </div>
   );
+};
+
+Participant.propTypes = {
+  participant: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default Participant;

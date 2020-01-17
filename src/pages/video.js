@@ -6,7 +6,6 @@ import { checkIfTokenExp } from '../utils/initializeHelpers';
 
 const VideoPage = ({ username, roomName, expired }) => (
   <Layout title="Video">
-    <h1>Hello</h1>
     <VideoChat
       username={username}
       roomName={roomName}
@@ -18,7 +17,8 @@ const VideoPage = ({ username, roomName, expired }) => (
 VideoPage.getInitialProps = (ctx) => {
   const { query } = ctx;
   const { token } = query;
-  const decoded = decode(token);
+  try {
+    const decoded = decode(token);
   const { username, roomName } = decoded;
   const expired = checkIfTokenExp(decoded);
   return {
@@ -26,11 +26,19 @@ VideoPage.getInitialProps = (ctx) => {
     roomName,
     expired,
   };
+  } catch (err) {
+    return {
+      username: '',
+      roomName: '',
+      expired: true,
+    };
+  }
 };
 
 VideoPage.propTypes = {
   username: PropTypes.string.isRequired,
   roomName: PropTypes.string.isRequired,
+  expired: PropTypes.bool.isRequired,
 };
 
 export default VideoPage;
