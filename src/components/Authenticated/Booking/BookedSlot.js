@@ -61,6 +61,18 @@ const BookedSlot = ({
         </button>
       </div>
     )}
+      {
+      booking.status === 'CONFIRMED' && (
+        <div className="practitioner-actions">
+          <a
+            href={`/video?token=${booking.callToken}`}
+            className="theme-button"
+          >
+            Join Call
+          </a>
+        </div>
+      )
+    }
     </div>
 );
 };
