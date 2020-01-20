@@ -25,7 +25,7 @@ const Filter = () => {
         <option value="20+">20+ years</option>
       </select>
 
-      <submit className="filter-button">Search</submit>
+      <button type="submit" className="filter-button">Search</button>
     </div>
   );
 };
