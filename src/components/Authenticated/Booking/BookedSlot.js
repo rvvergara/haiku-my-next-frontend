@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { confirmBookingSlotInDb, rejectBookingSlotInDb } from '../../../store/thunks/availability';
 import { setAlert } from '../../../store/actions/alerts';
@@ -64,12 +65,14 @@ const BookedSlot = ({
       {
       booking.status === 'CONFIRMED' && (
         <div className="practitioner-actions">
-          <a
-            href={`/video?token=${booking.callToken}`}
-            className="theme-button"
-          >
-            Join Call
-          </a>
+          <Link href={`/video?token=${booking.callToken}`}>
+            <a
+              href={`/video?token=${booking.callToken}`}
+              className="theme-button"
+            >
+              Join Call
+            </a>
+          </Link>
         </div>
       )
     }
