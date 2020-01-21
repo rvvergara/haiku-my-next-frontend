@@ -8,6 +8,7 @@ import { GoPerson } from 'react-icons/go';
 import { MdSchedule, MdFeedback } from 'react-icons/md';
 import { withTranslation } from '../../../../i18n';
 
+
 const PractitionerNavLinks = ({ t }) => (
   <>
     <Link href='/account/edit'>
@@ -46,6 +47,7 @@ const PractitionerNavLinks = ({ t }) => (
         <span className='header-navlinks-text'>{t('feedback')}</span>
       </Nav.Link>
     </Link>
+
   </>
 );
 
