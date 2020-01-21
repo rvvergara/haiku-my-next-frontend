@@ -4,7 +4,7 @@ import { FaClinicMedical, FaGift } from 'react-icons/fa';
 import { GoPerson } from 'react-icons/go';
 import { MdFeedback, MdSchedule } from 'react-icons/md';
 import { withTranslation } from '../../../../i18n';
-import Notification from '../../Authenticated/Notification/Notification';
+import NotificationList from '../../Authenticated/Notification/NotificationList';
 
 const PatientNavLinks = ({ t }) => (
   <>
@@ -44,13 +44,7 @@ const PatientNavLinks = ({ t }) => (
         <span className="header-navlinks-text">{t('feedback')}</span>
       </Nav.Link>
     </Link>
-    <Notification />
-    {/* <Link href='/search'>
-      <Nav.Link href='/search' className='header-navlinks'>
-        <FaSearch className='nav-icons' />
-        <span className='header-navlinks-text'>Search</span>
-      </Nav.Link>
-    </Link> */}
+    <NotificationList />
   </>
 );
 
