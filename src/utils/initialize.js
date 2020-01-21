@@ -12,17 +12,13 @@ import {
   redirectIfNoToken,
 } from './initializeHelpers';
 
-export default async ctx => {
+export default async (ctx) => {
   if (ctx.isServer) {
     if (ctx.req.headers.cookie) {
       const cookiesArr = ctx.req.headers.cookie.split(';');
-      const hasLangCookie = cookiesArr.some(cookie =>
-        cookie.includes('next-i18next'),
-      );
+      const hasLangCookie = cookiesArr.some((cookie) => cookie.includes('next-i18next'));
       if (hasLangCookie) {
-        const langCookie = cookiesArr.find(cookie =>
-          cookie.includes('next-i18next'),
-        );
+        const langCookie = cookiesArr.find((cookie) => cookie.includes('next-i18next'));
         const lang = langCookie.split('=')[1];
         ctx.store.dispatch(setLanguage(lang));
       }
@@ -73,7 +69,9 @@ export default async ctx => {
       setAuthorizationToken(token);
       const { data } = ctx.store.getState().currentUser;
       redirectIfNoProfile(ctx, data);
-      return ctx.store.dispatch(fetchPatientNotifications(data.patient.id));
+      return data.role === 'PATIENT'
+        ? ctx.store.dispatch(fetchPatientNotifications(data.patient.id))
+        : ctx.store.dispatch(fetchPractitionerNotifications(data.practitioner.id));
     }
     return redirectIfNoToken(ctx);
   } catch (err) {
