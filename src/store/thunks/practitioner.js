@@ -1,6 +1,9 @@
 import { sendRequest } from '../../utils/api';
 import setError from '../actions/error';
-import { listNotificationPractitioner } from '../actions/notification';
+import {
+  listNotificationPractitioner,
+  listNotifications,
+} from '../actions/notification';
 import { listPractitioners, setPractitioner } from '../actions/practitioners';
 import { setCurrentUser } from '../actions/user';
 
@@ -76,5 +79,17 @@ export const fetchAllPractitioner = () => async dispatch => {
     return res.data;
   } catch (err) {
     return dispatch(setError(err.response.data));
+  }
+};
+
+export const fetchPractitionerNotifications = practitionerId => async dispatch => {
+  const path = `v1/practitioners/${practitionerId}/notifications`;
+
+  try {
+    const res = await sendRequest('get', path);
+    const { notifications } = res.data;
+    dispatch(listNotifications(notifications));
+  } catch (err) {
+    dispatch(setError(err));
   }
 };
