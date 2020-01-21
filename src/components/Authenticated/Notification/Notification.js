@@ -1,7 +1,8 @@
+import { connect } from 'react';
 import { Badge, Dropdown } from 'react-bootstrap';
 import { FaBell } from 'react-icons/fa';
 
-const Notification = () => {
+const Notification = ({ notifications }) => {
   return (
     <div>
       <Dropdown>
@@ -20,4 +21,8 @@ const Notification = () => {
   );
 };
 
-export default Notification;
+const mapStateToProps = state => ({
+  notifications: state.notifications,
+});
+
+export default connect(mapStateToProps)(Notification);
