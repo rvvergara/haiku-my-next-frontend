@@ -6,7 +6,9 @@ import { setAlert } from '../store/actions/alerts';
 import { sendFeedback } from '../store/thunks/feedback';
 import { setAuthorizationToken } from '../utils/api';
 
-const FeedbackForm = ({ setAlert, currentUserData, sendFeedback, t }) => {
+const FeedbackForm = ({
+ setAlert, currentUserData, sendFeedback, t,
+}) => {
   const [body, setBody] = useState('');
   const [feedbackType, setFeedbackType] = useState('comment');
 
@@ -16,7 +18,7 @@ const FeedbackForm = ({ setAlert, currentUserData, sendFeedback, t }) => {
     body,
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setAuthorizationToken(localStorage.token);
 
@@ -24,7 +26,6 @@ const FeedbackForm = ({ setAlert, currentUserData, sendFeedback, t }) => {
       await sendFeedback(params);
       Router.push('/');
     } catch (error) {
-      console.log(error);
     }
 
     setAlert('Feedback Submitted', 'success');
@@ -41,7 +42,7 @@ const FeedbackForm = ({ setAlert, currentUserData, sendFeedback, t }) => {
           name="feedbackType"
           value="comment"
           checked={feedbackType === 'comment'}
-          onChange={e => setFeedbackType(e.target.value)}
+          onChange={(e) => setFeedbackType(e.target.value)}
         />
         {t('comment')}
         <br />
@@ -49,7 +50,7 @@ const FeedbackForm = ({ setAlert, currentUserData, sendFeedback, t }) => {
           type="radio"
           name="feedbackType"
           value="bugReports"
-          onChange={e => setFeedbackType(e.target.value)}
+          onChange={(e) => setFeedbackType(e.target.value)}
         />
         {t('bug')}
         <br />
@@ -57,12 +58,15 @@ const FeedbackForm = ({ setAlert, currentUserData, sendFeedback, t }) => {
           type="radio"
           name="feedbackType"
           value="questions"
-          onChange={e => setFeedbackType(e.target.value)}
+          onChange={(e) => setFeedbackType(e.target.value)}
         />
         {t('question')}
 
         <br />
-        <h6>{t('feedbackTitle')} </h6>
+        <h6>
+          {t('feedbackTitle')}
+          {' '}
+        </h6>
         <textarea
           className="feedbackForm-textarea"
           rows="4"
@@ -71,7 +75,7 @@ const FeedbackForm = ({ setAlert, currentUserData, sendFeedback, t }) => {
           form="feedbackform"
           placeholder={t('placeholder')}
           value={body}
-          onChange={e => setBody(e.target.value)}
+          onChange={(e) => setBody(e.target.value)}
         />
         <button className="feedbackForm-button" type="submit">
           {t('submit')}
@@ -81,7 +85,7 @@ const FeedbackForm = ({ setAlert, currentUserData, sendFeedback, t }) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
 });
 

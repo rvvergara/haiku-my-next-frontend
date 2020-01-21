@@ -63,6 +63,6 @@ export const fetchPatientNotifications = (patientId) => async (dispatch) => {
     const { notifications } = res.data;
     dispatch(listNotifications(notifications));
   } catch (err) {
-    dispatch(setError(err.response.data.error));
+    dispatch(setError(err));
   }
 };

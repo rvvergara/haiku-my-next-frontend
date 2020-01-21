@@ -57,7 +57,8 @@ export default async (ctx) => {
         }
         setAuthorizationToken(token);
         const { data } = ctx.store.getState().currentUser;
-        return redirectIfNoProfile(ctx, data);
+        redirectIfNoProfile(ctx, data);
+        return ctx.store.dispatch(fetchPatientNotifications(data.patient.id));
       }
       return redirectIfNoToken(ctx);
     } catch (err) {

@@ -8,7 +8,7 @@ import {
 export default (state = [], action) => {
   switch (action.type) {
     case LIST_NOTIFICATIONS:
-      return action.notification;
+      return action.notifications;
     case LIST_NOTIFICATION_PRACTITIONER:
       return action.booking_slots;
     default:
