@@ -2,6 +2,7 @@ import { sendRequest } from '../../utils/api';
 import setError from '../actions/error';
 import { setCurrentUser } from '../actions/user';
 import { listBookings } from '../actions/booking';
+import { listNotifications } from '../actions/notification';
 
 export const createPatient = (params) => async (dispatch, getState) => {
   const path = 'v1/patients';
@@ -51,5 +52,17 @@ export const fetchPatient = (patientId) => async (dispatch) => {
     return patient;
   } catch (err) {
     dispatch(setError(err.response.data));
+  }
+};
+
+export const fetchPatientNotifications = (patientId) => async (dispatch) => {
+  const path = `v1/patients/${patientId}/notifications`;
+
+  try {
+    const res = await sendRequest('get', path);
+    const { notifications } = res.data;
+    dispatch(listNotifications(notifications));
+  } catch (err) {
+    dispatch(setError(err.response.data.error));
   }
 };

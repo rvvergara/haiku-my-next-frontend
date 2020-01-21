@@ -1,8 +1,8 @@
 import { LIST_NOTIFICATIONS, LIST_NOTIFICATION_PRACTITIONER } from './types';
 
-export const listNotifications = (notification) => ({
+export const listNotifications = (notifications) => ({
   type: LIST_NOTIFICATIONS,
-  notification,
+  notifications,
 });
 
 export const listNotificationPractitioner = (notifications) => ({

@@ -4,6 +4,7 @@ import { setAuthorizationToken } from './api';
 import { fetchUserData } from '../store/thunks/user';
 import { setCurrentUser } from '../store/actions/user';
 import { setLanguage } from '../store/actions/language';
+import { fetchPatientNotifications } from '../store/thunks/patient';
 import { checkIfTokenExp, redirectIfNoProfile, redirectIfNoToken } from './initializeHelpers';
 
 export default async (ctx) => {
@@ -35,7 +36,8 @@ export default async (ctx) => {
       setAuthorizationToken(token);
       await dispatch(fetchUserData(id));
       const { data } = store.getState().currentUser;
-      return redirectIfNoProfile(ctx, data);
+      redirectIfNoProfile(ctx, data);
+      return dispatch(fetchPatientNotifications(data.patient.id));
     }
     return redirectIfNoToken(ctx);
   }
