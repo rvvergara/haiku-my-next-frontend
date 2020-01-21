@@ -8,7 +8,7 @@ const NotificationList = ({ notifications }) => (
     <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
         <FaBell />
-        <Badge variant="light">9</Badge>
+        <Badge variant="light">{notifications.length}</Badge>
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
