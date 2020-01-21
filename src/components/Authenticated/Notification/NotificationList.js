@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import { Badge, Dropdown } from 'react-bootstrap';
 import { FaBell } from 'react-icons/fa';
+import Notification from './Notification';
 
-const Notification = ({ notifications }) => (
+const NotificationList = ({ notifications }) => (
   <div>
     <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -13,7 +14,10 @@ const Notification = ({ notifications }) => (
       <Dropdown.Menu>
         {
           notifications.map((notification) => (
-            <Dropdown.Item href="#/action-1">{notification.actionType}</Dropdown.Item>
+            <Notification
+              key={notification.id}
+              notification={notification}
+            />
           ))
         }
       </Dropdown.Menu>
@@ -25,4 +29,4 @@ const mapStateToProps = (state) => ({
   notifications: state.notifications,
 });
 
-export default connect(mapStateToProps)(Notification);
+export default connect(mapStateToProps)(NotificationList);
