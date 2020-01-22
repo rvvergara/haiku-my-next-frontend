@@ -16,8 +16,6 @@ const PatientNotification = ({
 
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
-    fetchUpcomingAppointment(currentUserData.role, currentUserData.patient.id);
-    return () => listNotifications([]);
   }, []);
 
   const handleClick = () => {

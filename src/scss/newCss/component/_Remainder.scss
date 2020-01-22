@@ -1,0 +1,11 @@
+.remainder-container {
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  margin-top: $small;
+  background-color: #fff;
+  padding: $small;
+  margin-left: 5vw;
+  border-radius: 5px;
+  box-shadow: rgb(199, 208, 216) 1px 1px 5px;
+}

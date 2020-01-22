@@ -5,6 +5,7 @@ import { listPractitioners } from '../../../store/actions/practitioners';
 import { fetchAllPractitioner } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
 import Filter from '../../Authenticated/Filter';
+import Remainder from '../../Remainder';
 import PractitionerBox from './PractitionerBox';
 
 const PractitionerList = ({
@@ -22,7 +23,10 @@ const PractitionerList = ({
 
   return (
     <div className="practitionerList-container">
-      <Filter />
+      <div className="sidebar">
+        <Remainder />
+        <Filter />
+      </div>
       <div>
         {practitioners.map(practitioner => (
           <PractitionerBox key={practitioner.id} practitioner={practitioner} />
