@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { connect } from 'react-redux';
 
 const Remainder = ({ notifications }) => {
@@ -15,7 +16,8 @@ const Remainder = ({ notifications }) => {
             </p>
             <p className="">Date :{notif.notifiable.date}</p>
             <p className="">
-              Time : {notif.notifiable.startTime}-{notif.notifiable.endTime}
+              Time : {moment(notif.notifiable.startTime).format('hh:mm A')}-{' '}
+              {moment(notif.notifiable.endTime).format('hh:mm A')}
             </p>
           </li>
         ))}
