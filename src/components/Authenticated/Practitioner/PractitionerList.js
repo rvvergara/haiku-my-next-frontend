@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { listPractitioners } from '../../../store/actions/practitioners';
 import { fetchAllPractitioner } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
-import Filter from '../../Authenticated/Filter';
-import Remainder from '../../Remainder';
+import Filter from '../Filter';
+import ReminderList from '../../ReminderList';
 import PractitionerBox from './PractitionerBox';
 
 const PractitionerList = ({
@@ -24,11 +24,11 @@ const PractitionerList = ({
   return (
     <div className="practitionerList-container">
       <div className="sidebar">
-        <Remainder />
+        <ReminderList />
         <Filter />
       </div>
       <div>
-        {practitioners.map(practitioner => (
+        {practitioners.map((practitioner) => (
           <PractitionerBox key={practitioner.id} practitioner={practitioner} />
         ))}
       </div>
@@ -42,7 +42,7 @@ PractitionerList.propTypes = {
   listPractitioners: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   practitioners: state.practitioners,
 });
 

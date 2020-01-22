@@ -3,6 +3,7 @@ import setError from '../actions/error';
 import { setCurrentUser } from '../actions/user';
 import { listBookings } from '../actions/booking';
 import { listNotifications } from '../actions/notification';
+import { localizeBookingSlot } from '../../utils/localize';
 
 export const createPatient = (params) => async (dispatch, getState) => {
   const path = 'v1/patients';
@@ -61,7 +62,13 @@ export const fetchPatientNotifications = (patientId) => async (dispatch) => {
   try {
     const res = await sendRequest('get', path);
     const { notifications } = res.data;
-    dispatch(listNotifications(notifications));
+    const localizedNotifs = notifications.map((notif) => {
+      if (notif.notifiableType === 'BOOKING_SLOT') {
+        const localizedSlot = localizeBookingSlot(notif.notifiable);
+        return { ...notif, notifiable: localizedSlot };
+      }
+    });
+    return dispatch(listNotifications(localizedNotifs));
   } catch (err) {
     dispatch(setError(err));
   }
