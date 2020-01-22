@@ -1,23 +1,40 @@
+import PropTypes from 'prop-types';
+import Link from 'next/link';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 const Notification = ({ notification }) => {
-  const NotificationType = actionType => {
-    switch (actionType) {
-      case 'BOOKED':
-        return 'Somebody Booked an appointment with you!';
-      case 'CONFIRMED':
-        return 'Your appointment has been confirmed!'
-        case 'REJECTED':
-          return 'Your appointment has been rejected'
-      default:
-        return '';
-    }
-  };
+  let action;
+  let actor;
+  let link;
+  switch (notification.actionType) {
+    case 'BOOKED':
+      action = 'booked an appointment with you.';
+      actor = notification.notifiable.patientId;
+      link = '/bookings';
+      break;
+    case 'CONFIRMED':
+      action = 'accepted your appointment request.';
+      actor = notification.notifiable.practitionerId;
+      link = `/video?token=${notification.notifiable.callToken}`;
+      break;
+      case 'REJECTED':
+        action = 'rejected your appointment request.';
+        actor = notification.notifiable.practitionerId;
+        link = '/bookings';
+        break;
+    default:
+      return '';
+  }
   return (
-    <Dropdown.Item href="/bookings">
-      {NotificationType(notification.actionType)}
-    </Dropdown.Item>
+    <Link href={link}>
+      <Dropdown.Item href={link}>
+        {`${actor} ${action}`}
+      </Dropdown.Item>
+    </Link>
   );
 };
 
+Notification.propTypes = {
+  notification: PropTypes.instanceOf(Object).isRequired,
+};
 export default Notification;
