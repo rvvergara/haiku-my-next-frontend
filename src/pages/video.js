@@ -7,9 +7,10 @@ import { fetchOneAvailability } from '../store/thunks/availability';
 
 const VideoPage = ({ roomName, expired }) => (
   <Layout title="Video">
-    {expired
+    {/* expired
       ? <div><h1>Token invalid or call finished</h1></div>
-      : <VideoChat roomName={roomName} />}
+    : <VideoChat roomName={roomName} /> */}
+    <VideoChat roomName={roomName} />
   </Layout>
 );
 

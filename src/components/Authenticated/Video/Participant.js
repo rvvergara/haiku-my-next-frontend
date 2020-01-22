@@ -62,7 +62,12 @@ const Participant = ({ participant }) => {
   return (
     <div className="participant">
       <h3>{participant.identity}</h3>
-      <video ref={videoRef} autoPlay>
+      <video
+        className='twilio-video'
+        ref={videoRef}
+        autoPlay
+        controls
+      >
         <track src={videoTracks[0]} kind='captions' />
       </video>
       <audio ref={audioRef} autoPlay muted={false}>

@@ -75,18 +75,20 @@ const Room = ({ roomName, token, handleLogout }) => {
       >
         Leave Room
       </button>
-      <div className="local-participant">
-        {room ? (
-          <Participant
-            key={room.localParticipant.sid}
-            participant={room.localParticipant}
-          />
-        ) : (
-          ''
-        )}
+      <div className="participants-box">
+        <div className="local-participant">
+          {room ? (
+            <Participant
+              key={room.localParticipant.sid}
+              participant={room.localParticipant}
+            />
+          ) : (
+            ''
+          )}
+        </div>
+        <h3>Remote Participants</h3>
+        <div className="remote-participants">{remoteParticipants}</div>
       </div>
-      <h3>Remote Participants</h3>
-      <div className="remote-participants">{remoteParticipants}</div>
     </div>
   );
 };
