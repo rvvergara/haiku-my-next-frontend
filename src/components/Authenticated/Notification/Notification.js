@@ -8,19 +8,28 @@ const Notification = ({ notification }) => {
   let link;
   switch (notification.actionType) {
     case 'BOOKED':
-      action = 'booked an appointment with you.';
-      actor = notification.notifiable.patientId;
-      link = '/bookings';
+      {
+        const fullName = `${notification.patientActor.firstName} ${notification.patientActor.lastName}`;
+        action = 'booked an appointment with you.';
+        actor = fullName;
+        link = '/bookings';
+      }
       break;
     case 'CONFIRMED':
-      action = 'accepted your appointment request.';
-      actor = notification.notifiable.practitionerId;
-      link = `/video?token=${notification.notifiable.callToken}`;
+      {
+        const fullName = `Dr. ${notification.practitionerActor.firstName} ${notification.practitionerActor.lastName}`;
+        action = 'accepted your appointment request.';
+        actor = fullName;
+        link = '/bookings';
+      }
       break;
       case 'REJECTED':
-        action = 'rejected your appointment request.';
-        actor = notification.notifiable.practitionerId;
-        link = '/bookings';
+        {
+          const fullName = `Dr. ${notification.practitionerActor.firstName} ${notification.practitionerActor.lastName}`;
+          action = `${fullName} rejected your appointment request.`;
+          actor = notification.practitionerActor;
+          link = '/bookings';
+      }
         break;
     default:
       return '';
@@ -28,7 +37,7 @@ const Notification = ({ notification }) => {
   return (
     <Link href={link}>
       <Dropdown.Item href={link}>
-        {`${actor} ${action}`}
+        <p>{`${actor} ${action}`}</p>
       </Dropdown.Item>
     </Link>
   );
