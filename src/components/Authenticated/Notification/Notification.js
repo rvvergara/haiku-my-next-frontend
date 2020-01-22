@@ -10,15 +10,15 @@ const Notification = ({ notification }) => {
     case 'BOOKED':
       {
         const fullName = `${notification.patientActor.firstName} ${notification.patientActor.lastName}`;
-        action = 'booked an appointment with you.';
-        actor = fullName;
+        action = `${fullName} booked an appointment with you.`;
+        actor = notification.patientActor;
         link = '/bookings';
       }
       break;
     case 'CONFIRMED':
       {
         const fullName = `Dr. ${notification.practitionerActor.firstName} ${notification.practitionerActor.lastName}`;
-        action = 'accepted your appointment request.';
+        action = `${fullName} accepted your appointment request.`;
         actor = fullName;
         link = '/bookings';
       }
@@ -37,7 +37,7 @@ const Notification = ({ notification }) => {
   return (
     <Link href={link}>
       <Dropdown.Item href={link}>
-        <p>{`${actor} ${action}`}</p>
+        <p>{`${action}`}</p>
       </Dropdown.Item>
     </Link>
   );
