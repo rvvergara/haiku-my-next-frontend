@@ -55,7 +55,6 @@ const Participant = ({ participant, isRemote, anyOther }) => {
     if (audioTrack) {
       audioTrack.attach(audioRef.current);
       audioTrack.mediaStreamTrack.enabled = false;
-      // console.log('AUDIO TRACK', audioTrack);
       return () => {
         audioTrack.detach();
       };
@@ -65,10 +64,8 @@ const Participant = ({ participant, isRemote, anyOther }) => {
   useEffect(() => {
     if (isRemote) {
       if (anyOther) {
-        console.log('HELLO WE ARE BROTHERS', anyOther);
         setMultipleRemoteClass('multiple-remote');
       } else {
-        console.log('HELLO I DONT LIKE');
         setMultipleRemoteClass('');
       }
     }
@@ -76,16 +73,10 @@ const Participant = ({ participant, isRemote, anyOther }) => {
   return (
     <div className="participant">
       <h3 className="participant-name">{participant.identity}</h3>
-      {
-        /*
-        if participant is remote and there is another remote participant then we set multipleClass to multiple-class
-        */
-      }
       <video
         className={`twilio-video ${multipleRemoteClass}`}
         ref={videoRef}
         autoPlay
-        controls
       >
         <track src={videoTracks[0]} kind='captions' />
       </video>

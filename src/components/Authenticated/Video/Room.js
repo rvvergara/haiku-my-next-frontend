@@ -12,7 +12,6 @@ const Room = ({ roomName, token, handleLogout }) => {
   const [remoteNumber, setRemoteNumber] = useState(0);
 
   useEffect(() => {
-    console.log('PARTICIPANTS COUNT', participants.length, participants);
     if (participants.length > 1) setRemoteNumber(2);
     if (participants.length < 2) setRemoteNumber(1);
   }, [participants.length]);
