@@ -18,13 +18,16 @@ const ReminderList = ({ notifications }) => (
   </div>
   );
 
+ReminderList.propTypes = {
+  notifications: PropTypes.instanceOf(Object).isRequired,
+};
+
 const filterOnlyConfirmedNotifables = (bookingSlotNotifiables) => bookingSlotNotifiables.filter((slot) => slot.notifiable.status === 'CONFIRMED');
 
 const mapStateToProps = (state) => {
   const slotsOnly = state.notifications.filter((notif) => notif.notifiableType === 'BOOKING_SLOT');
   return {
     notifications: filterOnlyConfirmedNotifables(slotsOnly),
-    currentUserData: state.currentUser.data,
   };
 };
 
