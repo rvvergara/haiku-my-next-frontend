@@ -54,7 +54,6 @@ const Participant = ({ participant, isRemote, anyOther }) => {
     const audioTrack = audioTracks[0];
     if (audioTrack) {
       audioTrack.attach(audioRef.current);
-      audioTrack.mediaStreamTrack.enabled = false;
       return () => {
         audioTrack.detach();
       };
