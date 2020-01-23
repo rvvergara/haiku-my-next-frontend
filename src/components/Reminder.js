@@ -1,9 +1,10 @@
+import Link from 'next/link';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 const Reminder = ({ notification }) => {
   const stringedBookingSlotStart = new Date(`${notification.notifiable.date} ${notification.notifiable.startTime}`);
-  const aboutToHappen = moment(stringedBookingSlotStart).add(1, 'hour') >= moment();
-  console.log('ABOUT TO HAPPEN?', aboutToHappen);
+  const aboutToHappen = moment(stringedBookingSlotStart) <= moment().add(30, 'minutes');
   return (
     <li key={notification.id}>
       <p className="">
@@ -12,7 +13,7 @@ const Reminder = ({ notification }) => {
         {`Dr. ${notification.practitionerActor.firstName} ${notification.practitionerActor.lastName}`}
       </p>
       <p className="">
-Date :
+        Date :
         {notification.notifiable.date}
       </p>
       <p className="">
@@ -23,8 +24,19 @@ Date :
         {' '}
         {notification.notifiable.endTime}
       </p>
+      {
+        aboutToHappen && (
+          <Link href={`/video?token=${notification.notifiable.callToken}`}>
+            <a>Join Call Now</a>
+          </Link>
+        )
+      }
     </li>
 );
+};
+
+Reminder.propTypes = {
+  notification: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default Reminder;
