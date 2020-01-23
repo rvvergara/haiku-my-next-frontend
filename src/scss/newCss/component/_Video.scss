@@ -1,13 +1,26 @@
+.participants-box {
+  // margin: 5vw;
+}
+
 .local-participant video {
   width: 200px;
 }
 
 .local-position {
+  z-index: 999;
   position: relative;
   top: 200px;
 }
 
 .remote-participants {
   display: flex;
-  width: 800px;
+  position: absolute;
+}
+
+.remote-participants video{
+  width: 20px;
+}
+
+.participant-name {
+  color: red;
 }

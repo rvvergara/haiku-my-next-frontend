@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect, useRef, useState } from 'react';
 
 
 const Participant = ({ participant }) => {
@@ -63,7 +63,7 @@ const Participant = ({ participant }) => {
 
   return (
     <div className="participant">
-      <h3>{participant.identity}</h3>
+      <h3 className="participant-name">{participant.identity}</h3>
       <video
         className='twilio-video'
         ref={videoRef}
