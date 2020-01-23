@@ -20,12 +20,12 @@ const PractitionerProfile = ({ setPractitioner, role, setClinic }) => {
   return (
     <div className="practitioner-profile-container">
       <div className="reminder-practitioner">
-        <ReminderList />
+        {role === 'PRACTITIONER' && <ReminderList />}
         <div className="practitioner-booking-container">
           <PractitionerCard />
           <PractitionerDetailsCard />
-          {role === 'PATIENT' && <Booking />}
         </div>
+        {role === 'PATIENT' && <Booking />}
       </div>
     </div>
   );
