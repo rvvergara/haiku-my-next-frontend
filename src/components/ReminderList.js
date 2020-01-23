@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Reminder from './Reminder';
 
 const ReminderList = ({ notifications }) => (
@@ -17,9 +18,14 @@ const ReminderList = ({ notifications }) => (
   </div>
   );
 
-const mapStateToProps = (state) => ({
-  notifications: state.notifications,
-  currentUserData: state.currentUser.data,
-});
+const filterOnlyConfirmedNotifables = (bookingSlotNotifiables) => bookingSlotNotifiables.filter((slot) => slot.notifiable.status === 'CONFIRMED');
+
+const mapStateToProps = (state) => {
+  const slotsOnly = state.notifications.filter((notif) => notif.notifiableType === 'BOOKING_SLOT');
+  return {
+    notifications: filterOnlyConfirmedNotifables(slotsOnly),
+    currentUserData: state.currentUser.data,
+  };
+};
 
 export default connect(mapStateToProps, {})(ReminderList);
