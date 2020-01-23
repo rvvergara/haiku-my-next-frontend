@@ -19,6 +19,7 @@ const VideoChat = ({ roomName, profile }) => {
         const { data } = res;
         setToken(data.token);
       } catch (err) {
+        return err;
       }
     })();
   }, []);
