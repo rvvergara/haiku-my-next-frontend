@@ -9,12 +9,13 @@ const Room = ({ roomName, token, handleLogout }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
   const [hasError, setHasError] = useState(false);
-  // const [localPositionClass, setLocalClass] = useState('');
+  const [remoteNumber, setRemoteNumber] = useState(0);
 
-  // useEffect(() => {
-  //   if (participants.length > 0) setLocalClass('local-position');
-  //   if (participants.length === 0) setLocalClass('');
-  // }, [participants.length]);
+  useEffect(() => {
+    console.log('PARTICIPANTS COUNT', participants.length, participants);
+    if (participants.length > 1) setRemoteNumber(2);
+    if (participants.length < 2) setRemoteNumber(1);
+  }, [participants.length]);
 
   useEffect(() => {
     const participantConnected = (participant) => {
@@ -47,7 +48,12 @@ const Room = ({ roomName, token, handleLogout }) => {
   }, [roomName, token]);
 
   const remoteParticipants = participants.map((participant) => (
-    <Participant key={participant.sid} participant={participant} />
+    <Participant
+      key={participant.sid}
+      participant={participant}
+      isRemote
+      anyOther={remoteNumber === 2}
+    />
   ));
 
   const handleClose = () => setHasError(false);
@@ -82,6 +88,8 @@ const Room = ({ roomName, token, handleLogout }) => {
             <Participant
               key={room.localParticipant.sid}
               participant={room.localParticipant}
+              isRemote={false}
+              anyOther={false}
             />
           ) : (
             ''

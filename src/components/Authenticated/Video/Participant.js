@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 
 
-const Participant = ({ participant }) => {
+const Participant = ({ participant, isRemote, anyOther }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
+  const [multipleRemoteClass, setMultipleRemoteClass] = useState('');
 
   const videoRef = useRef();
   const audioRef = useRef();
@@ -61,11 +62,27 @@ const Participant = ({ participant }) => {
     }
   }, [audioTracks]);
 
+  useEffect(() => {
+    if (isRemote) {
+      if (anyOther) {
+        console.log('HELLO WE ARE BROTHERS', anyOther);
+        setMultipleRemoteClass('multiple-remote');
+      } else {
+        console.log('HELLO I DONT LIKE');
+        setMultipleRemoteClass('');
+      }
+    }
+  }, [anyOther]);
   return (
     <div className="participant">
       <h3 className="participant-name">{participant.identity}</h3>
+      {
+        /*
+        if participant is remote and there is another remote participant then we set multipleClass to multiple-class
+        */
+      }
       <video
-        className='twilio-video'
+        className={`twilio-video ${multipleRemoteClass}`}
         ref={videoRef}
         autoPlay
         controls
@@ -81,6 +98,8 @@ const Participant = ({ participant }) => {
 
 Participant.propTypes = {
   participant: PropTypes.instanceOf(Object).isRequired,
+  isRemote: PropTypes.bool.isRequired,
+  anyOther: PropTypes.bool.isRequired,
 };
 
 export default Participant;
