@@ -11,6 +11,10 @@
     margin-left: 10vw;
     margin-right: 10vw;
     justify-content: space-between;
-    flex-direction: row;
+    flex-direction: column;
   }
+}
+
+.reminder-practitioner {
+  display: flex;
 }

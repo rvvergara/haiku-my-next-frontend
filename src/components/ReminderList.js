@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Reminder from './Reminder';
 
-const ReminderList = ({ notifications }) => {
+const ReminderList = ({ notifications, currentUserData }) => {
   return notifications.length === 0 ? null : (
     <div className="remainder-container">
       <div className="">
@@ -10,7 +10,11 @@ const ReminderList = ({ notifications }) => {
       </div>
       <ul>
         {notifications.map(notification => (
-          <Reminder key={notification.id} notification={notification} />
+          <Reminder
+            key={notification.id}
+            notification={notification}
+            currentUserData={currentUserData}
+          />
         ))}
       </ul>
     </div>
@@ -30,6 +34,7 @@ const mapStateToProps = state => {
   );
   return {
     notifications: filterOnlyConfirmedNotifables(slotsOnly),
+    currentUserData: state.currentUser.data,
   };
 };
 
