@@ -1,5 +1,6 @@
 .participants-box {
   // margin: 5vw;
+  overflow: scroll;
 }
 
 .local-participant video {
@@ -8,19 +9,21 @@
 
 .local-position {
   z-index: 999;
-  position: relative;
-  top: 200px;
+  position: absolute;
 }
 
 .remote-participants {
   display: flex;
-  position: absolute;
 }
 
 .remote-participants video {
-  width: 45vw;
+  width: 1000px;
 }
 
 .participant-name {
   color: red;
+}
+
+.remote-participants .blank-video {
+  width: 1000px;
 }

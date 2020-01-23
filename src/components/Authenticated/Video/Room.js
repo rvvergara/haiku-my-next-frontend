@@ -9,12 +9,12 @@ const Room = ({ roomName, token, handleLogout }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
   const [hasError, setHasError] = useState(false);
-  const [localPositionClass, setLocalClass] = useState('');
+  // const [localPositionClass, setLocalClass] = useState('');
 
-  useEffect(() => {
-    if (participants.length > 0) setLocalClass('local-position');
-    if (participants.length === 0) setLocalClass('');
-  }, [participants.length]);
+  // useEffect(() => {
+  //   if (participants.length > 0) setLocalClass('local-position');
+  //   if (participants.length === 0) setLocalClass('');
+  // }, [participants.length]);
 
   useEffect(() => {
     const participantConnected = (participant) => {
@@ -70,11 +70,6 @@ const Room = ({ roomName, token, handleLogout }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <h2>
-        Room:
-        {' '}
-        {roomName}
-      </h2>
       <button
         type='button'
         onClick={handleLogout}
@@ -82,7 +77,7 @@ const Room = ({ roomName, token, handleLogout }) => {
         Leave Room
       </button>
       <div className="participants-box">
-        <div className={`local-participant ${localPositionClass}`}>
+        <div className="local-participant local-position">
           {room ? (
             <Participant
               key={room.localParticipant.sid}
@@ -92,7 +87,17 @@ const Room = ({ roomName, token, handleLogout }) => {
             ''
           )}
         </div>
-        <div className="remote-participants">{remoteParticipants}</div>
+        <div className="remote-participants">
+          {remoteParticipants.length > 0 ? remoteParticipants : (
+            <video
+              className='twilio-video blank-video'
+              autoPlay
+              controls
+            >
+              <track src='' kind='captions' />
+            </video>
+          )}
+        </div>
       </div>
     </div>
   );
