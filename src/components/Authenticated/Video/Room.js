@@ -9,6 +9,12 @@ const Room = ({ roomName, token, handleLogout }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
   const [hasError, setHasError] = useState(false);
+  const [localPositionClass, setLocalClass] = useState('');
+
+  useEffect(() => {
+    if (participants.length > 0) setLocalClass('local-position');
+    if (participants.length === 0) setLocalClass('');
+  }, [participants.length]);
 
   useEffect(() => {
     const participantConnected = (participant) => {
@@ -76,7 +82,7 @@ const Room = ({ roomName, token, handleLogout }) => {
         Leave Room
       </button>
       <div className="participants-box">
-        <div className="local-participant">
+        <div className={`local-participant ${localPositionClass}`}>
           {room ? (
             <Participant
               key={room.localParticipant.sid}

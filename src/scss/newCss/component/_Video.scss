@@ -1,4 +1,13 @@
-.participants-box {
+.local-participant video {
+  width: 200px;
+}
+
+.local-position {
+  position: relative;
+  top: 200px;
+}
+
+.remote-participants {
   display: flex;
-  justify-content: space-around;
+  width: 800px;
 }

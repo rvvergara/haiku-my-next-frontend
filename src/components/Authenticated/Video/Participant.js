@@ -53,6 +53,8 @@ const Participant = ({ participant }) => {
     const audioTrack = audioTracks[0];
     if (audioTrack) {
       audioTrack.attach(audioRef.current);
+      audioTrack.mediaStreamTrack.enabled = false;
+      // console.log('AUDIO TRACK', audioTrack);
       return () => {
         audioTrack.detach();
       };
