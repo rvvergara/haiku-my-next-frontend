@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { withTranslation } from '../i18n';
+import { withTranslation } from '../../../../i18n';
 
 const ClinicCard = ({ clinic, t }) => {
   const {

@@ -68,6 +68,7 @@ ClinicProfile.propTypes = {
   clinic: PropTypes.instanceOf(Object).isRequired,
   setClinic: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  practitioner: PropTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
