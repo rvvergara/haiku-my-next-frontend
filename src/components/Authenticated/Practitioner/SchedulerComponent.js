@@ -8,7 +8,7 @@ import {
   addAvailability,
   setSessionDate,
   setSessionDuration,
-  setSessionStartTime,
+  setSessionStartTime
 } from '../../../store/actions/availability';
 import { createAvailabilityOnDb } from '../../../store/thunks/availability';
 import { setAuthorizationToken } from '../../../utils/api';
@@ -26,7 +26,7 @@ const SchedulerComponent = ({
   setSessionDate,
   setSessionDuration,
   setSessionStartTime,
-  t,
+  t
 }) => {
   useEffect(() => {
     setSessionDate(moment().format('MMMM D, YYYY'));
@@ -40,18 +40,18 @@ const SchedulerComponent = ({
   }, []);
 
   const handleSubmit = async () => {
-    const endTime = moment(sessionStartTime, 'h:mm a')
-      .add(sessionDuration, 'minutes')
-      .format('LT');
     const processedDate = moment(sessionDate).format('YYYY-MM-DD');
-    const UTCStartTime = moment(`${sessionDate} ${sessionStartTime}`);
-
-    const UTCEndTime = moment(`${sessionDate} ${endTime}`);
+    const endTime = moment(`${sessionDate} ${sessionStartTime}`).add(
+      sessionDuration,
+      'minutes'
+    );
+    const UTCStartTime = moment(`${sessionDate} ${sessionStartTime}`).toJSON();
+    const UTCEndTime = endTime.toJSON();
     const bookingParams = {
       date: processedDate,
       startTime: UTCStartTime,
       endTime: UTCEndTime,
-      practitionerId: currentUserData.practitioner.id,
+      practitionerId: currentUserData.practitioner.id
     };
     setAuthorizationToken(localStorage.token);
     await createAvailabilityOnDb(bookingParams);
@@ -59,14 +59,14 @@ const SchedulerComponent = ({
   };
 
   return (
-    <div className="scheduler-container">
+    <div className='scheduler-container'>
       <ScheduleForm />
       <SessionDuration />
       <SessionTime />
       <div>
         <button
-          type="button"
-          className="scheduler-button"
+          type='button'
+          className='scheduler-button'
           onClick={handleSubmit}
         >
           {t('submit')}
@@ -86,14 +86,14 @@ SchedulerComponent.propTypes = {
   setAlert: PropTypes.func.isRequired,
   setSessionDate: PropTypes.func.isRequired,
   setSessionDuration: PropTypes.func.isRequired,
-  setSessionStartTime: PropTypes.func.isRequired,
+  setSessionStartTime: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   currentUserData: state.currentUser.data,
   sessionDate: state.sessionDate,
   sessionDuration: state.sessionDuration,
-  sessionStartTime: state.sessionStartTime,
+  sessionStartTime: state.sessionStartTime
 });
 
 export default connect(mapStateToProps, {
@@ -102,5 +102,5 @@ export default connect(mapStateToProps, {
   setAlert,
   setSessionDate,
   setSessionDuration,
-  setSessionStartTime,
+  setSessionStartTime
 })(withTranslation('scheduleForm')(SchedulerComponent));
