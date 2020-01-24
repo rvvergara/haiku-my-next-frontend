@@ -44,10 +44,9 @@ const SchedulerComponent = ({
       .add(sessionDuration, 'minutes')
       .format('LT');
     const processedDate = moment(sessionDate).format('YYYY-MM-DD');
-    const UTCStartTime = moment(
-      `${processedDate} ${sessionStartTime}`,
-    ).toJSON();
-    const UTCEndTime = moment(`${processedDate} ${endTime}`).toJSON();
+    const UTCStartTime = moment(`${sessionDate} ${sessionStartTime}`);
+
+    const UTCEndTime = moment(`${sessionDate} ${endTime}`);
     const bookingParams = {
       date: processedDate,
       startTime: UTCStartTime,
@@ -65,7 +64,11 @@ const SchedulerComponent = ({
       <SessionDuration />
       <SessionTime />
       <div>
-        <button type="button" className="scheduler-button" onClick={handleSubmit}>
+        <button
+          type="button"
+          className="scheduler-button"
+          onClick={handleSubmit}
+        >
           {t('submit')}
         </button>
       </div>
