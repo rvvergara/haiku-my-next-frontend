@@ -4,17 +4,18 @@ import availabilities from './availabilities';
 import bookings from './booking';
 import clinics from './clinic';
 import currentUser from './currentUser';
+import displayedAvailability from './displayedAvailability';
 import displayedClinic from './displayedClinic';
 import displayedPractitioner from './displayedPractitioner';
 import error from './error';
+import language from './language';
+import notifications from './notifications';
 import practitioners from './practitioners';
 import sessionDate from './sessionDate';
 import sessionDuration from './sessionDuration';
 import sessionStartTime from './sessionStartTime';
 import settingAppointment from './settingAppointment';
-import displayedAvailability from './displayedAvailability';
-import notifications from './notifications';
-import language from './language';
+import upcomingAppointment from './upcomingApppointment';
 
 export default combineReducers({
   currentUser,
@@ -33,4 +34,5 @@ export default combineReducers({
   displayedAvailability,
   notifications,
   language,
+  upcomingAppointment,
 });
