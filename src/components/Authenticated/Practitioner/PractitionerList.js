@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import PractitionerListPlaceholder from '../../../../Placeholder/PractitionerListPlaceholder';
 import { listPractitioners } from '../../../store/actions/practitioners';
 import { fetchAllPractitioner } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
 import ReminderList from '../../ReminderList';
 import Filter from '../Filter';
+import Spinner from '../Spinner';
 import PractitionerBox from './PractitionerBox';
 
 const PractitionerList = ({
@@ -30,7 +30,7 @@ const PractitionerList = ({
       </div>
       <div>
         {practitioners.length < 1 ? (
-          <PractitionerListPlaceholder />
+          <Spinner />
         ) : (
           practitioners.map(practitioner => (
             <PractitionerBox
