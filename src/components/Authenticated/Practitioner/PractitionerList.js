@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import PractitionerListPlaceholder from '../../../../Placeholder/PractitionerListPlaceholder';
 import { listPractitioners } from '../../../store/actions/practitioners';
 import { fetchAllPractitioner } from '../../../store/thunks/practitioner';
 import { setAuthorizationToken } from '../../../utils/api';
-import Filter from '../Filter';
 import ReminderList from '../../ReminderList';
+import Filter from '../Filter';
 import PractitionerBox from './PractitionerBox';
 
 const PractitionerList = ({
@@ -28,9 +29,16 @@ const PractitionerList = ({
         <Filter />
       </div>
       <div>
-        {practitioners.map((practitioner) => (
-          <PractitionerBox key={practitioner.id} practitioner={practitioner} />
-        ))}
+        {practitioners.length < 1 ? (
+          <PractitionerListPlaceholder />
+        ) : (
+          practitioners.map(practitioner => (
+            <PractitionerBox
+              key={practitioner.id}
+              practitioner={practitioner}
+            />
+          ))
+        )}
       </div>
     </div>
   );
@@ -42,7 +50,7 @@ PractitionerList.propTypes = {
   listPractitioners: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   practitioners: state.practitioners,
 });
 
