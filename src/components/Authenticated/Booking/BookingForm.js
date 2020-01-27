@@ -22,7 +22,7 @@ class BookingForm extends React.Component {
       [key]: val,
     }));
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const bookingData = {
       patientId: this.props.currentUserData.patient.id,
@@ -33,7 +33,6 @@ class BookingForm extends React.Component {
     }));
     this.props.toggleSetAppointment(false);
     this.props.bookSlot(bookingData, this.props.availability.id);
-    this.props.removeAvailability(this.props.availability.id);
     this.props.setAlert('Booking Created', 'success');
   };
 

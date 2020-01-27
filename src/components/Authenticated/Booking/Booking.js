@@ -8,14 +8,11 @@ import { listAvailabilies } from '../../../store/actions/availability';
 import { withTranslation } from '../../../../i18n';
 
 const Booking = ({
-  settingAppointment, fetchPractitionerAvailabilities,
-   displayedPractitioner,
+  settingAppointment,
    listAvailabilies,
    t,
 }) => {
-  useEffect(() =>
-    // fetchPractitionerAvailabilities(displayedPractitioner.id);
-     () => listAvailabilies([]),
+  useEffect(() => () => listAvailabilies([]),
    []);
   return (
     <div className="booking-container">

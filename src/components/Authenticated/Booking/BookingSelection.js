@@ -26,6 +26,7 @@ const BookingSelection = ({
   availabilities,
   t,
   toggleSetAppointment,
+  listAvailabilies,
 }) => {
   const [calendarFocused, setCalendarFocused] = useState(false);
   const [selectedDate, setSelectedDate] = useState(moment());
@@ -35,7 +36,7 @@ const BookingSelection = ({
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
     fetchPractitionerAvailabilities(displayedPractitioner.id, '', 'PENDING');
-  }, [availabilities, fetchPractitionerAvailabilities]);
+  }, []);
 
  const blocksDay = (day) => {
     const availableDates = availabilities
@@ -46,7 +47,6 @@ const BookingSelection = ({
   };
 
   const handleTimeClick = (availability) => {
-    // setConfirmButtonAvailability(availability);
     toggleSetAppointment(true);
     displayAvailability(availability);
   };
