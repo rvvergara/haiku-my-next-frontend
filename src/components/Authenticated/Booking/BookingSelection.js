@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 import {
   displayAvailability,
-  listAvailabilies,
   removeAvailability,
 } from '../../../store/actions/availability';
 import {
@@ -14,7 +13,6 @@ import {
   toggleSetAppointment,
 } from '../../../store/actions/booking';
 import { bookSlot } from '../../../store/thunks/booking';
-import { setAlert } from '../../../store/actions/alerts';
 import { fetchPractitionerAvailabilities } from '../../../store/thunks/availability';
 import { setAuthorizationToken } from '../../../utils/api';
 import { withTranslation } from '../../../../i18n';
@@ -26,7 +24,6 @@ const BookingSelection = ({
   availabilities,
   t,
   toggleSetAppointment,
-  listAvailabilies,
 }) => {
   const [calendarFocused, setCalendarFocused] = useState(false);
   const [selectedDate, setSelectedDate] = useState(moment());
@@ -112,7 +109,6 @@ BookingSelection.propTypes = {
 };
 
 export default connect(mapStateToProps, {
-  listAvailabilies,
   addBooking,
   removeAvailability,
   displayAvailability,
