@@ -5,30 +5,33 @@ import { connect } from 'react-redux';
 import {
   displayAvailability,
   listAvailabilies,
-  removeAvailability,
+  removeAvailability
 } from '../../../store/actions/availability';
 import {
   addBooking,
-  toggleSetAppointment,
+  toggleSetAppointment
 } from '../../../store/actions/booking';
 import { bookSlot } from '../../../store/thunks/booking';
 import { setAlert } from '../../../store/actions/alerts';
 import { setAuthorizationToken } from '../../../utils/api';
 import { fetchPractitionerAvailabilities } from '../../../store/thunks/availability';
-import { withTranslation} from '../../../../i18n';
+import { withTranslation } from '../../../../i18n';
 
 class BookingSelection extends React.Component {
   state = {
     calendarFocused: false,
     selectedDate: moment(this.props.initialDate),
-    availableTimes: this.props.shownAvailabilities,
+    availableTimes: this.props.shownAvailabilities
   };
 
-  componentDidMount(){
-    setAuthorizationToken(localStorage.token)
-    this.props.fetchPractitionerAvailabilities(this.props.displayedPractitioner.id, '', 'PENDING')
+  componentDidMount() {
+    setAuthorizationToken(localStorage.token);
+    this.props.fetchPractitionerAvailabilities(
+      this.props.displayedPractitioner.id,
+      '',
+      'PENDING'
+    );
   }
-
 
   // componentWillReceiveProps(nextProps) {
   //   this.setState(() => ({
@@ -38,21 +41,24 @@ class BookingSelection extends React.Component {
   // }
 
   static getDerivedStateFromProps(props, state) {
-    if(props.shownAvailabilities !== state.availableTimes){
+    if (state.availableTimes !== []) {
       return {
-        availableTimes: props.shownAvailabilities,
-      }
+        availableTimes: props.availabilities.filter(
+          avail =>
+            avail.date === moment(state.selectedDate).format('MMMM DD, YYYY')
+        )
+      };
     }
-    if(props.initialDate !== state.selectedDate){
+    if (props.initialDate !== state.selectedDate) {
       return {
         selectedDate: moment(props.initialDate)
-      }
+      };
     }
   }
 
   handleChange = (key, val) =>
     this.setState(() => ({
-      [key]: val,
+      [key]: val
     }));
 
   blocksDay = day => {
@@ -65,7 +71,7 @@ class BookingSelection extends React.Component {
 
   handleTimeClick = availability => {
     this.setState(() => ({
-      confirmButtonAvailability: availability,
+      confirmButtonAvailability: availability
     }));
     this.props.toggleSetAppointment(true);
     this.props.displayAvailability(availability);
@@ -75,14 +81,14 @@ class BookingSelection extends React.Component {
     e.preventDefault();
     const bookingData = {
       patientId: this.props.currentUserData.patient.id,
-      remarks: this.state.remarks,
+      remarks: this.state.remarks
     };
     this.props.bookSlot(bookingData);
     setAlert('Booking Created', 'success');
     this.props.removeAvailability(this.state.confirmButtonAvailability.id);
     this.setState(() => ({
       confirmButtonAvailability: null,
-      remarks: '',
+      remarks: ''
     }));
   };
 
@@ -107,13 +113,13 @@ class BookingSelection extends React.Component {
     const { t } = this.props;
 
     return (
-      <div className="booking-selection-container">
+      <div className='booking-selection-container'>
         <div>
-          <label htmlFor="booking-date" className="select-date">
+          <label htmlFor='booking-date' className='select-date'>
             {t('select-date')}
           </label>
           <SingleDatePicker
-            id="booking-date"
+            id='booking-date'
             date={this.state.selectedDate}
             onDateChange={this.onDateChange}
             focused={this.state.calendarFocused}
@@ -126,7 +132,7 @@ class BookingSelection extends React.Component {
         {this.state.availableTimes.map(availability => (
           <div key={availability.id}>
             <button
-              className="booking-availabilities"
+              className='booking-availabilities'
               onClick={() => this.handleTimeClick(availability)}
             >
               {availability.startTime}
@@ -140,9 +146,6 @@ class BookingSelection extends React.Component {
 
 const mapStateToProps = state => ({
   availabilities: state.availabilities,
-  shownAvailabilities: state.availabilities.filter(
-    avail => avail.date === state.availabilities[0].date,
-  ),
   displayedPractitioner: state.displayedPractitioner,
   displayedAvailability: state.displayedAvailability,
   currentUserData: state.currentUser.data
