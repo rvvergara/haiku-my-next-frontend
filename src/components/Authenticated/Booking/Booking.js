@@ -12,12 +12,11 @@ const Booking = ({
    displayedPractitioner,
    listAvailabilies,
    t,
-   availabilities,
 }) => {
-  useEffect(() => {
-    fetchPractitionerAvailabilities(displayedPractitioner.id);
-    return () => listAvailabilies([]);
-  }, []);
+  useEffect(() =>
+    // fetchPractitionerAvailabilities(displayedPractitioner.id);
+     () => listAvailabilies([]),
+   []);
   return (
     <div className="booking-container">
       <div className="booking-form-header">
@@ -43,7 +42,6 @@ Booking.propTypes = {
 const mapStateToProps = (state) => ({
   settingAppointment: state.settingAppointment,
   displayedPractitioner: state.displayedPractitioner,
-  availabilities: state.availabilities,
 });
 
 export default connect(mapStateToProps, {

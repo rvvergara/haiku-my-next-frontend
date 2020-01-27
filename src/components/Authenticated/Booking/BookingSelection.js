@@ -15,8 +15,8 @@ import {
 } from '../../../store/actions/booking';
 import { bookSlot } from '../../../store/thunks/booking';
 import { setAlert } from '../../../store/actions/alerts';
-import { setAuthorizationToken } from '../../../utils/api';
 import { fetchPractitionerAvailabilities } from '../../../store/thunks/availability';
+import { setAuthorizationToken } from '../../../utils/api';
 import { withTranslation } from '../../../../i18n';
 
 const BookingSelection = ({
@@ -29,14 +29,13 @@ const BookingSelection = ({
 }) => {
   const [calendarFocused, setCalendarFocused] = useState(false);
   const [selectedDate, setSelectedDate] = useState(moment());
-  const [confirmButtonAvailability, setConfirmButtonAvailability] = useState(null);
 
   const [availableTimes, setAvailableTimes] = useState([]);
 
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
     fetchPractitionerAvailabilities(displayedPractitioner.id, '', 'PENDING');
-  }, []);
+  }, [availabilities, fetchPractitionerAvailabilities]);
 
  const blocksDay = (day) => {
     const availableDates = availabilities
