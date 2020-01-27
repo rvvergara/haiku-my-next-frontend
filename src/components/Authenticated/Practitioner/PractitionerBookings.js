@@ -13,6 +13,7 @@ const PractitionerBookings = ({
    currentUserData,
    t,
   }) => {
+    console.log('BOOKINGS', bookings);
   useEffect(() => {
     setAuthorizationToken(localStorage.token);
     fetchPractitionerAvailabilities(currentUserData.practitioner.id, '', '');

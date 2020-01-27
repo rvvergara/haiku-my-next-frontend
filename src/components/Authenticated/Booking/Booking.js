@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import BookingSelection from './BookingSelection';
 import BookingForm from './BookingForm';
-import { fetchPractitionerAvailabilities } from '../../../store/thunks/availability';
 import { listAvailabilies } from '../../../store/actions/availability';
 import { withTranslation } from '../../../../i18n';
 
@@ -29,8 +28,6 @@ const Booking = ({
 };
 
 Booking.propTypes = {
-  displayedPractitioner: PropTypes.instanceOf(Object).isRequired,
-  fetchPractitionerAvailabilities: PropTypes.func.isRequired,
   settingAppointment: PropTypes.bool.isRequired,
   listAvailabilies: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
@@ -42,6 +39,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-   fetchPractitionerAvailabilities,
    listAvailabilies,
   })(withTranslation('bookings')(Booking));
