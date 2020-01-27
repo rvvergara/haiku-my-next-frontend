@@ -21,10 +21,12 @@ BookingsPage.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-BookingsPage.getInitialProps = ctx => {
+BookingsPage.getInitialProps = async (ctx) => {
   const { store } = ctx;
   const { data } = store.getState().currentUser;
-  store.dispatch(fetchPractitionerBookedSlot(data.practitioner.id, '', ''));
+  if (data.practitioner) {
+    await store.dispatch(fetchPractitionerBookedSlot(data.practitioner.id, '', ''));
+  }
   return {
     currentUserData: data,
     namespacesRequired: [
@@ -37,7 +39,7 @@ BookingsPage.getInitialProps = ctx => {
   };
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
 });
 
