@@ -1,126 +1,116 @@
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/initialize';
 import { connect } from 'react-redux';
+import { useState, useEffect } from 'react';
 import {
   displayAvailability,
   listAvailabilies,
-  removeAvailability
+  removeAvailability,
 } from '../../../store/actions/availability';
 import {
   addBooking,
-  toggleSetAppointment
+  toggleSetAppointment,
 } from '../../../store/actions/booking';
 import { bookSlot } from '../../../store/thunks/booking';
 import { setAlert } from '../../../store/actions/alerts';
 import { setAuthorizationToken } from '../../../utils/api';
 import { fetchPractitionerAvailabilities } from '../../../store/thunks/availability';
-import { withTranslation} from '../../../../i18n';
-import {useState,useEffect} from 'react'
+import { withTranslation } from '../../../../i18n';
 
-const BookingSelection = ({initalDate,shownAvailabilities,fetchPractitionerAvailabilities,displayedPractitioner,availabilities,t,currentUserData}) => {
+const BookingSelection = ({
+  fetchPractitionerAvailabilities,
+  displayedPractitioner,
+  displayAvailability,
+  availabilities,
+  t,
+  toggleSetAppointment,
+}) => {
+  const [calendarFocused, setCalendarFocused] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(moment());
+  const [confirmButtonAvailability, setConfirmButtonAvailability] = useState(null);
 
-  const [calendarFocused,setCalendarFocused] = useState(false)
-  const [selectedDate,setSelectedDate] = useState(initalDate)
-
-  const [availableTimes,setAvailableTimes] = useState(shownAvailabilities)
+  const [availableTimes, setAvailableTimes] = useState([]);
 
   useEffect(() => {
-    setAuthorizationToken(localStorage.token)
-    fetchPractitionerAvailabilities(displayedPractitioner.id,'','PENDING')
-  }, [])
+    setAuthorizationToken(localStorage.token);
+    fetchPractitionerAvailabilities(displayedPractitioner.id, '', 'PENDING');
+  }, []);
 
-  const handleChange = (key, val) =>
-    setState(() => ({
-      [key]: val,
-    }));
-
- const blocksDay = day => {
+ const blocksDay = (day) => {
     const availableDates = availabilities
-      .map(avail => avail.date)
+      .map((avail) => avail.date)
       .sort();
     const dayFormatted = moment(day).format('MMMM DD, YYYY');
     return !availableDates.includes(dayFormatted);
   };
 
-  const handleTimeClick = availability => {
-    setState(() => ({
-      confirmButtonAvailability: availability,
-    }));
-
+  const handleTimeClick = (availability) => {
+    setConfirmButtonAvailability(availability);
     toggleSetAppointment(true);
-  displayAvailability(availability);
+    displayAvailability(availability);
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const bookingData = {
-      patientId:currentUserData.patient.id,
-      remarks: state.remarks,
-    };
-   bookSlot(bookingData);
-    setAlert('Booking Created', 'success');
-   removeAvailability(state.confirmButtonAvailability.id);
-    setState(() => ({
-      confirmButtonAvailability: null,
-      remarks: ''
-    }));
-  };
-
-  const onDateChange = selectedDate => {
-    if (selectedDate) {
-      setState(() => ({ selectedDate: selectedDate }));
+  const onDateChange = (dateSelection) => {
+    if (dateSelection) {
+      setSelectedDate(dateSelection);
     }
 
-    setState(prevState => {
-      const newDate = moment(prevState.selectedDate).format('MMMM D, YYYY');
-      const newAvailabilities = props.availabilities.filter(avail => {
-        return moment(avail.date).valueOf() === moment(newDate).valueOf();
-      });
-      return { availableTimes: newAvailabilities };
-    });
+    const newDate = moment(dateSelection).format('MMMM D, YYYY');
+    const newAvailabilities = availabilities.filter((avail) => moment(avail.date).valueOf() === moment(newDate).valueOf() && avail.patientId === null);
+    setAvailableTimes(newAvailabilities);
   };
 
-  const onFocusChange = ({ focused }) => handleChange('calendarFocused', focused);
+  const onFocusChange = ({ focused }) => setCalendarFocused(focused);
 
   return (
     <div className="booking-selection-container">
-        <div>
-          <label htmlFor='booking-date' className='select-date'>
-            {t('select-date')}
-          </label>
-          <SingleDatePicker
-            id="booking-date"
-            date={selectedDate}
-            onDateChange={onDateChange}
-            focused={calendarFocused}
-            onFocusChange={onFocusChange}
-            numberOfMonths={1}
-            isOutsideRange={blocksDay}
-          />
-        </div>
-
-        {availableTimes.map(availability => (
-          <div key={availability.id}>
-            <button
-              className="booking-availabilities"
-              onClick={() => handleTimeClick(availability)}
-            >
-              {availability.startTime}
-            </button>
-          </div>
-        ))}
+      <div>
+        <label htmlFor='booking-date' className='select-date'>
+          {t('select-date')}
+        </label>
+        <SingleDatePicker
+          id="booking-date"
+          date={selectedDate}
+          onDateChange={onDateChange}
+          focused={calendarFocused}
+          onFocusChange={onFocusChange}
+          numberOfMonths={1}
+          isOutsideRange={blocksDay}
+        />
       </div>
-  )
-}
+
+      {availableTimes.map((availability) => (
+        <div key={availability.id}>
+          <button
+            type="button"
+            className="booking-availabilities"
+            onClick={() => handleTimeClick(availability)}
+          >
+            {availability.startTime}
+          </button>
+        </div>
+        ))}
+    </div>
+  );
+};
 
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   availabilities: state.availabilities,
   displayedPractitioner: state.displayedPractitioner,
   displayedAvailability: state.displayedAvailability,
-  currentUserData: state.currentUser.data
 });
+
+BookingSelection.propTypes = {
+  fetchPractitionerAvailabilities: PropTypes.func.isRequired,
+  displayedPractitioner: PropTypes.instanceOf(Object).isRequired,
+  displayAvailability: PropTypes.func.isRequired,
+  availabilities: PropTypes.instanceOf(Object).isRequired,
+  t: PropTypes.func.isRequired,
+  toggleSetAppointment: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, {
   listAvailabilies,
@@ -129,5 +119,5 @@ export default connect(mapStateToProps, {
   displayAvailability,
   toggleSetAppointment,
   bookSlot,
-  fetchPractitionerAvailabilities
+  fetchPractitionerAvailabilities,
 })(withTranslation('bookingSelection')(BookingSelection));
