@@ -25,13 +25,13 @@ export default (state = [], action) => {
     case ADD_AVAILABILITY:
       return [
         ...state,
-        { ...action.availability, id: uuid(), patientId: null },
+        { ...action.availability, patientId: null },
       ];
     case REMOVE_AVAILABILITY:
-      return state.filter(avail => avail.id !== action.id);
+      return state.filter((avail) => avail.id !== action.id);
     case BOOK_AVAILABILITY: {
       const indexToBook = state.findIndex(
-        avail => avail.id === action.availabilityId,
+        (avail) => avail.id === action.availabilityId,
       );
       const bookedSlot = {
         ...state[indexToBook],
@@ -44,7 +44,7 @@ export default (state = [], action) => {
     }
     case CONFIRM_BOOKING: {
       const indexToConfirm = state.findIndex(
-        slot => slot.id === action.bookingId,
+        (slot) => slot.id === action.bookingId,
       );
 
       const newState = [...state];
@@ -57,7 +57,7 @@ export default (state = [], action) => {
     }
     case REJECT_BOOKING: {
       const indexToConfirm = state.findIndex(
-        slot => slot.id === action.bookingId,
+        (slot) => slot.id === action.bookingId,
       );
 
       const newState = [...state];
