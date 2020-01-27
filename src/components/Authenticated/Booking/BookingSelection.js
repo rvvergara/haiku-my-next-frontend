@@ -15,134 +15,105 @@ import { bookSlot } from '../../../store/thunks/booking';
 import { setAlert } from '../../../store/actions/alerts';
 import { setAuthorizationToken } from '../../../utils/api';
 import { fetchPractitionerAvailabilities } from '../../../store/thunks/availability';
-import { withTranslation } from '../../../../i18n';
+import { withTranslation} from '../../../../i18n';
+import {useState,useEffect} from 'react'
 
-class BookingSelection extends React.Component {
-  state = {
-    calendarFocused: false,
-    selectedDate: moment(this.props.initialDate),
-    availableTimes: this.props.shownAvailabilities
-  };
+const BookingSelection = ({initalDate,shownAvailabilities,fetchPractitionerAvailabilities,displayedPractitioner,availabilities,t,currentUserData}) => {
 
-  componentDidMount() {
-    setAuthorizationToken(localStorage.token);
-    this.props.fetchPractitionerAvailabilities(
-      this.props.displayedPractitioner.id,
-      '',
-      'PENDING'
-    );
-  }
+  const [calendarFocused,setCalendarFocused] = useState(false)
+  const [selectedDate,setSelectedDate] = useState(initalDate)
 
-  // componentWillReceiveProps(nextProps) {
-  //   this.setState(() => ({
-  //     availableTimes: nextProps.shownAvailabilities,
-  //     selectedDate: moment(nextProps.initialDate),
-  //   }));
-  // }
+  const [availableTimes,setAvailableTimes] = useState(shownAvailabilities)
 
-  static getDerivedStateFromProps(props, state) {
-    if (state.availableTimes !== []) {
-      return {
-        availableTimes: props.availabilities.filter(
-          avail =>
-            avail.date === moment(state.selectedDate).format('MMMM DD, YYYY')
-        )
-      };
-    }
-    if (props.initialDate !== state.selectedDate) {
-      return {
-        selectedDate: moment(props.initialDate)
-      };
-    }
-  }
+  useEffect(() => {
+    setAuthorizationToken(localStorage.token)
+    fetchPractitionerAvailabilities(displayedPractitioner.id,'','PENDING')
+  }, [])
 
-  handleChange = (key, val) =>
-    this.setState(() => ({
-      [key]: val
+  const handleChange = (key, val) =>
+    setState(() => ({
+      [key]: val,
     }));
 
-  blocksDay = day => {
-    const availableDates = this.props.availabilities
+ const blocksDay = day => {
+    const availableDates = availabilities
       .map(avail => avail.date)
       .sort();
     const dayFormatted = moment(day).format('MMMM DD, YYYY');
     return !availableDates.includes(dayFormatted);
   };
 
-  handleTimeClick = availability => {
-    this.setState(() => ({
-      confirmButtonAvailability: availability
+  const handleTimeClick = availability => {
+    setState(() => ({
+      confirmButtonAvailability: availability,
     }));
-    this.props.toggleSetAppointment(true);
-    this.props.displayAvailability(availability);
+
+    toggleSetAppointment(true);
+  displayAvailability(availability);
   };
 
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
     const bookingData = {
-      patientId: this.props.currentUserData.patient.id,
-      remarks: this.state.remarks
+      patientId:currentUserData.patient.id,
+      remarks: state.remarks,
     };
-    this.props.bookSlot(bookingData);
+   bookSlot(bookingData);
     setAlert('Booking Created', 'success');
-    this.props.removeAvailability(this.state.confirmButtonAvailability.id);
-    this.setState(() => ({
+   removeAvailability(state.confirmButtonAvailability.id);
+    setState(() => ({
       confirmButtonAvailability: null,
       remarks: ''
     }));
   };
 
-  onDateChange = selectedDate => {
+  const onDateChange = selectedDate => {
     if (selectedDate) {
-      this.setState(() => ({ selectedDate: selectedDate }));
+      setState(() => ({ selectedDate: selectedDate }));
     }
 
-    this.setState(prevState => {
+    setState(prevState => {
       const newDate = moment(prevState.selectedDate).format('MMMM D, YYYY');
-      const newAvailabilities = this.props.availabilities.filter(avail => {
+      const newAvailabilities = props.availabilities.filter(avail => {
         return moment(avail.date).valueOf() === moment(newDate).valueOf();
       });
       return { availableTimes: newAvailabilities };
     });
   };
 
-  onFocusChange = ({ focused }) =>
-    this.handleChange('calendarFocused', focused);
+  const onFocusChange = ({ focused }) => handleChange('calendarFocused', focused);
 
-  render() {
-    const { t } = this.props;
-
-    return (
-      <div className='booking-selection-container'>
+  return (
+    <div className="booking-selection-container">
         <div>
           <label htmlFor='booking-date' className='select-date'>
             {t('select-date')}
           </label>
           <SingleDatePicker
-            id='booking-date'
-            date={this.state.selectedDate}
-            onDateChange={this.onDateChange}
-            focused={this.state.calendarFocused}
-            onFocusChange={this.onFocusChange}
+            id="booking-date"
+            date={selectedDate}
+            onDateChange={onDateChange}
+            focused={calendarFocused}
+            onFocusChange={onFocusChange}
             numberOfMonths={1}
-            isOutsideRange={this.blocksDay}
+            isOutsideRange={blocksDay}
           />
         </div>
 
-        {this.state.availableTimes.map(availability => (
+        {availableTimes.map(availability => (
           <div key={availability.id}>
             <button
-              className='booking-availabilities'
-              onClick={() => this.handleTimeClick(availability)}
+              className="booking-availabilities"
+              onClick={() => handleTimeClick(availability)}
             >
               {availability.startTime}
             </button>
           </div>
         ))}
       </div>
-    );
-  }
+  )
 }
+
 
 const mapStateToProps = state => ({
   availabilities: state.availabilities,
