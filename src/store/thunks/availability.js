@@ -1,10 +1,18 @@
 import { sendRequest } from '../../utils/api';
 import { localizeBookingSlot } from '../../utils/localize';
-import { addAvailability, listAvailabilies, displayAvailability } from '../actions/availability';
-import { confirmBooking, rejectBooking } from '../actions/booking';
+import {
+  addAvailability,
+  displayAvailability,
+  listAvailabilies,
+} from '../actions/availability';
+import {
+  confirmBooking,
+  listBookings,
+  rejectBooking,
+} from '../actions/booking';
 import setError from '../actions/error';
 
-export const createAvailabilityOnDb = (params) => async (dispatch) => {
+export const createAvailabilityOnDb = params => async dispatch => {
   const path = 'v1/booking-slots';
 
   try {
@@ -18,22 +26,56 @@ export const createAvailabilityOnDb = (params) => async (dispatch) => {
   }
 };
 
-export const fetchPractitionerAvailabilities = (practitionerId,
+export const fetchPractitionerAvailabilities = (
+  practitionerId,
   patientId,
-  status) => async (dispatch) => {
-  const path = `v1/practitioners/${practitionerId}/booking-slots?status=${status ? status.toUpperCase() : ''}&include=patient&patientId=${patientId || ''}`;
+  status,
+) => async dispatch => {
+  const path = `v1/practitioners/${practitionerId}/booking-slots?status=${
+    status ? status.toUpperCase() : ''
+  }&include=patient&patientId=${patientId || ''}`;
 
   try {
     const res = await sendRequest('get', path);
     const { booking_slots } = res.data;
-    const localizedAvailabilities = booking_slots.map((slot) => localizeBookingSlot(slot));
-    return dispatch(listAvailabilies(localizedAvailabilities.filter((avail) => avail.patientId === null)));
+    const localizedAvailabilities = booking_slots.map(slot =>
+      localizeBookingSlot(slot),
+    );
+    return dispatch(
+      listBookings(
+        localizedAvailabilities.filter(avail => avail.patientId === null),
+      ),
+    );
   } catch (err) {
     return dispatch(setError(err));
   }
 };
 
-export const confirmBookingSlotInDb = (bookingSlotId) => async (dispatch) => {
+export const fetchPractitionerBookedSlot = (
+  practitionerId,
+  patientId,
+  status,
+) => async dispatch => {
+  const path = `v1/practitioners/${practitionerId}/booking-slots?status=${
+    status ? status.toUpperCase() : ''
+  }&include=patient&patientId=${patientId || ''}`;
+  try {
+    const res = await sendRequest('get', path);
+    const { booking_slots } = res.data;
+    const localizedAvailabilities = booking_slots.map(slot =>
+      localizeBookingSlot(slot),
+    );
+    return dispatch(
+      listAvailabilies(
+        localizedAvailabilities.filter(avail => avail.patientId === !null),
+      ),
+    );
+  } catch (err) {
+    return dispatch(setError(err));
+  }
+};
+
+export const confirmBookingSlotInDb = bookingSlotId => async dispatch => {
   const path = `v1/booking-slots/${bookingSlotId}/confirm`;
 
   try {
@@ -45,7 +87,7 @@ export const confirmBookingSlotInDb = (bookingSlotId) => async (dispatch) => {
   }
 };
 
-export const rejectBookingSlotInDb = (bookingSlotId) => async (dispatch) => {
+export const rejectBookingSlotInDb = bookingSlotId => async dispatch => {
   const path = `v1/booking-slots/${bookingSlotId}/reject`;
 
   try {
@@ -57,7 +99,7 @@ export const rejectBookingSlotInDb = (bookingSlotId) => async (dispatch) => {
   }
 };
 
-export const fetchOneAvailability = (bookingSlotId) => async (dispatch) => {
+export const fetchOneAvailability = bookingSlotId => async dispatch => {
   const path = `v1/booking-slots/${bookingSlotId}`;
 
   try {
