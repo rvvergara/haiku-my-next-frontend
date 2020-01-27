@@ -12,6 +12,7 @@ const Booking = ({
    displayedPractitioner,
    listAvailabilies,
    t,
+   availabilities,
 }) => {
   useEffect(() => {
     fetchPractitionerAvailabilities(displayedPractitioner.id);
@@ -42,6 +43,7 @@ Booking.propTypes = {
 const mapStateToProps = (state) => ({
   settingAppointment: state.settingAppointment,
   displayedPractitioner: state.displayedPractitioner,
+  availabilities: state.availabilities,
 });
 
 export default connect(mapStateToProps, {

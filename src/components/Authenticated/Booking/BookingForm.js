@@ -33,7 +33,8 @@ class BookingForm extends React.Component {
     }));
     this.props.toggleSetAppointment(false);
     this.props.bookSlot(bookingData, this.props.availability.id);
-    setAlert('Booking Created', 'success');
+    this.props.removeAvailability(this.props.availability.id);
+    this.props.setAlert('Booking Created', 'success');
   };
 
   render() {
@@ -94,4 +95,5 @@ export default connect(mapStateToProps, {
   removeAvailability,
   displayAvailability,
   bookSlot,
+  setAlert
 })(withTranslation('bookingForm')(BookingForm));

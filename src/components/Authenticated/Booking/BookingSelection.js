@@ -47,7 +47,7 @@ const BookingSelection = ({
   };
 
   const handleTimeClick = (availability) => {
-    setConfirmButtonAvailability(availability);
+    // setConfirmButtonAvailability(availability);
     toggleSetAppointment(true);
     displayAvailability(availability);
   };

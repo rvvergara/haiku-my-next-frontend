@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { setClinic } from '../../../store/actions/clinic';
 import { setPractitioner } from '../../../store/actions/practitioners';
 import Booking from '../Booking/Booking';
-import ReminderList from './../../ReminderList';
+import ReminderList from '../../ReminderList';
 import PractitionerCard from './PractitionerCard';
 import PractitionerDetailsCard from './PractitionerDetailsCard';
 
@@ -37,7 +37,7 @@ PractitionerProfile.propTypes = {
   setClinic: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   role: state.currentUser.data.role,
 });
 

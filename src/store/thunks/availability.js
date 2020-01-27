@@ -27,7 +27,7 @@ export const fetchPractitionerAvailabilities = (practitionerId,
     const res = await sendRequest('get', path);
     const { booking_slots } = res.data;
     const localizedAvailabilities = booking_slots.map((slot) => localizeBookingSlot(slot));
-    return dispatch(listAvailabilies(localizedAvailabilities));
+    return dispatch(listAvailabilies(localizedAvailabilities.filter((avail) => avail.patientId === null)));
   } catch (err) {
     return dispatch(setError(err));
   }
