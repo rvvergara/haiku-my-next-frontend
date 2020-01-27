@@ -13,27 +13,26 @@ import {
   toggleSetAppointment,
 } from '../../../store/actions/booking';
 import { bookSlot } from '../../../store/thunks/booking';
-import { fetchPractitionerAvailabilities } from '../../../store/thunks/availability';
-import { setAuthorizationToken } from '../../../utils/api';
 import { withTranslation } from '../../../../i18n';
 
 const BookingSelection = ({
-  fetchPractitionerAvailabilities,
-  displayedPractitioner,
   displayAvailability,
   availabilities,
   t,
   toggleSetAppointment,
 }) => {
+  const initialDate = availabilities[0].date;
+
+  const setNewDateAndTime = (initialDate) => {
+    const newDate = moment(initialDate).format('MMMM D, YYYY');
+    const newAvailabilities = availabilities.filter((avail) => moment(avail.date).valueOf() === moment(newDate).valueOf() && avail.patientId === null);
+    return { newDate, newAvailabilities };
+  };
+
   const [calendarFocused, setCalendarFocused] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(moment());
+  const [selectedDate, setSelectedDate] = useState(moment(initialDate));
 
-  const [availableTimes, setAvailableTimes] = useState([]);
-
-  useEffect(() => {
-    setAuthorizationToken(localStorage.token);
-    fetchPractitionerAvailabilities(displayedPractitioner.id, '', 'PENDING');
-  }, []);
+  const [availableTimes, setAvailableTimes] = useState(setNewDateAndTime(initialDate).newAvailabilities);
 
  const blocksDay = (day) => {
     const availableDates = availabilities
@@ -100,8 +99,6 @@ const mapStateToProps = (state) => ({
 });
 
 BookingSelection.propTypes = {
-  fetchPractitionerAvailabilities: PropTypes.func.isRequired,
-  displayedPractitioner: PropTypes.instanceOf(Object).isRequired,
   displayAvailability: PropTypes.func.isRequired,
   availabilities: PropTypes.instanceOf(Object).isRequired,
   t: PropTypes.func.isRequired,
@@ -114,5 +111,4 @@ export default connect(mapStateToProps, {
   displayAvailability,
   toggleSetAppointment,
   bookSlot,
-  fetchPractitionerAvailabilities,
 })(withTranslation('bookingSelection')(BookingSelection));

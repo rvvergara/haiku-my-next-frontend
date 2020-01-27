@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import moment from 'moment';
 import {
   ADD_AVAILABILITY,
   BOOK_AVAILABILITY,
@@ -13,7 +13,15 @@ import {
 export default (state = [], action) => {
   switch (action.type) {
     case LIST_AVAILABILITIES:
-      return action.availabilities;
+      return action.availabilities.sort((x, y) => {
+        if (moment(x.date) < moment(y.date)) {
+          return -1;
+        }
+        if (moment(x.date) > moment(y.date)) {
+          return 1;
+        }
+        return 0;
+      });
     case ADD_AVAILABILITY:
       return [
         ...state,

@@ -11,8 +11,7 @@ const PractitionerBox = ({ practitioner }) => {
     lastName,
   } = practitioner;
 
-  const defaultPic =
-    'https://i.imgur.com/GJxJnJ1.png';
+  const defaultPic = 'https://i.imgur.com/GJxJnJ1.png';
 
   return (
     <div className="practitionerBox-container">
@@ -32,7 +31,10 @@ const PractitionerBox = ({ practitioner }) => {
         </div>
       </div>
       <div>
-        <Link href="/practitioners/[id]" as={`/practitioners/${id}`}>
+        <Link
+          href="/practitioners/[id]"
+          as={`/practitioners/${id}`}
+        >
           <a
             className="practitionerbox-profile-button"
             href="/practitioner/[id]"
