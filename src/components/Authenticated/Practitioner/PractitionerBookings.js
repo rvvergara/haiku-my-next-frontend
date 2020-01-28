@@ -9,7 +9,7 @@ const PractitionerBookings = ({
   bookings,
   t,
 }) => (
-  <div>
+  <div className="practitionerBooking-container">
     <h2>{t('my-booked-slots')}</h2>
     {bookings.map((booking) => (
       <BookedSlot key={booking.id} bookingId={booking.id} />
