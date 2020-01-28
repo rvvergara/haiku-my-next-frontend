@@ -21,14 +21,13 @@ const BookingSelection = ({
   t,
   toggleSetAppointment,
 }) => {
-  const initialDate = availabilities[0].date;
+  const initialDate = availabilities.length > 0 ? availabilities[0].date : moment().format('MMMM DD, YYYY');
 
-  const setNewDateAndTime = (initialDate) => {
-    const newDate = moment(initialDate).format('MMMM D, YYYY');
+  const setNewDateAndTime = (dateSelected) => {
+    const newDate = moment(dateSelected).format('MMMM D, YYYY');
     const newAvailabilities = availabilities.filter((avail) => moment(avail.date).valueOf() === moment(newDate).valueOf() && avail.patientId === null);
     return { newDate, newAvailabilities };
   };
-
   const [calendarFocused, setCalendarFocused] = useState(false);
   const [selectedDate, setSelectedDate] = useState(moment(initialDate));
 
@@ -56,7 +55,6 @@ const BookingSelection = ({
     const newAvailabilities = availabilities.filter((avail) => moment(avail.date).valueOf() === moment(newDate).valueOf() && avail.patientId === null);
     setAvailableTimes(newAvailabilities);
   };
-
   const onFocusChange = ({ focused }) => setCalendarFocused(focused);
 
   return (
@@ -75,7 +73,11 @@ const BookingSelection = ({
           isOutsideRange={blocksDay}
         />
       </div>
-
+      {
+        availableTimes.length === 0 && (
+          <p>This doctor has not set any available times yet</p>
+        )
+      }
       {availableTimes.map((availability) => (
         <div key={availability.id}>
           <button
