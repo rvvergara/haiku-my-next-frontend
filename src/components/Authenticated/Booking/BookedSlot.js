@@ -7,6 +7,7 @@ import { setAlert } from '../../../store/actions/alerts';
 import { listAvailabilies } from '../../../store/actions/availability';
 import ProfileCard from './ProfileCard';
 import { withTranslation } from '../../../../i18n';
+import { setAuthorizationToken } from '../../../utils/api';
 
 const BookedSlot = ({
  booking,
@@ -18,11 +19,13 @@ const BookedSlot = ({
  t,
 }) => {
   const handleConfirm = async () => {
+    setAuthorizationToken(localStorage.token);
     await confirmBookingSlotInDb(booking.id);
     setAlert('Booking confirmed', 'success');
   };
 
   const handleReject = () => {
+    setAuthorizationToken(localStorage.token);
     rejectBookingSlotInDb(booking.id);
     setAlert('Booking rejected', 'danger');
   };
@@ -87,6 +90,7 @@ BookedSlot.propTypes = {
  setAlert: PropTypes.func.isRequired,
  listAvailabilies: PropTypes.func.isRequired,
  currentUserData: PropTypes.instanceOf(Object).isRequired,
+ t: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
