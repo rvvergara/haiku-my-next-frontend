@@ -17,6 +17,16 @@ const SessionTimes = ({
     if (val) setSessionStartTime(val.format(format));
   };
 
+  const getDisabledHours = () => {
+    let hours = [];
+    for (let i = 0; i < moment().hour(); i++) {
+      hours.push(i);
+    }
+    return hours;
+  };
+
+  console.log(moment().format('hh a'));
+
   return (
     <div className="scheduler-inner-component-container">
       <h3 className="scheduler-inner-component__title">{t('time')}</h3>
@@ -32,6 +42,7 @@ const SessionTimes = ({
         format={format}
         use12Hours
         inputReadOnly
+        disabledHours={getDisabledHours}
       />
       <label htmlFor="to-time" className="auth-label schedule-label">
         {t('endTime')}
