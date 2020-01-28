@@ -30,7 +30,7 @@ export const fetchPractitionerAvailabilities = (
   practitionerId,
   patientId,
   status,
-) => async (dispatch) => {
+) => async (dispatch, getState) => {
   const path = `v1/practitioners/${practitionerId}/booking-slots?status=${
     status ? status.toUpperCase() : ''
   }&include=patient&patientId=${patientId || ''}`;
@@ -40,7 +40,7 @@ export const fetchPractitionerAvailabilities = (
     const { booking_slots } = res.data;
     const localizedAvailabilities = booking_slots.map((slot) => localizeBookingSlot(slot));
     return dispatch(
-      listBookings(
+      listAvailabilies(
         localizedAvailabilities.filter((avail) => avail.patientId === null),
       ),
     );
