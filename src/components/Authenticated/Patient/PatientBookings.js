@@ -26,7 +26,7 @@ const PatientBooking = ({
       bookings.map((booking) => (
         <BookedSlot
           key={booking.id}
-          booking={booking}
+          bookingId={booking.id}
         />
       ))
     }

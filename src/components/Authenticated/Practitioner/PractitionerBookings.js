@@ -7,29 +7,18 @@ import BookedSlot from '../Booking/BookedSlot';
 
 const PractitionerBookings = ({
   bookings,
-  fetchPractitionerAvailabilities,
-  currentUserData,
   t,
-}) =>
-  // useEffect(() => {
-  //   setAuthorizationToken(localStorage.token);
-  //   fetchPractitionerAvailabilities(currentUserData.practitioner.id, '', '');
-  //   return () => {
-  //     setPractitioner({});
-  //   };
-  // }, []);
-   (
-     <div>
-       <h2>{t('my-booked-slots')}</h2>
-       {bookings.map((booking) => (
-         <BookedSlot key={booking.id} booking={booking} />
+}) => (
+  <div>
+    <h2>{t('my-booked-slots')}</h2>
+    {bookings.map((booking) => (
+      <BookedSlot key={booking.id} bookingId={booking.id} />
       ))}
-     </div>
+  </div>
   );
+
 PractitionerBookings.propTypes = {
   bookings: PropTypes.instanceOf(Object).isRequired,
-  currentUserData: PropTypes.instanceOf(Object).isRequired,
-  fetchPractitionerAvailabilities: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 };
 

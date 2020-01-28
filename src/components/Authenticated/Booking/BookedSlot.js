@@ -10,23 +10,24 @@ import { withTranslation } from '../../../../i18n';
 import { setAuthorizationToken } from '../../../utils/api';
 
 const BookedSlot = ({
- booking,
+ bookingId,
  confirmBookingSlotInDb,
  rejectBookingSlotInDb,
  setAlert,
  listAvailabilies,
  currentUserData,
+ booking,
  t,
 }) => {
   const handleConfirm = async () => {
     setAuthorizationToken(localStorage.token);
-    await confirmBookingSlotInDb(booking.id);
+    await confirmBookingSlotInDb(bookingId);
     setAlert('Booking confirmed', 'success');
   };
 
   const handleReject = () => {
     setAuthorizationToken(localStorage.token);
-    rejectBookingSlotInDb(booking.id);
+    rejectBookingSlotInDb(bookingId);
     setAlert('Booking rejected', 'danger');
   };
   useEffect(() => () => {
@@ -85,17 +86,19 @@ const BookedSlot = ({
 
 BookedSlot.propTypes = {
   booking: PropTypes.instanceOf(Object).isRequired,
- confirmBookingSlotInDb: PropTypes.func.isRequired,
- rejectBookingSlotInDb: PropTypes.func.isRequired,
- setAlert: PropTypes.func.isRequired,
- listAvailabilies: PropTypes.func.isRequired,
- currentUserData: PropTypes.instanceOf(Object).isRequired,
- t: PropTypes.func.isRequired,
+  bookingId: PropTypes.string.isRequired,
+  confirmBookingSlotInDb: PropTypes.func.isRequired,
+  rejectBookingSlotInDb: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
+  listAvailabilies: PropTypes.func.isRequired,
+  currentUserData: PropTypes.instanceOf(Object).isRequired,
+  t: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   availabilities: state.availabilities,
   currentUserData: state.currentUser.data,
+  booking: state.bookings.find((slot) => slot.id === ownProps.bookingId),
 });
 
 export default connect(mapStateToProps, {
