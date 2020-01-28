@@ -10,6 +10,7 @@ const SessionTimes = ({
   sessionDuration,
   sessionStartTime,
   setSessionStartTime,
+  sessionDate,
   t,
 }) => {
   const format = 'h:mm a';
@@ -20,8 +21,11 @@ const SessionTimes = ({
 
   const getDisabledHours = () => {
     const hours = [];
-    for (let i = 0; i < moment().hour(); i += 1) {
-      hours.push(i);
+    const todayDate = moment().format('MMMM DD, YYYY');
+    if (todayDate === sessionDate) {
+      for (let i = 0; i < moment().hour(); i += 1) {
+        hours.push(i);
+      }
     }
     return hours;
   };
@@ -60,11 +64,13 @@ SessionTimes.propTypes = {
   sessionDuration: PropTypes.number.isRequired,
   setSessionStartTime: PropTypes.func.isRequired,
   sessionStartTime: PropTypes.string.isRequired,
+  sessionDate: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   sessionStartTime: state.sessionStartTime,
   sessionDuration: state.sessionDuration,
+  sessionDate: state.sessionDate,
 });
 
 export default connect(mapStateToProps, { setSessionStartTime })(
