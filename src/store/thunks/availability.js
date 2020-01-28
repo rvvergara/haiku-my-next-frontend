@@ -30,7 +30,7 @@ export const fetchPractitionerAvailabilities = (
   practitionerId,
   patientId,
   status,
-) => async (dispatch, getState) => {
+) => async (dispatch) => {
   const path = `v1/practitioners/${practitionerId}/booking-slots?status=${
     status ? status.toUpperCase() : ''
   }&include=patient&patientId=${patientId || ''}`;
