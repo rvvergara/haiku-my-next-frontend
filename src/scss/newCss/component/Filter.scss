@@ -8,6 +8,14 @@
   margin-left: 5vw;
   border-radius: 5px;
   box-shadow: rgb(199, 208, 216) 1px 1px 5px;
+
+  h6 {
+    margin-bottom: $small;
+  }
+
+  label {
+    font-size: $small*0.7;
+  }
 }
 
 .filter h1 {
@@ -15,25 +23,21 @@
 }
 
 .filter-select {
-  padding: $small;
-}
-
-.filter-select {
-  height: 5vh;
   font-size: $small * 0.6;
-  padding: $small;
+  padding: $small/2;
+  margin-bottom: $small;
 }
 
 .filter-button {
   background-color: #5073f1;
   border: none;
   color: white;
-  padding: 0.1rem;
+  padding: 0.5rem 0.1rem;
   text-align: center;
   display: inline-block;
   font-size: 0.98rem;
   cursor: pointer;
   border-radius: 5px;
   margin: 2vh auto;
-  width: 50%;
+  width: 100%;
 }
