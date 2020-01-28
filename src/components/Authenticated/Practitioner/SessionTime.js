@@ -13,19 +13,17 @@ const SessionTimes = ({
   t,
 }) => {
   const format = 'h:mm a';
-  const handleChange = val => {
+  const handleChange = (val) => {
     if (val) setSessionStartTime(val.format(format));
   };
 
   const getDisabledHours = () => {
-    let hours = [];
-    for (let i = 0; i < moment().hour(); i++) {
+    const hours = [];
+    for (let i = 0; i < moment().hour(); i += 1) {
       hours.push(i);
     }
     return hours;
   };
-
-  console.log(moment().format('hh a'));
 
   return (
     <div className="scheduler-inner-component-container">
@@ -64,7 +62,7 @@ SessionTimes.propTypes = {
   sessionStartTime: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   sessionStartTime: state.sessionStartTime,
   sessionDuration: state.sessionDuration,
 });
