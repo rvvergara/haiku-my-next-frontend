@@ -13,6 +13,7 @@ const SessionTimes = ({
   t,
 }) => {
   const format = 'h:mm a';
+  const defaultStartTime = sessionStartTime ? moment(sessionStartTime, 'h:mm a') : moment(moment().format('h:mm a'), 'LTS');
   const handleChange = (val) => {
     if (val) setSessionStartTime(val.format(format));
   };
@@ -46,7 +47,7 @@ const SessionTimes = ({
       </label>
       <span className="rc-time-picker xxx read-only-time-span">
         <span className="rc-time-picker-input">
-          {moment(sessionStartTime, 'h:mm a')
+          {defaultStartTime
             .add(sessionDuration, 'minutes')
             .format('LT')}
         </span>

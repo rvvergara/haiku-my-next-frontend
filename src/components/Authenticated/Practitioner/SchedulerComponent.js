@@ -8,7 +8,7 @@ import {
   addAvailability,
   setSessionDate,
   setSessionDuration,
-  setSessionStartTime
+  setSessionStartTime,
 } from '../../../store/actions/availability';
 import { createAvailabilityOnDb } from '../../../store/thunks/availability';
 import { setAuthorizationToken } from '../../../utils/api';
@@ -26,12 +26,11 @@ const SchedulerComponent = ({
   setSessionDate,
   setSessionDuration,
   setSessionStartTime,
-  t
+  t,
 }) => {
   useEffect(() => {
     setSessionDate(moment().format('MMMM D, YYYY'));
     setSessionDuration(30);
-    setSessionStartTime('9:00 am');
     return () => {
       setSessionDate('');
       setSessionDuration(0);
@@ -43,7 +42,7 @@ const SchedulerComponent = ({
     const processedDate = moment(sessionDate).format('YYYY-MM-DD');
     const endTime = moment(`${sessionDate} ${sessionStartTime}`).add(
       sessionDuration,
-      'minutes'
+      'minutes',
     );
     const UTCStartTime = moment(`${sessionDate} ${sessionStartTime}`).toJSON();
     const UTCEndTime = endTime.toJSON();
@@ -51,7 +50,7 @@ const SchedulerComponent = ({
       date: processedDate,
       startTime: UTCStartTime,
       endTime: UTCEndTime,
-      practitionerId: currentUserData.practitioner.id
+      practitionerId: currentUserData.practitioner.id,
     };
     setAuthorizationToken(localStorage.token);
     await createAvailabilityOnDb(bookingParams);
@@ -86,14 +85,14 @@ SchedulerComponent.propTypes = {
   setAlert: PropTypes.func.isRequired,
   setSessionDate: PropTypes.func.isRequired,
   setSessionDuration: PropTypes.func.isRequired,
-  setSessionStartTime: PropTypes.func.isRequired
+  setSessionStartTime: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentUserData: state.currentUser.data,
   sessionDate: state.sessionDate,
   sessionDuration: state.sessionDuration,
-  sessionStartTime: state.sessionStartTime
+  sessionStartTime: state.sessionStartTime,
 });
 
 export default connect(mapStateToProps, {
@@ -102,5 +101,5 @@ export default connect(mapStateToProps, {
   setAlert,
   setSessionDate,
   setSessionDuration,
-  setSessionStartTime
+  setSessionStartTime,
 })(withTranslation('scheduleForm')(SchedulerComponent));
