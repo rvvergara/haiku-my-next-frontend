@@ -42,19 +42,6 @@ export default (state = [], action) => {
       newState[indexToBook] = bookedSlot;
       return newState;
     }
-    case CONFIRM_BOOKING: {
-      const indexToConfirm = state.findIndex(
-        (slot) => slot.id === action.bookingId,
-      );
-
-      const newState = [...state];
-      const confirmedSlot = {
-        ...newState[indexToConfirm],
-        status: 'CONFIRMED',
-      };
-      newState[indexToConfirm] = confirmedSlot;
-      return newState;
-    }
     case REJECT_BOOKING: {
       const indexToConfirm = state.findIndex(
         (slot) => slot.id === action.bookingId,

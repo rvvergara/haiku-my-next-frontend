@@ -17,8 +17,8 @@ const BookedSlot = ({
  currentUserData,
  t,
 }) => {
-  const handleConfirm = () => {
-    confirmBookingSlotInDb(booking.id);
+  const handleConfirm = async () => {
+    await confirmBookingSlotInDb(booking.id);
     setAlert('Booking confirmed', 'success');
   };
 

@@ -10,8 +10,7 @@ const PractitionerBookings = ({
   fetchPractitionerAvailabilities,
   currentUserData,
   t,
-}) => {
-  console.log('BOOKINGS', bookings);
+}) =>
   // useEffect(() => {
   //   setAuthorizationToken(localStorage.token);
   //   fetchPractitionerAvailabilities(currentUserData.practitioner.id, '', '');
@@ -19,16 +18,14 @@ const PractitionerBookings = ({
   //     setPractitioner({});
   //   };
   // }, []);
-  return (
-    <div>
-      <h2>{t('my-booked-slots')}</h2>
-      {bookings.map(booking => (
-        <BookedSlot key={booking.id} booking={booking} />
+   (
+     <div>
+       <h2>{t('my-booked-slots')}</h2>
+       {bookings.map((booking) => (
+         <BookedSlot key={booking.id} booking={booking} />
       ))}
-    </div>
+     </div>
   );
-};
-
 PractitionerBookings.propTypes = {
   bookings: PropTypes.instanceOf(Object).isRequired,
   currentUserData: PropTypes.instanceOf(Object).isRequired,
@@ -36,7 +33,7 @@ PractitionerBookings.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   bookings: state.bookings,
   currentUserData: state.currentUser.data,
 });
