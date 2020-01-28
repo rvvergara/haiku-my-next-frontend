@@ -7,6 +7,7 @@ import {
 import { toggleSetAppointment } from '../../../store/actions/booking';
 import { bookSlot } from '../../../store/thunks/booking';
 import { withTranslation} from '../../../../i18n';
+import { setAuthorizationToken } from '../../../utils/api';
 
 class BookingForm extends React.Component {
   state = {
@@ -22,7 +23,7 @@ class BookingForm extends React.Component {
       [key]: val,
     }));
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     const bookingData = {
       patientId: this.props.currentUserData.patient.id,
@@ -31,9 +32,10 @@ class BookingForm extends React.Component {
     this.setState(() => ({
       remarks: '',
     }));
-    this.props.toggleSetAppointment(false);
-    this.props.bookSlot(bookingData, this.props.availability.id);
+    setAuthorizationToken(localStorage.token);
+    await this.props.bookSlot(bookingData, this.props.availability.id);
     this.props.setAlert('Booking Created', 'success');
+    this.props.toggleSetAppointment(false);
   };
 
   render() {
