@@ -24,7 +24,6 @@ const SessionTimes = ({
     }
     return hours;
   };
-
   return (
     <div className="scheduler-inner-component-container">
       <h3 className="scheduler-inner-component__title">{t('time')}</h3>
@@ -34,7 +33,7 @@ const SessionTimes = ({
       <TimePicker
         id="from-time"
         showSecond={false}
-        defaultValue={moment('9:00 am', 'LTS')}
+        defaultValue={moment(moment().format('h:mm a'), 'LTS')}
         className="xxx"
         onChange={handleChange}
         format={format}
