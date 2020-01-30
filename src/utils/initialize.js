@@ -44,7 +44,7 @@ export default async (ctx) => {
       await dispatch(fetchUserData(id));
       const { data } = store.getState().currentUser;
       redirectIfNoProfile(ctx, data);
-      return data.role === 'PATIENT'
+      return data.role === 'PATIENT' && (data.patient || data.practitioner)
         ? dispatch(fetchPatientNotifications(data.patient.id))
         : dispatch(fetchPractitionerNotifications(data.practitioner.id));
     }
