@@ -1,5 +1,6 @@
 import decode from 'jwt-decode';
 import { setLanguage } from '../store/actions/language';
+import { setLocalTimeZone } from '../store/actions/timezone';
 import { setCurrentUser } from '../store/actions/user';
 import { fetchPatientNotifications } from '../store/thunks/patient';
 import { fetchPractitionerNotifications } from '../store/thunks/practitioner';
@@ -13,6 +14,9 @@ import {
 } from './initializeHelpers';
 
 export default async ctx => {
+  const timezoneOffset = -(new Date().getTimezoneOffset() / 60);
+  ctx.store.dispatch(setLocalTimeZone(timezoneOffset));
+
   if (ctx.isServer) {
     if (ctx.req.headers.cookie) {
       const cookiesArr = ctx.req.headers.cookie.split(';');
@@ -78,7 +82,9 @@ export default async ctx => {
       if (!!data.patient || !!data.practitioner) {
         return data.role === 'PATIENT'
           ? ctx.store.dispatch(fetchPatientNotifications(data.patient.id))
-          : ctx.store.dispatch(fetchPractitionerNotifications(data.practitioner.id));
+          : ctx.store.dispatch(
+              fetchPractitionerNotifications(data.practitioner.id),
+            );
       }
       return redirectIfNoProfile(ctx, data);
     }
