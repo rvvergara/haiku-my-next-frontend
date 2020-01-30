@@ -15,6 +15,7 @@ import sessionDate from './sessionDate';
 import sessionDuration from './sessionDuration';
 import sessionStartTime from './sessionStartTime';
 import settingAppointment from './settingAppointment';
+import timezone from './timezone';
 import upcomingAppointment from './upcomingApppointment';
 
 export default combineReducers({
@@ -35,4 +36,5 @@ export default combineReducers({
   notifications,
   language,
   upcomingAppointment,
+  timezone,
 });
