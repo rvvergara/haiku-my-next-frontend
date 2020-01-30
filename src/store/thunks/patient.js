@@ -56,7 +56,7 @@ export const fetchPatient = (patientId) => async (dispatch) => {
   }
 };
 
-export const fetchPatientNotifications = (patientId) => async (dispatch) => {
+export const fetchPatientNotifications = (patientId) => async (dispatch, getState) => {
   const path = `v1/patients/${patientId}/notifications`;
 
   try {
@@ -64,7 +64,7 @@ export const fetchPatientNotifications = (patientId) => async (dispatch) => {
     const { notifications } = res.data;
     const localizedNotifs = notifications.map((notif) => {
       if (notif.notifiableType === 'BOOKING_SLOT') {
-        const localizedSlot = localizeBookingSlot(notif.notifiable);
+        const localizedSlot = localizeBookingSlot(notif.notifiable, getState().timezone);
         return { ...notif, notifiable: localizedSlot };
       }
     });

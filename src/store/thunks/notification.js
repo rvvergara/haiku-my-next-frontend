@@ -15,7 +15,7 @@ export const fetchPatientNotification = (patiendId) => async (dispatch) => {
   }
 };
 
-export const fetchUpcomingAppointment = (role, profileId) => async (dispatch) => {
+export const fetchUpcomingAppointment = (role, profileId) => async (dispatch, getState) => {
   const path = `v1/${role.toLowerCase()}s/${profileId}/booking-slots?include=patient,practitioner`;
   try {
     const res = await sendRequest('get', path);
@@ -24,7 +24,7 @@ export const fetchUpcomingAppointment = (role, profileId) => async (dispatch) =>
         slot.status === 'CONFIRMED'
         && moment().add('7', 'days') >= moment(slot.date)
       ));
-    const formattedNotifications = notifications.map((notification) => localizeBookingSlot(notification));
+    const formattedNotifications = notifications.map((notification) => localizeBookingSlot(notification, getState().timezone));
     return dispatch(listNotifications(formattedNotifications));
   } catch (err) {
     setError(err);

@@ -7,7 +7,7 @@ import { localizeBookingSlot } from '../../utils/localize';
 export const fetchUpcomingAppointment = (
   role,
   profileId,
-) => async (dispatch) => {
+) => async (dispatch, getState) => {
   const fromDate = moment().format('MM-DD-YYYY');
   const toDate = moment().endOf('isoWeek').format('MM-DD-YYYY');
   const path = `v1/${role.toLowerCase()}s/${profileId}/booking-slots?include=patient,practitioner&fromDate=${fromDate}&toDate=${toDate}&status=CONFIRMED`;
@@ -15,7 +15,7 @@ export const fetchUpcomingAppointment = (
     const res = await sendRequest('get', path);
     const bookingSlots = res.data.booking_slots
       .filter((slot) => moment.utc(slot.endTime) >= moment.utc());
-    const localizedSlots = bookingSlots.map((slot) => localizeBookingSlot(slot));
+    const localizedSlots = bookingSlots.map((slot) => localizeBookingSlot(slot, getState().timezone));
     return dispatch(listUpcomingAppointment(localizedSlots));
   } catch (err) {
     setError(err);
