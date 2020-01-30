@@ -75,12 +75,12 @@ export default async ctx => {
       }
       setAuthorizationToken(token);
       const { data } = ctx.store.getState().currentUser;
-      redirectIfNoProfile(ctx, data);
-      return data.role === 'PATIENT'
-        ? ctx.store.dispatch(fetchPatientNotifications(data.patient.id))
-        : ctx.store.dispatch(
-            fetchPractitionerNotifications(data.practitioner.id),
-          );
+      if (!!data.patient || !!data.practitioner) {
+        return data.role === 'PATIENT'
+          ? ctx.store.dispatch(fetchPatientNotifications(data.patient.id))
+          : ctx.store.dispatch(fetchPractitionerNotifications(data.practitioner.id));
+      }
+      return redirectIfNoProfile(ctx, data);
     }
     return redirectIfNoToken(ctx);
   } catch (err) {
