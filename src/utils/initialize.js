@@ -76,7 +76,7 @@ export default async (ctx) => {
         return redirectIfNoToken(ctx);
       }
       if (timeZone) {
-        ctx.store.dispatch(setLocalTimeZone(timeZone));
+        ctx.store.dispatch(setLocalTimeZone(parseInt(timeZone)));
       }
       setAuthorizationToken(token);
       const { data } = ctx.store.getState().currentUser;
