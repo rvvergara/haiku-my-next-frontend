@@ -37,7 +37,6 @@ export const fetchUserData = (id) => async (dispatch) => {
       }));
     }
   } catch (err) {
-    console.log('ERROR', err);
     return dispatch(setError(err));
   }
 };
@@ -61,7 +60,9 @@ export const login = (params) => async (dispatch) => {
     const { user, token } = res.data;
     setAuthorizationToken(token);
     setCookie('token', token);
+    setCookie('timeZone', -(new Date().getTimezoneOffset() / 60));
     localStorage.setItem('token', token);
+    localStorage.setItem('timeZone', -(new Date().getTimezoneOffset() / 60));
     dispatch(setCurrentUser({
       authenticated: true,
       data: user,
