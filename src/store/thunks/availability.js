@@ -12,13 +12,13 @@ import {
 } from '../actions/booking';
 import setError from '../actions/error';
 
-export const createAvailabilityOnDb = (params) => async (dispatch) => {
+export const createAvailabilityOnDb = (params) => async (dispatch,getState) => {
   const path = 'v1/booking-slots';
 
   try {
     const res = await sendRequest('post', path, params);
     const { booking_slot } = res.data;
-    const localizedBookingSlot = localizeBookingSlot(booking_slot);
+    const localizedBookingSlot = localizeBookingSlot(booking_slot,getState().timezone);
     dispatch(addAvailability(localizedBookingSlot));
     return localizedBookingSlot;
   } catch (err) {
